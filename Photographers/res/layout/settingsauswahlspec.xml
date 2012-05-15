@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        android:id="@+id/maini"
+        android:orientation="vertical"
+        android:padding="5dp"
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent">
+    
+    <LinearLayout
+    	android:focusable="true" android:focusableInTouchMode="true"
+    	android:layout_width="0px" android:layout_height="0px"/>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:scrollbars="vertical"
+    android:layout_height="fill_parent"
+    android:id="@+id/tablor"
+    android:padding="3dp"
+    android:background="@drawable/shaperedtable">
+  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/table"
+    android:padding="8dp"
+    android:paddingTop="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingBottom="0dp"
+    android:background="@drawable/shapeintable">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        android:id="@+id/maini"
+        android:orientation="vertical"
+	    android:layout_height="fill_parent" 
+	    android:layout_width="wrap_content">
+			    <TextView
+				    android:id="@+id/freecell"
+				    android:layout_width="fill_parent"
+				    android:layout_height="wrap_content"
+				    android:textStyle="bold"
+				    android:text="Kameramodelle :"
+				    >
+				</TextView>
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="wrap_content" 
+					    android:layout_width="fill_parent">
+					    <EditText
+				                 android:id="@+id/kameramodell"
+				                 android:gravity="left"
+				             	 android:layout_weight=".17"
+				                 android:layout_width="fill_parent"
+				                 android:layout_height="wrap_content" />
+				    	<Button
+				                 android:id="@+id/addkamera"
+				                 android:layout_width="fill_parent"
+				                 android:layout_weight=".3"
+				                 android:layout_height="wrap_content"
+				                 android:text="Hinzufügen" />
+				    
+				</LinearLayout>
+			        
+			        
+			        
+			        
+			        
+			        
+			        
+			        
+			        
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="wrap_content" 
+					    android:layout_width="fill_parent">
+					    <ListView
+							android:id="@android:id/list"
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:drawSelectorOnTop="false"
+							/>
+				    
+				</LinearLayout>  
+      </LinearLayout>
+   </TableLayout>    
+         
+</TableLayout>
+</LinearLayout>

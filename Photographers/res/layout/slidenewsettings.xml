@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/unisiegen.photographers.activity"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:id="@+id/testen"
+    android:layout_height="fill_parent">
+    <com.viewpagerindicator.TitlePageIndicator
+    android:id="@+id/titles"
+    android:padding="5dip"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    app:footerColor="#FFAA2222"
+    app:footerLineHeight="1dp"
+    app:footerIndicatorHeight="3dp"
+    app:footerIndicatorStyle="underline"
+    app:textColor="#AA000000"
+    app:selectedColor="#FF000000"
+    app:textSize="11dp"
+    app:selectedBold="true"
+    />
+    <android.support.v4.view.ViewPager
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+        android:id="@+id/viewPager" />
+</LinearLayout>

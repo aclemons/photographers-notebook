@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/user"
+    android:stretchColumns="1"
+    android:padding="5dp"
+    android:background="@drawable/shape">
+ <TableLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/user2"
+    android:paddingTop="15dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    android:background="@drawable/shapein">
+    
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:padding="5dp"
+    android:id="@+id/testen"
+    android:gravity="center_vertical|center_horizontal"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    <LinearLayout
+    android:layout_width="280dp"
+    android:id="@+id/testen22"
+    android:layout_height="200dp">
+    
+       <android.view.SurfaceView android:id="@+id/preview"
+           					android:fitsSystemWindows="true"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              />
+</LinearLayout>
+
+        
+        
+        
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:id="@+id/testen34"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+       <View 
+        android:layout_width="wrap_content"
+        android:minHeight="2dp"
+        android:layout_height="2dp"
+        />
+    
+    <Button android:id="@+id/snap" 
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content" 
+            android:background="@drawable/custom_buttonklick"
+            android:text="Klick"
+            android:layout_alignParentBottom="true" /> 
+    
+    <View 
+        android:layout_width="wrap_content"
+        android:minHeight="3dp"
+        android:layout_height="3dp"
+        />
+    
+    
+    <LinearLayout
+    android:layout_width="fill_parent"
+    android:id="@+id/testen34"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+    
+    <Button android:id="@+id/snaps" 
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content" 
+            android:background="@drawable/custom_button"
+            android:layout_weight=".4" 
+            android:text="Speichern"
+            android:layout_alignParentBottom="true" /> 
+            
+            <Button 
+            android:layout_width="fill_parent" 
+            android:layout_weight=".75" 
+            android:visibility="invisible"
+            android:layout_height="wrap_content" 
+            android:text=""
+            android:layout_alignParentBottom="true" />
+            
+            <Button android:id="@+id/cancel" 
+            android:layout_width="fill_parent"
+            android:layout_weight=".4" 
+            android:background="@drawable/custom_button"
+            android:layout_height="wrap_content" 
+            android:text="Abbrechen"
+            android:layout_alignParentBottom="true" />
+            
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+</TableLayout>
+</TableLayout>
+    
+    

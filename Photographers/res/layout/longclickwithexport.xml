@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/user"
+    android:stretchColumns="1"
+    android:padding="3dp"
+    android:background="@drawable/shape">
+ <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/user2"
+    android:paddingTop="25dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    android:background="@drawable/shapein">
+    
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:padding="10dp"
+    android:id="@+id/testen"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+      <Button 
+        android:id="@+id/deletebutton"
+        android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+            					 android:background="@drawable/custom_button"
+	    android:text="     Löschen     "
+        />
+      <View 
+          android:layout_width="match_parent"
+	    	android:layout_height="20dp"
+	    	android:minHeight="20dp"
+          />
+      <Button 
+        android:id="@+id/editbutton"
+        android:layout_width="fill_parent"
+            					 android:background="@drawable/custom_button"
+	    android:layout_height="wrap_content"
+	    android:text="     Editieren     "
+        />
+      <View 
+          android:layout_width="match_parent"
+	    	android:layout_height="20dp"
+	    	android:minHeight="20dp"
+          />
+      <Button 
+        android:id="@+id/exportbutton"
+        android:layout_width="fill_parent"
+            					 android:background="@drawable/custom_button"
+	    android:layout_height="wrap_content"
+	    android:text="     Film Exportieren     "
+        /> 
+      <View 
+          android:layout_width="match_parent"
+	    	android:layout_height="20dp"
+	    	android:minHeight="20dp"
+          />
+      <Button 
+        android:id="@+id/cancelbutton"
+        android:layout_width="fill_parent"
+            					 android:background="@drawable/custom_button"
+	    android:layout_height="wrap_content"
+	    android:text="     Cancel     "
+        />      
+    
+</LinearLayout>
+</TableLayout>
+</TableLayout>
+    
+    

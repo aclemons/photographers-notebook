@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/user"
+    android:stretchColumns="1"
+    android:padding="3dp"
+    android:background="@drawable/shape">
+ <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/user2"
+    android:paddingTop="25dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    android:background="@drawable/shapein">
+    
+    
+    
+    
+    
+    
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:padding="10dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:scrollbars="vertical"
+    android:layout_height="wrap_content"
+    android:id="@+id/tablor"
+    android:paddingLeft="4dp"
+    android:background="@drawable/shapetable">
+  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/table"
+    android:padding="8dp"
+    android:paddingTop="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingBottom="0dp"
+    android:background="@drawable/shapeintable">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        android:id="@+id/maini"
+        android:orientation="vertical"
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent">
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+				        android:gravity="center_vertical|center_horizontal"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35"
+					    >
+					<ImageView 
+					    android:layout_width="50dp"
+					    android:layout_height="50dp"
+					    android:src="@drawable/ic_launcher"
+					    />
+				    </LinearLayout>
+				    
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2"
+					    >
+					    
+						<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+						<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Geotag : -.-">
+						</TextView>
+						<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Zeitstempel : -.-">
+						</TextView>
+				    
+				    
+				</LinearLayout>  
+				    
+				</LinearLayout>  
+      </LinearLayout>
+   </TableLayout>    
+         
+</TableLayout>
+     <TextView
+	    android:id="@+id/freecell"
+	    android:layout_width="fill_parent"
+	    android:layout_height="5dp"
+	    android:text=" "
+	    >
+	</TextView>
+	
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:scrollbars="vertical"
+    android:layout_height="wrap_content"
+    android:id="@+id/tablor"
+    android:paddingLeft="4dp"
+    android:background="@drawable/shapetable">
+  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/table"
+    android:padding="8dp"
+    android:paddingTop="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingBottom="0dp"
+    android:background="@drawable/shapeintable">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        android:id="@+id/maini"
+        android:orientation="vertical"
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent">
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">		
+        
+        
+        <!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Fokus : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/picfocus"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB --> 
+				
+				
+				<!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Blende : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/picblende"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB -->
+				
+				<!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Zeit : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/piczeit"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB -->
+				
+				<!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Messung : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/picmessung"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB -->
+				
+				<!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="+/- Korrektur : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/picplus"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB -->
+				
+				
+				</LinearLayout>
+      </LinearLayout>
+   </TableLayout>    
+         
+</TableLayout>     
+    
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          <TextView
+	    android:id="@+id/freecell"
+	    android:layout_width="fill_parent"
+	    android:layout_height="5dp"
+	    android:text=" "
+	    >
+	</TextView>
+	
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:scrollbars="vertical"
+    android:layout_height="wrap_content"
+    android:id="@+id/tablor"
+    android:paddingLeft="4dp"
+    android:background="@drawable/shapetable">
+  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/table"
+    android:padding="8dp"
+    android:paddingTop="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingBottom="0dp"
+    android:background="@drawable/shapeintable">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        android:id="@+id/maini"
+        android:orientation="vertical"
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent">
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">		
+        
+        
+        <!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Makro : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/picmakro"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB --> 
+				
+				
+				<!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Makro-VF : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/picmakrovf"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB -->
+				
+				<!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Filter : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/picfilter"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB -->
+				
+				<!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Filter-VF : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/picfiltervf"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB -->
+				
+				
+				
+				
+				</LinearLayout>
+      </LinearLayout>
+   </TableLayout>    
+         
+</TableLayout>        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                 <TextView
+	    android:id="@+id/freecell"
+	    android:layout_width="fill_parent"
+	    android:layout_height="5dp"
+	    android:text=" "
+	    >
+	</TextView>
+	
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:scrollbars="vertical"
+    android:layout_height="wrap_content"
+    android:id="@+id/tablor"
+    android:paddingLeft="4dp"
+    android:background="@drawable/shapetable">
+  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/table"
+    android:padding="8dp"
+    android:paddingTop="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingBottom="0dp"
+    android:background="@drawable/shapeintable">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        android:id="@+id/maini"
+        android:orientation="vertical"
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent">
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">		
+        
+        
+        <!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Blitz : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/picblitz"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB --> 
+				
+				
+				<!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Blitzkorrek. : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/picblitzkorr"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB -->
+				
+				
+				</LinearLayout>
+      </LinearLayout>
+   </TableLayout>    
+         
+</TableLayout>      
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                           <TextView
+	    android:id="@+id/freecell"
+	    android:layout_width="fill_parent"
+	    android:layout_height="5dp"
+	    android:text=" "
+	    >
+	</TextView>
+	
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:scrollbars="vertical"
+    android:layout_height="wrap_content"
+    android:id="@+id/tablor"
+    android:paddingLeft="4dp"
+    android:background="@drawable/shapetable">
+  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/table"
+    android:padding="8dp"
+    android:paddingTop="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingBottom="0dp"
+    android:background="@drawable/shapeintable">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        android:id="@+id/maini"
+        android:orientation="vertical"
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent">
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">		
+        
+        
+        <!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Notiz : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/picnotiz"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB --> 
+				
+				
+				<!-- BUM -->
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="horizontal"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				  
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".35">
+					<TextView
+							    android:id="@+id/freecell"
+							    android:layout_width="wrap_content"
+							    android:gravity="right"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Kameranotiz : ">
+					</TextView>
+				    </LinearLayout>
+				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="5dp"
+					    android:layout_height="fill_parent" 
+					    android:layout_width="fill_parent"
+					    android:layout_weight=".2">
+						<TextView
+							    android:id="@+id/piccamnotiz"
+							    android:layout_width="wrap_content"
+							    android:gravity="left"
+							    android:textSize="12dp"
+							    android:layout_height="wrap_content"
+							    android:text="Film Nr. 112">
+						</TextView>
+				</LinearLayout>  
+				</LinearLayout> 
+				<!-- BLUB -->
+				
+				
+				</LinearLayout>
+      </LinearLayout>
+   </TableLayout>    
+         
+</TableLayout>    
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+    
+</LinearLayout>
+</TableLayout>
+</TableLayout>
+    
+    

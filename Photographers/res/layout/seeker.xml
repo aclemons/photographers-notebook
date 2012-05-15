@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="430dp"
+        android:orientation="vertical" >
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        </TabWidget>
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <AbsoluteLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/tab1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <TableLayout
+                    android:id="@+id/table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_x="0px"
+                    android:layout_y="0px"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/text_focus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20px"
+                        android:text="Fokus :" />
+
+                    <SeekBar
+                        android:id="@+id/seeker_focus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/text_blende"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Blende :" />
+
+                    <SeekBar
+                        android:id="@+id/seeker_blende"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/text_zeit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Zeit :" />
+
+                    <SeekBar
+                        android:id="@+id/seeker_zeit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/text_messung"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Messung :" />
+
+                    <SeekBar
+                        android:id="@+id/seeker_messung"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/text_korrektur"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+/- Korrektur :" />
+
+                    <SeekBar
+                        android:id="@+id/seeker_korrektur"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/text_blitz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Blitz :" />
+
+                    <SeekBar
+                        android:id="@+id/seeker_blitz"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/text_blitz_korrektur"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Blitz-Korrektur :" />
+
+                    <SeekBar
+                        android:id="@+id/seeker_blitz"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </TableLayout>
+
+            </AbsoluteLayout>
+
+            <AbsoluteLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/tab2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <TableLayout
+                    android:id="@+id/table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_x="0px"
+                    android:layout_y="0px"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/text_makro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20px"
+                        android:text="Makro :" />
+
+                    <SeekBar
+                        android:id="@+id/seeker_makro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/text_makro_vf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Makro-VF :" />
+
+                    <SeekBar
+                        android:id="@+id/seeker_makro_vf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/text_zeit_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Filter :" />
+
+                    <SeekBar
+                        android:id="@+id/seeker_zeit_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/text_filter_vf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Filter-VF :" />
+
+                    <SeekBar
+                        android:id="@+id/seeker_filter_vf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </TableLayout>
+            </AbsoluteLayout>
+
+            <AbsoluteLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/tab3"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <TableLayout
+                    android:id="@+id/table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_x="0px"
+                    android:layout_y="0px"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/text_notizen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20px"
+                        android:text="Notizen :" />
+
+                    <EditText
+                        android:id="@+id/edit_notizen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="200px"
+                        android:gravity="top"
+                        android:textSize="18sp" >
+
+                        <requestFocus />
+                    </EditText>
+
+                    <TextView
+                        android:id="@+id/text_kamera_notizen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kamera-Notizen :" />
+
+                    <EditText
+                        android:id="@+id/edit_kamera_notizen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="200px"
+                        android:gravity="top"
+                        android:textSize="18sp" />
+                </TableLayout>
+            </AbsoluteLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_aufnehmen"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Foto aufnehmen" android:layout_gravity="bottom"/>
+
+</TabHost>

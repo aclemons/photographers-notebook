@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+<TextView 
+    android:layout_width="fill_parent"
+    android:id="@+id/listItemText"
+    android:layout_height="wrap_content"
+    android:text="Film 1"
+    android:layout_weight=".1"
+    android:textSize="12dp" >
+</TextView>
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_weight=".2"
+    android:gravity="right|top"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+   <TextView 
+    android:layout_width="fill_parent"
+    android:id="@+id/listItemTextTime"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:text="16.54 Uhr"
+    android:layout_weight=".1"
+    android:textSize="12dp" >
+</TextView> 
+</LinearLayout>
+</LinearLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+<TextView 
+    android:layout_width="wrap_content"
+    android:id="@+id/listItemObjektivk"
+    android:layout_height="wrap_content"
+    android:text="   >>   Objektiv :     "
+    android:textSize="12dp" >
+</TextView>
+<LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+   <TextView 
+    android:layout_width="fill_parent"
+    android:id="@+id/listItemObjektiv"
+    android:layout_height="wrap_content"
+    android:text="SuperZoomBlende"
+    android:layout_weight=".1"
+    android:textSize="12dp" >
+</TextView> 
+</LinearLayout>
+</LinearLayout>
+    </LinearLayout>

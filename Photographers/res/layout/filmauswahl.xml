@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        android:id="@+id/mainis"
+        android:orientation="vertical"
+        android:padding="5dp"
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent">
+    
+    <LinearLayout
+    	android:focusable="true" android:focusableInTouchMode="true"
+    	android:layout_width="0px" android:layout_height="0px"/>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:scrollbars="vertical"
+    android:layout_height="wrap_content"
+    android:id="@+id/tablor"
+    android:paddingLeft="4dp"
+    android:background="@drawable/shapetable">
+  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/table"
+    android:padding="8dp"
+    android:paddingTop="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingBottom="0dp"
+    android:background="@drawable/shapeintable">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        android:id="@+id/maini"
+        android:orientation="vertical"
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent">
+			    <TextView
+				    android:id="@+id/filmtitle"
+				    android:layout_width="fill_parent"
+				    android:layout_height="wrap_content"
+				    android:text="Neuen Film erstellen"
+				    >
+				</TextView>
+				<TextView
+	    android:id="@+id/freecell"
+	    android:layout_width="fill_parent"
+	    android:layout_height="8dp"
+	    android:text=" "
+	    >
+	</TextView>
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				        android:id="@+id/maini"
+				        android:orientation="vertical"
+				        android:paddingLeft="50dp"
+					    android:layout_height="wrap_content" 
+					    android:layout_width="fill_parent">
+					    
+				    
+				 
+				<!-- HIER -->
+				    
+	
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        android:id="@+id/maini"
+        android:orientation="vertical"
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent">
+
+        <Button
+            android:id="@+id/newFilm"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button"
+            android:text="Neuer Film" />
+					   
+      </LinearLayout>
+   
+		</LinearLayout> 		    
+				    
+      </LinearLayout>
+   </TableLayout>    
+         
+</TableLayout>
+
+        <!-- THIRD -->
+    <TextView
+	    android:id="@+id/freecell"
+	    android:layout_width="fill_parent"
+	    android:layout_height="10dp"
+	    android:text=" "
+	    >
+	</TextView>
+	
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:scrollbars="vertical"
+    android:layout_height="wrap_content"
+    android:id="@+id/tablors"
+    android:paddingLeft="4dp"
+    android:paddingBottom="4dp"
+    android:background="@drawable/shapetable">
+  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/tables"
+    android:padding="8dp"
+    android:paddingTop="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingBottom="0dp"
+    android:background="@drawable/shapeintable">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        android:id="@+id/mainsi"
+        android:orientation="horizontal"
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent">
+    <TextView
+				    android:id="@+id/filmtitle"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="Film Auswahl"
+				    >
+				</TextView>
+				
+        <TextView
+				    android:id="@+id/picanzahl"
+				    android:gravity="right"
+				    android:textStyle="bold|italic"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:text="Bilder : 0"
+				    >
+				</TextView>
+        </LinearLayout>
+        
+        
+				<TextView
+	    android:id="@+id/freecell"
+	    android:layout_width="fill_parent"
+	    android:layout_height="8dp"
+	    android:text=" "
+	    >
+	</TextView>
+    <ListView
+							android:id="@android:id/list"
+							android:visibility="visible"
+							android:cacheColorHint="#00000000"
+							android:background="@drawable/shapeintable"
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:drawSelectorOnTop="false"
+							/>
+    
+    <ImageView
+        android:id="@+id/image"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/nofilms" />
+    
+     
+    
+       </TableLayout>    
+         
+</TableLayout> 
+   
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:id="@+id/listItem"
+    android:clickable="false"
+    android:linksClickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:enabled="false"
+    android:freezesText="true"
+    android:textColor="#DDFF9900"
+    android:text="TEST"
+    android:paddingLeft="10dp"
+    android:paddingTop="-60dp"
+    android:layout_height="wrap_content"
+    android:textSize="11sp"
+    android:longClickable="false"
+     >
+</TextView>

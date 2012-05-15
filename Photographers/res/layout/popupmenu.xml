@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/users"
+    android:stretchColumns="1"
+    android:padding="3dp"
+    android:background="@drawable/shape">
+ <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/user2"
+    android:background="@drawable/shapein">
+    
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:padding="10dp"
+    android:id="@+id/testen"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    
+    <EditText 
+        android:id="@+id/setedit"
+        android:layout_width="match_parent"
+        android:maxLines="1"
+        android:visibility="gone"
+        android:lines="1"
+        android:background="@drawable/custom_button_image"
+	    android:layout_height="match_parent"
+	    android:hint="Namen..."
+        />
+    <Button 
+        android:id="@+id/setbutton"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+	    android:layout_height="40dp"
+	    android:text="Speichern"
+        />
+    <View 
+        android:id="@+id/setview"
+        android:layout_width="match_parent"
+	    android:layout_height="5dp"
+        android:visibility="gone"
+	    android:minHeight="5dp"
+        />
+    
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:id="@+id/testen"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    
+      <Button 
+        android:id="@+id/setone"
+        android:layout_width="80dp"
+        android:maxHeight="80dp"
+        android:background="@drawable/custom_button_image"
+	    android:layout_height="80dp"
+	    android:text="Set-Eins"
+        />
+      <View 
+        android:id="@+id/setview"
+        android:layout_width="5dp"
+	    android:layout_height="5dp"
+	    android:minHeight="5dp"
+        />
+      <Button 
+        android:id="@+id/settwo"
+        android:layout_width="80dp"
+        android:maxHeight="80dp"
+        android:background="@drawable/custom_button_image"
+	    android:layout_height="match_parent"
+	    android:text="Set-Zwei"
+        />
+      </LinearLayout>
+      <View 
+        android:id="@+id/setview"
+        android:layout_width="match_parent"
+	    android:layout_height="5dp"
+	    android:minHeight="5dp"
+        />
+      <LinearLayout
+    android:layout_width="wrap_content"
+    android:id="@+id/testen"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    
+      <Button 
+        android:id="@+id/setthree"
+        android:layout_width="80dp"
+        android:maxHeight="80dp"
+        android:background="@drawable/custom_button_image"
+	    android:layout_height="80dp"
+	    android:text="Set-Drei"
+        />
+      <View 
+        android:id="@+id/setview"
+        android:layout_width="5dp"
+	    android:layout_height="5dp"
+	    android:minHeight="5dp"
+        />
+      <Button 
+        android:id="@+id/setfour"
+        android:layout_width="80dp"
+        android:maxHeight="80dp"
+        android:background="@drawable/custom_button_image"
+	    android:layout_height="match_parent"
+	    android:text="Set-Vier"
+        />
+      </LinearLayout>      
+    
+</LinearLayout>
+</TableLayout>
+</TableLayout>
+    
+    

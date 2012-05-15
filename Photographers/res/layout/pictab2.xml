@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/maini"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/TableLayout02"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shaperedtable"
+        android:paddingLeft="4dp"
+        android:scrollbars="vertical" >
+
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/TableLayout03"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shapeintable"
+            android:padding="8dp"
+            android:paddingBottom="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="0dp" >
+
+            
+
+            <TableLayout
+                android:id="@+id/TableLayout04"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/text_messung"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Messmethode:" android:paddingLeft="12dp"/>
+
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/mainiof"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".44"
+                    android:gravity="left" >
+
+                    <TextView
+                        android:id="@+id/TextView08"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".34"
+                        android:visibility="invisible" />
+
+                    <Spinner
+                        android:id="@+id/spinner_messmethode"
+                        android:layout_height="wrap_content"
+            			android:background="@drawable/custom_button"
+                        android:layout_weight=".1" android:layout_width="fill_parent"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_belichtungskorrektur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Belichtungskorrektur:" android:paddingLeft="12dp"/>
+
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/LinearLayout02"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".44"
+                    android:gravity="left" >
+
+                    <TextView
+                        android:id="@+id/TextView10"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".34"
+                        android:visibility="invisible" />
+
+                    <Spinner
+                        android:id="@+id/spinner_belichtungs_korrektur"
+                        android:layout_width="fill_parent"
+            			android:background="@drawable/custom_button"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_makro_vf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".34"
+                    android:text="Makro-VF:" android:paddingLeft="12dp"/>
+
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/LinearLayout01"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".44"
+                    android:gravity="left" >
+
+                    <TextView
+                        android:id="@+id/TextView09"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".34"
+                        android:visibility="invisible" />
+
+                    <Spinner
+                        android:id="@+id/spinner_makro_vf"
+                        android:layout_width="fill_parent"
+            			android:background="@drawable/custom_button"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" />
+
+                </LinearLayout>
+
+                    
+                    
+                    <TextView
+                    android:id="@+id/text_blitz_korrektur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter-VF:" android:paddingLeft="12dp"/>
+
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/LinearLayout03"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".44"
+                    android:gravity="left" >
+
+                    <TextView
+                        android:id="@+id/TextView11"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".34"
+                        android:visibility="invisible" />
+
+                    <Spinner
+                        android:id="@+id/spinner_filter_vf"
+                        android:layout_width="fill_parent"
+            			android:background="@drawable/custom_button"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" />
+
+                </LinearLayout>
+                    
+                    
+                    
+               </TableLayout>
+        </TableLayout>
+    </TableLayout>
+    
+        
+        
+        
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <View 
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:minHeight="7dp"
+        />
+    
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/TableLayout02"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shapebluetable"
+        android:paddingLeft="4dp"
+        android:scrollbars="vertical" >
+
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/TableLayout03"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shapeintable"
+            android:padding="8dp"
+            android:paddingBottom="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="0dp" >
+
+            
+
+            <TableLayout
+                android:id="@+id/TableLayout04"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+                    
+                    
+                <TextView
+                    android:id="@+id/text_blitz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Blitz:" android:paddingLeft="12dp"/>
+
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/LinearLayout04"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".44"
+                    android:gravity="left" >
+
+                    <TextView
+                        android:id="@+id/TextView12"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".34"
+                        android:visibility="invisible" />
+
+                    <Spinner
+                        android:id="@+id/spinner_blitz"
+                        android:layout_width="fill_parent"
+            			android:background="@drawable/custom_button"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" />
+
+                </LinearLayout>
+
+                    
+                    
+                    
+                    
+                <TextView
+                    android:id="@+id/text_blitz_korrektur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Blitz-Korrektur:" android:paddingLeft="12dp"/>
+
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/LinearLayout03"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".44"
+                    android:gravity="left" >
+
+                    <TextView
+                        android:id="@+id/TextView11"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".34"
+                        android:visibility="invisible" />
+
+                    <Spinner
+                        android:id="@+id/spinner_blitz_korrektur"
+                        android:layout_width="fill_parent"
+            			android:background="@drawable/custom_button"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" />
+
+                </LinearLayout>
+                
+                    
+                    
+                </TableLayout>
+        </TableLayout>
+    </TableLayout>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+
+    
+
+</LinearLayout>
