@@ -67,12 +67,13 @@ public class SlideNewSettings extends Activity {
 			"Empfindlichkeit", "Blitz", "Blitz-Korr", "Sonderentwicklung" };
 
 	private static final String[] puContent = new String[] {
-			"Hier können Sie ihre Einstellungen personalisieren.",
-			"Bestimmen Sie, welche Einstellungen später in den Auswahl-Bildschirmen vorhanden sein sollen.",
-			"Sie können neue Einträge hinzufügen oder bestehende Beiträge nach langem Antippen bearbeiten",
-			"Im Menü können Sie die Einstellungen zurücksetzen oder ein neues Einstellunges-Set erstellen, um es mit bestimmten Einstellungen zu konfigurieren.",
-			"Einige Daten sind bereits vorhanden und vorausgewählt. Sie müssen nur noch eine Kamera hinzufügen und Objektive zuordnen.",
-			"Sie haben außerdem die Möglichkeit, mehrere Einstellungssets zu speichern und später wieder zu laden." };
+			"Hier k\u00F6nnen Sie ihre Einstellungen personalisieren.",
+			"Bestimmen Sie, welche Einstellungen sp\u00E4ter in den Auswahl-Bildschirmen vorhanden sein sollen.",
+			"Sie k\u00F6nnen neue Eintr\u00E4ge hinzuf\u00FCgen oder bestehende Beitr\u00E4ge nach langem Antippen bearbeiten",
+			"Im Men\u00FC k\u00F6nnen Sie die Einstellungen zur\u00FCcksetzen oder ein neues Einstellunges-Set erstellen, um es mit bestimmten Einstellungen zu konfigurieren.",
+			"Einige Daten sind bereits vorhanden und vorausgew\u00E4hlt. Sie m\u00FCssen nur noch eine Kamera hinzuf\u00FCgen und Objektive zuordnen.",
+			"Vergessen Sie nicht, Ihre neu angelegten Kameras und Objektive mit einem Haken zu aktivieren.", 
+			"Sie haben au\u00DFerdem die M\u00F6glichkeit, mehrere Einstellungssets zu speichern und sp\u00E4ter wieder zu laden." };
 	Integer contentIndex = 0;
 	TextView tv1, tv2;
 	Button weiter, close;

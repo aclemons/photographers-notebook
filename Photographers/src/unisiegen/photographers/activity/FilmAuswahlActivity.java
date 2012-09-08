@@ -126,10 +126,10 @@ public class FilmAuswahlActivity extends Activity {
 	public static int gesamt;
 	private static final String[] puContent = new String[] {
 			"Herzlich willkommen im Photographers Notebook!",
-			"Zur Einführung zeigen wir Ihnen die wichtigsten Funktionen der App.",
-			"Wenn Sie auf den Menü-Button tippen, können Sie die Einstellungen zu dieser App finden und die ersten Einstellungen tätigen.",
+			"Zur Einf\u00FChrung zeigen wir Ihnen die wichtigsten Funktionen der App.",
+			"Wenn Sie auf den Men\u00FC-Button tippen, k\u00F6nnen Sie die Einstellungen zu dieser App finden und die ersten Einstellungen t\u00E4tigen.",
 			"Sind alle Einstellungen vorgenommen, starten Sie Ihren ersten Film, indem Sie den Button \"Neuer Film\" antippen.",
-			"Später können Sie den Film auf dieser Seite wieder aufrufen und bei Bedarf fortführen." };
+			"Sp\u00E4ter k\u00F6nnen Sie den Film auf dieser Seite wieder aufrufen und bei Bedarf fortf\u00FChren." };
 
 	/*
 	 * @see android.app.Activity#onResume() Lifecycle-Methoden
@@ -415,7 +415,7 @@ public class FilmAuswahlActivity extends Activity {
 					.findViewById(R.id.exportbutton);
 			Button editButton = (Button) layoutOwn
 					.findViewById(R.id.editbutton);
-			deleteButton.setText("     Film löschen     ");
+			deleteButton.setText("     Film l\u00F6schen     ");
 			editButton.setText("     Film fortsetzen     ");
 
 			exportButton.setOnClickListener(new OnClickListener() {
@@ -883,49 +883,49 @@ public class FilmAuswahlActivity extends Activity {
 						+ 0 + "');");
 
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 25/15°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 25/15\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 40/17°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 40/17\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 50/18°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 50/18\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 64/19°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 64/19\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 100/21°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 100/21\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 125/22°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 125/22\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 160/23°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 160/23\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 200/24°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 200/24\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 320/26°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 320/26\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 400/27°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 400/27\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 640/29°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 640/29\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 800/30°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 800/30\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 1000/31°" + "','"
+						+ " Values (" + null + ",'" + "ISO 1000/31\u00b0" + "','"
 						+ 1 + "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 1600/33°" + "','"
+						+ " Values (" + null + ",'" + "ISO 1600/33\u00b0" + "','"
 						+ 1 + "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 3200/36°" + "','"
+						+ " Values (" + null + ",'" + "ISO 3200/36\u00b0" + "','"
 						+ 1 + "','" + 0 + "');");
 
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP
@@ -936,11 +936,11 @@ public class FilmAuswahlActivity extends Activity {
 						+ 1 + "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP
 						+ " Values (" + null + ",'"
-						+ "Schwarzweiß-Negativ (I: SW)" + "','" + 1 + "','" + 0
+						+ "Schwarzwei\u00DF-Negativ (I: SW)" + "','" + 1 + "','" + 0
 						+ "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP
 						+ " Values (" + null + ",'"
-						+ "Schwarzweiß-Dia (I: SWR)" + "','" + 1 + "','" + 0
+						+ "Schwarzwei\u00DF-Dia (I: SWR)" + "','" + 1 + "','" + 0
 						+ "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP
 						+ " Values (" + null + ",'"
@@ -991,10 +991,10 @@ public class FilmAuswahlActivity extends Activity {
 						+ " Values (" + null + ",'" + "Rot" + "','" + 1 + "','"
 						+ 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL
-						+ " Values (" + null + ",'" + "Gelbgrün" + "','" + 1
+						+ " Values (" + null + ",'" + "Gelbgr\u00FCn" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL
-						+ " Values (" + null + ",'" + "Grün" + "','" + 1
+						+ " Values (" + null + ",'" + "Gr\u00FCn" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL
 						+ " Values (" + null + ",'" + "Blau" + "','" + 1
@@ -1469,7 +1469,7 @@ public class FilmAuswahlActivity extends Activity {
 		}
 
 		protected void onPreExecute() {
-			this.dialog.setMessage("...bereite Daten für Export vor...");
+			this.dialog.setMessage("...bereite Daten f\u00FCr Export vor...");
 			this.dialog.show();
 			Log.v("Check", "Pre");
 		}
