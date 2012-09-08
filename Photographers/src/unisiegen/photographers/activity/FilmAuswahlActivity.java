@@ -79,6 +79,7 @@ public class FilmAuswahlActivity extends Activity {
 	final static String MY_DB_SET2 = "FotoSettingsTwo";
 	final static String MY_DB_SET3 = "FotoSettingsThree";
 	final static String MY_DB_TABLE_SETCAM = "SettingsCamera";
+	final static String MY_DB_TABLE_SETCAMBW = "SettingsCameraBW";
 	final static String MY_DB_TABLE_SETFF = "SettingsFilmFormat";
 	final static String MY_DB_TABLE_SETEMP = "SettingsFilmEmpf";
 	final static String MY_DB_TABLE_SETBW = "SettingsBrennweite";
@@ -734,6 +735,7 @@ public class FilmAuswahlActivity extends Activity {
 
 		protected void onPreExecute() {
 			this.dialog.setMessage("...ersten Start vorbereiten...");
+			this.dialog.setCancelable(false);
 			this.dialog.show();
 		}
 
@@ -756,6 +758,10 @@ public class FilmAuswahlActivity extends Activity {
 			try {
 				myDBSet = mContext.openOrCreateDatabase(MY_DB_SET,
 						Context.MODE_PRIVATE, null);
+				myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
+						+ MY_DB_TABLE_SETCAMBW
+						+ " (_id integer primary key autoincrement, cam varchar(100), bw varchar(100))"
+						+ ";");
 				myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
 						+ MY_DB_TABLE_SETCAM
 						+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
