@@ -49,10 +49,10 @@ public class NewFilmActivity extends Activity {
 	SharedPreferences settings;
 	Context mContext;
 	private static final String[] puContent = new String[] {
-			"Hier können Sie einen Filmtitel auswählen oder ihn automatisch festlegen lassen.",
-			"Die zuvor ausgewählten Kameras und Filmeinstellungen sind hier selektierbar.",
-			"Hier wählen Sie die zuvor angelegten Kameras und Filmeinstellungen aus.",
-			"Auch hier können Sie diese durch Tippen auf die Menü-Taste ändern.",
+			"Hier k\u00F6nnen Sie einen Filmtitel ausw\u00E4hlen oder ihn automatisch festlegen lassen.",
+			"Die zuvor ausgew\u00E4hlten Kameras und Filmeinstellungen sind hier selektierbar.",
+			"Hier w\u00E4hlen Sie die zuvor angelegten Kameras und Filmeinstellungen aus.",
+			"Auch hier k\u00F6nnen Sie diese durch Tippen auf die Men\u00FC-Taste \u00E4ndern.",
 			"Wenn Sie die Auswahl getroffen haben, tippen Sie bitte auf Film beginnen." };
 	int design = 0;
 	int camdef = 0;
