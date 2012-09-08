@@ -43,7 +43,6 @@
 		        android:layout_weight=".5"
 		        android:layout_alignParentTop="true"
         		android:layout_alignParentRight="true"
-		        android:src="@drawable/neuerfilm"
 		        android:layout_height="wrap_content"
 		        android:layout_centerInParent="true">
 		    </ImageButton>
@@ -54,7 +53,6 @@
 		        android:layout_weight=".5"
         		android:layout_alignParentRight="true"
 		        android:scaleType="fitCenter"
-		        android:src="@drawable/alterfilm"
 		        android:layout_height="wrap_content"
 		        android:layout_centerInParent="true">
 		    </ImageButton>
