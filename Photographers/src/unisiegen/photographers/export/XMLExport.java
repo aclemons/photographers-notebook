@@ -10,7 +10,7 @@ public class XMLExport {
 	
 	/**
 	 * Eigener XML Parser, geht in die Tiefe bis n = 2
-	 * Objekcte und Variablen müssen public sein !
+	 * Objekte und Variablen müssen public sein !
 	 */
 	
 	public XMLExport () {}

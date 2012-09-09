@@ -160,7 +160,7 @@ public class SlideNewPic extends Activity {
 		try {
 			locManager.removeUpdates(locationListener);
 		} catch (Exception e) {
-			Log.v("Check", "Es war kein GPS - Verfügbar");
+			Log.v("Check", "Es war kein GPS - Verf\u00FCgbar");
 		}
 	}
 
@@ -421,7 +421,7 @@ public class SlideNewPic extends Activity {
 			Toast toast2 = Toast
 					.makeText(
 							this,
-							"GPS ist ausgeschaltet! Schalten sie es jetzt an um den Bildern ein GeoTag hinzuzufügen",
+							"GPS ist ausgeschaltet! Schalten sie es jetzt an um den Bildern ein GeoTag hinzuzuf\u00FCgen",
 							Toast.LENGTH_LONG);
 			toast2.show();
 		}

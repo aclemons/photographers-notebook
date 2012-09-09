@@ -749,7 +749,7 @@ public class SlideNewSettingsPic extends Activity {
 									.findViewById(R.id.cancelbutton);
 							Button editButton = (Button) layoutOwn
 									.findViewById(R.id.editbutton);
-							deleteButton.setText("     Eintrag löschen     ");
+							deleteButton.setText("     Eintrag l\u00F6schen     ");
 							editButton.setText("     Als Standardwert     ");
 							editButton
 									.setOnClickListener(new OnClickListener() {
@@ -785,7 +785,7 @@ public class SlideNewSettingsPic extends Activity {
 											listAdapter1.notifyDataSetChanged();
 											Toast.makeText(
 													getApplicationContext(),
-													"Eintrag gelöscht!",
+													"Eintrag gel\u00F6scht!",
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
 										}
@@ -842,7 +842,7 @@ public class SlideNewSettingsPic extends Activity {
 								// Settings(Kat1.getText().toString(),0));
 								listAdapter1.notifyDataSetChanged();
 								Toast.makeText(getApplicationContext(),
-										"Eintrag hinzugefügt!",
+										"Eintrag hinzugef\u00FCgt!",
 										Toast.LENGTH_SHORT).show();
 							}
 						}
@@ -898,7 +898,7 @@ public class SlideNewSettingsPic extends Activity {
 									.findViewById(R.id.cancelbutton);
 							Button editButton = (Button) layoutOwn
 									.findViewById(R.id.editbutton);
-							deleteButton.setText("     Eintrag löschen     ");
+							deleteButton.setText("     Eintrag l\u00F6schen     ");
 							editButton.setText("     Als Standardwert     ");
 							editButton
 									.setOnClickListener(new OnClickListener() {
@@ -933,7 +933,7 @@ public class SlideNewSettingsPic extends Activity {
 											listAdapter7.notifyDataSetChanged();
 											Toast.makeText(
 													getApplicationContext(),
-													"Eintrag gelöscht!",
+													"Eintrag gel\u00F6scht!",
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
 										}
@@ -990,7 +990,7 @@ public class SlideNewSettingsPic extends Activity {
 								// Settings(Kat7.getText().toString(),0));
 								listAdapter7.notifyDataSetChanged();
 								Toast.makeText(getApplicationContext(),
-										"Eintrag hinzugefügt!",
+										"Eintrag hinzugef\u00FCgt!",
 										Toast.LENGTH_SHORT).show();
 							}
 						}
@@ -1310,7 +1310,7 @@ public class SlideNewSettingsPic extends Activity {
 		if (item.getItemId() == R.id.opt_perso) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 			builder.setMessage(
-					"Möchten Sie wirklich alle Einstellungen zurücksetzen ?")
+					"M\u00F6chten Sie wirklich alle Einstellungen zur\u00FCcksetzen ?")
 					.setCancelable(false)
 					.setPositiveButton("Ja",
 							new DialogInterface.OnClickListener() {
@@ -1490,7 +1490,7 @@ public class SlideNewSettingsPic extends Activity {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Das geladene Set kann nicht überschrieben werden!",
+								"Das geladene Set kann nicht \u00FCberschrieben werden!",
 								Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -1508,7 +1508,7 @@ public class SlideNewSettingsPic extends Activity {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Das geladene Set kann nicht überschrieben werden!",
+								"Das geladene Set kann nicht \u00FCberschrieben werden!",
 								Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -1526,7 +1526,7 @@ public class SlideNewSettingsPic extends Activity {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Das geladene Set kann nicht überschrieben werden!",
+								"Das geladene Set kann nicht \u00FCberschrieben werden!",
 								Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -1544,7 +1544,7 @@ public class SlideNewSettingsPic extends Activity {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Das geladene Set kann nicht überschrieben werden!",
+								"Das geladene Set kann nicht \u00FCberschrieben werden!",
 								Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -1991,49 +1991,49 @@ public class SlideNewSettingsPic extends Activity {
 						+ 0 + "');");
 
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 25/15¡" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 25/15\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 40/17¡" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 40/17\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 50/18¡" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 50/18\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 64/19¡" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 64/19\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 100/21¡" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 100/21\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 125/22¡" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 125/22\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 160/23¡" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 160/23\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 200/24¡" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 200/24\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 320/26¡" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 320/26\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 400/27¡" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 400/27\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 640/29¡" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 640/29\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 800/30¡" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 800/30\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 1000/31¡" + "','"
+						+ " Values (" + null + ",'" + "ISO 1000/31\u00B0" + "','"
 						+ 1 + "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 1600/33¡" + "','"
+						+ " Values (" + null + ",'" + "ISO 1600/33\u00B0" + "','"
 						+ 1 + "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 3200/36¡" + "','"
+						+ " Values (" + null + ",'" + "ISO 3200/36\u00B0" + "','"
 						+ 1 + "','" + 0 + "');");
 
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP
@@ -2044,11 +2044,11 @@ public class SlideNewSettingsPic extends Activity {
 						+ 1 + "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP
 						+ " Values (" + null + ",'"
-						+ "Schwarzwei§-Negativ (I: SW)" + "','" + 1 + "','" + 0
+						+ "Schwarzwei\u00DF-Negativ (I: SW)" + "','" + 1 + "','" + 0
 						+ "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP
 						+ " Values (" + null + ",'"
-						+ "Schwarzwei§-Dia (I: SWR)" + "','" + 1 + "','" + 0
+						+ "Schwarzwei\u00DF-Dia (I: SWR)" + "','" + 1 + "','" + 0
 						+ "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP
 						+ " Values (" + null + ",'"
@@ -2093,10 +2093,10 @@ public class SlideNewSettingsPic extends Activity {
 						+ " Values (" + null + ",'" + "Rot" + "','" + 1 + "','"
 						+ 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL
-						+ " Values (" + null + ",'" + "Gelbgrün" + "','" + 1
+						+ " Values (" + null + ",'" + "Gelbgr\u00FCn" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL
-						+ " Values (" + null + ",'" + "Grün" + "','" + 1
+						+ " Values (" + null + ",'" + "Gr\u00FCn" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL
 						+ " Values (" + null + ",'" + "Blau" + "','" + 1

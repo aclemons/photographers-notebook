@@ -434,7 +434,7 @@ public class FilmAuswahlActivity extends Activity {
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							mContext);
 					builder.setMessage(
-							"Wollen Sie den Eintrag wirklich löschen ?")
+							"Wollen Sie den Eintrag wirklich l\u00F6schen ?")
 							.setCancelable(false)
 							.setPositiveButton("Ja",
 									new DialogInterface.OnClickListener() {
@@ -458,7 +458,7 @@ public class FilmAuswahlActivity extends Activity {
 															.toString() });
 											Toast.makeText(
 													getApplicationContext(),
-													"Film gelöscht",
+													"Film gel\u00F6scht",
 													Toast.LENGTH_SHORT).show();
 											myDBFilm.close();
 											myDBNummer.close();

@@ -2,7 +2,8 @@ package unisiegen.photographers.activity;
 
 /**
  * Hierbei handelt es sich um alle Einstellungen ! Die anderen Einstellungs-Activitys sind nur Teilmengen von dieser für eine bessere Aufteilung wenn gewünscht!
- */
+ * §
+*/
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -1082,7 +1083,7 @@ public class SlideNewSettings extends Activity {
 									.findViewById(R.id.editbutton);
 							Button specButton = (Button) layoutOwn
 									.findViewById(R.id.specbutton);
-							deleteButton.setText("     Eintrag löschen     ");
+							deleteButton.setText("     Eintrag l\u00F6schen     ");
 							editButton.setText("     Als Standardwert     ");
 							editButton.setVisibility(Button.GONE);
 							specButton
@@ -1116,7 +1117,7 @@ public class SlideNewSettings extends Activity {
 											Katspec = (EditText) layoutOwn2
 													.findViewById(R.id.kameramodell);
 											freecellspec
-													.setText("Wählen sie Objektive für die Kamera aus");
+													.setText("W\u00E4hlen sie Objektive f\u00FCr die Kamera aus");
 											tablorspec
 													.setBackgroundResource(R.drawable.shaperedtable);
 											tablorspec.setPadding(2, 2, 2, 2);
@@ -1137,7 +1138,7 @@ public class SlideNewSettings extends Activity {
 															AlertDialog.Builder builder = new AlertDialog.Builder(
 																	mContext);
 															builder.setMessage(
-																	"Möchten Sie den eintrag wirklich löschen ?")
+																	"M\u00F6chten Sie den eintrag wirklich l\u00F6schen ?")
 																	.setCancelable(
 																			false)
 																	.setPositiveButton(
@@ -1363,7 +1364,7 @@ public class SlideNewSettings extends Activity {
 								Katspec = (EditText) layoutOwn2
 										.findViewById(R.id.kameramodell);
 								freecellspec
-										.setText("Wählen sie Objektive für die Kamera aus");
+										.setText("W\u00E4hlen sie Objektive f\u00FCr die Kamera aus");
 								tablorspec
 										.setBackgroundResource(R.drawable.shaperedtable);
 								tablorspec.setPadding(2, 2, 2, 2);
@@ -1576,7 +1577,7 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag löschen     ");
+										.setText("     Eintrag l\u00F6schen     ");
 								editButton
 										.setText("     Als Standardwert     ");
 								editButton
@@ -1626,7 +1627,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gelöscht!",
+														"Eintrag gel\u00F6scht!",
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -1687,7 +1688,7 @@ public class SlideNewSettings extends Activity {
 							myListView0.setAdapter(listAdapte0);
 							listAdapte0.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugefügt!", Toast.LENGTH_SHORT)
+									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
 									.show();
 						}
 
@@ -1750,7 +1751,7 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag löschen     ");
+										.setText("     Eintrag l\u00F6schen     ");
 								editButton
 										.setText("     Als Standardwert     ");
 								editButton
@@ -1809,7 +1810,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gelöscht!",
+														"Eintrag gel\u00F6scht!",
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -1869,7 +1870,7 @@ public class SlideNewSettings extends Activity {
 							myListView1.setAdapter(listAdapte1);
 							listAdapte1.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugefügt!", Toast.LENGTH_SHORT)
+									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
 									.show();
 						}
 
@@ -1932,7 +1933,7 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag löschen     ");
+										.setText("     Eintrag l\u00F6schen     ");
 								editButton
 										.setText("     Als Standardwert     ");
 								editButton
@@ -1991,7 +1992,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gelöscht!",
+														"Eintrag gel\u00F6scht!",
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -2053,7 +2054,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText2.getText().toString(),0));
 							listAdapte2.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugefügt!", Toast.LENGTH_SHORT)
+									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
 									.show();
 						}
 
@@ -2116,7 +2117,7 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag löschen     ");
+										.setText("     Eintrag l\u00F6schen     ");
 								editButton
 										.setText("     Als Standardwert     ");
 								editButton
@@ -2175,7 +2176,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gelöscht!",
+														"Eintrag gel\u00F6scht!",
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -2237,7 +2238,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText3.getText().toString(),0));
 							listAdapte3.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugefügt!", Toast.LENGTH_SHORT)
+									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
 									.show();
 						}
 
@@ -2300,7 +2301,7 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag löschen     ");
+										.setText("     Eintrag l\u00F6schen     ");
 								editButton
 										.setText("     Als Standardwert     ");
 								editButton
@@ -2359,7 +2360,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gelöscht!",
+														"Eintrag gel\u00F6scht!",
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -2421,7 +2422,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText4.getText().toString(),0));
 							listAdapte4.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugefügt!", Toast.LENGTH_SHORT)
+									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
 									.show();
 						}
 
@@ -2484,7 +2485,7 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag löschen     ");
+										.setText("     Eintrag l\u00F6schen     ");
 								editButton
 										.setText("     Als Standardwert     ");
 								editButton
@@ -2533,7 +2534,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gelöscht!",
+														"Eintrag gel\u00F6scht!",
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -2595,7 +2596,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText5.getText().toString(),0));
 							listAdapte5.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugefügt!", Toast.LENGTH_SHORT)
+									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
 									.show();
 						}
 
@@ -2658,7 +2659,7 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag löschen     ");
+										.setText("     Eintrag l\u00F6schen     ");
 								editButton
 										.setText("     Als Standardwert     ");
 								editButton
@@ -2717,7 +2718,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gelöscht!",
+														"Eintrag gel\u00F6scht!",
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -2779,7 +2780,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText6.getText().toString(),0));
 							listAdapte6.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugefügt!", Toast.LENGTH_SHORT)
+									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
 									.show();
 						}
 
@@ -2842,7 +2843,7 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag löschen     ");
+										.setText("     Eintrag l\u00F6schen     ");
 								editButton
 										.setText("     Als Standardwert     ");
 								editButton
@@ -2901,7 +2902,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gelöscht!",
+														"Eintrag gel\u00F6scht!",
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -2963,7 +2964,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText7.getText().toString(),0));
 							listAdapte7.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugefügt!", Toast.LENGTH_SHORT)
+									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
 									.show();
 						}
 
@@ -3026,7 +3027,7 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag löschen     ");
+										.setText("     Eintrag l\u00F6schen     ");
 								editButton
 										.setText("     Als Standardwert     ");
 								editButton
@@ -3085,7 +3086,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gelöscht!",
+														"Eintrag gel\u00F6scht!",
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -3147,7 +3148,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText8.getText().toString(),0));
 							listAdapte8.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugefügt!", Toast.LENGTH_SHORT)
+									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
 									.show();
 						}
 
@@ -3210,7 +3211,7 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag löschen     ");
+										.setText("     Eintrag l\u00F6schen     ");
 								editButton
 										.setText("     Als Standardwert     ");
 								editButton
@@ -3269,7 +3270,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gelöscht!",
+														"Eintrag gel\u00F6scht!",
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -3331,7 +3332,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText9.getText().toString(),0));
 							listAdapte9.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugefügt!", Toast.LENGTH_SHORT)
+									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
 									.show();
 						}
 
@@ -3394,7 +3395,7 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag löschen     ");
+										.setText("     Eintrag l\u00F6schen     ");
 								editButton
 										.setText("     Als Standardwert     ");
 								editButton
@@ -3453,7 +3454,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gelöscht!",
+														"Eintrag gel\u00F6scht!",
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -3515,7 +3516,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText10.getText().toString(),0));
 							listAdapte10.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugefügt!", Toast.LENGTH_SHORT)
+									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
 									.show();
 						}
 
@@ -3573,7 +3574,7 @@ public class SlideNewSettings extends Activity {
 									.findViewById(R.id.cancelbutton);
 							Button editButton = (Button) layoutOwn
 									.findViewById(R.id.editbutton);
-							deleteButton.setText("     Eintrag löschen     ");
+							deleteButton.setText("     Eintrag l\u00F6schen     ");
 							editButton.setText("     Als Standardwert     ");
 							editButton
 									.setOnClickListener(new OnClickListener() {
@@ -3609,7 +3610,7 @@ public class SlideNewSettings extends Activity {
 											listAdapter1.notifyDataSetChanged();
 											Toast.makeText(
 													getApplicationContext(),
-													"Eintrag gelöscht!",
+													"Eintrag gel\u00F6scht!",
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
 										}
@@ -3666,7 +3667,7 @@ public class SlideNewSettings extends Activity {
 								// Settings(Kat1.getText().toString(),0));
 								listAdapter1.notifyDataSetChanged();
 								Toast.makeText(getApplicationContext(),
-										"Eintrag hinzugefügt!",
+										"Eintrag hinzugef\u00FCgt!",
 										Toast.LENGTH_SHORT).show();
 							}
 						}
@@ -3722,7 +3723,7 @@ public class SlideNewSettings extends Activity {
 									.findViewById(R.id.cancelbutton);
 							Button editButton = (Button) layoutOwn
 									.findViewById(R.id.editbutton);
-							deleteButton.setText("     Eintrag löschen     ");
+							deleteButton.setText("     Eintrag l\u00F6schen     ");
 							editButton.setText("     Als Standardwert     ");
 							editButton
 									.setOnClickListener(new OnClickListener() {
@@ -3757,7 +3758,7 @@ public class SlideNewSettings extends Activity {
 											listAdapter7.notifyDataSetChanged();
 											Toast.makeText(
 													getApplicationContext(),
-													"Eintrag gelöscht!",
+													"Eintrag gel\u00F6scht!",
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
 										}
@@ -3814,7 +3815,7 @@ public class SlideNewSettings extends Activity {
 								// Settings(Kat7.getText().toString(),0));
 								listAdapter7.notifyDataSetChanged();
 								Toast.makeText(getApplicationContext(),
-										"Eintrag hinzugefügt!",
+										"Eintrag hinzugef\u00FCgt!",
 										Toast.LENGTH_SHORT).show();
 							}
 						}
@@ -3888,7 +3889,7 @@ public class SlideNewSettings extends Activity {
 									.findViewById(R.id.cancelbutton);
 							Button editButton = (Button) layoutOwn
 									.findViewById(R.id.editbutton);
-							deleteButton.setText("     Eintrag löschen     ");
+							deleteButton.setText("     Eintrag l\u00F6schen     ");
 							editButton.setText("     Als Standardwert     ");
 
 							deleteButton
@@ -3907,7 +3908,7 @@ public class SlideNewSettings extends Activity {
 											listAdapter6.notifyDataSetChanged();
 											Toast.makeText(
 													getApplicationContext(),
-													"Eintrag gelöscht!",
+													"Eintrag gel\u00F6scht!",
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
 										}
@@ -3987,7 +3988,7 @@ public class SlideNewSettings extends Activity {
 								// Settings(Kat6.getText().toString(),0));
 								listAdapter6.notifyDataSetChanged();
 								Toast.makeText(getApplicationContext(),
-										"Eintrag hinzugefügt!",
+										"Eintrag hinzugef\u00FCgt!",
 										Toast.LENGTH_SHORT).show();
 							}
 						}
@@ -4548,7 +4549,7 @@ public class SlideNewSettings extends Activity {
 		if (item.getItemId() == R.id.opt_perso) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 			builder.setMessage(
-					"Möchten Sie wirklich alle Einstellungen zurücksetzen ?")
+					"M\u00F6chten Sie wirklich alle Einstellungen zur\u00FCcksetzen ?")
 					.setCancelable(false)
 					.setPositiveButton("Ja",
 							new DialogInterface.OnClickListener() {
@@ -4728,7 +4729,7 @@ public class SlideNewSettings extends Activity {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Das geladene Set kann nicht überschrieben werden!",
+								"Das geladene Set kann nicht \u00FCberschrieben werden!",
 								Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -4746,7 +4747,7 @@ public class SlideNewSettings extends Activity {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Das geladene Set kann nicht überschrieben werden!",
+								"Das geladene Set kann nicht \u00FCberschrieben werden!",
 								Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -4764,7 +4765,7 @@ public class SlideNewSettings extends Activity {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Das geladene Set kann nicht überschrieben werden!",
+								"Das geladene Set kann nicht \u00FCberschrieben werden!",
 								Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -4782,7 +4783,7 @@ public class SlideNewSettings extends Activity {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Das geladene Set kann nicht überschrieben werden!",
+								"Das geladene Set kann nicht \u00FCberschrieben werden!",
 								Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -5229,49 +5230,49 @@ public class SlideNewSettings extends Activity {
 						+ 0 + "');");
 
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 25/15°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 25/15\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 40/17°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 40/17\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 50/18°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 50/18\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 64/19°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 64/19\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 100/21°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 100/21\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 125/22°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 125/22\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 160/23°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 160/23\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 200/24°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 200/24\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 320/26°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 320/26\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 400/27°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 400/27\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 640/29°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 640/29\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 800/30°" + "','" + 1
+						+ " Values (" + null + ",'" + "ISO 800/30\u00B0" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 1000/31°" + "','"
+						+ " Values (" + null + ",'" + "ISO 1000/31\u00B0" + "','"
 						+ 1 + "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 1600/33°" + "','"
+						+ " Values (" + null + ",'" + "ISO 1600/33\u00B0" + "','"
 						+ 1 + "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
-						+ " Values (" + null + ",'" + "ISO 3200/36°" + "','"
+						+ " Values (" + null + ",'" + "ISO 3200/36\u00B0" + "','"
 						+ 1 + "','" + 0 + "');");
 
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP
@@ -5282,11 +5283,11 @@ public class SlideNewSettings extends Activity {
 						+ 1 + "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP
 						+ " Values (" + null + ",'"
-						+ "Schwarzweiß-Negativ (I: SW)" + "','" + 1 + "','" + 0
+						+ "Schwarzwei\u00DF-Negativ (I: SW)" + "','" + 1 + "','" + 0
 						+ "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP
 						+ " Values (" + null + ",'"
-						+ "Schwarzweiß-Dia (I: SWR)" + "','" + 1 + "','" + 0
+						+ "Schwarzwei\u00DF-Dia (I: SWR)" + "','" + 1 + "','" + 0
 						+ "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP
 						+ " Values (" + null + ",'"
@@ -5331,10 +5332,10 @@ public class SlideNewSettings extends Activity {
 						+ " Values (" + null + ",'" + "Rot" + "','" + 1 + "','"
 						+ 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL
-						+ " Values (" + null + ",'" + "Gelbgrün" + "','" + 1
+						+ " Values (" + null + ",'" + "Gelbgr\u00FCn" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL
-						+ " Values (" + null + ",'" + "Grün" + "','" + 1
+						+ " Values (" + null + ",'" + "Gr\u00FCn" + "','" + 1
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL
 						+ " Values (" + null + ",'" + "Blau" + "','" + 1

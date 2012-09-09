@@ -824,7 +824,7 @@ public class FilmSelectActivity extends Activity {
 					.findViewById(R.id.cancelbutton);
 			Button editButton = (Button) layoutOwn
 					.findViewById(R.id.editbutton);
-			deleteButton.setText("     Bild löschen     ");
+			deleteButton.setText("     Bild l\u00F6schen     ");
 			editButton.setText("     Bild bearbeiten     ");
 
 			editButton.setOnClickListener(new OnClickListener() {
@@ -1181,7 +1181,7 @@ public class FilmSelectActivity extends Activity {
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							mContext);
 					builder.setMessage(
-							"Wollen Sie den Eintrag wirklich löschen ? ?")
+							"Wollen Sie den Eintrag wirklich l\u00F6schen ? ?")
 							.setCancelable(false)
 							.setPositiveButton("Ja",
 									new DialogInterface.OnClickListener() {
@@ -1212,7 +1212,7 @@ public class FilmSelectActivity extends Activity {
 											onResume();
 											Toast.makeText(
 													getApplicationContext(),
-													"Bild gelöscht",
+													"Bild gel\u00F6scht",
 													Toast.LENGTH_SHORT).show();
 										}
 									})
