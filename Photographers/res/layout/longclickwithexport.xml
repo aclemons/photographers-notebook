@@ -48,13 +48,14 @@
 	    	android:layout_height="20dp"
 	    	android:minHeight="20dp"
           />
-      <Button 
-        android:id="@+id/exportbutton"
-        android:layout_width="fill_parent"
-            					 android:background="@drawable/custom_button"
-	    android:layout_height="wrap_content"
-	    android:text="     Film Exportieren     "
-        /> 
+
+      <Button
+          android:id="@+id/exportbutton"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:background="@drawable/custom_button"
+          android:text="     Film exportieren     " />
+ 
       <View 
           android:layout_width="match_parent"
 	    	android:layout_height="20dp"

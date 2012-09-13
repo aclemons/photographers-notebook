@@ -244,7 +244,7 @@ public class SlideNewPic extends Activity {
 				getPic(nummerView.getText().toString(),
 						settings.getString("Title", " "));
 				if (bildtoedit) {
-					aufnehmen.setText("Änderungen speichern");
+					aufnehmen.setText("\u00C4nderungen speichern");
 				} else {
 					aufnehmen.setText("Foto aufnehmen");
 				}
@@ -263,7 +263,7 @@ public class SlideNewPic extends Activity {
 							settings.getString("Title", " "));
 				}
 				if (bildtoedit) {
-					aufnehmen.setText("Änderungen speichern");
+					aufnehmen.setText("\u00C4nderungen speichern");
 				} else {
 					aufnehmen.setText("Foto aufnehmen");
 				}

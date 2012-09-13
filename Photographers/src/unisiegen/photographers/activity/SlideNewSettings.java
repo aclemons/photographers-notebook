@@ -2,8 +2,7 @@ package unisiegen.photographers.activity;
 
 /**
  * Hierbei handelt es sich um alle Einstellungen ! Die anderen Einstellungs-Activitys sind nur Teilmengen von dieser für eine bessere Aufteilung wenn gewünscht!
- * §
-*/
+ */
 
 import java.util.ArrayList;
 import java.util.HashMap;
