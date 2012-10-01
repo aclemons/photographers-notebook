@@ -277,10 +277,13 @@ public class SlideNewPic extends Activity {
 				SharedPreferences.Editor editor = settings.edit();
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 				String str = sdf.format(new Date());
+				
+				sdf = new SimpleDateFormat("dd.MM.yyyy");
+				String datum = sdf.format(new Date());
 
 				try {
 					editor.putString("Uhrzeit", str);
-
+					editor.putString("Datum", datum);
 					editor.commit();
 					if (bildtoedit) {
 						editFilm();
