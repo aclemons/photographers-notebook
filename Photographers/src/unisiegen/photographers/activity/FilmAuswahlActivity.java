@@ -1,12 +1,12 @@
 package unisiegen.photographers.activity;
 
 /**
- * Activity für die Auswahl eines Film (View die beim Start angezeigt wird)
- * Hier kann man einen bestehenden Film auswählen, bearbeiten und betrachten
+ * Activity fï¿½r die Auswahl eines Film (View die beim Start angezeigt wird)
+ * Hier kann man einen bestehenden Film auswï¿½hlen, bearbeiten und betrachten
  * Oder man kann einen neuen Film starten
  * 
- * Hier werden einige Methoden genauer erklärt, viele der Methoden kommen in anderen Activitys in selber Art 
- * und Weise wieder vor und werden dort dann nicht mehr ausführlich besprochen.
+ * Hier werden einige Methoden genauer erklï¿½rt, viele der Methoden kommen in anderen Activitys in selber Art 
+ * und Weise wieder vor und werden dort dann nicht mehr ausfï¿½hrlich besprochen.
  */
 
 import java.io.File;
@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import unisiegen.photographers.export.Export;
+import unisiegen.photographers.export.Allgemein;
+import unisiegen.photographers.export.BildObjekt;
 import unisiegen.photographers.export.Film;
-import unisiegen.photographers.export.Film.BildObjekt;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -43,10 +43,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -57,8 +59,8 @@ import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
+
+import com.thoughtworks.xstream.XStream;
 
 public class FilmAuswahlActivity extends Activity {
 
@@ -218,7 +220,7 @@ public class FilmAuswahlActivity extends Activity {
 	}
 
 	/*
-	 * Datenbank-Methoden (Die SQL Datenbanken werden geöffnet bzw. falls sie
+	 * Datenbank-Methoden (Die SQL Datenbanken werden geï¿½ffnet bzw. falls sie
 	 * noch nicht entstehen, werden sie erstellt)
 	 */
 
@@ -242,8 +244,8 @@ public class FilmAuswahlActivity extends Activity {
 	}
 
 	/*
-	 * Hilfs-Klasse für die Anzeige der Filmobjekte in einer Listen-Zeile (Die
-	 * Attribute die Angezeigt werden, werden für jeden Film als ein Objekt
+	 * Hilfs-Klasse fï¿½r die Anzeige der Filmobjekte in einer Listen-Zeile (Die
+	 * Attribute die Angezeigt werden, werden fï¿½r jeden Film als ein Objekt
 	 * gespeichert)
 	 */
 
@@ -287,7 +289,7 @@ public class FilmAuswahlActivity extends Activity {
 	}
 
 	/*
-	 * ViewHolder für die Filmobjekte der Einzelenden Listen-Zeilen (Zum
+	 * ViewHolder fï¿½r die Filmobjekte der Einzelenden Listen-Zeilen (Zum
 	 * Speichern der Views um sie nicht immer erneut zu definieren)
 	 */
 
@@ -329,9 +331,9 @@ public class FilmAuswahlActivity extends Activity {
 	}
 
 	/*
-	 * Custom Array-Adapter für Custom-Listen-Zeilen (Es handelt sich um eine
-	 * Liste, welche Custom-"Zellen" zum Anzeigen verwendet, hierfür wird ein
-	 * custom ArrayAdapter benötigt, der die Attribute den richtigen Stellen in
+	 * Custom Array-Adapter fï¿½r Custom-Listen-Zeilen (Es handelt sich um eine
+	 * Liste, welche Custom-"Zellen" zum Anzeigen verwendet, hierfï¿½r wird ein
+	 * custom ArrayAdapter benï¿½tigt, der die Attribute den richtigen Stellen in
 	 * den einzelnden Zellen zuordnet)
 	 */
 
@@ -588,7 +590,7 @@ public class FilmAuswahlActivity extends Activity {
 	};
 
 	/*
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menü
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menï¿½
 	 */
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -677,7 +679,7 @@ public class FilmAuswahlActivity extends Activity {
 	}
 
 	/*
-	 * Popup für Tutorial
+	 * Popup fï¿½r Tutorial
 	 */
 
 	public void popupmenue() {
@@ -752,7 +754,7 @@ public class FilmAuswahlActivity extends Activity {
 
 		/*
 		 * Es werden nochmal alle Tabellen in der SQL Datenbank neu erstellt und
-		 * neu gefüllt... nicht sehr elegant :)
+		 * neu gefï¿½llt... nicht sehr elegant :)
 		 */
 		protected Boolean doInBackground(final String... args) {
 			try {
@@ -1479,18 +1481,9 @@ public class FilmAuswahlActivity extends Activity {
 			if (dialog.isShowing()) {
 				dialog.dismiss();
 			}
-			String FILENAME = _title + ".xml";
-
-			try {
-				FileOutputStream fos = openFileOutput(FILENAME,
-						Context.MODE_WORLD_READABLE);
-				fos.write(Films.getBytes());
-				fos.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			
 			File file = new File(getFilesDir() + "/" + _title + ".xml");
-
+			
 			Uri u1 = null;
 			u1 = Uri.fromFile(file);
 			Intent sendIntent = new Intent(Intent.ACTION_SEND);
@@ -1563,7 +1556,7 @@ public class FilmAuswahlActivity extends Activity {
 			if (c11 != null) {
 				if (c11.moveToFirst()) {
 					do {
-						Bilder.add(puffer.new BildObjekt(
+						Bilder.add(new BildObjekt(
 								c11.getString(c11.getColumnIndex("picnummer")),
 								c11.getString(c11.getColumnIndex("picobjektiv")),
 								c11.getString(c11.getColumnIndex("picblende")),
@@ -1599,12 +1592,27 @@ public class FilmAuswahlActivity extends Activity {
 			myDBFilm.close();
 			Film = new Film();
 			Film = new Film(
-					Film.new Allgemein(_title, _kamera, _notiz, _filmformat,
+					new Allgemein(_title, _kamera, _notiz, _filmformat,
 							_empfindlichkeit, _filmtyp, _sonder1, _sonder2),
 					Bilder);
-			Export exportObjekt = new Export();
-			Films = exportObjekt.exportFilm(Film);
-
+			
+			
+			String FILENAME = _title + ".xml";
+			
+			XStream xs = new XStream();
+			xs.alias("Bild", BildObjekt.class);
+			xs.alias("Film", Film.class);					
+			
+			try {
+				FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_WORLD_READABLE);
+				xs.toXML(Film, fos);
+				fos.close();
+				Log.v("Check","XML Export: " + FILENAME + " was written.");
+			} catch (IOException e) {
+				e.printStackTrace();
+				Log.v("Check","Failes to write XML Export: " + FILENAME);
+			}
+			
 			return null;
 		}
 	}
