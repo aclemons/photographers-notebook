@@ -2,8 +2,7 @@ package unisiegen.photographers.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.viewpagerindicator.TitlePageIndicator;
-import com.viewpagerindicator.TitleProvider;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -29,10 +28,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -46,6 +45,9 @@ import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.viewpagerindicator.TitlePageIndicator;
+import com.viewpagerindicator.TitleProvider;
 
 public class SlideNewSettingsSon extends Activity {
 
@@ -83,7 +85,7 @@ public class SlideNewSettingsSon extends Activity {
 			slideView10;
 
 	/*
-	 * Hash-Map für Default Werte der Spinner
+	 * Hash-Map fï¿½r Default Werte der Spinner
 	 */
 	HashMap<String, Integer> defCheck0, defCheck1, defCheck2, defCheck3,
 			defCheck4, defCheck5, defCheck6, defCheck7, defCheck8, defCheck9,
@@ -91,7 +93,7 @@ public class SlideNewSettingsSon extends Activity {
 			defCheck15;
 
 	/*
-	 * Custom ArrayAdapter und ArrayList für ListView
+	 * Custom ArrayAdapter und ArrayList fï¿½r ListView
 	 */
 	ArrayList<Settings> aplanets7, aplanets6, planet1, planet2, planet3,
 			planet4, planet5, planet6, planet7, planet0, planets3, planets4,
@@ -1088,7 +1090,7 @@ public class SlideNewSettingsSon extends Activity {
 						false);
 				if (true) {
 					/*
-					 * View ändern
+					 * View ï¿½ndern
 					 */
 					freecell6 = (TextView) vf.findViewById(R.id.freecell);
 					tablor6 = (TableLayout) vf.findViewById(R.id.tablor);
@@ -1097,7 +1099,7 @@ public class SlideNewSettingsSon extends Activity {
 					Kat6 = (EditText) vf.findViewById(R.id.kameramodell);
 
 					/*
-					 * Text und Farbe ändern
+					 * Text und Farbe ï¿½ndern
 					 */
 					freecell6.setText("Sonderentwicklung");
 					tablor6.setBackgroundResource(R.drawable.shapebluetable);
@@ -1105,7 +1107,7 @@ public class SlideNewSettingsSon extends Activity {
 					tablor6.setPadding(4, 0, -2, 0);
 
 					/*
-					 * Liste ändern
+					 * Liste ï¿½ndern
 					 */
 					listAdapter6 = new SettingsArrayAdapter(mContext,
 							aplanets6, 67);
@@ -1541,7 +1543,7 @@ public class SlideNewSettingsSon extends Activity {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menü und
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menï¿½ und
 	 * Set Methoden
 	 */
 

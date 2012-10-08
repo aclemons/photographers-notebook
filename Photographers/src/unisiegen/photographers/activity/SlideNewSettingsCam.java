@@ -2,8 +2,7 @@ package unisiegen.photographers.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.viewpagerindicator.TitlePageIndicator;
-import com.viewpagerindicator.TitleProvider;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -29,10 +28,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -46,6 +45,9 @@ import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.viewpagerindicator.TitlePageIndicator;
+import com.viewpagerindicator.TitleProvider;
 
 public class SlideNewSettingsCam extends Activity {
 
@@ -65,7 +67,7 @@ public class SlideNewSettingsCam extends Activity {
 	TitlePageIndicator mIndicator;
 
 	/*
-	 * Hash-Map für Default Werte der Spinner
+	 * Hash-Map fï¿½r Default Werte der Spinner
 	 */
 	HashMap<String, Integer> defCheck0, defCheck1, defCheck2, defCheck3,
 			defCheck4, defCheck5, defCheck6, defCheck7, defCheck8, defCheck9,
@@ -73,7 +75,7 @@ public class SlideNewSettingsCam extends Activity {
 			defCheck15;
 
 	/*
-	 * Custom ArrayAdapter und ArrayList für ListView
+	 * Custom ArrayAdapter und ArrayList fï¿½r ListView
 	 */
 	ArrayList<Settings> aplanets7, aplanets6, planet1, planet2, planet3,
 			planet4, planet5, planet6, planet7, planet0, planets3, planets4,
@@ -193,7 +195,7 @@ public class SlideNewSettingsCam extends Activity {
 		Log.v("Check", "writeDB()");
 	}
 
-	// Passende Brennweiten für Camera finden
+	// Passende Brennweiten fï¿½r Camera finden
 	private ArrayList<String> getListCAMBW(String Cam) {
 		ArrayList<String> camList = new ArrayList<String>();
 		onCreateDBAndDBTabled();
@@ -691,7 +693,7 @@ public class SlideNewSettingsCam extends Activity {
 	}
 
 	/*
-	 * Hilfsklassen für Custom ListView und ViewAdapter
+	 * Hilfsklassen fï¿½r Custom ListView und ViewAdapter
 	 */
 
 	public void setFooterColor(int footerColor) {
@@ -699,7 +701,7 @@ public class SlideNewSettingsCam extends Activity {
 	}
 
 	/*
-	 * Hilfs-Klassen und Custom Array Adapter für die Custom ListView Items und
+	 * Hilfs-Klassen und Custom Array Adapter fï¿½r die Custom ListView Items und
 	 * SlideView
 	 */
 
@@ -780,7 +782,7 @@ public class SlideNewSettingsCam extends Activity {
 										@Override
 										public void onClick(View v) {
 
-											// BW F€NGT AN
+											// BW Fï¿½NGT AN
 
 											LinearLayout lins = (LinearLayout) arg1;
 											final TextView textis = (TextView) ((LinearLayout) lins
@@ -1002,7 +1004,7 @@ public class SlideNewSettingsCam extends Activity {
 							return true;
 						}
 					});
-					// BW H…RT AUF
+					// BW Hï¿½RT AUF
 
 					addKate.setOnClickListener(new View.OnClickListener() {
 						public void onClick(View v) {
@@ -1032,7 +1034,7 @@ public class SlideNewSettingsCam extends Activity {
 										.toString(), 0));
 								listAdapter.notifyDataSetChanged();
 
-								// BW F€NGT AN
+								// BW Fï¿½NGT AN
 								Display display2 = ((WindowManager) mContext
 										.getSystemService(Context.WINDOW_SERVICE))
 										.getDefaultDisplay();
@@ -1204,7 +1206,7 @@ public class SlideNewSettingsCam extends Activity {
 							}
 						}
 					});
-					// BW H…RT AUF
+					// BW Hï¿½RT AUF
 
 					Kat.setOnKeyListener(new OnKeyListener() {
 						@Override
@@ -3370,7 +3372,7 @@ public class SlideNewSettingsCam extends Activity {
 	 * (non-Javadoc)
 	 * 
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-	 * Menü-Methoden und Datenbank Reset und Set-Methoden
+	 * Menï¿½-Methoden und Datenbank Reset und Set-Methoden
 	 */
 
 	public boolean onCreateOptionsMenu(Menu menu) {

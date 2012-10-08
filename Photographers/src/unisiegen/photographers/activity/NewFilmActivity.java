@@ -29,8 +29,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -463,7 +463,7 @@ public class NewFilmActivity extends Activity {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menü
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menï¿½
 	 * Methoden
 	 */
 
@@ -556,9 +556,9 @@ public class NewFilmActivity extends Activity {
 	 * (non-Javadoc)
 	 * 
 	 * @see android.app.Activity#onActivityResult(int, int,
-	 * android.content.Intent) Bild übergabe (Wenn man ein Vorschau bild macht,
-	 * geschieht dies in einer neuen Popup Activity, ist dies fertig übergibt
-	 * diese Activity als Rückgabe Wert das Bild, welches zusammen mit den
+	 * android.content.Intent) Bild ï¿½bergabe (Wenn man ein Vorschau bild macht,
+	 * geschieht dies in einer neuen Popup Activity, ist dies fertig ï¿½bergibt
+	 * diese Activity als Rï¿½ckgabe Wert das Bild, welches zusammen mit den
 	 * anderen Details zum Film gespeichert wird.
 	 */
 

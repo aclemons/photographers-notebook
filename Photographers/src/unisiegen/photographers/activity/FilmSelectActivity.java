@@ -1,13 +1,12 @@
 package unisiegen.photographers.activity;
 
 /**
- * In dieser Activity sieht man den ausgewählten Film mit allen Infos und kann sich die zugehörigen Bilder betrachten und auswählen.
+ * In dieser Activity sieht man den ausgewï¿½hlten Film mit allen Infos und kann sich die zugehï¿½rigen Bilder betrachten und auswï¿½hlen.
  */
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.viewpagerindicator.TitlePageIndicator;
-import com.viewpagerindicator.TitleProvider;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -33,9 +32,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -50,6 +49,9 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.viewpagerindicator.TitlePageIndicator;
+import com.viewpagerindicator.TitleProvider;
 
 public class FilmSelectActivity extends Activity {
 
@@ -171,7 +173,7 @@ public class FilmSelectActivity extends Activity {
 	SharedPreferences settings;
 
 	/*
-	 * Datenbank und Spinnerfüll Methoden
+	 * Datenbank und Spinnerfï¿½ll Methoden
 	 */
 
 	private void onCreateDBAndDBTabled() {
@@ -283,11 +285,11 @@ public class FilmSelectActivity extends Activity {
 	}
 
 	/*
-	 * Es Es werden ArrayListen mit allen Einträgen die "gechecked" sind
+	 * Es Es werden ArrayListen mit allen Eintrï¿½gen die "gechecked" sind
 	 * erstellt, diese werden dann den "Spinnern" zugeordnet um diese mit den
-	 * richtigen Daten zu füllen! Die HashMaps dienen für den Standart wert. Sie
-	 * beinhalten später den Index des "Standart-Werts" und dieser kann dann
-	 * einfach dem Spinner übergeben werden um die richtige Vorauswahl zu
+	 * richtigen Daten zu fï¿½llen! Die HashMaps dienen fï¿½r den Standart wert. Sie
+	 * beinhalten spï¿½ter den Index des "Standart-Werts" und dieser kann dann
+	 * einfach dem Spinner ï¿½bergeben werden um die richtige Vorauswahl zu
 	 * treffen.
 	 */
 	private void fuellen() {
@@ -1290,7 +1292,7 @@ public class FilmSelectActivity extends Activity {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menü
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menï¿½
 	 * Methoden
 	 */
 
@@ -1380,11 +1382,11 @@ public class FilmSelectActivity extends Activity {
 	}
 
 	/*
-	 * Pageadapter für das hin- und herwischen zwischen den Bildenr. Wählt man
-	 * ein Bild aus, wird ein "Popup" geöffnet in der alle Informationen zu dem
-	 * Bild vorhanden sind in dieser Ansicht lässt sich dann auch zwischen den
+	 * Pageadapter fï¿½r das hin- und herwischen zwischen den Bildenr. Wï¿½hlt man
+	 * ein Bild aus, wird ein "Popup" geï¿½ffnet in der alle Informationen zu dem
+	 * Bild vorhanden sind in dieser Ansicht lï¿½sst sich dann auch zwischen den
 	 * Bildern hin- und herwechseln. Es wird einfach eine ArrayList<Views>
-	 * gefüllt. Quasi fertige Views in eine Liste, die beim Wischen
+	 * gefï¿½llt. Quasi fertige Views in eine Liste, die beim Wischen
 	 * durchgegangen wird.
 	 */
 
@@ -1544,7 +1546,7 @@ public class FilmSelectActivity extends Activity {
 																		// immer
 																		// nur
 																		// die 2
-																		// nächsten
+																		// nï¿½chsten
 																		// und 2
 																		// letzen
 																		// Views
@@ -1555,7 +1557,7 @@ public class FilmSelectActivity extends Activity {
 																		// Rest
 																		// wird
 																		// erstmal
-																		// gelöscht
+																		// gelï¿½scht
 			((ViewPager) view).removeView((LinearLayout) object);
 		}
 
@@ -1615,7 +1617,7 @@ public class FilmSelectActivity extends Activity {
 	}
 
 	/*
-	 * Hilfsklasse für Bildobjekte (Nur für die Custom Zelle der Liste)
+	 * Hilfsklasse fï¿½r Bildobjekte (Nur fï¿½r die Custom Zelle der Liste)
 	 */
 
 	private static class Pictures {
@@ -1643,7 +1645,7 @@ public class FilmSelectActivity extends Activity {
 	}
 
 	/*
-	 * Viewholder für Picture Elemente
+	 * Viewholder fï¿½r Picture Elemente
 	 */
 
 	private static class PicturesViewHolder {
@@ -1672,7 +1674,7 @@ public class FilmSelectActivity extends Activity {
 	}
 
 	/*
-	 * Custom Array Adapter für custom List-Zeilen
+	 * Custom Array Adapter fï¿½r custom List-Zeilen
 	 */
 
 	private class PicturesArrayAdapter extends ArrayAdapter<Pictures> {

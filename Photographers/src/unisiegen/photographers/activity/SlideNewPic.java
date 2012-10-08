@@ -1,16 +1,13 @@
 package unisiegen.photographers.activity;
 
 /**
- * Hier "schießt" man die neuen Fotos! Man nimmt die Bildeinstellungen vor und speichert das Bild.
+ * Hier "schieï¿½t" man die neuen Fotos! Man nimmt die Bildeinstellungen vor und speichert das Bild.
  */
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-
-import com.viewpagerindicator.TitlePageIndicator;
-import com.viewpagerindicator.TitleProvider;
 
 import android.app.Activity;
 import android.content.Context;
@@ -35,8 +32,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -48,6 +45,9 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.viewpagerindicator.TitlePageIndicator;
+import com.viewpagerindicator.TitleProvider;
 
 public class SlideNewPic extends Activity {
 
@@ -395,7 +395,7 @@ public class SlideNewPic extends Activity {
 	}
 
 	/*
-	 * GPS Location für GeoTag der Bilder
+	 * GPS Location fï¿½r GeoTag der Bilder
 	 */
 	private void getLocation() {
 		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -460,7 +460,7 @@ public class SlideNewPic extends Activity {
 		picturesNumber++;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext); // datum
 																			// zeit
-																			// einfügen
+																			// einfï¿½gen
 																			// !!
 
 		myDBFilm.execSQL("INSERT INTO " + MY_DB_FILM_TABLE + " Values (" + null
@@ -1003,10 +1003,10 @@ public class SlideNewPic extends Activity {
 	}
 
 	/*
-	 * HilfsKlassen für SlideView etc.
+	 * HilfsKlassen fï¿½r SlideView etc.
 	 */
 
-	public void setFooterColor(int footerColor) { // Farbe für die Balken unter
+	public void setFooterColor(int footerColor) { // Farbe fï¿½r die Balken unter
 													// dem Titel (SlideView)
 		mIndicator.setFooterColor(footerColor);
 	}
@@ -1347,7 +1347,7 @@ public class SlideNewPic extends Activity {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menü
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menï¿½
 	 * Methoden
 	 */
 

@@ -1,13 +1,12 @@
 package unisiegen.photographers.activity;
 
 /**
- * Hierbei handelt es sich um alle Einstellungen ! Die anderen Einstellungs-Activitys sind nur Teilmengen von dieser für eine bessere Aufteilung wenn gewünscht!
+ * Hierbei handelt es sich um alle Einstellungen ! Die anderen Einstellungs-Activitys sind nur Teilmengen von dieser fï¿½r eine bessere Aufteilung wenn gewï¿½nscht!
  */
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.viewpagerindicator.TitlePageIndicator;
-import com.viewpagerindicator.TitleProvider;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -33,19 +32,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -55,6 +54,9 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import com.viewpagerindicator.TitlePageIndicator;
+import com.viewpagerindicator.TitleProvider;
 
 public class SlideNewSettings extends Activity {
 
@@ -105,7 +107,7 @@ public class SlideNewSettings extends Activity {
 			slideView10;
 
 	/*
-	 * Hash-Map für Default Werte der Spinner
+	 * Hash-Map fï¿½r Default Werte der Spinner
 	 */
 	HashMap<String, Integer> defCheck0, defCheck1, defCheck2, defCheck3,
 			defCheck4, defCheck5, defCheck6, defCheck7, defCheck8, defCheck9,
@@ -113,7 +115,7 @@ public class SlideNewSettings extends Activity {
 			defCheck15;
 
 	/*
-	 * Custom ArrayAdapter und ArrayList für ListView
+	 * Custom ArrayAdapter und ArrayList fï¿½r ListView
 	 */
 	ArrayList<Settings> aplanets7, aplanets6, planet1, planet2, planet3,
 			planet4, planet5, planet6, planet7, planet0, planets3, planets4,
@@ -219,7 +221,7 @@ public class SlideNewSettings extends Activity {
 	}
 
 	/*
-	 * Popup für Hilfe
+	 * Popup fï¿½r Hilfe
 	 */
 
 	public void popupmenue() {
@@ -682,7 +684,7 @@ public class SlideNewSettings extends Activity {
 		}
 	}
 
-	// Set auswählen
+	// Set auswï¿½hlen
 	private void makedefaultDB(String TableName, String Name) {
 		onCreateDBAndDBTabled();
 		try {
@@ -800,7 +802,7 @@ public class SlideNewSettings extends Activity {
 	}
 
 	/*
-	 * Hilfsklassen für Custom-ListViews und SlideViews
+	 * Hilfsklassen fï¿½r Custom-ListViews und SlideViews
 	 */
 
 	public void setFooterColor(int footerColor) {
@@ -1090,7 +1092,7 @@ public class SlideNewSettings extends Activity {
 										@Override
 										public void onClick(View v) {
 
-											// BW F€NGT AN
+											// BW Fï¿½NGT AN
 
 											LinearLayout lins = (LinearLayout) arg1;
 											final TextView textis = (TextView) ((LinearLayout) lins
@@ -1313,7 +1315,7 @@ public class SlideNewSettings extends Activity {
 							return true;
 						}
 					});
-					// BW H…RT AUF
+					// BW Hï¿½RT AUF
 
 					addKate.setOnClickListener(new View.OnClickListener() {
 						public void onClick(View v) {
@@ -1343,7 +1345,7 @@ public class SlideNewSettings extends Activity {
 										.toString(), 0));
 								listAdapter.notifyDataSetChanged();
 
-								// BW F€NGT AN
+								// BW Fï¿½NGT AN
 								Display display2 = ((WindowManager) mContext
 										.getSystemService(Context.WINDOW_SERVICE))
 										.getDefaultDisplay();
@@ -1514,7 +1516,7 @@ public class SlideNewSettings extends Activity {
 							}
 						}
 					});
-					// BW H…RT AUF
+					// BW Hï¿½RT AUF
 
 					Kat.setOnKeyListener(new OnKeyListener() {
 						@Override
@@ -3843,7 +3845,7 @@ public class SlideNewSettings extends Activity {
 						false);
 				if (true) {
 					/*
-					 * View ändern
+					 * View ï¿½ndern
 					 */
 					freecell6 = (TextView) vf.findViewById(R.id.freecell);
 					tablor6 = (TableLayout) vf.findViewById(R.id.tablor);
@@ -3852,7 +3854,7 @@ public class SlideNewSettings extends Activity {
 					Kat6 = (EditText) vf.findViewById(R.id.kameramodell);
 
 					/*
-					 * Text und Farbe ändern
+					 * Text und Farbe ï¿½ndern
 					 */
 					freecell6.setText("Sonderentwicklung");
 					tablor6.setBackgroundResource(R.drawable.shapebluetable);
@@ -3860,7 +3862,7 @@ public class SlideNewSettings extends Activity {
 					tablor6.setPadding(4, 0, -2, 0);
 
 					/*
-					 * Liste ändern
+					 * Liste ï¿½ndern
 					 */
 					listAdapter6 = new SettingsArrayAdapter(mContext,
 							aplanets6, 67);
@@ -4137,7 +4139,7 @@ public class SlideNewSettings extends Activity {
 		}
 	}
 
-	// Extra ArrayAdapter für die Camera Zellen (Diese beinhalten noch die
+	// Extra ArrayAdapter fï¿½r die Camera Zellen (Diese beinhalten noch die
 	// Objektive)
 	private class CamArrayAdapter extends ArrayAdapter<Settings> {
 
@@ -4534,7 +4536,7 @@ public class SlideNewSettings extends Activity {
 	 * (non-Javadoc)
 	 * 
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-	 * Menü-Methoden und Set Methoden
+	 * Menï¿½-Methoden und Set Methoden
 	 */
 
 	public boolean onCreateOptionsMenu(Menu menu) {

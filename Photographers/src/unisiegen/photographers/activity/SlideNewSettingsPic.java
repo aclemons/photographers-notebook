@@ -3,8 +3,6 @@ package unisiegen.photographers.activity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.viewpagerindicator.TitlePageIndicator;
-import com.viewpagerindicator.TitleProvider;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -30,10 +28,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -47,6 +45,9 @@ import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.viewpagerindicator.TitlePageIndicator;
+import com.viewpagerindicator.TitleProvider;
 
 public class SlideNewSettingsPic extends Activity {
 
@@ -84,7 +85,7 @@ public class SlideNewSettingsPic extends Activity {
 			slideView10;
 
 	/*
-	 * Hash-Map für Default Werte der Spinner
+	 * Hash-Map fï¿½r Default Werte der Spinner
 	 */
 	HashMap<String, Integer> defCheck0, defCheck1, defCheck2, defCheck3,
 			defCheck4, defCheck5, defCheck6, defCheck7, defCheck8, defCheck9,
@@ -92,7 +93,7 @@ public class SlideNewSettingsPic extends Activity {
 			defCheck15;
 
 	/*
-	 * Custom ArrayAdapter und ArrayList für ListView
+	 * Custom ArrayAdapter und ArrayList fï¿½r ListView
 	 */
 	ArrayList<Settings> aplanets7, aplanets6, planet1, planet2, planet3,
 			planet4, planet5, planet6, planet7, planet0, planets3, planets4,
@@ -1295,7 +1296,7 @@ public class SlideNewSettingsPic extends Activity {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menü und
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menï¿½ und
 	 * Set Methoden
 	 */
 
