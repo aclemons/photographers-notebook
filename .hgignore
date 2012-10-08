@@ -1,0 +1,9 @@
+
+syntax: regexp
+^Photographers/bin$
+syntax: regexp
+^Photographers/gen$
+syntax: regexp
+^TabSlide/bin$
+syntax: regexp
+^TabSlide/gen$
