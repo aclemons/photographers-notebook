@@ -11,56 +11,35 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
-<TextView 
-    android:layout_width="fill_parent"
-    android:id="@+id/listItemText"
-    android:layout_height="wrap_content"
-    android:text="Film 1"
-    android:layout_weight=".1"
-    android:textSize="12dp" >
-</TextView>
-<LinearLayout 
-    android:layout_width="fill_parent"
-    android:layout_weight=".2"
-    android:gravity="right|top"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-   <TextView 
-    android:layout_width="fill_parent"
-    android:id="@+id/listItemTextTime"
-    android:layout_height="wrap_content"
-    android:gravity="right"
-    android:text="16.54 Uhr"
-    android:layout_weight=".1"
-    android:textSize="12dp" >
-</TextView> 
-</LinearLayout>
-</LinearLayout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
 
 <TextView
-    android:id="@+id/listItemObjektivk"
+    android:id="@+id/listItemText"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="     "
+    android:layout_weight=".1"
+    android:gravity="left"
+    android:text="Bild 1"
     android:textSize="12dp" >
 
 </TextView>
-<LinearLayout 
+
+<TextView
+    android:id="@+id/listItemBlendeZeit"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-   <TextView 
-    android:layout_width="fill_parent"
-    android:id="@+id/listItemObjektiv"
-    android:layout_height="wrap_content"
-    android:text="SuperZoomBlende"
     android:layout_weight=".1"
-    android:textSize="12dp" >
-</TextView> 
-</LinearLayout>
+    android:gravity="center_horizontal"
+    android:text="Zeit und Blende"
+    android:textSize="12dp" />
+
+<TextView
+    android:id="@+id/listItemTextTime"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight=".1"
+    android:gravity="right"
+    android:text="16.54 - 10.10.2012"
+    android:textSize="12dp" />
+
 </LinearLayout>
     </LinearLayout>
