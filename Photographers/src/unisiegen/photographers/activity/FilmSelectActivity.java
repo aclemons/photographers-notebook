@@ -742,7 +742,7 @@ public class FilmSelectActivity extends Activity {
 		onCreateDBAndDBTabledFilm();
 		Cursor c1 = myDBFilm
 				.rawQuery(
-						"SELECT _id,filmtitle,filmnotiz,picuhrzeit,picnummer, picobjektiv, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
+						"SELECT _id,filmtitle,filmnotiz,picuhrzeit,picnummer, picobjektiv, picblende, piczeit, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
 								+ MY_DB_FILM_TABLE
 								+ " WHERE filmtitle = '"
 								+ filmTitle + "'", null);
@@ -781,8 +781,8 @@ public class FilmSelectActivity extends Activity {
 
 					listItems.add(new Pictures(c1.getString(c1
 							.getColumnIndex("picnummer")), c1.getString(c1
-							.getColumnIndex("picuhrzeit")), c1.getString(c1
-							.getColumnIndex("picobjektiv"))));
+							.getColumnIndex("picuhrzeit")), "Zeit: " + c1.getString(c1
+							.getColumnIndex("piczeit")) + " - Blende: " + c1.getString(c1.getColumnIndex("picblende"))));
 					i++;
 					listItemsID.add(c1.getInt(c1.getColumnIndex("_id")));
 					Log.v("Check", "LISTITEMS : " + listItems.size());
