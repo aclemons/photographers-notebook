@@ -2083,8 +2083,7 @@ public class SlideNewSettingsSon extends Activity {
 		protected Boolean doInBackground(final String... args) {
 			try {
 				
-				DB dbcreator = new DB(mContext);
-				dbcreator.createOrRebuildSettingsTable();
+				DB.getDB().createOrRebuildSettingsTable(mContext);
 
 				onCreateDBAndDBNumber();
 				myDBNummer.execSQL("DELETE FROM " + MY_DB_TABLE_NUMMER);

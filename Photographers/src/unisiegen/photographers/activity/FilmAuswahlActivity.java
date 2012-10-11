@@ -735,8 +735,7 @@ public class FilmAuswahlActivity extends Activity {
 		protected Boolean doInBackground(final String... args) {
 			try {
 				
-				DB dbcreator = new DB(mContext);
-				dbcreator.createOrRebuildSettingsTable();
+				DB.getDB().createOrRebuildSettingsTable(mContext);
 
 			} catch (Exception e) {
 				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);

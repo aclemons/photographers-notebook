@@ -1,4 +1,4 @@
- package unisiegen.photographers.database;
+package unisiegen.photographers.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,11 +12,8 @@ import android.util.Log;
  */
 public class DB {
 	
-	private Context my_context;
+	private static DB instance;
 	
-	public DB(Context context) {
-		my_context = context;
-	}
 	
 	public final static String MY_DB_TABLE_NUMMER = "Nummer";
 	public final static String MY_DB_FILM_TABLE = "Film";
@@ -50,13 +47,23 @@ public class DB {
 	public final static String MY_DB_TABLE_SETTYP = "SettingsFilmTyp";
 	
 	
-	public void createOrRebuildSettingsTable() {
+	private DB() {}
+	
+	public static DB getDB(){
+		if(instance == null){
+			instance = new DB();
+		}
+		return instance;
+	}
+	
+	
+	public void createOrRebuildSettingsTable(Context context) throws Exception {
 
 		Log.v("DatabaseCreator", "rebuildSettings() was called...");
 		
-		SQLiteDatabase myDBSet = null;
+		SQLiteDatabase myDBSet = null;		
 		
-		myDBSet	= my_context.openOrCreateDatabase(MY_DB_SET,
+		myDBSet	= context.openOrCreateDatabase(MY_DB_SET,
 				Context.MODE_PRIVATE, null);
 		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
 				+ MY_DB_TABLE_SETCAMBW
