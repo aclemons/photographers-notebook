@@ -168,7 +168,7 @@ public class SlideNewPic extends Activity {
 	protected void onResume() {
 		super.onResume();
 		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
-		if (settings.getString("geoTag", "ja").equals("ja")) {
+		if (settings.getString("geoTag", "nein").equals("ja")) {
 			getLocation();
 		}
 		fuellen();

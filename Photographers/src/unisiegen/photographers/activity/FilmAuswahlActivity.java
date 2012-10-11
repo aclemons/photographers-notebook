@@ -748,10 +748,7 @@ public class FilmAuswahlActivity extends Activity {
 				dialog.dismiss();
 			}
 			SharedPreferences.Editor editor = settings.edit();
-			editor.putString("SettingsTable", MY_DB_SET);
-			
-			editor.putString("geoTag", "nein"); // Beim ersten Start das geoTag als false speichern, sonst meckert das PhotoNotebook bis man das mal in den Optionen an oder ausgeschaltet hat ...
-			
+			editor.putString("SettingsTable", MY_DB_SET);			
 			editor.commit();
 			MY_DB_NAME = MY_DB_SET;
 		}
