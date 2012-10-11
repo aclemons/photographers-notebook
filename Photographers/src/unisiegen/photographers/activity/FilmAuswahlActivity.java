@@ -898,7 +898,7 @@ public class FilmAuswahlActivity extends Activity {
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
 						+ " Values (" + null + ",'" + "ISO 100/21\u00b0" + "','" + 1
-						+ "','" + 0 + "');");
+						+ "','" + 1 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP
 						+ " Values (" + null + ",'" + "ISO 125/22\u00b0" + "','" + 1
 						+ "','" + 0 + "');");
@@ -1271,7 +1271,7 @@ public class FilmAuswahlActivity extends Activity {
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU
 						+ " Values (" + null + ",'" + "0" + "','" + 1 + "','"
-						+ 0 + "');");
+						+ 1 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU
 						+ " Values (" + null + ",'" + "-0,5" + "','" + 1
 						+ "','" + 0 + "');");

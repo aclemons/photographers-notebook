@@ -4444,7 +4444,7 @@ public class SlideNewSettingsCam extends Activity {
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU
 						+ " Values (" + null + ",'" + "0" + "','" + 1 + "','"
-						+ 0 + "');");
+						+ 1 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU
 						+ " Values (" + null + ",'" + "-0,5" + "','" + 1
 						+ "','" + 0 + "');");
@@ -4490,7 +4490,7 @@ public class SlideNewSettingsCam extends Activity {
 						+ "','" + 0 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR
 						+ " Values (" + null + ",'" + "0" + "','" + 1 + "','"
-						+ 0 + "');");
+						+ 1 + "');");
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR
 						+ " Values (" + null + ",'" + "-0,5" + "','" + 1
 						+ "','" + 0 + "');");
