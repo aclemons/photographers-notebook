@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import unisiegen.photographers.database.DB;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -94,32 +96,6 @@ public class NewFilmActivity extends Activity {
 	static String MY_DB_NAME;
 	static String MY_DB_NUMMER = "Nummern";
 	static String MY_DB_FILM = "Filme";
-	final static String MY_DB_TABLE_NUMMER = "Nummer";
-	final static String MY_DB_FILM_TABLE = "Film";
-	final static String MY_DB_SET = "Foto";
-	final static String MY_DB_SET1 = "FotoSettingsOne";
-	final static String MY_DB_SET2 = "FotoSettingsTwo";
-	final static String MY_DB_SET3 = "FotoSettingsThree";
-	final static String MY_DB_TABLE_SETCAM = "SettingsCamera";
-	final static String MY_DB_TABLE_SETFF = "SettingsFilmFormat";
-	final static String MY_DB_TABLE_SETEMP = "SettingsFilmEmpf";
-	final static String MY_DB_TABLE_SETBW = "SettingsBrennweite";
-	final static String MY_DB_TABLE_SETNM = "SettingsNahzubehor";
-	final static String MY_DB_TABLE_SETFIL = "SettingsFilter";
-	final static String MY_DB_TABLE_SETBLI = "SettingsBlitz";
-	final static String MY_DB_TABLE_SETSON = "SettingsSonder";
-	final static String MY_DB_TABLE_SETFOK = "SettingsFokus";
-	final static String MY_DB_TABLE_SETBLE = "SettingsBlende";
-	final static String MY_DB_TABLE_SETZEI = "SettingsZeit";
-	final static String MY_DB_TABLE_SETMES = "SettingsMessung";
-	final static String MY_DB_TABLE_SETPLU = "SettingsPlusMinus";
-	final static String MY_DB_TABLE_SETMAK = "SettingsMakro";
-	final static String MY_DB_TABLE_SETMVF = "SettingsMakroVF";
-	final static String MY_DB_TABLE_SETFVF = "SettingsFilterVF";
-	final static String MY_DB_TABLE_SETMVF2 = "SettingsMakroVF2";
-	final static String MY_DB_TABLE_SETFVF2 = "SettingsFilterVF2";
-	final static String MY_DB_TABLE_SETKOR = "SettingsBlitzKorr";
-	final static String MY_DB_TABLE_SETTYP = "SettingsFilmTyp";
 
 	/*
 	 * (non-Javadoc)
@@ -282,84 +258,84 @@ public class NewFilmActivity extends Activity {
 		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
 				null);
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETCAM
+				+ DB.MY_DB_TABLE_SETCAM
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFF
+				+ DB.MY_DB_TABLE_SETFF
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETEMP
+				+ DB.MY_DB_TABLE_SETEMP
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETBW
+				+ DB.MY_DB_TABLE_SETBW
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETNM
+				+ DB.MY_DB_TABLE_SETNM
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFIL
+				+ DB.MY_DB_TABLE_SETFIL
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETBLI
+				+ DB.MY_DB_TABLE_SETBLI
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETSON
+				+ DB.MY_DB_TABLE_SETSON
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETTYP
+				+ DB.MY_DB_TABLE_SETTYP
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFOK
+				+ DB.MY_DB_TABLE_SETFOK
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETBLE
+				+ DB.MY_DB_TABLE_SETBLE
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETZEI
+				+ DB.MY_DB_TABLE_SETZEI
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETMES
+				+ DB.MY_DB_TABLE_SETMES
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETPLU
+				+ DB.MY_DB_TABLE_SETPLU
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETMAK
+				+ DB.MY_DB_TABLE_SETMAK
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETMVF
+				+ DB.MY_DB_TABLE_SETMVF
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFVF
+				+ DB.MY_DB_TABLE_SETFVF
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETKOR
+				+ DB.MY_DB_TABLE_SETKOR
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETMVF2
+				+ DB.MY_DB_TABLE_SETMVF2
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFVF2
+				+ DB.MY_DB_TABLE_SETFVF2
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 
@@ -374,7 +350,7 @@ public class NewFilmActivity extends Activity {
 		listEM = new ArrayList<String>();
 		listTY = new ArrayList<String>();
 		int number = 0;
-		Cursor c = myDB.rawQuery("SELECT name,value FROM " + MY_DB_TABLE_SETCAM
+		Cursor c = myDB.rawQuery("SELECT name,value FROM " + DB.MY_DB_TABLE_SETCAM
 				+ " WHERE value = '1'", null);
 		if (c != null) {
 			if (c.moveToFirst()) {
@@ -392,7 +368,7 @@ public class NewFilmActivity extends Activity {
 		}
 		number = 0;
 		Cursor ca = myDB.rawQuery("SELECT name,value,def FROM "
-				+ MY_DB_TABLE_SETFF + " WHERE value = '1'", null);
+				+ DB.MY_DB_TABLE_SETFF + " WHERE value = '1'", null);
 		if (ca != null) {
 			if (ca.moveToFirst()) {
 				do {
@@ -408,7 +384,7 @@ public class NewFilmActivity extends Activity {
 		}
 		number = 0;
 		Cursor cf = myDB.rawQuery("SELECT name,value,def FROM "
-				+ MY_DB_TABLE_SETSON + " WHERE value = '1'", null);
+				+ DB.MY_DB_TABLE_SETSON + " WHERE value = '1'", null);
 		if (cf != null) {
 			listSSS.add(" ");
 			if (cf.moveToFirst()) {
@@ -426,7 +402,7 @@ public class NewFilmActivity extends Activity {
 		}
 		number = 0;
 		Cursor cg = myDB.rawQuery("SELECT name,value,def FROM "
-				+ MY_DB_TABLE_SETEMP + " WHERE value = '1'", null);
+				+ DB.MY_DB_TABLE_SETEMP + " WHERE value = '1'", null);
 		if (cg != null) {
 			if (cg.moveToFirst()) {
 				do {
@@ -442,7 +418,7 @@ public class NewFilmActivity extends Activity {
 		}
 		number = 0;
 		Cursor ch = myDB.rawQuery("SELECT name,value FROM "
-				+ MY_DB_TABLE_SETTYP + " WHERE value = '1'", null);
+				+ DB.MY_DB_TABLE_SETTYP + " WHERE value = '1'", null);
 		if (ch != null) {
 			if (ch.moveToFirst()) {
 				do {

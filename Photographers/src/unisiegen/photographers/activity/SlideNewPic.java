@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import unisiegen.photographers.database.DB;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -120,33 +122,7 @@ public class SlideNewPic extends Activity {
 	static String MY_DB_NAME;
 	static String MY_DB_NUMMER = "Nummern";
 	static String MY_DB_FILM = "Filme";
-	final static String MY_DB_TABLE_NUMMER = "Nummer";
-	final static String MY_DB_FILM_TABLE = "Film";
-	final static String MY_DB_SET = "Foto";
-	final static String MY_DB_SET1 = "FotoSettingsOne";
-	final static String MY_DB_SET2 = "FotoSettingsTwo";
-	final static String MY_DB_SET3 = "FotoSettingsThree";
-	final static String MY_DB_TABLE_SETCAM = "SettingsCamera";
-	final static String MY_DB_TABLE_SETFF = "SettingsFilmFormat";
-	final static String MY_DB_TABLE_SETEMP = "SettingsFilmEmpf";
-	final static String MY_DB_TABLE_SETBW = "SettingsBrennweite";
-	final static String MY_DB_TABLE_SETNM = "SettingsNahzubehor";
-	final static String MY_DB_TABLE_SETFIL = "SettingsFilter";
-	final static String MY_DB_TABLE_SETBLI = "SettingsBlitz";
-	final static String MY_DB_TABLE_SETSON = "SettingsSonder";
-	final static String MY_DB_TABLE_SETFOK = "SettingsFokus";
-	final static String MY_DB_TABLE_SETBLE = "SettingsBlende";
-	final static String MY_DB_TABLE_SETZEI = "SettingsZeit";
-	final static String MY_DB_TABLE_SETMES = "SettingsMessung";
-	final static String MY_DB_TABLE_SETPLU = "SettingsPlusMinus";
-	final static String MY_DB_TABLE_SETMAK = "SettingsMakro";
-	final static String MY_DB_TABLE_SETMVF = "SettingsMakroVF";
-	final static String MY_DB_TABLE_SETFVF = "SettingsFilterVF";
-	final static String MY_DB_TABLE_SETMVF2 = "SettingsMakroVF2";
-	final static String MY_DB_TABLE_SETFVF2 = "SettingsFilterVF2";
-	final static String MY_DB_TABLE_SETKOR = "SettingsBlitzKorr";
-	final static String MY_DB_TABLE_SETTYP = "SettingsFilmTyp";
-	final static String MY_DB_TABLE_SETCAMBW = "SettingsCameraBW";
+	
 
 	/*
 	 * (non-Javadoc)
@@ -313,7 +289,7 @@ public class SlideNewPic extends Activity {
 		Cursor c = myDBFilm
 				.rawQuery(
 						"SELECT _id,picfokus,picblende,piczeit,picmessung,picobjektiv, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
-								+ MY_DB_FILM_TABLE
+								+ DB.MY_DB_FILM_TABLE
 								+ " WHERE filmtitle = '"
 								+ FilmTitel
 								+ "' AND picnummer = '"
@@ -438,7 +414,7 @@ public class SlideNewPic extends Activity {
 		myDBFilm = mContext.openOrCreateDatabase(MY_DB_FILM,
 				Context.MODE_PRIVATE, null);
 		myDBFilm.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_FILM_TABLE
+				+ DB.MY_DB_FILM_TABLE
 				+ " (_id integer primary key autoincrement, filmdatum varchar(100), picuhrzeit varchar(100), filmtitle varchar(100), filmcamera varchar(100), filmformat varchar(100), filmempfindlichkeit varchar(100), filmtyp varchar(100), filmsonder varchar(100), filmsonders varchar(100), picfokus varchar(100), picblende varchar(100), piczeit varchar(100), picmessung varchar(100), pickorr varchar(100), picmakro varchar(100), picmakrovf varchar(100), picfilter varchar(100), picfiltervf varchar(100), picblitz varchar(100), picblitzkorr varchar(100), picnotiz varchar(100), pickameranotiz varchar(100), picobjektiv varchar(100),piclong varchar(100),piclat varchar(100),filmnotiz varchar(100), picnummer varchar(100))"
 				+ ";");
 	}
@@ -448,7 +424,7 @@ public class SlideNewPic extends Activity {
 				Context.MODE_PRIVATE, null);
 		myDBNummer
 				.execSQL("CREATE TABLE IF NOT EXISTS "
-						+ MY_DB_TABLE_NUMMER
+						+ DB.MY_DB_TABLE_NUMMER
 						+ " (title varchar(100) primary key, value integer,camera varchar(100), datum varchar(100), bilder integer, pic varchar(999))"
 						+ ";");
 	}
@@ -463,7 +439,7 @@ public class SlideNewPic extends Activity {
 																			// einf�gen
 																			// !!
 
-		myDBFilm.execSQL("INSERT INTO " + MY_DB_FILM_TABLE + " Values (" + null
+		myDBFilm.execSQL("INSERT INTO " + DB.MY_DB_FILM_TABLE + " Values (" + null
 				+ ",'" + settings.getString("Datum", " ") + "','"
 				+ settings.getString("Uhrzeit", " ") + "','"
 				+ settings.getString("Title", " ") + "','"
@@ -491,12 +467,12 @@ public class SlideNewPic extends Activity {
 				+ "','" + settings.getString("FilmNotiz", " ") + "','"
 				+ nummerView.getText().toString() + "');");
 		if (settings.getBoolean("EditMode", false)) {
-			myDBNummer.execSQL("UPDATE " + MY_DB_TABLE_NUMMER
+			myDBNummer.execSQL("UPDATE " + DB.MY_DB_TABLE_NUMMER
 					+ " SET bilder = '" + picturesNumber + "' WHERE title = '"
 					+ settings.getString("Title", " ") + "';");
 		} else {
 			String encodedImage = Base64.encodeToString(pics, Base64.DEFAULT);
-			myDBNummer.execSQL("INSERT OR REPLACE INTO " + MY_DB_TABLE_NUMMER
+			myDBNummer.execSQL("INSERT OR REPLACE INTO " + DB.MY_DB_TABLE_NUMMER
 					+ " Values ('" + settings.getString("Title", " ") + "',"
 					+ null + ",'" + settings.getString("Kamera", " ") + "','"
 					+ settings.getString("Datum", " ") + "','" + picturesNumber
@@ -512,7 +488,7 @@ public class SlideNewPic extends Activity {
 		Log.v("Check", "editFilm()");
 		onCreateDBAndDBTabledFilm();
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		myDBFilm.execSQL("UPDATE " + MY_DB_FILM_TABLE + " SET filmdatum = '"
+		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmdatum = '"
 				+ settings.getString("Datum", " ") + "', filmtitle = '"
 				+ settings.getString("Title", " ") + "', filmcamera = '"
 				+ settings.getString("Kamera", " ") + "', filmformat = '"
@@ -560,84 +536,84 @@ public class SlideNewPic extends Activity {
 				null);
 
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETCAM
+				+ DB.MY_DB_TABLE_SETCAM
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFF
+				+ DB.MY_DB_TABLE_SETFF
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETEMP
+				+ DB.MY_DB_TABLE_SETEMP
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETBW
+				+ DB.MY_DB_TABLE_SETBW
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETNM
+				+ DB.MY_DB_TABLE_SETNM
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFIL
+				+ DB.MY_DB_TABLE_SETFIL
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETBLI
+				+ DB.MY_DB_TABLE_SETBLI
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETSON
+				+ DB.MY_DB_TABLE_SETSON
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETTYP
+				+ DB.MY_DB_TABLE_SETTYP
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFOK
+				+ DB.MY_DB_TABLE_SETFOK
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETBLE
+				+ DB.MY_DB_TABLE_SETBLE
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETZEI
+				+ DB.MY_DB_TABLE_SETZEI
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETMES
+				+ DB.MY_DB_TABLE_SETMES
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETPLU
+				+ DB.MY_DB_TABLE_SETPLU
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETMAK
+				+ DB.MY_DB_TABLE_SETMAK
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETMVF
+				+ DB.MY_DB_TABLE_SETMVF
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFVF
+				+ DB.MY_DB_TABLE_SETFVF
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETKOR
+				+ DB.MY_DB_TABLE_SETKOR
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETMVF2
+				+ DB.MY_DB_TABLE_SETMVF2
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFVF2
+				+ DB.MY_DB_TABLE_SETFVF2
 				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
 				+ ";");
 
@@ -660,7 +636,7 @@ public class SlideNewPic extends Activity {
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		int index = 0;
 		Cursor camBWCursor = myDB.rawQuery(
-				"SELECT cam,bw FROM " + MY_DB_TABLE_SETCAMBW + " WHERE cam = '"
+				"SELECT cam,bw FROM " + DB.MY_DB_TABLE_SETCAMBW + " WHERE cam = '"
 						+ settings.getString("Kamera", "") + "'", null);
 		if (camBWCursor != null) {
 			if (camBWCursor.moveToFirst()) {
@@ -679,7 +655,7 @@ public class SlideNewPic extends Activity {
 		index = 0;
 
 		Cursor c_blende = myDB.rawQuery("SELECT name,value,def FROM "
-				+ MY_DB_TABLE_SETBLE + " WHERE value = '" + edit + "'", null);
+				+ DB.MY_DB_TABLE_SETBLE + " WHERE value = '" + edit + "'", null);
 		if (c_blende != null) {
 			if (c_blende.moveToFirst()) {
 				do {
@@ -726,7 +702,7 @@ public class SlideNewPic extends Activity {
 		index = 0;
 
 		Cursor c_zeit = myDB.rawQuery("SELECT name,value,def FROM "
-				+ MY_DB_TABLE_SETZEI + " WHERE value = '" + edit + "'", null);
+				+ DB.MY_DB_TABLE_SETZEI + " WHERE value = '" + edit + "'", null);
 		if (c_zeit != null) {
 			if (c_zeit.moveToFirst()) {
 				do {
@@ -748,7 +724,7 @@ public class SlideNewPic extends Activity {
 		index = 0;
 
 		Cursor c_focus = myDB.rawQuery("SELECT name,value,def FROM "
-				+ MY_DB_TABLE_SETFOK + " WHERE value = '" + edit + "'", null);
+				+ DB.MY_DB_TABLE_SETFOK + " WHERE value = '" + edit + "'", null);
 		if (c_focus != null) {
 			if (c_focus.moveToFirst()) {
 				do {
@@ -770,7 +746,7 @@ public class SlideNewPic extends Activity {
 		index = 0;
 
 		Cursor c_filter = myDB.rawQuery("SELECT name,value,def FROM "
-				+ MY_DB_TABLE_SETFIL + " WHERE value = '" + edit + "'", null);
+				+ DB.MY_DB_TABLE_SETFIL + " WHERE value = '" + edit + "'", null);
 		if (c_filter != null) {
 			if (c_filter.moveToFirst()) {
 				do {
@@ -792,7 +768,7 @@ public class SlideNewPic extends Activity {
 		index = 0;
 
 		Cursor c_makro = myDB.rawQuery("SELECT name,value,def FROM "
-				+ MY_DB_TABLE_SETNM + " WHERE value = '" + edit + "'", null);
+				+ DB.MY_DB_TABLE_SETNM + " WHERE value = '" + edit + "'", null);
 		if (c_makro != null) {
 			if (c_makro.moveToFirst()) {
 				do {
@@ -817,7 +793,7 @@ public class SlideNewPic extends Activity {
 		index = 0;
 
 		Cursor c_messmethode = myDB.rawQuery("SELECT name,value,def FROM "
-				+ MY_DB_TABLE_SETMES + " WHERE value = '" + edit + "'", null);
+				+ DB.MY_DB_TABLE_SETMES + " WHERE value = '" + edit + "'", null);
 		if (c_messmethode != null) {
 			if (c_messmethode.moveToFirst()) {
 				do {
@@ -839,7 +815,7 @@ public class SlideNewPic extends Activity {
 		index = 0;
 
 		Cursor c_belichtungs_korrektur = myDB.rawQuery(
-				"SELECT name,value,def FROM " + MY_DB_TABLE_SETPLU
+				"SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETPLU
 						+ " WHERE value = '" + edit + "'", null);
 		if (c_belichtungs_korrektur != null) {
 			if (c_belichtungs_korrektur.moveToFirst()) {
@@ -867,7 +843,7 @@ public class SlideNewPic extends Activity {
 		if (settings.getString("Verlaengerung", "Faktor (*)").equals(
 				"Faktor (*)")) {
 			Cursor change = myDB.rawQuery("SELECT name,value,def FROM "
-					+ MY_DB_TABLE_SETFVF + " WHERE value = '" + edit + "'",
+					+ DB.MY_DB_TABLE_SETFVF + " WHERE value = '" + edit + "'",
 					null);
 			if (change != null) {
 				if (change.moveToFirst()) {
@@ -889,7 +865,7 @@ public class SlideNewPic extends Activity {
 			}
 			index = 0;
 			Cursor changes = myDB.rawQuery("SELECT name,value,def FROM "
-					+ MY_DB_TABLE_SETMVF + " WHERE value = '" + edit + "'",
+					+ DB.MY_DB_TABLE_SETMVF + " WHERE value = '" + edit + "'",
 					null);
 			if (changes != null) {
 				if (changes.moveToFirst()) {
@@ -913,7 +889,7 @@ public class SlideNewPic extends Activity {
 		} else if (settings.getString("Verlaengerung", "Faktor (*)").equals(
 				"Blendenzugaben (+)")) {
 			Cursor change2 = myDB.rawQuery("SELECT name,value,def FROM "
-					+ MY_DB_TABLE_SETFVF2 + " WHERE value = '" + edit + "'",
+					+ DB.MY_DB_TABLE_SETFVF2 + " WHERE value = '" + edit + "'",
 					null);
 			if (change2 != null) {
 				if (change2.moveToFirst()) {
@@ -933,7 +909,7 @@ public class SlideNewPic extends Activity {
 			}
 			index = 0;
 			Cursor changes2 = myDB.rawQuery("SELECT name,value,def FROM "
-					+ MY_DB_TABLE_SETMVF2 + " WHERE value = '" + edit + "'",
+					+ DB.MY_DB_TABLE_SETMVF2 + " WHERE value = '" + edit + "'",
 					null);
 			if (changes2 != null) {
 				if (changes2.moveToFirst()) {
@@ -957,7 +933,7 @@ public class SlideNewPic extends Activity {
 		}
 
 		Cursor c_blitz = myDB.rawQuery("SELECT name,value,def FROM "
-				+ MY_DB_TABLE_SETBLI + " WHERE value = '" + edit + "'", null);
+				+ DB.MY_DB_TABLE_SETBLI + " WHERE value = '" + edit + "'", null);
 		if (c_blitz != null) {
 			if (c_blitz.moveToFirst()) {
 				do {
@@ -979,7 +955,7 @@ public class SlideNewPic extends Activity {
 		index = 0;
 
 		Cursor c_blitz_korrektur = myDB.rawQuery("SELECT name,value,def FROM "
-				+ MY_DB_TABLE_SETKOR + " WHERE value = '" + edit + "'", null);
+				+ DB.MY_DB_TABLE_SETKOR + " WHERE value = '" + edit + "'", null);
 		if (c_blitz_korrektur != null) {
 			if (c_blitz_korrektur.moveToFirst()) {
 				do {

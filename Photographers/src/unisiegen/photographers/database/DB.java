@@ -1,46 +1,60 @@
-package unisiegen.photographers.activity;
+ package unisiegen.photographers.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-public class DatabaseCreator {
+/**
+ * This class is able to create new databases for Settings and Films. 
+ * Furthermore, existing Databases can be reset to their default values,
+ * which is a set of useful values for your gear and an empty film 
+ * library. 
+ */
+public class DB {
 	
 	private Context my_context;
 	
-	public DatabaseCreator(Context context) {
+	public DB(Context context) {
 		my_context = context;
 	}
 	
-	static SQLiteDatabase myDBSet = null;
+	public final static String MY_DB_TABLE_NUMMER = "Nummer";
+	public final static String MY_DB_FILM_TABLE = "Film";
+	
 
-	private static final String MY_DB_SET = "Foto";
-
-	final static String MY_DB_TABLE_SETCAM = "SettingsCamera";
-	final static String MY_DB_TABLE_SETCAMBW = "SettingsCameraBW";
-	final static String MY_DB_TABLE_SETFF = "SettingsFilmFormat";
-	final static String MY_DB_TABLE_SETEMP = "SettingsFilmEmpf";
-	final static String MY_DB_TABLE_SETBW = "SettingsBrennweite";
-	final static String MY_DB_TABLE_SETNM = "SettingsNahzubehor";
-	final static String MY_DB_TABLE_SETFIL = "SettingsFilter";
-	final static String MY_DB_TABLE_SETBLI = "SettingsBlitz";
-	final static String MY_DB_TABLE_SETSON = "SettingsSonder";
-	final static String MY_DB_TABLE_SETFOK = "SettingsFokus";
-	final static String MY_DB_TABLE_SETBLE = "SettingsBlende";
-	final static String MY_DB_TABLE_SETZEI = "SettingsZeit";
-	final static String MY_DB_TABLE_SETMES = "SettingsMessung";
-	final static String MY_DB_TABLE_SETPLU = "SettingsPlusMinus";
-	final static String MY_DB_TABLE_SETMAK = "SettingsMakro";
-	final static String MY_DB_TABLE_SETMVF = "SettingsMakroVF";
-	final static String MY_DB_TABLE_SETFVF = "SettingsFilterVF";
-	final static String MY_DB_TABLE_SETMVF2 = "SettingsMakroVF2";
-	final static String MY_DB_TABLE_SETFVF2 = "SettingsFilterVF2";
-	final static String MY_DB_TABLE_SETKOR = "SettingsBlitzKorr";
-	final static String MY_DB_TABLE_SETTYP = "SettingsFilmTyp";
-
-	public void rebuildSettings() {
+	public final static String MY_DB_SET = "Foto";
+	public final static String MY_DB_SET1 = "FotoSettingsOne";
+	public final static String MY_DB_SET2 = "FotoSettingsTwo";
+	public final static String MY_DB_SET3 = "FotoSettingsThree";
+	
+	public final static String MY_DB_TABLE_SETCAM = "SettingsCamera";
+	public final static String MY_DB_TABLE_SETCAMBW = "SettingsCameraBW";
+	public final static String MY_DB_TABLE_SETFF = "SettingsFilmFormat";
+	public final static String MY_DB_TABLE_SETEMP = "SettingsFilmEmpf";
+	public final static String MY_DB_TABLE_SETBW = "SettingsBrennweite";
+	public final static String MY_DB_TABLE_SETNM = "SettingsNahzubehor";
+	public final static String MY_DB_TABLE_SETFIL = "SettingsFilter";
+	public final static String MY_DB_TABLE_SETBLI = "SettingsBlitz";
+	public final static String MY_DB_TABLE_SETSON = "SettingsSonder";
+	public final static String MY_DB_TABLE_SETFOK = "SettingsFokus";
+	public final static String MY_DB_TABLE_SETBLE = "SettingsBlende";
+	public final static String MY_DB_TABLE_SETZEI = "SettingsZeit";
+	public final static String MY_DB_TABLE_SETMES = "SettingsMessung";
+	public final static String MY_DB_TABLE_SETPLU = "SettingsPlusMinus";
+	public final static String MY_DB_TABLE_SETMAK = "SettingsMakro";
+	public final static String MY_DB_TABLE_SETMVF = "SettingsMakroVF";
+	public final static String MY_DB_TABLE_SETFVF = "SettingsFilterVF";
+	public final static String MY_DB_TABLE_SETMVF2 = "SettingsMakroVF2";
+	public final static String MY_DB_TABLE_SETFVF2 = "SettingsFilterVF2";
+	public final static String MY_DB_TABLE_SETKOR = "SettingsBlitzKorr";
+	public final static String MY_DB_TABLE_SETTYP = "SettingsFilmTyp";
+	
+	
+	public void createOrRebuildSettingsTable() {
 
 		Log.v("DatabaseCreator", "rebuildSettings() was called...");
+		
+		SQLiteDatabase myDBSet = null;
 		
 		myDBSet	= my_context.openOrCreateDatabase(MY_DB_SET,
 				Context.MODE_PRIVATE, null);

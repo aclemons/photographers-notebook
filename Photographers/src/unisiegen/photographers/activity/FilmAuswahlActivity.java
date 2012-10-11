@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import unisiegen.photographers.database.DB;
 import unisiegen.photographers.export.Allgemein;
 import unisiegen.photographers.export.BildObjekt;
 import unisiegen.photographers.export.Film;
@@ -71,37 +72,12 @@ public class FilmAuswahlActivity extends Activity {
 	SQLiteDatabase myDB = null;
 	SQLiteDatabase myDBFilm = null;
 	SQLiteDatabase myDBNummer = null;
+	
 	static String MY_DB_NAME;
 	static String MY_DB_NUMMER = "Nummern";
 	static String MY_DB_FILM = "Filme";
-	final static String MY_DB_TABLE_NUMMER = "Nummer";
-	final static String MY_DB_FILM_TABLE = "Film";
-	final static String MY_DB_SET = "Foto";
-	final static String MY_DB_SET1 = "FotoSettingsOne";
-	final static String MY_DB_SET2 = "FotoSettingsTwo";
-	final static String MY_DB_SET3 = "FotoSettingsThree";
-	final static String MY_DB_TABLE_SETCAM = "SettingsCamera";
-	final static String MY_DB_TABLE_SETCAMBW = "SettingsCameraBW";
-	final static String MY_DB_TABLE_SETFF = "SettingsFilmFormat";
-	final static String MY_DB_TABLE_SETEMP = "SettingsFilmEmpf";
-	final static String MY_DB_TABLE_SETBW = "SettingsBrennweite";
-	final static String MY_DB_TABLE_SETNM = "SettingsNahzubehor";
-	final static String MY_DB_TABLE_SETFIL = "SettingsFilter";
-	final static String MY_DB_TABLE_SETBLI = "SettingsBlitz";
-	final static String MY_DB_TABLE_SETSON = "SettingsSonder";
-	final static String MY_DB_TABLE_SETFOK = "SettingsFokus";
-	final static String MY_DB_TABLE_SETBLE = "SettingsBlende";
-	final static String MY_DB_TABLE_SETZEI = "SettingsZeit";
-	final static String MY_DB_TABLE_SETMES = "SettingsMessung";
-	final static String MY_DB_TABLE_SETPLU = "SettingsPlusMinus";
-	final static String MY_DB_TABLE_SETMAK = "SettingsMakro";
-	final static String MY_DB_TABLE_SETMVF = "SettingsMakroVF";
-	final static String MY_DB_TABLE_SETFVF = "SettingsFilterVF";
-	final static String MY_DB_TABLE_SETMVF2 = "SettingsMakroVF2";
-	final static String MY_DB_TABLE_SETFVF2 = "SettingsFilterVF2";
-	final static String MY_DB_TABLE_SETKOR = "SettingsBlitzKorr";
-	final static String MY_DB_TABLE_SETTYP = "SettingsFilmTyp";
-
+	
+	
 	/*
 	 * User-Interface Elemente
 	 */
@@ -124,7 +100,6 @@ public class FilmAuswahlActivity extends Activity {
 	public static Context mContext;
 	public static LayoutInflater inflater;
 	public Integer contentIndex = 0;
-	public static int WochenSoll;
 	public static int gesamt;
 	private static final String[] puContent = new String[] {
 			"Herzlich willkommen im Photographers Notebook!",
@@ -157,7 +132,7 @@ public class FilmAuswahlActivity extends Activity {
 		onCreateDBAndDBNumber();
 		Cursor c = myDBNummer.rawQuery(
 				"SELECT title,camera,datum,bilder,pic FROM "
-						+ MY_DB_TABLE_NUMMER, null);
+						+ DB.MY_DB_TABLE_NUMMER, null);
 		gesamtPics = 0;
 		int nummern = 0;
 		if (c != null) {
@@ -229,7 +204,7 @@ public class FilmAuswahlActivity extends Activity {
 				Context.MODE_PRIVATE, null);
 		myDBNummer
 				.execSQL("CREATE TABLE IF NOT EXISTS "
-						+ MY_DB_TABLE_NUMMER
+						+ DB.MY_DB_TABLE_NUMMER
 						+ " (title varchar(100) primary key, value integer,camera varchar(100), datum varchar(100), bilder integer, pic varchar(999))"
 						+ ";");
 	}
@@ -238,7 +213,7 @@ public class FilmAuswahlActivity extends Activity {
 		myDBFilm = mContext.openOrCreateDatabase(MY_DB_FILM,
 				Context.MODE_PRIVATE, null);
 		myDBFilm.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_FILM_TABLE
+				+ DB.MY_DB_FILM_TABLE
 				+ " (_id integer primary key autoincrement, filmdatum varchar(100), picuhrzeit varchar(100), filmtitle varchar(100), filmcamera varchar(100), filmformat varchar(100), filmempfindlichkeit varchar(100), filmtyp varchar(100), filmsonder varchar(100), filmsonders varchar(100), picfokus varchar(100), picblende varchar(100), piczeit varchar(100), picmessung varchar(100), pickorr varchar(100), picmakro varchar(100), picmakrovf varchar(100), picfilter varchar(100), picfiltervf varchar(100), picblitz varchar(100), picblitzkorr varchar(100), picnotiz varchar(100), pickameranotiz varchar(100), picobjektiv varchar(100),piclong varchar(100),piclat varchar(100),filmnotiz varchar(100), picnummer varchar(100))"
 				+ ";");
 	}
@@ -446,14 +421,14 @@ public class FilmAuswahlActivity extends Activity {
 											onCreateDBAndDBNumber();
 											onCreateDBAndDBTabledFilm();
 
-											myDBFilm.delete(MY_DB_FILM_TABLE,
+											myDBFilm.delete(DB.MY_DB_FILM_TABLE,
 													"filmtitle=?",
 													new String[] { ids
 															.getText()
 															.toString() });
 
 											myDBNummer.delete(
-													MY_DB_TABLE_NUMMER,
+													DB.MY_DB_TABLE_NUMMER,
 													"title=?",
 													new String[] { ids
 															.getText()
@@ -488,7 +463,7 @@ public class FilmAuswahlActivity extends Activity {
 					onCreateDBAndDBNumber();
 					Cursor c = myDBNummer.rawQuery(
 							"SELECT title,camera,datum,bilder FROM "
-									+ MY_DB_TABLE_NUMMER + " WHERE title = '"
+									+ DB.MY_DB_TABLE_NUMMER + " WHERE title = '"
 									+ ids.getText().toString() + "'", null);
 					if (c != null) {
 						if (c.moveToFirst()) {
@@ -511,7 +486,7 @@ public class FilmAuswahlActivity extends Activity {
 					Cursor c1 = myDBFilm
 							.rawQuery(
 									"SELECT _id,filmtitle,picuhrzeit,picnummer, picobjektiv, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
-											+ MY_DB_FILM_TABLE
+											+ DB.MY_DB_FILM_TABLE
 											+ " WHERE filmtitle = '"
 											+ ids.getText().toString() + "'",
 									null);
@@ -748,9 +723,9 @@ public class FilmAuswahlActivity extends Activity {
 				dialog.dismiss();
 			}
 			SharedPreferences.Editor editor = settings.edit();
-			editor.putString("SettingsTable", MY_DB_SET);			
+			editor.putString("SettingsTable", DB.MY_DB_SET);			
 			editor.commit();
-			MY_DB_NAME = MY_DB_SET;
+			MY_DB_NAME = DB.MY_DB_SET;
 		}
 
 		/*
@@ -760,8 +735,8 @@ public class FilmAuswahlActivity extends Activity {
 		protected Boolean doInBackground(final String... args) {
 			try {
 				
-				DatabaseCreator dbcreator = new DatabaseCreator(mContext);
-				dbcreator.rebuildSettings();
+				DB dbcreator = new DB(mContext);
+				dbcreator.createOrRebuildSettingsTable();
 
 			} catch (Exception e) {
 				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
@@ -815,7 +790,7 @@ public class FilmAuswahlActivity extends Activity {
 			onCreateDBAndDBNumber();
 			Cursor c = myDBNummer.rawQuery(
 					"SELECT datum, title,camera,bilder, pic FROM "
-							+ MY_DB_TABLE_NUMMER + " WHERE title = '" + FilmID
+							+ DB.MY_DB_TABLE_NUMMER + " WHERE title = '" + FilmID
 							+ "'", null);
 			if (c != null) {
 				if (c.moveToFirst()) {
@@ -832,7 +807,7 @@ public class FilmAuswahlActivity extends Activity {
 			Cursor c1 = myDBFilm
 					.rawQuery(
 							"SELECT _id,filmtitle,filmnotiz,picuhrzeit,picnummer, picobjektiv, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
-									+ MY_DB_FILM_TABLE
+									+ DB.MY_DB_FILM_TABLE
 									+ " WHERE filmtitle = '"
 									+ _title + "'", null);
 			if (c1 != null) {
@@ -862,7 +837,7 @@ public class FilmAuswahlActivity extends Activity {
 			Cursor c11 = myDBFilm
 					.rawQuery(
 							"SELECT _id,picfokus,picuhrzeit,piclat,piclong,filmdatum,picobjektiv, picblende,piczeit,picmessung, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
-									+ MY_DB_FILM_TABLE
+									+ DB.MY_DB_FILM_TABLE
 									+ " WHERE filmtitle = '"
 									+ _title + "'", null);
 			if (c11 != null) {
