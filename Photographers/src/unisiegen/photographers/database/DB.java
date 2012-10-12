@@ -1,6 +1,13 @@
 package unisiegen.photographers.database;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import unisiegen.photographers.export.Allgemein;
+import unisiegen.photographers.export.BildObjekt;
+import unisiegen.photographers.export.Film;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -14,6 +21,8 @@ public class DB {
 	
 	private static DB instance;
 	
+	public final static String MY_DB_NUMMER = "Nummern";
+	public static final String MY_DB_FILM = "Filme";
 	
 	public final static String MY_DB_TABLE_NUMMER = "Nummer";
 	public final static String MY_DB_FILM_TABLE = "Film";
@@ -757,4 +766,89 @@ public class DB {
 		myDBSet.close();
 
 	}
+
+	public List<Film> getFilme(Context context) {
+		
+		List<Film> filme = new ArrayList<Film>();
+		
+		SQLiteDatabase myDBNummer = context.openOrCreateDatabase(MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
+		
+		Cursor c = myDBNummer.rawQuery("SELECT title,camera,datum,bilder,pic FROM " + MY_DB_TABLE_NUMMER, null);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {					
+					Film film = new Film();
+					filme.add(film);
+					ArrayList<BildObjekt> bilder = new ArrayList<BildObjekt>();					
+					film.Allgemein = new Allgemein();
+					film.Bilder = bilder;
+					
+					film.Allgemein.Titel = c.getString(c.getColumnIndex("title"));
+					film.Allgemein.Kamera = c.getString(c.getColumnIndex("camera")); 
+					film.Allgemein.setIcon(c.getString(c.getColumnIndex("pic")));
+					
+					// TODO: Restliche Filmdaten aus der ersten Zeile der Bilder Tabelle holen // WTFFFFFFFF???
+					Cursor c1 = myDBFilm
+					.rawQuery(
+							"SELECT _id,filmtitle,filmnotiz,picuhrzeit,picnummer, picobjektiv, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
+									+ DB.MY_DB_FILM_TABLE
+									+ " WHERE filmtitle = '"
+									+ film.Allgemein.Titel + "'", null);
+					
+					if (c1 != null) {
+						if (c1.moveToFirst()) {
+							film.Allgemein.Filmnotiz = c1.getString(c1.getColumnIndex("filmnotiz"));
+							film.Allgemein.Filmformat = c1.getString(c1.getColumnIndex("filmformat"));
+							film.Allgemein.Filmtyp = c1.getString(c1.getColumnIndex("filmtyp"));
+							film.Allgemein.Empfindlichkeit = c1.getString(c1.getColumnIndex("filmempfindlichkeit"));
+							film.Allgemein.Sonderentwicklung1 = c1.getString(c1.getColumnIndex("filmsonder"));
+							film.Allgemein.Sonderentwicklung2 = c1.getString(c1.getColumnIndex("filmsonders"));							
+						}
+					}					
+					c1.close();
+					
+					// Bilder holen					
+					Cursor c2 = myDBFilm
+							.rawQuery(
+									"SELECT _id,picfokus,picuhrzeit,piclat,piclong,filmdatum,picobjektiv, picblende,piczeit,picmessung, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
+											+ DB.MY_DB_FILM_TABLE
+											+ " WHERE filmtitle = '"
+											+ film.Allgemein.Titel + "'", null);
+					if (c2 != null) {
+						if (c2.moveToFirst()) {
+							do {
+								bilder.add(new BildObjekt(
+										c2.getString(c2.getColumnIndex("picnummer")),
+										c2.getString(c2.getColumnIndex("picobjektiv")),
+										c2.getString(c2.getColumnIndex("picblende")),
+										c2.getString(c2.getColumnIndex("piczeit")),
+										c2.getString(c2.getColumnIndex("picfokus")),
+										c2.getString(c2.getColumnIndex("picfilter")),
+										c2.getString(c2.getColumnIndex("picmakro")),
+										c2.getString(c2.getColumnIndex("picfiltervf")),
+										c2.getString(c2.getColumnIndex("picmakrovf")),
+										c2.getString(c2.getColumnIndex("picmessung")),
+										c2.getString(c2.getColumnIndex("pickorr")),
+										c2.getString(c2.getColumnIndex("picblitz")),
+										c2.getString(c2.getColumnIndex("picblitzkorr")), 
+										c2.getString(c2.getColumnIndex("picuhrzeit")) + " - " + c2.getString(c2.getColumnIndex("filmdatum")),
+										"Lat : " + c2.getString(c2.getColumnIndex("piclat")) + " - Long : " + c2.getString(c2.getColumnIndex("piclong")),
+										c2.getString(c2.getColumnIndex("picnotiz")),
+										c2.getString(c2.getColumnIndex("pickameranotiz"))));
+							} while (c2.moveToNext());
+						}
+					}
+					c2.close();					
+					
+				} while (c.moveToNext());
+			}
+		}
+		c.close();
+		myDBNummer.close();
+		myDBFilm.close();
+		
+		return filme;
+	}
+	
 }

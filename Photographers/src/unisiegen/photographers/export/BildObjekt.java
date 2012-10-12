@@ -44,4 +44,8 @@ public class BildObjekt {
 		Notiz = _notiz;
 		KameraNotiz = _kameraNotiz;
 	}
+	
+	public BildObjekt(){
+		
+	}
 }

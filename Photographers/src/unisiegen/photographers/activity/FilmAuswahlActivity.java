@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.export.Allgemein;
@@ -74,9 +75,6 @@ public class FilmAuswahlActivity extends Activity {
 	SQLiteDatabase myDBNummer = null;
 	
 	static String MY_DB_NAME;
-	static String MY_DB_NUMMER = "Nummern";
-	static String MY_DB_FILM = "Filme";
-	
 	
 	/*
 	 * User-Interface Elemente
@@ -92,11 +90,10 @@ public class FilmAuswahlActivity extends Activity {
 	/*
 	 * Sonstige Variablen
 	 */
-	int design = 0;
 	SharedPreferences settings;
-	HashMap<String, Integer> FilmNummern;
 	ArrayList<Films> listItems;
 	ArrayAdapter<Films> adapter;
+	
 	public static Context mContext;
 	public static LayoutInflater inflater;
 	public Integer contentIndex = 0;
@@ -130,26 +127,13 @@ public class FilmAuswahlActivity extends Activity {
 		listItems = new ArrayList<Films>();
 		int gesamtPics = 0;
 		onCreateDBAndDBNumber();
-		Cursor c = myDBNummer.rawQuery(
-				"SELECT title,camera,datum,bilder,pic FROM "
-						+ DB.MY_DB_TABLE_NUMMER, null);
-		gesamtPics = 0;
-		int nummern = 0;
-		if (c != null) {
-			if (c.moveToFirst()) {
-				do {
-					listItems.add(new Films(c.getString(c
-							.getColumnIndex("title")), c.getString(c
-							.getColumnIndex("datum")), c.getString(c
-							.getColumnIndex("camera")), c.getInt(c
-							.getColumnIndex("bilder")) + " Bilder", c
-							.getString(c.getColumnIndex("pic"))));
-					gesamtPics += c.getInt(c.getColumnIndex("bilder"));
-					FilmNummern.put(c.getString(c.getColumnIndex("title")),
-							nummern);
-				} while (c.moveToNext());
-			}
+		List<Film> filme = DB.getDB().getFilme(mContext);		
+		
+		for(Film film : filme){
+			listItems.add(new Films(film));
+			gesamtPics = gesamtPics + film.Bilder.size();
 		}
+		
 		if (gesamtPics == 0) {
 			myList.setVisibility(ListView.GONE);
 			image.setVisibility(ImageView.VISIBLE);
@@ -157,9 +141,6 @@ public class FilmAuswahlActivity extends Activity {
 			myList.setVisibility(ListView.VISIBLE);
 			image.setVisibility(ImageView.GONE);
 		}
-		myDBNummer.close();
-		c.close();
-		stopManagingCursor(c);
 		pics.setText(gesamtPics + " Bilder");
 		adapter = new FilmsArrayAdapter(mContext, listItems, 1);
 		myList.setOnItemClickListener(notlongClickListener);
@@ -173,7 +154,6 @@ public class FilmAuswahlActivity extends Activity {
 		setContentView(R.layout.filmauswahl);
 		inflater = getLayoutInflater();
 		mContext = this;
-		FilmNummern = new HashMap<String, Integer>();
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		if (settings.getInt("FIRSTSTART", 0) == 0) {
 			new resetSettings().execute();
@@ -200,8 +180,7 @@ public class FilmAuswahlActivity extends Activity {
 	 */
 
 	private void onCreateDBAndDBNumber() {
-		myDBNummer = mContext.openOrCreateDatabase(MY_DB_NUMMER,
-				Context.MODE_PRIVATE, null);
+		myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
 		myDBNummer
 				.execSQL("CREATE TABLE IF NOT EXISTS "
 						+ DB.MY_DB_TABLE_NUMMER
@@ -210,7 +189,7 @@ public class FilmAuswahlActivity extends Activity {
 	}
 
 	private void onCreateDBAndDBTabledFilm() {
-		myDBFilm = mContext.openOrCreateDatabase(MY_DB_FILM,
+		myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
 				Context.MODE_PRIVATE, null);
 		myDBFilm.execSQL("CREATE TABLE IF NOT EXISTS "
 				+ DB.MY_DB_FILM_TABLE
@@ -240,6 +219,14 @@ public class FilmAuswahlActivity extends Activity {
 			this.bild = BitmapFactory.decodeByteArray(
 					Base64.decode(Bild, Base64.DEFAULT), 0,
 					(Base64.decode(Bild, Base64.DEFAULT)).length);
+		}
+		
+		public Films(Film film){
+			this(film.Allgemein.Titel,
+					film.Bilder.get(0).Zeit,
+					film.Allgemein.Kamera,
+					null,
+					film.Allgemein.iconData);
 		}
 
 		public String getName() {
