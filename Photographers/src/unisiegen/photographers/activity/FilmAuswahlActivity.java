@@ -13,11 +13,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import unisiegen.photographers.database.DB;
-import unisiegen.photographers.export.Allgemein;
 import unisiegen.photographers.export.BildObjekt;
 import unisiegen.photographers.export.Film;
 import android.app.Activity;
@@ -27,16 +25,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -66,16 +59,13 @@ import com.thoughtworks.xstream.XStream;
 
 public class FilmAuswahlActivity extends Activity {
 
-	/*
-	 * Datenbank-Variablen
+	/**
+	 * This variable saves the name of the current set for your gear. If this is
+	 * changed, a different database is used to store your gear... Sets may be
+	 * broken at the moment. TODO: Test
 	 */
-	SQLiteDatabase myDBSet = null;
-	SQLiteDatabase myDB = null;
-	SQLiteDatabase myDBFilm = null;
-	SQLiteDatabase myDBNummer = null;
-	
 	static String MY_DB_NAME;
-	
+
 	/*
 	 * User-Interface Elemente
 	 */
@@ -93,7 +83,7 @@ public class FilmAuswahlActivity extends Activity {
 	SharedPreferences settings;
 	ArrayList<Films> listItems;
 	ArrayAdapter<Films> adapter;
-	
+
 	public static Context mContext;
 	public static LayoutInflater inflater;
 	public Integer contentIndex = 0;
@@ -104,10 +94,6 @@ public class FilmAuswahlActivity extends Activity {
 			"Wenn Sie auf den Men\u00FC-Button tippen, k\u00F6nnen Sie die Einstellungen zu dieser App finden und die ersten Einstellungen t\u00E4tigen.",
 			"Sind alle Einstellungen vorgenommen, starten Sie Ihren ersten Film, indem Sie den Button \"Neuer Film\" antippen.",
 			"Sp\u00E4ter k\u00F6nnen Sie den Film auf dieser Seite wieder aufrufen und bei Bedarf fortf\u00FChren." };
-
-	/*
-	 * @see android.app.Activity#onResume() Lifecycle-Methoden
-	 */
 
 	@Override
 	protected void onResume() {
@@ -126,14 +112,13 @@ public class FilmAuswahlActivity extends Activity {
 		}
 		listItems = new ArrayList<Films>();
 		int gesamtPics = 0;
-		onCreateDBAndDBNumber();
-		List<Film> filme = DB.getDB().getFilme(mContext);		
-		
-		for(Film film : filme){
+		List<Film> filme = DB.getDB().getFilme(mContext);
+
+		for (Film film : filme) {
 			listItems.add(new Films(film));
 			gesamtPics = gesamtPics + film.Bilder.size();
 		}
-		
+
 		if (gesamtPics == 0) {
 			myList.setVisibility(ListView.GONE);
 			image.setVisibility(ImageView.VISIBLE);
@@ -149,6 +134,7 @@ public class FilmAuswahlActivity extends Activity {
 
 	}
 
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.filmauswahl);
@@ -156,7 +142,8 @@ public class FilmAuswahlActivity extends Activity {
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		if (settings.getInt("FIRSTSTART", 0) == 0) {
-			new resetSettings().execute();
+
+			new ResetSettingsTask().execute();
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putInt("FIRSTSTART", 1);
 			editor.commit();
@@ -167,137 +154,90 @@ public class FilmAuswahlActivity extends Activity {
 			public void onClick(View v) {
 				Intent myIntent = new Intent(getApplicationContext(),
 						NewFilmActivity.class);
-				// Intent myIntent = new Intent(getApplicationContext(),
-				// SlideNewPic.class);
 				startActivityForResult(myIntent, 0);
 			}
 		});
 	}
 
-	/*
-	 * Datenbank-Methoden (Die SQL Datenbanken werden ge�ffnet bzw. falls sie
-	 * noch nicht entstehen, werden sie erstellt)
-	 */
+	private final class EditFilmDialogAction implements OnClickListener {
+		private final TextView ids;
 
-	private void onCreateDBAndDBNumber() {
-		myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
-		myDBNummer
-				.execSQL("CREATE TABLE IF NOT EXISTS "
-						+ DB.MY_DB_TABLE_NUMMER
-						+ " (title varchar(100) primary key, value integer,camera varchar(100), datum varchar(100), bilder integer, pic varchar(999))"
-						+ ";");
-	}
-
-	private void onCreateDBAndDBTabledFilm() {
-		myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
-		myDBFilm.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_FILM_TABLE
-				+ " (_id integer primary key autoincrement, filmdatum varchar(100), picuhrzeit varchar(100), filmtitle varchar(100), filmcamera varchar(100), filmformat varchar(100), filmempfindlichkeit varchar(100), filmtyp varchar(100), filmsonder varchar(100), filmsonders varchar(100), picfokus varchar(100), picblende varchar(100), piczeit varchar(100), picmessung varchar(100), pickorr varchar(100), picmakro varchar(100), picmakrovf varchar(100), picfilter varchar(100), picfiltervf varchar(100), picblitz varchar(100), picblitzkorr varchar(100), picnotiz varchar(100), pickameranotiz varchar(100), picobjektiv varchar(100),piclong varchar(100),piclat varchar(100),filmnotiz varchar(100), picnummer varchar(100))"
-				+ ";");
-	}
-
-	/*
-	 * Hilfs-Klasse f�r die Anzeige der Filmobjekte in einer Listen-Zeile (Die
-	 * Attribute die Angezeigt werden, werden f�r jeden Film als ein Objekt
-	 * gespeichert)
-	 */
-
-	private static class Films {
-		private String name = "";
-		private String time = "";
-		private String cam = "";
-		private String pics = "";
-		private Bitmap bild;
-
-		public Films(String name, String time, String cam, String pics,
-				String Bild) {
-			this.name = name;
-			this.time = time;
-			this.cam = cam;
-			this.pics = pics;
-			this.bild = BitmapFactory.decodeByteArray(
-					Base64.decode(Bild, Base64.DEFAULT), 0,
-					(Base64.decode(Bild, Base64.DEFAULT)).length);
-		}
-		
-		public Films(Film film){
-			this(film.Allgemein.Titel,
-					film.Bilder.get(0).Zeit,
-					film.Allgemein.Kamera,
-					null,
-					film.Allgemein.iconData);
+		private EditFilmDialogAction(TextView ids) {
+			this.ids = ids;
 		}
 
-		public String getName() {
-			return name;
-		}
+		@Override
+		public void onClick(View v) {
+			SharedPreferences.Editor editor = settings.edit();
 
-		public String getTime() {
-			return time;
-		}
+			Film film = DB.getDB().getFilm(mContext, ids.getText().toString());
 
-		public String getCam() {
-			return cam;
-		}
+			editor.putString("Title", film.Titel);
+			editor.putString("Datum", film.Datum);
+			editor.putString("Kamera", film.Kamera);
 
-		public String getPics() {
-			return pics;
-		}
+			editor.putString("Filmformat", film.Filmformat);
+			editor.putString("Empfindlichkeit", film.Empfindlichkeit);
+			editor.putString("Filmtyp", film.Filmtyp);
+			editor.putString("Sonder1", film.Sonderentwicklung1);
+			editor.putString("Sonder2", film.Sonderentwicklung2);
 
-		public Bitmap getBild() {
-			return bild;
+			int biggestNumber = 0;
+			for (BildObjekt bild : film.Bilder) {
+
+				Integer bildNummer = Integer.valueOf(bild.Bildnummer
+						.replaceAll("[\\D]", ""));
+				if (bildNummer > biggestNumber) {
+					biggestNumber = bildNummer;
+				}
+				editor.putInt("BildNummerToBegin", bildNummer + 1);
+			}
+
+			editor.putBoolean("EditMode", true);
+			editor.commit();
+			Intent myIntent = new Intent(getApplicationContext(),
+					SlideNewPic.class);
+			startActivityForResult(myIntent, 1);
+			pw.dismiss();
 		}
 	}
 
-	/*
-	 * ViewHolder f�r die Filmobjekte der Einzelenden Listen-Zeilen (Zum
-	 * Speichern der Views um sie nicht immer erneut zu definieren)
-	 */
+	private final class DeleteFilmDialogAction implements OnClickListener {
+		private final TextView ids;
 
-	private static class FilmsViewHolder {
-		private TextView textViewTime;
-		private TextView textViewName;
-		private TextView textViewCam;
-		private TextView textViewPics;
-		private ImageView imageViewBild;
-
-		public FilmsViewHolder(TextView textViewname, TextView textViewtime,
-				TextView textViewcam, TextView textViewpics, ImageView Bilds) {
-			this.textViewTime = textViewtime;
-			this.textViewName = textViewname;
-			this.textViewCam = textViewcam;
-			this.textViewPics = textViewpics;
-			this.imageViewBild = Bilds;
+		private DeleteFilmDialogAction(TextView ids) {
+			this.ids = ids;
 		}
 
-		public TextView getTextViewName() {
-			return textViewName;
-		}
+		@Override
+		public void onClick(View v) {
 
-		public TextView getTextViewTime() {
-			return textViewTime;
-		}
+			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+			builder.setMessage("Wollen Sie den Eintrag wirklich l\u00F6schen ?");
+			builder.setCancelable(false);
+			builder.setPositiveButton("Ja",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
 
-		public TextView getTextViewCam() {
-			return textViewCam;
-		}
-
-		public TextView getTextViewPics() {
-			return textViewPics;
-		}
-
-		public ImageView getBildView() {
-			return imageViewBild;
+							DB.getDB().deleteFilms(mContext,
+									new String[] { ids.getText().toString() });
+							Toast.makeText(getApplicationContext(),
+									"Film gel\u00F6scht", Toast.LENGTH_SHORT)
+									.show();
+							pw.dismiss();
+							onResume();
+						}
+					});
+			builder.setNegativeButton("Nein",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							pw.dismiss();
+						}
+					});
+			AlertDialog alert = builder.create();
+			alert.show();
 		}
 	}
-
-	/*
-	 * Custom Array-Adapter f�r Custom-Listen-Zeilen (Es handelt sich um eine
-	 * Liste, welche Custom-"Zellen" zum Anzeigen verwendet, hierf�r wird ein
-	 * custom ArrayAdapter ben�tigt, der die Attribute den richtigen Stellen in
-	 * den einzelnden Zellen zuordnet)
-	 */
 
 	private class FilmsArrayAdapter extends ArrayAdapter<Films> {
 
@@ -346,13 +286,11 @@ public class FilmAuswahlActivity extends Activity {
 			imageViewBild.setImageBitmap(planet.getBild());
 			return convertView;
 		}
-
 	}
 
 	/*
 	 * Klicken auf eine Zeile (langer und kurzer klick)
 	 */
-
 	public OnItemLongClickListener longClickListener = new OnItemLongClickListener() {
 
 		@Override
@@ -390,135 +328,8 @@ public class FilmAuswahlActivity extends Activity {
 					pw.dismiss();
 				}
 			});
-
-			deleteButton.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-							mContext);
-					builder.setMessage(
-							"Wollen Sie den Eintrag wirklich l\u00F6schen ?")
-							.setCancelable(false)
-							.setPositiveButton("Ja",
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-											onCreateDBAndDBNumber();
-											onCreateDBAndDBTabledFilm();
-
-											myDBFilm.delete(DB.MY_DB_FILM_TABLE,
-													"filmtitle=?",
-													new String[] { ids
-															.getText()
-															.toString() });
-
-											myDBNummer.delete(
-													DB.MY_DB_TABLE_NUMMER,
-													"title=?",
-													new String[] { ids
-															.getText()
-															.toString() });
-											Toast.makeText(
-													getApplicationContext(),
-													"Film gel\u00F6scht",
-													Toast.LENGTH_SHORT).show();
-											myDBFilm.close();
-											myDBNummer.close();
-											pw.dismiss();
-											onResume();
-										}
-									})
-							.setNegativeButton("Nein",
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-											pw.dismiss();
-										}
-									});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}
-			});
-
-			editButton.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					SharedPreferences.Editor editor = settings.edit();
-					onCreateDBAndDBNumber();
-					Cursor c = myDBNummer.rawQuery(
-							"SELECT title,camera,datum,bilder FROM "
-									+ DB.MY_DB_TABLE_NUMMER + " WHERE title = '"
-									+ ids.getText().toString() + "'", null);
-					if (c != null) {
-						if (c.moveToFirst()) {
-							do {
-								editor.putString("Title",
-										c.getString(c.getColumnIndex("title")));
-								editor.putString("Datum",
-										c.getString(c.getColumnIndex("datum")));
-								editor.putString("Kamera",
-										c.getString(c.getColumnIndex("camera")));
-								editor.putInt("BildNummern",
-										c.getInt(c.getColumnIndex("bilder")));
-							} while (c.moveToNext());
-						}
-					}
-					myDBNummer.close();
-					c.close();
-					stopManagingCursor(c);
-					onCreateDBAndDBTabledFilm();
-					Cursor c1 = myDBFilm
-							.rawQuery(
-									"SELECT _id,filmtitle,picuhrzeit,picnummer, picobjektiv, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
-											+ DB.MY_DB_FILM_TABLE
-											+ " WHERE filmtitle = '"
-											+ ids.getText().toString() + "'",
-									null);
-					if (c1 != null) {
-						int i = 0;
-						if (c1.moveToFirst()) {
-							do {
-								editor.putString("Filmformat", c1.getString(c1
-										.getColumnIndex("filmformat")));
-								editor.putString(
-										"Empfindlichkeit",
-										c1.getString(c1
-												.getColumnIndex("filmempfindlichkeit")));
-								editor.putString("Filmtyp", c1.getString(c1
-										.getColumnIndex("filmtyp")));
-								editor.putString("Sonder1", c1.getString(c1
-										.getColumnIndex("filmsonder")));
-								editor.putString("Sonder2", c1.getString(c1
-										.getColumnIndex("filmsonders")));
-								if (Integer.valueOf(c1
-										.getString(
-												c1.getColumnIndex("picnummer"))
-										.toString().replaceAll("[\\D]", "")) > i) {
-									editor.putInt(
-											"BildNummerToBegin",
-											Integer.valueOf(c1
-													.getString(
-															c1.getColumnIndex("picnummer"))
-													.toString()
-													.replaceAll("[\\D]", "")) + 1);
-								}
-							} while (c1.moveToNext());
-						}
-					}
-					myDBFilm.close();
-					c1.close();
-					editor.putBoolean("EditMode", true);
-					editor.commit();
-					Intent myIntent = new Intent(getApplicationContext(),
-							SlideNewPic.class);
-					startActivityForResult(myIntent, 1);
-					pw.dismiss();
-				}
-			});
-
+			deleteButton.setOnClickListener(new DeleteFilmDialogAction(ids));
+			editButton.setOnClickListener(new EditFilmDialogAction(ids));
 			cancelButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -551,9 +362,6 @@ public class FilmAuswahlActivity extends Activity {
 		}
 	};
 
-	/*
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Men�
-	 */
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -561,6 +369,7 @@ public class FilmAuswahlActivity extends Activity {
 		return true;
 	}
 
+	
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == R.id.opt_sett3) {
@@ -640,10 +449,10 @@ public class FilmAuswahlActivity extends Activity {
 		}
 	}
 
-	/*
+	
+	/**
 	 * Popup f�r Tutorial
 	 */
-
 	public void popupmenue() {
 		LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -685,15 +494,15 @@ public class FilmAuswahlActivity extends Activity {
 	}
 
 	public void exportFilm(String FilmID) {
-		new prepareToExport(FilmID).execute();
+		new FilmExportTask(FilmID).execute();
 
 	}
 
-	public class resetSettings extends AsyncTask<String, Void, Boolean> {
+	public class ResetSettingsTask extends AsyncTask<String, Void, Boolean> {
 
 		private ProgressDialog dialog;
 
-		public resetSettings() {
+		public ResetSettingsTask() {
 			dialog = new ProgressDialog(mContext);
 		}
 
@@ -710,19 +519,16 @@ public class FilmAuswahlActivity extends Activity {
 				dialog.dismiss();
 			}
 			SharedPreferences.Editor editor = settings.edit();
-			editor.putString("SettingsTable", DB.MY_DB_SET);			
+			editor.putString("SettingsTable", DB.MY_DB_SET);
 			editor.commit();
 			MY_DB_NAME = DB.MY_DB_SET;
 		}
 
-		/*
-		 * Es werden nochmal alle Tabellen in der SQL Datenbank neu erstellt und
-		 * neu gef�llt... nicht sehr elegant :)
-		 */
 		protected Boolean doInBackground(final String... args) {
 			try {
-				
 				DB.getDB().createOrRebuildSettingsTable(mContext);
+				DB.getDB().createOrRebuildNummernTable(mContext);
+				DB.getDB().createOrRebuildFilmTable(mContext);
 
 			} catch (Exception e) {
 				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
@@ -731,16 +537,15 @@ public class FilmAuswahlActivity extends Activity {
 		}
 	}
 
-	public class prepareToExport extends AsyncTask<String, Void, Boolean> {
+	public class FilmExportTask extends AsyncTask<String, Void, Boolean> {
 
-		String Films;
-		String _title = null;
 		String FilmID;
+		String fileName;
 		private ProgressDialog dialog;
 
-		public prepareToExport(String _FilmID) {
+		public FilmExportTask(String _FilmID) {
 			dialog = new ProgressDialog(mContext);
-			FilmID = _FilmID;
+			FilmID = _FilmID;			
 		}
 
 		protected void onPreExecute() {
@@ -754,9 +559,9 @@ public class FilmAuswahlActivity extends Activity {
 			if (dialog.isShowing()) {
 				dialog.dismiss();
 			}
-			
-			File file = new File(getFilesDir() + "/" + _title + ".xml");
-			
+
+			File file = new File(getFilesDir() + "/" + fileName);
+
 			Uri u1 = null;
 			u1 = Uri.fromFile(file);
 			Intent sendIntent = new Intent(Intent.ACTION_SEND);
@@ -767,125 +572,26 @@ public class FilmAuswahlActivity extends Activity {
 		}
 
 		protected Boolean doInBackground(final String... args) {
-			String _kamera = null, _notiz = null, _filmformat = null, _empfindlichkeit = null, _filmtyp = null, _sonder1 = null, _sonder2 = null;
-			ArrayList<BildObjekt> Bilder = new ArrayList<BildObjekt>();
-			Film Film;
-			/*
-			 * Film - Infos holen
-			 */
-			onCreateDBAndDBNumber();
-			Cursor c = myDBNummer.rawQuery(
-					"SELECT datum, title,camera,bilder, pic FROM "
-							+ DB.MY_DB_TABLE_NUMMER + " WHERE title = '" + FilmID
-							+ "'", null);
-			if (c != null) {
-				if (c.moveToFirst()) {
-					do {
-						_title = c.getString(c.getColumnIndex("title"));
-						_kamera = c.getString(c.getColumnIndex("camera"));
-					} while (c.moveToNext());
-				}
-			}
-			c.close();
-			myDBNummer.close();
 
-			onCreateDBAndDBTabledFilm();
-			Cursor c1 = myDBFilm
-					.rawQuery(
-							"SELECT _id,filmtitle,filmnotiz,picuhrzeit,picnummer, picobjektiv, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
-									+ DB.MY_DB_FILM_TABLE
-									+ " WHERE filmtitle = '"
-									+ _title + "'", null);
-			if (c1 != null) {
-				if (c1.moveToFirst()) {
-					do {
-						_notiz = c1.getString(c1.getColumnIndex("filmnotiz"));
-						_filmformat = c1.getString(c1
-								.getColumnIndex("filmformat"));
-						_filmtyp = c1.getString(c1.getColumnIndex("filmtyp"));
-						_empfindlichkeit = c1.getString(c1
-								.getColumnIndex("filmempfindlichkeit"));
-						_sonder1 = c1
-								.getString(c1.getColumnIndex("filmsonder"));
-						_sonder2 = c1.getString(c1
-								.getColumnIndex("filmsonders"));
-					} while (c1.moveToNext());
-				}
-			}
-			myDBFilm.close();
-			c1.close();
+			Film film = DB.getDB().getFilm(mContext, FilmID);
 
-			/*
-			 * Bild - Infos holen
-			 */
-			Film puffer = new Film();
-			onCreateDBAndDBTabledFilm();
-			Cursor c11 = myDBFilm
-					.rawQuery(
-							"SELECT _id,picfokus,picuhrzeit,piclat,piclong,filmdatum,picobjektiv, picblende,piczeit,picmessung, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
-									+ DB.MY_DB_FILM_TABLE
-									+ " WHERE filmtitle = '"
-									+ _title + "'", null);
-			if (c11 != null) {
-				if (c11.moveToFirst()) {
-					do {
-						Bilder.add(new BildObjekt(
-								c11.getString(c11.getColumnIndex("picnummer")),
-								c11.getString(c11.getColumnIndex("picobjektiv")),
-								c11.getString(c11.getColumnIndex("picblende")),
-								c11.getString(c11.getColumnIndex("piczeit")),
-								c11.getString(c11.getColumnIndex("picfokus")),
-								c11.getString(c11.getColumnIndex("picfilter")),
-								c11.getString(c11.getColumnIndex("picmakro")),
-								c11.getString(c11.getColumnIndex("picfiltervf")),
-								c11.getString(c11.getColumnIndex("picmakrovf")),
-								c11.getString(c11.getColumnIndex("picmessung")),
-								c11.getString(c11.getColumnIndex("pickorr")),
-								c11.getString(c11.getColumnIndex("picblitz")),
-								c11.getString(c11
-										.getColumnIndex("picblitzkorr")), c11
-										.getString(c11
-												.getColumnIndex("picuhrzeit"))
-										+ " - "
-										+ c11.getString(c11
-												.getColumnIndex("filmdatum")),
-								"Lat : "
-										+ c11.getString(c11
-												.getColumnIndex("piclat"))
-										+ " - Long : "
-										+ c11.getString(c11
-												.getColumnIndex("piclong")),
-								c11.getString(c11.getColumnIndex("picnotiz")),
-								c11.getString(c11
-										.getColumnIndex("pickameranotiz"))));
-					} while (c11.moveToNext());
-				}
-			}
-			c11.close();
-			myDBFilm.close();
-			Film = new Film();
-			Film = new Film(
-					new Allgemein(_title, _kamera, _notiz, _filmformat,
-							_empfindlichkeit, _filmtyp, _sonder1, _sonder2),
-					Bilder);
-			
-			
-			String FILENAME = _title + ".xml";
-			
+			fileName = FilmID + ".xml";
+
 			XStream xs = new XStream();
 			xs.alias("Bild", BildObjekt.class);
-			xs.alias("Film", Film.class);					
-			
+			xs.alias("Film", Film.class);
+
 			try {
-				FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_WORLD_READABLE);
-				xs.toXML(Film, fos);
+				FileOutputStream fos = openFileOutput(fileName,
+						Context.MODE_WORLD_READABLE);
+				xs.toXML(film, fos);
 				fos.close();
-				Log.v("Check","XML Export: " + FILENAME + " was written.");
+				Log.v("Check", "XML Export: " + fileName + " was written.");
 			} catch (IOException e) {
 				e.printStackTrace();
-				Log.v("Check","Failes to write XML Export: " + FILENAME);
+				Log.v("Check", "Failes to write XML Export: " + fileName);
 			}
-			
+
 			return null;
 		}
 	}

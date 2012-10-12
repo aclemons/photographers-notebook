@@ -133,8 +133,6 @@ public class FilmSelectActivity extends Activity {
 	SQLiteDatabase myDBNummer = null;
 	
 	static String MY_DB_NAME;
-	static String MY_DB_NUMMER = "Nummern";
-	static String MY_DB_FILM = "Filme";
 	
 
 	/*
@@ -150,117 +148,6 @@ public class FilmSelectActivity extends Activity {
 	ArrayAdapter<Pictures> adapter;
 	SharedPreferences settings;
 
-	/*
-	 * Datenbank und Spinnerf�ll Methoden
-	 */
-
-	private void onCreateDBAndDBTabled() {
-
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETCAM
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETEMP
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBW
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETNM
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFIL
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBLI
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETSON
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETTYP
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFOK
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBLE
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETZEI
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMES
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETPLU
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMAK
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMVF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFVF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETKOR
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMVF2
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFVF2
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-
-	}
-
-	private void onCreateDBAndDBTabledFilm() {
-		myDBFilm = mContext.openOrCreateDatabase(MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
-		myDBFilm.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_FILM_TABLE
-				+ " (_id integer primary key autoincrement, filmdatum varchar(100), picuhrzeit varchar(100), filmtitle varchar(100), filmcamera varchar(100), filmformat varchar(100), filmempfindlichkeit varchar(100), filmtyp varchar(100), filmsonder varchar(100), filmsonders varchar(100), picfokus varchar(100), picblende varchar(100), piczeit varchar(100), picmessung varchar(100), pickorr varchar(100), picmakro varchar(100), picmakrovf varchar(100), picfilter varchar(100), picfiltervf varchar(100), picblitz varchar(100), picblitzkorr varchar(100), picnotiz varchar(100), pickameranotiz varchar(100), picobjektiv varchar(100),piclong varchar(100),piclat varchar(100),filmnotiz varchar(100), picnummer varchar(100))"
-				+ ";");
-	}
-
-	private void onCreateDBAndDBNumber() {
-		myDBNummer = mContext.openOrCreateDatabase(MY_DB_NUMMER,
-				Context.MODE_PRIVATE, null);
-		myDBNummer
-				.execSQL("CREATE TABLE IF NOT EXISTS "
-						+ DB.MY_DB_TABLE_NUMMER
-						+ " (title varchar(100), value integer primary key,camera varchar(100), datum varchar(100), bilder integer, pic varchar(999))"
-						+ ";");
-	}
 
 	/*
 	 * Es Es werden ArrayListen mit allen Eintr�gen die "gechecked" sind
@@ -271,7 +158,6 @@ public class FilmSelectActivity extends Activity {
 	 * treffen.
 	 */
 	private void fuellen() {
-		onCreateDBAndDBTabled();
 		al_spinner_blende = new ArrayList<String>();
 		al_spinner_filter_vf = new ArrayList<String>();
 		al_spinner_objektiv = new ArrayList<String>();
@@ -568,7 +454,6 @@ public class FilmSelectActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				SharedPreferences.Editor editor = settings.edit();
-				onCreateDBAndDBNumber();
 				Cursor c = myDBNummer.rawQuery(
 						"SELECT title,camera,datum,bilder FROM "
 								+ DB.MY_DB_TABLE_NUMMER + " WHERE title = '"
@@ -590,7 +475,6 @@ public class FilmSelectActivity extends Activity {
 				myDBNummer.close();
 				c.close();
 				stopManagingCursor(c);
-				onCreateDBAndDBTabledFilm();
 				Cursor c1 = myDBFilm
 						.rawQuery(
 								"SELECT _id,filmtitle,picuhrzeit,picnummer, picobjektiv, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
@@ -683,7 +567,6 @@ public class FilmSelectActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		onCreateDBAndDBNumber();
 		Cursor c = myDBNummer.rawQuery(
 				"SELECT datum, title,camera,bilder, pic FROM "
 						+ DB.MY_DB_TABLE_NUMMER + " WHERE title = '" + filmID
@@ -717,7 +600,6 @@ public class FilmSelectActivity extends Activity {
 		c.close();
 		myDBNummer.close();
 
-		onCreateDBAndDBTabledFilm();
 		Cursor c1 = myDBFilm
 				.rawQuery(
 						"SELECT _id,filmtitle, filmnotiz, filmdatum, picuhrzeit, picnummer, picobjektiv, picblende, piczeit, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
@@ -824,7 +706,6 @@ public class FilmSelectActivity extends Activity {
 
 					fuellen();
 
-					onCreateDBAndDBTabledFilm();
 					Cursor c = myDBFilm
 							.rawQuery(
 									"SELECT _id,picuhrzeit,filmdatum,picfokus,piclat,piclong,picobjektiv, picblende,piczeit,picmessung, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
@@ -1025,7 +906,6 @@ public class FilmSelectActivity extends Activity {
 
 					// Spinner setten !!
 
-					onCreateDBAndDBTabledFilm();
 					Cursor c1 = myDBFilm
 							.rawQuery(
 									"SELECT _id,picfokus,picblende,piczeit,picmessung,picobjektiv, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
@@ -1101,7 +981,6 @@ public class FilmSelectActivity extends Activity {
 						@Override
 						public void onClick(View v) {
 							// update
-							onCreateDBAndDBTabledFilm();
 							myDBFilm.execSQL("UPDATE "
 									+ DB.MY_DB_FILM_TABLE
 									+ " SET picfokus = '"
@@ -1169,14 +1048,12 @@ public class FilmSelectActivity extends Activity {
 										public void onClick(
 												DialogInterface dialog,
 												int which) {
-											onCreateDBAndDBTabledFilm();
 											myDBFilm.execSQL("DELETE FROM "
 													+ DB.MY_DB_FILM_TABLE
 													+ " WHERE picnummer = '"
 													+ third.getText()
 															.toString() + "'");
 											myDBFilm.close();
-											onCreateDBAndDBNumber();
 											ContentValues dataToInsert = new ContentValues();
 											dataToInsert.put("bilder",
 													bilderimfilm - 1);
@@ -1368,7 +1245,6 @@ public class FilmSelectActivity extends Activity {
 	 * gef�llt. Quasi fertige Views in eine Liste, die beim Wischen
 	 * durchgegangen wird.
 	 */
-
 	private class MyPagerAdapter extends PagerAdapter implements TitleProvider {
 
 		private ArrayList<View> views;
@@ -1379,7 +1255,6 @@ public class FilmSelectActivity extends Activity {
 			LayoutInflater inflater = getLayoutInflater();
 			idslist = new ArrayList<Integer>();
 
-			onCreateDBAndDBTabledFilm();
 			Cursor c = myDBFilm
 					.rawQuery(
 							"SELECT _id,picfokus,picuhrzeit,piclat,piclong,filmdatum,picobjektiv, picblende,piczeit,picmessung, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
