@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
-
+import unisiegen.photographers.export.BildObjekt;
+import unisiegen.photographers.export.Film;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -124,16 +125,7 @@ public class FilmSelectActivity extends Activity {
 	HashMap<String, Integer> blitz;
 	HashMap<String, Integer> blitzkorr;
 
-	/*
-	 * Datenbank-Variablen
-	 */
-	SQLiteDatabase myDBSet = null;
-	SQLiteDatabase myDB = null;
-	SQLiteDatabase myDBFilm = null;
-	SQLiteDatabase myDBNummer = null;
-	
 	static String MY_DB_NAME;
-	
 
 	/*
 	 * Sonstige Variablen
@@ -142,12 +134,10 @@ public class FilmSelectActivity extends Activity {
 	Context mContext;
 	ArrayList<Pictures> listItems;
 	boolean minimizes;
-	String filmID;
-	String filmTitle;
 	ArrayList<Integer> listItemsID;
 	ArrayAdapter<Pictures> adapter;
 	SharedPreferences settings;
-
+	private Film film;
 
 	/*
 	 * Es Es werden ArrayListen mit allen Eintr�gen die "gechecked" sind
@@ -186,249 +176,109 @@ public class FilmSelectActivity extends Activity {
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 
 		int index = 0;
-		Cursor camBWCursor = myDB.rawQuery("SELECT name FROM "
-				+ DB.MY_DB_TABLE_SETBW + " ", null);
-		if (camBWCursor != null) {
-			if (camBWCursor.moveToFirst()) {
-				do {
-					Log.v("Check", "Objektiv ist nicht leer");
-					al_spinner_objektiv.add(camBWCursor.getString(camBWCursor
-							.getColumnIndex("name")));
-					objektiv.put(camBWCursor.getString(camBWCursor
-							.getColumnIndex("name")), index);
-					index++;
-				} while (camBWCursor.moveToNext());
-			}
+		for (String brennweite : DB.getDB().getSettingForSpinner(mContext,
+				MY_DB_NAME, DB.MY_DB_TABLE_SETBW)) {
+			al_spinner_objektiv.add(brennweite);
+			objektiv.put(brennweite, index++);
 		}
-		camBWCursor.close();
-		index = 0;
 
-		Cursor c_blende = myDB.rawQuery("SELECT name,value FROM "
-				+ DB.MY_DB_TABLE_SETBLE + "  ", null);
-		if (c_blende != null) {
-			if (c_blende.moveToFirst()) {
-				do {
-					blende.put(
-							c_blende.getString(c_blende.getColumnIndex("name")),
-							index);
-					index++;
-					al_spinner_blende.add(c_blende.getString(c_blende
-							.getColumnIndex("name")));
-				} while (c_blende.moveToNext());
-			}
-		}
-		c_blende.close();
 		index = 0;
+		for (String b : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETBLE)) {
+			al_spinner_blende.add(b);
+			blende.put(b, index++);
+		}
 
-		Cursor c_zeit = myDB.rawQuery("SELECT name,value FROM "
-				+ DB.MY_DB_TABLE_SETZEI + "  ", null);
-		if (c_zeit != null) {
-			if (c_zeit.moveToFirst()) {
-				do {
-					zeit.put(c_zeit.getString(c_zeit.getColumnIndex("name")),
-							index);
-					index++;
-					Log.v("Check",
-							"Zeit ist :  "
-									+ c_zeit.getString(c_zeit
-											.getColumnIndex("name")));
-					al_spinner_zeit.add(c_zeit.getString(c_zeit
-							.getColumnIndex("name")));
-				} while (c_zeit.moveToNext());
-			}
-		}
-		c_zeit.close();
 		index = 0;
+		for (String z : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETZEI)) {
+			al_spinner_zeit.add(z);
+			zeit.put(z, index++);
+		}
 
-		Cursor c_focus = myDB.rawQuery("SELECT name,value FROM "
-				+ DB.MY_DB_TABLE_SETFOK + "  ", null);
-		if (c_focus != null) {
-			if (c_focus.moveToFirst()) {
-				do {
-					fokus.put(
-							c_focus.getString(c_focus.getColumnIndex("name")),
-							index);
-					index++;
-					al_spinner_focus.add(c_focus.getString(c_focus
-							.getColumnIndex("name")));
-				} while (c_focus.moveToNext());
-			}
-		}
-		c_focus.close();
 		index = 0;
+		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETFOK)) {
+			al_spinner_focus.add(f);
+			fokus.put(f, index++);
+		}
 
-		Cursor c_filter = myDB.rawQuery("SELECT name,value FROM "
-				+ DB.MY_DB_TABLE_SETFIL + "  ", null);
-		if (c_filter != null) {
-			if (c_filter.moveToFirst()) {
-				do {
-					filter.put(
-							c_filter.getString(c_filter.getColumnIndex("name")),
-							index);
-					index++;
-					al_spinner_filter.add(c_filter.getString(c_filter
-							.getColumnIndex("name")));
-				} while (c_filter.moveToNext());
-			}
-		}
-		c_filter.close();
 		index = 0;
+		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETFIL)) {
+			al_spinner_filter.add(f);
+			filter.put(f, index++);
+		}
 
-		Cursor c_makro = myDB.rawQuery("SELECT name,value FROM "
-				+ DB.MY_DB_TABLE_SETNM + "  ", null);
-		if (c_makro != null) {
-			if (c_makro.moveToFirst()) {
-				do {
-					makro.put(
-							c_makro.getString(c_makro.getColumnIndex("name")),
-							index);
-					index++;
-					Log.v("Check", "Makro ist nicht leer");
-					al_spinner_makro.add(c_makro.getString(c_makro
-							.getColumnIndex("name")));
-				} while (c_makro.moveToNext());
-			}
-		} else {
-			Log.v("Check", "NULL :(");
-		}
-		c_makro.close();
 		index = 0;
+		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETNM)) {
+			al_spinner_makro.add(f);
+			makro.put(f, index++);
+		}
 
-		Cursor c_messmethode = myDB.rawQuery("SELECT name,value FROM "
-				+ DB.MY_DB_TABLE_SETMES + "  ", null);
-		if (c_messmethode != null) {
-			if (c_messmethode.moveToFirst()) {
-				do {
-					mess.put(c_messmethode.getString(c_messmethode
-							.getColumnIndex("name")), index);
-					index++;
-					al_spinner_messmethode.add(c_messmethode
-							.getString(c_messmethode.getColumnIndex("name")));
-				} while (c_messmethode.moveToNext());
-			}
-		}
-		c_messmethode.close();
 		index = 0;
+		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETMES)) {
+			al_spinner_messmethode.add(f);
+			mess.put(f, index++);
+		}
 
-		Cursor c_belichtungs_korrektur = myDB.rawQuery(
-				"SELECT name,value FROM " + DB.MY_DB_TABLE_SETPLU + "  ", null);
-		if (c_belichtungs_korrektur != null) {
-			if (c_belichtungs_korrektur.moveToFirst()) {
-				do {
-					belichtung.put(c_belichtungs_korrektur
-							.getString(c_belichtungs_korrektur
-									.getColumnIndex("name")), index);
-					index++;
-					al_spinner_belichtungs_korrektur
-							.add(c_belichtungs_korrektur
-									.getString(c_belichtungs_korrektur
-											.getColumnIndex("name")));
-				} while (c_belichtungs_korrektur.moveToNext());
-			}
-		}
-		c_belichtungs_korrektur.close();
 		index = 0;
+		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETPLU)) {
+			al_spinner_belichtungs_korrektur.add(f);
+			belichtung.put(f, index++);
+		}
 
 		if (settings.getString("Verlaengerung", "Faktor (*)").equals(
 				"Faktor (*)")) {
-			Cursor change = myDB.rawQuery("SELECT name,value FROM "
-					+ DB.MY_DB_TABLE_SETFVF + "  ", null);
-			if (change != null) {
-				if (change.moveToFirst()) {
-					do {
-						filtervf.put(
-								change.getString(change.getColumnIndex("name")),
-								index);
-						index++;
-						al_spinner_filter_vf.add(change.getString(change
-								.getColumnIndex("name")));
-					} while (change.moveToNext());
-				}
-			}
+
 			index = 0;
-			Cursor changes = myDB.rawQuery("SELECT name,value FROM "
-					+ DB.MY_DB_TABLE_SETMVF + "  ", null);
-			if (changes != null) {
-				if (changes.moveToFirst()) {
-					do {
-						makrovf.put(changes.getString(changes
-								.getColumnIndex("name")), index);
-						index++;
-						al_spinner_makro_vf.add(changes.getString(changes
-								.getColumnIndex("name")));
-					} while (changes.moveToNext());
-				}
+			for (String f : DB.getDB().getSettingForSpinner(mContext,
+					MY_DB_NAME, DB.MY_DB_TABLE_SETFVF)) {
+				al_spinner_filter_vf.add(f);
+				filtervf.put(f, index++);
 			}
-			change.close();
-			changes.close();
+
 			index = 0;
+			for (String f : DB.getDB().getSettingForSpinner(mContext,
+					MY_DB_NAME, DB.MY_DB_TABLE_SETMVF)) {
+				al_spinner_makro_vf.add(f);
+				makrovf.put(f, index++);
+			}
+
 		} else if (settings.getString("Verlaengerung", "Faktor (*)").equals(
 				"Blendenzugaben (+)")) {
-			Cursor change2 = myDB.rawQuery("SELECT name,value FROM "
-					+ DB.MY_DB_TABLE_SETFVF2 + "  ", null);
-			if (change2 != null) {
-				if (change2.moveToFirst()) {
-					do {
-						filtervf.put(change2.getString(change2
-								.getColumnIndex("name")), index);
-						index++;
-						al_spinner_filter_vf.add(change2.getString(change2
-								.getColumnIndex("name")));
-					} while (change2.moveToNext());
-				}
-			}
+
 			index = 0;
-			Cursor changes2 = myDB.rawQuery("SELECT name,value FROM "
-					+ DB.MY_DB_TABLE_SETMVF2 + "  ", null);
-			if (changes2 != null) {
-				if (changes2.moveToFirst()) {
-					do {
-						makrovf.put(changes2.getString(changes2
-								.getColumnIndex("name")), index);
-						index++;
-						al_spinner_makro_vf.add(changes2.getString(changes2
-								.getColumnIndex("name")));
-					} while (changes2.moveToNext());
-				}
+			for (String f : DB.getDB().getSettingForSpinner(mContext,
+					MY_DB_NAME, DB.MY_DB_TABLE_SETFVF2)) {
+				al_spinner_filter_vf.add(f);
+				filtervf.put(f, index++);
 			}
-			change2.close();
-			changes2.close();
+
 			index = 0;
+			for (String f : DB.getDB().getSettingForSpinner(mContext,
+					MY_DB_NAME, DB.MY_DB_TABLE_SETMVF2)) {
+				al_spinner_makro_vf.add(f);
+				makrovf.put(f, index++);
+			}
 		}
 
-		Cursor c_blitz = myDB.rawQuery("SELECT name,value FROM "
-				+ DB.MY_DB_TABLE_SETBLI + "  ", null);
-		if (c_blitz != null) {
-			if (c_blitz.moveToFirst()) {
-				do {
-					blitz.put(
-							c_blitz.getString(c_blitz.getColumnIndex("name")),
-							index);
-					index++;
-					al_spinner_blitz.add(c_blitz.getString(c_blitz
-							.getColumnIndex("name")));
-				} while (c_blitz.moveToNext());
-			}
-		}
-		c_blitz.close();
 		index = 0;
-
-		Cursor c_blitz_korrektur = myDB.rawQuery("SELECT name,value FROM "
-				+ DB.MY_DB_TABLE_SETKOR + "  ", null);
-		if (c_blitz_korrektur != null) {
-			if (c_blitz_korrektur.moveToFirst()) {
-				do {
-					blitzkorr.put(c_blitz_korrektur.getString(c_blitz_korrektur
-							.getColumnIndex("name")), index);
-					index++;
-					al_spinner_blitz_korrektur
-							.add(c_blitz_korrektur.getString(c_blitz_korrektur
-									.getColumnIndex("name")));
-				} while (c_blitz_korrektur.moveToNext());
-			}
+		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETBLI)) {
+			al_spinner_blitz.add(f);
+			blitz.put(f, index++);
 		}
-		c_blitz_korrektur.close();
 
+		index = 0;
+		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETKOR)) {
+			al_spinner_blitz_korrektur.add(f);
+			blitzkorr.put(f, index++);
+		}
 	}
 
 	/*
@@ -441,9 +291,6 @@ public class FilmSelectActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		mContext = this;
 		setContentView(R.layout.filmselect);
-		Bundle extras = getIntent().getExtras();
-		filmID = extras.getString("ID");
-		filmTitle = "";
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		minimizes = settings.getBoolean("minimize", false);
 		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
@@ -454,64 +301,32 @@ public class FilmSelectActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				SharedPreferences.Editor editor = settings.edit();
-				Cursor c = myDBNummer.rawQuery(
-						"SELECT title,camera,datum,bilder FROM "
-								+ DB.MY_DB_TABLE_NUMMER + " WHERE title = '"
-								+ filmTitle + "'", null);
-				if (c != null) {
-					if (c.moveToFirst()) {
-						do {
-							editor.putString("Title",
-									c.getString(c.getColumnIndex("title")));
-							editor.putString("Datum",
-									c.getString(c.getColumnIndex("datum")));
-							editor.putString("Kamera",
-									c.getString(c.getColumnIndex("camera")));
-							editor.putInt("BildNummern",
-									c.getInt(c.getColumnIndex("bilder")));
-						} while (c.moveToNext());
+
+				film = DB.getDB().getFilm(mContext,
+						getIntent().getExtras().getString("ID"));
+				editor.putString("Title", film.Titel);
+
+				editor.putString("Datum", film.Datum);
+				editor.putString("Kamera", film.Kamera);
+				editor.putInt("BildNummern", film.Bilder.size());
+
+				editor.putString("Filmformat", film.Filmformat);
+				editor.putString("Empfindlichkeit", film.Empfindlichkeit);
+				editor.putString("Filmtyp", film.Filmtyp);
+				editor.putString("Sonder1", film.Sonderentwicklung1);
+				editor.putString("Sonder2", film.Sonderentwicklung2);
+
+				int biggestNumber = 0;
+				for (BildObjekt bild : film.Bilder) {
+
+					Integer bildNummer = Integer.valueOf(bild.Bildnummer
+							.replaceAll("[\\D]", ""));
+					if (bildNummer > biggestNumber) {
+						biggestNumber = bildNummer;
 					}
+					editor.putInt("BildNummerToBegin", bildNummer + 1);
 				}
-				myDBNummer.close();
-				c.close();
-				stopManagingCursor(c);
-				Cursor c1 = myDBFilm
-						.rawQuery(
-								"SELECT _id,filmtitle,picuhrzeit,picnummer, picobjektiv, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
-										+ DB.MY_DB_FILM_TABLE
-										+ " WHERE filmtitle = '"
-										+ filmTitle
-										+ "'", null);
-				if (c1 != null) {
-					int i = 0;
-					if (c1.moveToFirst()) {
-						do {
-							editor.putString("Filmformat", c1.getString(c1
-									.getColumnIndex("filmformat")));
-							editor.putString("Empfindlichkeit", c1.getString(c1
-									.getColumnIndex("filmempfindlichkeit")));
-							editor.putString("Filmtyp",
-									c1.getString(c1.getColumnIndex("filmtyp")));
-							editor.putString("Sonder1", c1.getString(c1
-									.getColumnIndex("filmsonder")));
-							editor.putString("Sonder2", c1.getString(c1
-									.getColumnIndex("filmsonders")));
-							if (Integer.valueOf(c1
-									.getString(c1.getColumnIndex("picnummer"))
-									.toString().replaceAll("[\\D]", "")) > i) {
-								editor.putInt(
-										"BildNummerToBegin",
-										Integer.valueOf(c1
-												.getString(
-														c1.getColumnIndex("picnummer"))
-												.toString()
-												.replaceAll("[\\D]", "")) + 1);
-							}
-						} while (c1.moveToNext());
-					}
-				}
-				myDBFilm.close();
-				c1.close();
+
 				editor.putBoolean("EditMode", true);
 				editor.commit();
 				Intent myIntent = new Intent(getApplicationContext(),
@@ -567,91 +382,51 @@ public class FilmSelectActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Cursor c = myDBNummer.rawQuery(
-				"SELECT datum, title,camera,bilder, pic FROM "
-						+ DB.MY_DB_TABLE_NUMMER + " WHERE title = '" + filmID
-						+ "'", null);
-		if (c != null) {
-			if (c.moveToFirst()) {
-				do {
-					filmtit = (TextView) findViewById(R.id.filmtitle);
-					filmtit.setText(c.getString(c.getColumnIndex("title")));
-					filmTitle = c.getString(c.getColumnIndex("title"));
 
-					filmcam = (TextView) findViewById(R.id.filmcam);
-					filmcam.setText(" "
-							+ c.getString(c.getColumnIndex("camera")) + " ");
+		film = DB.getDB().getFilm(mContext,
+				getIntent().getExtras().getString("ID"));
 
-					TextView datum = (TextView) findViewById(R.id.datuminfo);
-					datum.setText(" " + c.getString(c.getColumnIndex("datum"))
-							+ " ");
+		filmtit = (TextView) findViewById(R.id.filmtitle);
+		filmtit.setText(film.Titel);
 
-					bilderimfilm = c.getInt(c.getColumnIndex("bilder"));
-					ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
-					vorschauImage.setImageBitmap(BitmapFactory.decodeByteArray(
-							Base64.decode(c.getString(c.getColumnIndex("pic")),
-									Base64.DEFAULT), 0, (Base64.decode(
-									c.getString(c.getColumnIndex("pic")),
-									Base64.DEFAULT)).length));
+		filmcam = (TextView) findViewById(R.id.filmcam);
+		filmcam.setText(film.Kamera);
 
-				} while (c.moveToNext());
-			}
+		TextView datum = (TextView) findViewById(R.id.datuminfo);
+		datum.setText(film.Datum);
+
+		bilderimfilm = film.Bilder.size();
+		ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
+
+		byte[] data = Base64.decode(film.iconData, Base64.DEFAULT);
+		vorschauImage.setImageBitmap(BitmapFactory.decodeByteArray(data, 0,
+				data.length));
+
+		TextView filmnotiz = (TextView) findViewById(R.id.filmnotiz);
+		filmnotiz.setText(film.Filmnotiz);
+
+		TextView filmformat = (TextView) findViewById(R.id.filmformat);
+		filmformat.setText(film.Filmformat);
+
+		TextView filmtyp = (TextView) findViewById(R.id.filmtyp);
+		filmtyp.setText(film.Filmtyp);
+
+		TextView filmemp = (TextView) findViewById(R.id.filmemp);
+		filmemp.setText(film.Empfindlichkeit);
+
+		TextView filmsonder = (TextView) findViewById(R.id.filmsonder);
+		filmsonder.setText(film.Sonderentwicklung1);
+
+		TextView filmsonders = (TextView) findViewById(R.id.filmsonders);
+		filmsonders.setText(film.Sonderentwicklung2);
+
+		listItems = new ArrayList<Pictures>();
+
+		for (BildObjekt b : film.Bilder) {
+			listItems.add(new Pictures(b));
 		}
-		c.close();
-		myDBNummer.close();
 
-		Cursor c1 = myDBFilm
-				.rawQuery(
-						"SELECT _id,filmtitle, filmnotiz, filmdatum, picuhrzeit, picnummer, picobjektiv, picblende, piczeit, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
-								+ DB.MY_DB_FILM_TABLE
-								+ " WHERE filmtitle = '"
-								+ filmTitle + "'", null);
-		if (c1 != null) {
-			@SuppressWarnings("unused")
-			int i = 1;
-			listItems = new ArrayList<Pictures>();
-			listItemsID = new ArrayList<Integer>();
-			if (c1.moveToFirst()) {
-				do {
-					TextView filmnotiz = (TextView) findViewById(R.id.filmnotiz);
-					filmnotiz.setText(" "
-							+ c1.getString(c1.getColumnIndex("filmnotiz"))
-							+ " ");
-
-					TextView filmformat = (TextView) findViewById(R.id.filmformat);
-					filmformat.setText(" "
-							+ c1.getString(c1.getColumnIndex("filmformat"))
-							+ " ");
-					TextView filmtyp = (TextView) findViewById(R.id.filmtyp);
-					filmtyp.setText(" "
-							+ c1.getString(c1.getColumnIndex("filmtyp")) + " ");
-					TextView filmemp = (TextView) findViewById(R.id.filmemp);
-					filmemp.setText(" "
-							+ c1.getString(c1
-									.getColumnIndex("filmempfindlichkeit"))
-							+ " ");
-					TextView filmsonder = (TextView) findViewById(R.id.filmsonder);
-					filmsonder.setText(" "
-							+ c1.getString(c1.getColumnIndex("filmsonder"))
-							+ " ");
-					TextView filmsonders = (TextView) findViewById(R.id.filmsonders);
-					filmsonders.setText(" "
-							+ c1.getString(c1.getColumnIndex("filmsonders"))
-							+ " ");
-
-					listItems.add(new Pictures(c1.getString(c1
-							.getColumnIndex("picnummer")), c1.getString(c1
-							.getColumnIndex("picuhrzeit")) + " - " + c1.getString(c1
-									.getColumnIndex("filmdatum")), c1.getString(c1
-							.getColumnIndex("piczeit")) + " - f: " + c1.getString(c1.getColumnIndex("picblende"))));
-					i++;
-					listItemsID.add(c1.getInt(c1.getColumnIndex("_id")));
-					Log.v("Check", "LISTITEMS : " + listItems.size());
-				} while (c1.moveToNext());
-			}
-		}
-		myDBFilm.close();
-		c1.close();
+		Log.v("Check", "LISTITEMS : " + listItems.size());
 
 		adapter = new PicturesArrayAdapter(mContext, listItems, 1);
 		ListView myList = (ListView) findViewById(android.R.id.list);
@@ -706,32 +481,17 @@ public class FilmSelectActivity extends Activity {
 
 					fuellen();
 
-					Cursor c = myDBFilm
-							.rawQuery(
-									"SELECT _id,picuhrzeit,filmdatum,picfokus,piclat,piclong,picobjektiv, picblende,piczeit,picmessung, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
-											+ DB.MY_DB_FILM_TABLE
-											+ " WHERE picnummer = '"
-											+ third.getText() + "'", null);
-					if (c != null) {
-						if (c.moveToFirst()) {
-							do {
+					String selektiertesBild = (String) third.getText();
+					for (BildObjekt bild : film.Bilder) {
+						if (bild.Bildnummer.equals(selektiertesBild)) {
+
+							{
 								final TextView zeitStempel = (TextView) v1
 										.findViewById(R.id.zeitStempel);
-								zeitStempel.setText(c.getString(c
-										.getColumnIndex("picuhrzeit"))
-										+ " - "
-										+ c.getString(c
-												.getColumnIndex("filmdatum")));
-
+								zeitStempel.setText(bild.Zeitstempel);
 								final TextView zeitGeo = (TextView) v1
 										.findViewById(R.id.geoTag);
-								zeitGeo.setText("Lat : "
-										+ c.getString(c
-												.getColumnIndex("piclat"))
-										+ " - Long : "
-										+ c.getString(c
-												.getColumnIndex("piclong")));
-
+								zeitGeo.setText(bild.GeoTag);
 								final TextView objektiv = (TextView) v1
 										.findViewById(R.id.showobjektiv);
 								objektivedit = (Spinner) v1
@@ -743,19 +503,17 @@ public class FilmSelectActivity extends Activity {
 										android.R.layout.simple_spinner_item,
 										al_spinner_objektiv);
 								objektivedit.setAdapter(ad_spinner_objektiv);
-
-								final TextView filtervf = (TextView) v1
+								final TextView filtervft = (TextView) v1
 										.findViewById(R.id.showfiltervf);
 								filtervfedit = (Spinner) v1
 										.findViewById(R.id.editfiltervf);
-								filtervf.setVisibility(TextView.GONE);
+								filtervft.setVisibility(TextView.GONE);
 								filtervfedit.setVisibility(Spinner.VISIBLE);
 								ad_spinner_filter_vf = new ArrayAdapter<String>(
 										mContext,
 										android.R.layout.simple_spinner_item,
 										al_spinner_filter_vf);
 								filtervfedit.setAdapter(ad_spinner_filter_vf);
-
 								final TextView picfocus = (TextView) v1
 										.findViewById(R.id.showfokus);
 								picfocusedit = (Spinner) v1
@@ -767,7 +525,6 @@ public class FilmSelectActivity extends Activity {
 										android.R.layout.simple_spinner_item,
 										al_spinner_focus);
 								picfocusedit.setAdapter(ad_spinner_focus);
-
 								final TextView picblende = (TextView) v1
 										.findViewById(R.id.showblende);
 								picblendeedit = (Spinner) v1
@@ -892,76 +649,39 @@ public class FilmSelectActivity extends Activity {
 										.findViewById(R.id.editnotizkam);
 								picnotizcam.setVisibility(TextView.GONE);
 								picnotizcamedit.setVisibility(Spinner.VISIBLE);
-
 								final TextView picTitle = (TextView) v1
 										.findViewById(R.id.pictitle);
-								picTitle.setText(c.getString(c
-										.getColumnIndex("picnummer")));
-
-							} while (c.moveToNext());
+								picTitle.setText(bild.Bildnummer);
+							}
+							// wegen Namenskonflikten in 2 Blöcke unterteilt
+							// *grml*
+							{
+								picblendeedit.setSelection(blende
+										.get(bild.Blende));
+								filtervfedit.setSelection(filtervf
+										.get(bild.FilterVF));
+								objektivedit.setSelection(objektiv
+										.get(bild.Objektiv));
+								piczeitedit.setSelection(zeit.get(bild.Zeit));
+								picfocusedit.setSelection(fokus.get(bild.Fokus));
+								picfilteredit.setSelection(filter
+										.get(bild.Filter));
+								picmakroedit.setSelection(makro.get(bild.Makro));
+								picmessungedit.setSelection(mess
+										.get(bild.Messmethode));
+								picplusedit.setSelection(belichtung
+										.get(bild.Belichtungskorrektur));
+								picmakrovfedit.setSelection(makrovf
+										.get(bild.MakroVF));
+								picblitzedit.setSelection(blitz.get(bild.Blitz));
+								picblitzkorredit.setSelection(blitzkorr
+										.get(bild.Blitzkorrektur));
+								picnotizedit.setText(bild.Notiz);
+								picnotizcamedit.setText(bild.KameraNotiz);
+							}
+							break;
 						}
 					}
-					c.close();
-					myDBFilm.close();
-
-					// Spinner setten !!
-
-					Cursor c1 = myDBFilm
-							.rawQuery(
-									"SELECT _id,picfokus,picblende,piczeit,picmessung,picobjektiv, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
-											+ DB.MY_DB_FILM_TABLE
-											+ " WHERE filmtitle = '"
-											+ filmtit.getText().toString()
-											+ "' AND picnummer = '"
-											+ third.getText() + "'", null);
-					if (c1 != null) {
-						if (c1.moveToFirst()) {
-							do {
-								try {
-									Log.v("Check",
-											"null check "
-													+ c1.getString(c1
-															.getColumnIndex("pickorr")));
-									picblendeedit.setSelection(blende.get(c1.getString(c1
-											.getColumnIndex("picblende"))));
-									filtervfedit.setSelection(filtervf.get(c1.getString(c1
-											.getColumnIndex("picfiltervf"))));
-									objektivedit.setSelection(objektiv.get(c1.getString(c1
-											.getColumnIndex("picobjektiv"))));
-									piczeitedit.setSelection(zeit.get(c1
-											.getString(c1
-													.getColumnIndex("piczeit"))));
-									picfocusedit.setSelection(fokus.get(c1.getString(c1
-											.getColumnIndex("picfokus"))));
-									picfilteredit.setSelection(filter.get(c1.getString(c1
-											.getColumnIndex("picfilter"))));
-									picmakroedit.setSelection(makro.get(c1.getString(c1
-											.getColumnIndex("picmakro"))));
-									picmessungedit.setSelection(mess.get(c1.getString(c1
-											.getColumnIndex("picmessung"))));
-									picplusedit.setSelection(belichtung.get(c1
-											.getString(c1
-													.getColumnIndex("pickorr"))));
-									picmakrovfedit.setSelection(makrovf.get(c1.getString(c1
-											.getColumnIndex("picmakrovf"))));
-									picblitzedit.setSelection(blitz.get(c1.getString(c1
-											.getColumnIndex("picblitz"))));
-									picblitzkorredit.setSelection(blitzkorr.get(c1.getString(c1
-											.getColumnIndex("picblitzkorr"))));
-									picnotizedit.setText(c1.getString(c1
-											.getColumnIndex("picnotiz")));
-									picnotizcamedit.setText(c1.getString(c1
-											.getColumnIndex("pickameranotiz")));
-								} catch (Exception e) {
-
-								}
-							} while (c1.moveToNext());
-						} else {
-							Log.v("Check", "Kein Bild vorhanden");
-						}
-					}
-					c1.close();
-					myDBFilm.close();
 
 					final PopupWindow pwblub = new PopupWindow(v1,
 							(int) (width), (int) (height), true);
@@ -981,6 +701,9 @@ public class FilmSelectActivity extends Activity {
 						@Override
 						public void onClick(View v) {
 							// update
+							SQLiteDatabase myDBFilm = mContext
+									.openOrCreateDatabase(DB.MY_DB_FILM,
+											Context.MODE_PRIVATE, null);
 							myDBFilm.execSQL("UPDATE "
 									+ DB.MY_DB_FILM_TABLE
 									+ " SET picfokus = '"
@@ -1048,6 +771,16 @@ public class FilmSelectActivity extends Activity {
 										public void onClick(
 												DialogInterface dialog,
 												int which) {
+											SQLiteDatabase myDBFilm = mContext
+													.openOrCreateDatabase(
+															DB.MY_DB_FILM,
+															Context.MODE_PRIVATE,
+															null);
+											SQLiteDatabase myDBNummer = mContext
+													.openOrCreateDatabase(
+															DB.MY_DB_NUMMER,
+															Context.MODE_PRIVATE,
+															null);
 											myDBFilm.execSQL("DELETE FROM "
 													+ DB.MY_DB_FILM_TABLE
 													+ " WHERE picnummer = '"
@@ -1253,14 +986,15 @@ public class FilmSelectActivity extends Activity {
 		public MyPagerAdapter(Context context) {
 			views = new ArrayList<View>();
 			LayoutInflater inflater = getLayoutInflater();
-			idslist = new ArrayList<Integer>();
-
+			idslist = new ArrayList<Integer>();			
+			SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(
+					DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
 			Cursor c = myDBFilm
 					.rawQuery(
 							"SELECT _id,picfokus,picuhrzeit,piclat,piclong,filmdatum,picobjektiv, picblende,piczeit,picmessung, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
 									+ DB.MY_DB_FILM_TABLE
-									+ " WHERE filmtitle = '"
-									+ filmTitle + "'", null);
+									+ " WHERE filmtitle = '" + film.Titel + "'",
+							null);
 			if (c != null) {
 				if (c.moveToFirst()) {
 					do {
@@ -1485,6 +1219,12 @@ public class FilmSelectActivity extends Activity {
 			this.objektiv = objektiv;
 		}
 
+		public Pictures(BildObjekt b) {
+			this.name = b.Bildnummer;
+			this.time = b.Zeitstempel;
+			this.objektiv = b.Objektiv;
+		}
+
 		public String getName() {
 			return name;
 		}
@@ -1556,7 +1296,7 @@ public class FilmSelectActivity extends Activity {
 				textView = (TextView) convertView
 						.findViewById(R.id.listItemText);
 				textViewObj = (TextView) convertView
-				.findViewById(R.id.listItemBlendeZeit);
+						.findViewById(R.id.listItemBlendeZeit);
 				textViewTime = (TextView) convertView
 						.findViewById(R.id.listItemTextTime);
 				convertView.setTag(new PicturesViewHolder(textView,

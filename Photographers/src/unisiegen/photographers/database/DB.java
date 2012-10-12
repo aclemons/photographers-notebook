@@ -66,9 +66,9 @@ public class DB {
 
 		Log.v("DatabaseCreator", "rebuildSettings() was called...");
 
-		SQLiteDatabase myDBSet = context.openOrCreateDatabase(MY_DB_SET, Context.MODE_PRIVATE,
-				null);
-		
+		SQLiteDatabase myDBSet = context.openOrCreateDatabase(MY_DB_SET,
+				Context.MODE_PRIVATE, null);
+
 		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
 				+ MY_DB_TABLE_SETCAMBW
 				+ " (_id integer primary key autoincrement, cam varchar(100), bw varchar(100))"
@@ -592,8 +592,9 @@ public class DB {
 	}
 
 	public void createOrRebuildNummernTable(Context mContext) {
-		
-		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+
+		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
+				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
 		myDBNummer
 				.execSQL("CREATE TABLE IF NOT EXISTS "
 						+ DB.MY_DB_TABLE_NUMMER
@@ -602,9 +603,9 @@ public class DB {
 		myDBNummer.close();
 	}
 
-	
 	public void createOrRebuildFilmTable(Context mContext) {
-		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
+		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
+				Context.MODE_PRIVATE, null);
 		myDBFilm.execSQL("CREATE TABLE IF NOT EXISTS "
 				+ DB.MY_DB_FILM_TABLE
 				+ " (_id integer primary key autoincrement, filmdatum varchar(100), picuhrzeit varchar(100), filmtitle varchar(100), filmcamera varchar(100), filmformat varchar(100), filmempfindlichkeit varchar(100), filmtyp varchar(100), filmsonder varchar(100), filmsonders varchar(100), picfokus varchar(100), picblende varchar(100), piczeit varchar(100), picmessung varchar(100), pickorr varchar(100), picmakro varchar(100), picmakrovf varchar(100), picfilter varchar(100), picfiltervf varchar(100), picblitz varchar(100), picblitzkorr varchar(100), picnotiz varchar(100), pickameranotiz varchar(100), picobjektiv varchar(100),piclong varchar(100),piclat varchar(100),filmnotiz varchar(100), picnummer varchar(100))"
@@ -612,7 +613,6 @@ public class DB {
 		myDBFilm.close();
 	}
 
-	
 	public List<Film> getFilme(Context context) {
 
 		List<Film> filme = new ArrayList<Film>();
@@ -689,7 +689,6 @@ public class DB {
 		myDBNummer.close();
 		myDBFilm.close();
 	}
-	
 
 	public Film getFilm(Context context, String title) {
 
@@ -700,9 +699,10 @@ public class DB {
 		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM,
 				Context.MODE_PRIVATE, null);
 
-		Cursor c = myDBNummer.rawQuery("SELECT title,camera,datum,bilder, pic FROM "
-				+ DB.MY_DB_TABLE_NUMMER + " WHERE title = '" + title + "'",
-				null);
+		Cursor c = myDBNummer.rawQuery(
+				"SELECT title,camera,datum,bilder, pic FROM "
+						+ DB.MY_DB_TABLE_NUMMER + " WHERE title = '" + title
+						+ "'", null);
 
 		if (c != null) {
 			if (c.moveToFirst()) {
@@ -750,7 +750,6 @@ public class DB {
 		return film;
 	}
 
-	
 	private ArrayList<BildObjekt> getBilder(Context context, String title) {
 
 		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM,
@@ -799,5 +798,40 @@ public class DB {
 		myDBFilm.close();
 
 		return bilder;
+	}
+	
+
+	/**
+	 * This will retrieve a List of the settings, currently save in the
+	 * database. Use this to fill the spinners in the ui.
+	 * 
+	 * @param mContext
+	 * @param database
+	 * @param settingName
+	 *            Use on of the constants in this file. Each Constant represents
+	 *            a table (for a certain type of settings) in the db.
+	 * @return
+	 */
+	public List<String> getSettingForSpinner(Context mContext, String database,
+			String settingName) {
+
+		List<String> values = new ArrayList<String>();
+
+		SQLiteDatabase myDB = mContext.openOrCreateDatabase(database,
+				Context.MODE_PRIVATE, null);
+		Cursor c = myDB.rawQuery(
+				"SELECT name,value FROM " + settingName + "  ", null);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					values.add(c.getString(c.getColumnIndex("name")));
+
+				} while (c.moveToNext());
+			}
+		}
+		c.close();
+		myDB.close();
+
+		return values;
 	}
 }
