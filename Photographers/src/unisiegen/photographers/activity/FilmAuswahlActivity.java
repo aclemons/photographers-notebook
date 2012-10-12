@@ -242,13 +242,10 @@ public class FilmAuswahlActivity extends Activity {
 	private class FilmsArrayAdapter extends ArrayAdapter<Films> {
 
 		private LayoutInflater inflater;
-		@SuppressWarnings("unused")
-		int nummer = 0;
 
 		public FilmsArrayAdapter(Context context, ArrayList<Films> planetList,
 				int number) {
 			super(context, R.layout.sqltablecell, R.id.filmtitle, planetList);
-			nummer = number;
 			inflater = LayoutInflater.from(context);
 		}
 

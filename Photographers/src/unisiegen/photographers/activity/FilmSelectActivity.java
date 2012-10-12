@@ -17,7 +17,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -130,7 +129,6 @@ public class FilmSelectActivity extends Activity {
 	/*
 	 * Sonstige Variablen
 	 */
-	ArrayList<Integer> idslist;
 	Context mContext;
 	ArrayList<Pictures> listItems;
 	boolean minimizes;
@@ -982,170 +980,72 @@ public class FilmSelectActivity extends Activity {
 
 		private ArrayList<View> views;
 
-		@SuppressWarnings("unused")
 		public MyPagerAdapter(Context context) {
 			views = new ArrayList<View>();
 			LayoutInflater inflater = getLayoutInflater();
-			idslist = new ArrayList<Integer>();			
-			SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(
-					DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
-			Cursor c = myDBFilm
-					.rawQuery(
-							"SELECT _id,picfokus,picuhrzeit,piclat,piclong,filmdatum,picobjektiv, picblende,piczeit,picmessung, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
-									+ DB.MY_DB_FILM_TABLE
-									+ " WHERE filmtitle = '" + film.Titel + "'",
-							null);
-			if (c != null) {
-				if (c.moveToFirst()) {
-					do {
-						idslist.add(c.getInt(c.getColumnIndex("_id")));
-						View v = inflater.inflate(R.layout.filminfobox, null,
-								false);
 
-						final TextView zeitStempel = (TextView) v
-								.findViewById(R.id.zeitStempel);
-						zeitStempel.setText(c.getString(c
-								.getColumnIndex("picuhrzeit"))
-								+ " - "
-								+ c.getString(c.getColumnIndex("filmdatum")));
-						final TextView zeitGeo = (TextView) v
-								.findViewById(R.id.geoTag);
-						zeitGeo.setText("Lat : "
-								+ c.getString(c.getColumnIndex("piclat"))
-								+ " - Long : "
-								+ c.getString(c.getColumnIndex("piclong")));
+			for (BildObjekt bild : film.Bilder) {
+				View v = inflater.inflate(R.layout.filminfobox, null, false);
+				final TextView zeitStempel = (TextView) v
+						.findViewById(R.id.zeitStempel);
+				zeitStempel.setText(bild.Zeitstempel + " - " + film.Datum);
+				final TextView zeitGeo = (TextView) v.findViewById(R.id.geoTag);
+				zeitGeo.setText(bild.GeoTag);
+				final TextView objektiv = (TextView) v
+						.findViewById(R.id.showobjektiv);
+				objektiv.setText(bild.Objektiv);
+				final TextView filtervf = (TextView) v
+						.findViewById(R.id.showfiltervf);
+				filtervf.setText(bild.FilterVF);
+				final TextView picfocus = (TextView) v
+						.findViewById(R.id.showfokus);
+				picfocus.setText(bild.Fokus);
+				final TextView picblende = (TextView) v
+						.findViewById(R.id.showblende);
+				picblende.setText(bild.Blende);
+				final TextView piczeit = (TextView) v
+						.findViewById(R.id.showzeit);
+				piczeit.setText(bild.Zeit);
+				final TextView picmessung = (TextView) v
+						.findViewById(R.id.showmessung);
+				picmessung.setText(bild.Messmethode);
+				final TextView picplus = (TextView) v
+						.findViewById(R.id.showbelichtung);
+				picplus.setText(bild.Belichtungskorrektur);
+				final TextView picmakro = (TextView) v
+						.findViewById(R.id.showmakro);
+				picmakro.setText(bild.Makro);
+				final TextView picmakrovf = (TextView) v
+						.findViewById(R.id.showmakrovf);
+				picmakrovf.setText(bild.MakroVF);
+				final TextView picfilter = (TextView) v
+						.findViewById(R.id.showfilter);
+				picfilter.setText(bild.Filter);
+				final TextView picblitz = (TextView) v
+						.findViewById(R.id.showblitz);
+				picblitz.setText(bild.Blitz);
+				final TextView picblitzkorr = (TextView) v
+						.findViewById(R.id.showblitzkorr);
+				picblitzkorr.setText(bild.Blitzkorrektur);
+				final TextView picnotiz = (TextView) v
+						.findViewById(R.id.shownotiz);
+				picnotiz.setText(bild.Notiz);
+				final TextView picnotizcam = (TextView) v
+						.findViewById(R.id.shownotizkam);
+				picnotizcam.setText(bild.KameraNotiz);
+				final TextView picTitle = (TextView) v
+						.findViewById(R.id.pictitle);
+				picTitle.setText(bild.Bildnummer);
 
-						final TextView objektiv = (TextView) v
-								.findViewById(R.id.showobjektiv);
-						final Spinner objektivedit = (Spinner) v
-								.findViewById(R.id.editobjektiv);
-						objektiv.setText(c.getString(c
-								.getColumnIndex("picobjektiv")) + " ");
-
-						final TextView filtervf = (TextView) v
-								.findViewById(R.id.showfiltervf);
-						final Spinner filtervfedit = (Spinner) v
-								.findViewById(R.id.editfiltervf);
-						filtervf.setText(c.getString(c
-								.getColumnIndex("picfiltervf")) + " ");
-
-						final TextView picfocus = (TextView) v
-								.findViewById(R.id.showfokus);
-						final Spinner picfocusedit = (Spinner) v
-								.findViewById(R.id.editfokus);
-						picfocus.setText(c.getString(c
-								.getColumnIndex("picfokus")) + " ");
-
-						final TextView picblende = (TextView) v
-								.findViewById(R.id.showblende);
-						final Spinner picblendeedit = (Spinner) v
-								.findViewById(R.id.editblende);
-						picblende.setText(c.getString(c
-								.getColumnIndex("picblende")) + " ");
-
-						final TextView piczeit = (TextView) v
-								.findViewById(R.id.showzeit);
-						final Spinner piczeitedit = (Spinner) v
-								.findViewById(R.id.editzeit);
-						piczeit.setText(c.getString(c.getColumnIndex("piczeit"))
-								+ " ");
-
-						final TextView picmessung = (TextView) v
-								.findViewById(R.id.showmessung);
-						final Spinner picmessungedit = (Spinner) v
-								.findViewById(R.id.editmessung);
-						picmessung.setText(c.getString(c
-								.getColumnIndex("picmessung")) + " ");
-
-						final TextView picplus = (TextView) v
-								.findViewById(R.id.showbelichtung);
-						final Spinner picplusedit = (Spinner) v
-								.findViewById(R.id.editbelichtung);
-						picplus.setText(c.getString(c.getColumnIndex("pickorr"))
-								+ " ");
-
-						final TextView picmakro = (TextView) v
-								.findViewById(R.id.showmakro);
-						final Spinner picmakroedit = (Spinner) v
-								.findViewById(R.id.editmakro);
-						picmakro.setText(c.getString(c
-								.getColumnIndex("picmakro")) + " ");
-
-						final TextView picmakrovf = (TextView) v
-								.findViewById(R.id.showmakrovf);
-						final Spinner picmakrovfedit = (Spinner) v
-								.findViewById(R.id.editmakrovf);
-						picmakrovf.setText(c.getString(c
-								.getColumnIndex("picmakrovf")) + " ");
-
-						final TextView picfilter = (TextView) v
-								.findViewById(R.id.showfilter);
-						final Spinner picfilteredit = (Spinner) v
-								.findViewById(R.id.editfilter);
-						picfilter.setText(c.getString(c
-								.getColumnIndex("picfilter")) + " ");
-
-						final TextView picblitz = (TextView) v
-								.findViewById(R.id.showblitz);
-						final Spinner picblitzedit = (Spinner) v
-								.findViewById(R.id.editblitz);
-						picblitz.setText(c.getString(c
-								.getColumnIndex("picblitz")) + " ");
-
-						final TextView picblitzkorr = (TextView) v
-								.findViewById(R.id.showblitzkorr);
-						final Spinner picblitzkorredit = (Spinner) v
-								.findViewById(R.id.editblitzkorr);
-						picblitzkorr.setText(c.getString(c
-								.getColumnIndex("picblitzkorr")) + " ");
-
-						final TextView picnotiz = (TextView) v
-								.findViewById(R.id.shownotiz);
-						final EditText picnotizedit = (EditText) v
-								.findViewById(R.id.editnotiz);
-						picnotiz.setText(c.getString(c
-								.getColumnIndex("picnotiz")) + " ");
-
-						final TextView picnotizcam = (TextView) v
-								.findViewById(R.id.shownotizkam);
-						final EditText picnotizcamedit = (EditText) v
-								.findViewById(R.id.editnotizkam);
-						picnotizcam.setText(c.getString(c
-								.getColumnIndex("pickameranotiz")) + " ");
-
-						final TextView picTitle = (TextView) v
-								.findViewById(R.id.pictitle);
-						picTitle.setText(c.getString(c
-								.getColumnIndex("picnummer")));
-
-						views.add(v);
-
-					} while (c.moveToNext());
-				}
+				views.add(v);
 			}
-			c.close();
-			myDBFilm.close();
-
 		}
 
 		@Override
-		public void destroyItem(View view, int arg1, Object object) { // Es
-																		// werden
-																		// immer
-																		// nur
-																		// die 2
-																		// n�chsten
-																		// und 2
-																		// letzen
-																		// Views
-																		// "gespeichert"
-																		// bzw.
-																		// berechnet,
-																		// der
-																		// Rest
-																		// wird
-																		// erstmal
-																		// gel�scht
+		public void destroyItem(View view, int arg1, Object object) {
+			// Es werden immer nur die 2 nächsten und die 2 letzten Views
+			// "gespeichert" bzw. berechnet, der Rest wird erstmal gelöscht.
+
 			((ViewPager) view).removeView((LinearLayout) object);
 		}
 
@@ -1160,12 +1060,8 @@ public class FilmSelectActivity extends Activity {
 		}
 
 		@Override
-		public Object instantiateItem(View view, int position) { // Das
-																	// Vorpuffern,
-																	// wenn die
-																	// View bald
-																	// drankommt...
-																	// s.o.
+		public Object instantiateItem(View view, int position) {
+			// Das vorpuffern, wenn die View bald drankommt... s.o.
 			View myView = views.get(position);
 			((ViewPager) view).addView(myView);
 			return myView;
@@ -1211,18 +1107,16 @@ public class FilmSelectActivity extends Activity {
 	private static class Pictures {
 		private String name = "";
 		private String time = "";
+		private String timestamp = "";
 		private String objektiv = "";
-
-		public Pictures(String name, String time, String objektiv) {
-			this.name = name;
-			this.time = time;
-			this.objektiv = objektiv;
-		}
+		private String blende = "";
 
 		public Pictures(BildObjekt b) {
 			this.name = b.Bildnummer;
-			this.time = b.Zeitstempel;
+			this.time = b.Zeit;
+			this.blende  = b.Blende;
 			this.objektiv = b.Objektiv;
+			this.timestamp = b.Zeitstempel;
 		}
 
 		public String getName() {
@@ -1232,9 +1126,13 @@ public class FilmSelectActivity extends Activity {
 		public String getTime() {
 			return time;
 		}
-
-		public String getObjektiv() {
-			return this.objektiv;
+		
+		public String getBlende(){
+			return blende;
+		}
+		
+		public String getZeitstempel(){
+			return timestamp;
 		}
 	}
 
@@ -1274,43 +1172,38 @@ public class FilmSelectActivity extends Activity {
 	private class PicturesArrayAdapter extends ArrayAdapter<Pictures> {
 
 		private LayoutInflater inflater;
-		@SuppressWarnings("unused")
-		int nummer = 0;
 
 		public PicturesArrayAdapter(Context context,
 				ArrayList<Pictures> planetList, int number) {
 			super(context, R.layout.film_item, R.id.listItemText, planetList);
-			nummer = number;
 			inflater = LayoutInflater.from(context);
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			Pictures planet = (Pictures) this.getItem(position);
-			TextView textViewObj;
+			Pictures p = (Pictures) this.getItem(position);
+			TextView textViewApertureTime;
 			TextView textView;
 			TextView textViewTime;
 
 			if (convertView == null) {
+				
 				convertView = inflater.inflate(R.layout.film_item, null);
-				textView = (TextView) convertView
-						.findViewById(R.id.listItemText);
-				textViewObj = (TextView) convertView
-						.findViewById(R.id.listItemBlendeZeit);
-				textViewTime = (TextView) convertView
-						.findViewById(R.id.listItemTextTime);
-				convertView.setTag(new PicturesViewHolder(textView,
-						textViewTime, textViewObj));
+				textView = (TextView) convertView.findViewById(R.id.listItemText);
+				textViewApertureTime = (TextView) convertView.findViewById(R.id.listItemBlendeZeit);
+				textViewTime = (TextView) convertView.findViewById(R.id.listItemTextTime);
+				convertView.setTag(new PicturesViewHolder(textView, textViewTime, textViewApertureTime));
+				
 			} else {
 				PicturesViewHolder viewHolder = (PicturesViewHolder) convertView
 						.getTag();
 				textViewTime = viewHolder.getTextViewTime();
 				textView = viewHolder.getTextViewName();
-				textViewObj = viewHolder.getTextViewObjektiv();
+				textViewApertureTime = viewHolder.getTextViewObjektiv();
 			}
-			textViewTime.setText(planet.getTime());
-			textView.setText(planet.getName());
-			textViewObj.setText(planet.getObjektiv());
+			textViewTime.setText(p.getZeitstempel());
+			textView.setText(p.getName());
+			textViewApertureTime.setText(p.getBlende() + " - " + p.getTime());
 
 			return convertView;
 		}
