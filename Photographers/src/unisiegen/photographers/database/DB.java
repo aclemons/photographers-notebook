@@ -5,6 +5,7 @@ import java.util.List;
 
 import unisiegen.photographers.export.BildObjekt;
 import unisiegen.photographers.export.Film;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -799,7 +800,6 @@ public class DB {
 
 		return bilder;
 	}
-	
 
 	/**
 	 * This will retrieve a List of the settings, currently save in the
@@ -833,5 +833,74 @@ public class DB {
 		myDB.close();
 
 		return values;
+	}
+
+	public void updatePicture(Context mContext, Film film, BildObjekt bild) {
+
+		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
+				Context.MODE_PRIVATE, null);
+
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE ");
+		sql.append(DB.MY_DB_FILM_TABLE);
+		sql.append(" SET picfokus = '");
+		sql.append(bild.Fokus);
+		sql.append("', picblende = '");
+		sql.append(bild.Blende);
+		sql.append("', piczeit = '");
+		sql.append(bild.Zeit);
+		sql.append("', picmessung = '");
+		sql.append(bild.Messmethode);
+		sql.append("', pickorr = '");
+		sql.append(bild.Belichtungskorrektur);
+		sql.append("', picmakro = '");
+		sql.append(bild.Makro);
+		sql.append("', picmakrovf = '");
+		sql.append(bild.MakroVF);
+		sql.append("', picfilter = '");
+		sql.append(bild.Filter);
+		sql.append("', picfiltervf = '");
+		sql.append(bild.FilterVF);
+		sql.append("', picblitz = '");
+		sql.append(bild.Blitz);
+		sql.append("', picblitzkorr = '");
+		sql.append(bild.Blitzkorrektur);
+		sql.append("', picnotiz = '");
+		sql.append(bild.Notiz);
+		sql.append("', pickameranotiz = '");
+		sql.append(bild.KameraNotiz);
+		sql.append("', picobjektiv = '");
+		sql.append(bild.Objektiv);
+		sql.append("' WHERE filmtitle = '");
+		sql.append(film.Titel);
+		sql.append("' AND picnummer = '");
+		sql.append(bild.Bildnummer);
+		sql.append("';");
+		myDBFilm.execSQL(new String(sql));
+		myDBFilm.close();
+	}
+
+	public void deletePicture(Context mContext, Film film, BildObjekt bild) {
+
+		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
+		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("DELETE FROM ");
+		sql.append(DB.MY_DB_FILM_TABLE);
+		sql.append(" WHERE filmtitle = '");
+		sql.append(film.Titel);
+		sql.append("' AND picnummer = '");
+		sql.append(bild.Bildnummer);
+		sql.append("';");
+		
+		myDBFilm.execSQL(new String(sql));
+		myDBFilm.close();
+
+		ContentValues dataToInsert = new ContentValues();
+		dataToInsert.put("bilder", film.Bilder.size() - 1);
+		myDBNummer.update(DB.MY_DB_TABLE_NUMMER, dataToInsert, "title=?", new String[] { film.Titel });
+
+		myDBNummer.close();
 	}
 }

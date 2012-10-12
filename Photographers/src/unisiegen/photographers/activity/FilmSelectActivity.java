@@ -12,12 +12,10 @@ import unisiegen.photographers.export.BildObjekt;
 import unisiegen.photographers.export.Film;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -698,56 +696,35 @@ public class FilmSelectActivity extends Activity {
 
 						@Override
 						public void onClick(View v) {
-							// update
-							SQLiteDatabase myDBFilm = mContext
-									.openOrCreateDatabase(DB.MY_DB_FILM,
-											Context.MODE_PRIVATE, null);
-							myDBFilm.execSQL("UPDATE "
-									+ DB.MY_DB_FILM_TABLE
-									+ " SET picfokus = '"
-									+ picfocusedit.getSelectedItem().toString()
-									+ "', picblende = '"
-									+ picblendeedit.getSelectedItem()
-											.toString()
-									+ "', piczeit = '"
-									+ piczeitedit.getSelectedItem().toString()
-									+ "', picmessung = '"
-									+ picmessungedit.getSelectedItem()
-											.toString()
-									+ "', pickorr = '"
-									+ picplusedit.getSelectedItem().toString()
-									+ "', picmakro = '"
-									+ picmakroedit.getSelectedItem().toString()
-									+ "', picmakrovf = '"
-									+ picmakrovfedit.getSelectedItem()
-											.toString()
-									+ "', picfilter = '"
-									+ picfilteredit.getSelectedItem()
-											.toString()
-									+ "', picfiltervf = '"
-									+ filtervfedit.getSelectedItem().toString()
-									+ "', picblitz = '"
-									+ picblitzedit.getSelectedItem().toString()
-									+ "', picblitzkorr = '"
-									+ picblitzkorredit.getSelectedItem()
-											.toString() + "', picnotiz = '"
-									+ picnotizedit.getText().toString()
-									+ "', pickameranotiz = '"
-									+ picnotizcamedit.getText().toString()
-									+ "', picobjektiv = '"
-									+ objektivedit.getSelectedItem().toString()
-									+ "' WHERE filmtitle = '"
-									+ filmtit.getText().toString()
-									+ "' AND picnummer = '"
-									+ third.getText().toString() + "';");
-							myDBFilm.close();
+							
+							for(BildObjekt bild : film.Bilder){
+								if(bild.Bildnummer.equals(third.getText())){
+									
+									bild.Fokus = picfocusedit.getSelectedItem().toString();
+									bild.Blende = picblendeedit.getSelectedItem().toString();
+									bild.Zeit = piczeitedit.getSelectedItem().toString();
+									picmessungedit.getSelectedItem().toString();
+									picplusedit.getSelectedItem().toString();
+									picmakroedit.getSelectedItem().toString();
+									picmakrovfedit.getSelectedItem().toString();
+									bild.Filter = picfilteredit.getSelectedItem().toString();
+									bild.FilterVF = filtervfedit.getSelectedItem().toString();
+									bild.Blitz = picblitzedit.getSelectedItem().toString();
+									bild.Blitzkorrektur = picblitzkorredit.getSelectedItem().toString();
+									bild.Notiz = picnotizedit.getText().toString();
+									bild.KameraNotiz = picnotizcamedit.getText().toString();
+									bild.Objektiv = objektivedit.getSelectedItem().toString();
+									
+									DB.getDB().updatePicture(mContext, film, bild);
+									break;
+								}
+							}							
 							pwblub.dismiss();
 							onResume();
 						}
 					});
 
 					pwblub.setAnimationStyle(7);
-					// pw.setBackgroundDrawable(new BitmapDrawable());
 					pwblub.setBackgroundDrawable(getResources().getDrawable(
 							R.drawable.infobg));
 					pwblub.showAtLocation(v1, Gravity.CENTER, 0, 0);
@@ -769,34 +746,15 @@ public class FilmSelectActivity extends Activity {
 										public void onClick(
 												DialogInterface dialog,
 												int which) {
-											SQLiteDatabase myDBFilm = mContext
-													.openOrCreateDatabase(
-															DB.MY_DB_FILM,
-															Context.MODE_PRIVATE,
-															null);
-											SQLiteDatabase myDBNummer = mContext
-													.openOrCreateDatabase(
-															DB.MY_DB_NUMMER,
-															Context.MODE_PRIVATE,
-															null);
-											myDBFilm.execSQL("DELETE FROM "
-													+ DB.MY_DB_FILM_TABLE
-													+ " WHERE picnummer = '"
-													+ third.getText()
-															.toString() + "'");
-											myDBFilm.close();
-											ContentValues dataToInsert = new ContentValues();
-											dataToInsert.put("bilder",
-													bilderimfilm - 1);
-											bilderimfilm -= 1;
-											myDBNummer.update(
-													DB.MY_DB_TABLE_NUMMER,
-													dataToInsert, "title=?",
-													new String[] { filmtit
-															.getText()
-															.toString() });
-
-											myDBNummer.close();
+											
+											for(BildObjekt bild : film.Bilder){
+												if(bild.Bildnummer.equals(third.getText())){
+													DB.getDB().deletePicture(mContext, film, bild);
+													break;
+												}
+											}
+											
+											bilderimfilm -= 1;											
 											pw.dismiss();
 											onResume();
 											Toast.makeText(
