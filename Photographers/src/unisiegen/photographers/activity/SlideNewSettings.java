@@ -1324,7 +1324,7 @@ public class SlideNewSettings extends Activity {
 								writeDB(DB.MY_DB_TABLE_SETCAM, Kat.getText()
 										.toString(), 1);
 								aplanets.add(new Settings(Kat.getText()
-										.toString(), 0));
+										.toString(), 1));
 								listAdapter.notifyDataSetChanged();
 
 								// BW F�NGT AN
