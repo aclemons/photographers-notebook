@@ -1121,7 +1121,7 @@ public class SlideNewSettings extends Activity {
 															AlertDialog.Builder builder = new AlertDialog.Builder(
 																	mContext);
 															builder.setMessage(
-																	"M\u00F6chten Sie den eintrag wirklich l\u00F6schen ?")
+																	"M\u00F6chten Sie den eintrag wirklich l\u00F6schen?")
 																	.setCancelable(
 																			false)
 																	.setPositiveButton(
@@ -1365,7 +1365,7 @@ public class SlideNewSettings extends Activity {
 												AlertDialog.Builder builder = new AlertDialog.Builder(
 														mContext);
 												builder.setMessage(
-														"Dies wird die Messung abbrechen, wollen Sie fortfahren ?")
+														"M\u00F6chten Sie den eintrag wirklich l\u00F6schen?")
 														.setCancelable(false)
 														.setPositiveButton(
 																"Ja",
