@@ -618,62 +618,63 @@ public class DB {
 
 		List<Film> filme = new ArrayList<Film>();
 
-		SQLiteDatabase myDBNummer = context.openOrCreateDatabase(MY_DB_NUMMER,
-				Context.MODE_PRIVATE, null);
-		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
+		try {
+			SQLiteDatabase myDBNummer = context.openOrCreateDatabase(
+					MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+			SQLiteDatabase myDBFilm = context.openOrCreateDatabase(
+					DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
 
-		Cursor c = myDBNummer.rawQuery(
-				"SELECT title,camera,datum,bilder,pic FROM "
-						+ MY_DB_TABLE_NUMMER, null);
-		if (c != null) {
-			if (c.moveToFirst()) {
-				do {
-					Film film = new Film();
-					filme.add(film);
+			Cursor c = myDBNummer.rawQuery(
+					"SELECT title,camera,datum,bilder,pic FROM "
+							+ MY_DB_TABLE_NUMMER, null);
+			if (c != null) {
+				if (c.moveToFirst()) {
+					do {
+						Film film = new Film();
+						filme.add(film);
 
-					film.Titel = c.getString(c.getColumnIndex("title"));
-					film.Kamera = c.getString(c.getColumnIndex("camera"));
-					film.Datum = c.getString(c.getColumnIndex("datum"));
-					film.setIcon(c.getString(c.getColumnIndex("pic")));
+						film.Titel = c.getString(c.getColumnIndex("title"));
+						film.Kamera = c.getString(c.getColumnIndex("camera"));
+						film.Datum = c.getString(c.getColumnIndex("datum"));
+						film.setIcon(c.getString(c.getColumnIndex("pic")));
 
-					// TODO: Restliche Filmdaten aus der ersten Zeile der Bilder
-					// Tabelle holen // WTFFFFFFFF???
-					Cursor c1 = myDBFilm
-							.rawQuery(
-									"SELECT _id,filmtitle,filmnotiz,picuhrzeit,picnummer, picobjektiv, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
-											+ DB.MY_DB_FILM_TABLE
-											+ " WHERE filmtitle = '"
-											+ film.Titel + "'", null);
+						Cursor c1 = myDBFilm
+								.rawQuery(
+										"SELECT _id,filmtitle,filmnotiz,picuhrzeit,picnummer, picobjektiv, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
+												+ DB.MY_DB_FILM_TABLE
+												+ " WHERE filmtitle = '"
+												+ film.Titel + "'", null);
 
-					if (c1 != null) {
-						if (c1.moveToFirst()) {
-							film.Filmnotiz = c1.getString(c1
-									.getColumnIndex("filmnotiz"));
-							film.Filmformat = c1.getString(c1
-									.getColumnIndex("filmformat"));
-							film.Filmtyp = c1.getString(c1
-									.getColumnIndex("filmtyp"));
-							film.Empfindlichkeit = c1.getString(c1
-									.getColumnIndex("filmempfindlichkeit"));
-							film.Sonderentwicklung1 = c1.getString(c1
-									.getColumnIndex("filmsonder"));
-							film.Sonderentwicklung2 = c1.getString(c1
-									.getColumnIndex("filmsonders"));
+						if (c1 != null) {
+							if (c1.moveToFirst()) {
+								film.Filmnotiz = c1.getString(c1
+										.getColumnIndex("filmnotiz"));
+								film.Filmformat = c1.getString(c1
+										.getColumnIndex("filmformat"));
+								film.Filmtyp = c1.getString(c1
+										.getColumnIndex("filmtyp"));
+								film.Empfindlichkeit = c1.getString(c1
+										.getColumnIndex("filmempfindlichkeit"));
+								film.Sonderentwicklung1 = c1.getString(c1
+										.getColumnIndex("filmsonder"));
+								film.Sonderentwicklung2 = c1.getString(c1
+										.getColumnIndex("filmsonders"));
+							}
 						}
-					}
-					c1.close();
+						c1.close();
 
-					// Bilder holen
-					film.Bilder = this.getBilder(context, film.Titel);
+						// Bilder holen
+						film.Bilder = this.getBilder(context, film.Titel);
 
-				} while (c.moveToNext());
+					} while (c.moveToNext());
+				}
 			}
-		}
-		c.close();
-		myDBNummer.close();
-		myDBFilm.close();
+			c.close();
+			myDBNummer.close();
+			myDBFilm.close();
+		} catch (Exception e) {
 
+		}
 		return filme;
 	}
 
@@ -882,9 +883,11 @@ public class DB {
 
 	public void deletePicture(Context mContext, Film film, BildObjekt bild) {
 
-		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
-		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
-		
+		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
+				Context.MODE_PRIVATE, null);
+		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
+				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE FROM ");
 		sql.append(DB.MY_DB_FILM_TABLE);
@@ -893,13 +896,14 @@ public class DB {
 		sql.append("' AND picnummer = '");
 		sql.append(bild.Bildnummer);
 		sql.append("';");
-		
+
 		myDBFilm.execSQL(new String(sql));
 		myDBFilm.close();
 
 		ContentValues dataToInsert = new ContentValues();
 		dataToInsert.put("bilder", film.Bilder.size() - 1);
-		myDBNummer.update(DB.MY_DB_TABLE_NUMMER, dataToInsert, "title=?", new String[] { film.Titel });
+		myDBNummer.update(DB.MY_DB_TABLE_NUMMER, dataToInsert, "title=?",
+				new String[] { film.Titel });
 
 		myDBNummer.close();
 	}
