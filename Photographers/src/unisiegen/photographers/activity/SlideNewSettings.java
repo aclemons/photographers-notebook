@@ -25,6 +25,7 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.style.UpdateAppearance;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -1217,12 +1218,12 @@ public class SlideNewSettings extends Activity {
 																writeDB(DB.MY_DB_TABLE_SETBW,
 																		Katspec.getText()
 																				.toString(),
-																		0);
+																		1);
 																aplanetsspec
 																		.add(new Settings(
 																				Katspec.getText()
 																						.toString(),
-																				0));
+																				1));
 
 																Katspec.setText("");
 																listAdapterspec
@@ -1321,7 +1322,7 @@ public class SlideNewSettings extends Activity {
 										Toast.LENGTH_SHORT).show();
 							} else {
 								writeDB(DB.MY_DB_TABLE_SETCAM, Kat.getText()
-										.toString(), 0);
+										.toString(), 1);
 								aplanets.add(new Settings(Kat.getText()
 										.toString(), 0));
 								listAdapter.notifyDataSetChanged();
@@ -1456,12 +1457,12 @@ public class SlideNewSettings extends Activity {
 													writeDB(DB.MY_DB_TABLE_SETBW,
 															Katspec.getText()
 																	.toString(),
-															0);
+															1);
 													aplanetsspec
 															.add(new Settings(
 																	Katspec.getText()
 																			.toString(),
-																	0));
+																	1));
 													Katspec.setText("");
 													listAdapterspec
 															.notifyDataSetChanged();
@@ -1661,7 +1662,7 @@ public class SlideNewSettings extends Activity {
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETFOK, katText0.getText()
-									.toString(), 0);
+									.toString(), 1);
 
 							readDB();
 							katText0.setText("");
@@ -1844,7 +1845,7 @@ public class SlideNewSettings extends Activity {
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETBLE, katText1.getText()
-									.toString(), 0);
+									.toString(), 1);
 							readDB();
 							katText1.setText("");
 							listAdapte1 = new SettingsArrayAdapter(mContext,
@@ -2026,7 +2027,7 @@ public class SlideNewSettings extends Activity {
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETZEI, katText2.getText()
-									.toString(), 0);
+									.toString(), 1);
 							readDB();
 							katText2.setText("");
 							listAdapte2 = new SettingsArrayAdapter(mContext,
@@ -2210,7 +2211,7 @@ public class SlideNewSettings extends Activity {
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETMES, katText3.getText()
-									.toString(), 0);
+									.toString(), 1);
 							readDB();
 							katText3.setText("");
 							listAdapte3 = new SettingsArrayAdapter(mContext,
@@ -2394,7 +2395,7 @@ public class SlideNewSettings extends Activity {
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETPLU, katText4.getText()
-									.toString(), 0);
+									.toString(), 1);
 							readDB();
 							katText4.setText("");
 							listAdapte4 = new SettingsArrayAdapter(mContext,
@@ -2568,7 +2569,7 @@ public class SlideNewSettings extends Activity {
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETNM, katText5.getText()
-									.toString(), 0);
+									.toString(), 1);
 							readDB();
 							katText5.setText("");
 							listAdapte5 = new SettingsArrayAdapter(mContext,
@@ -2752,7 +2753,7 @@ public class SlideNewSettings extends Activity {
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETMVF, katText6.getText()
-									.toString(), 0);
+									.toString(), 1);
 							readDB();
 							katText6.setText("");
 							listAdapte6 = new SettingsArrayAdapter(mContext,
@@ -2936,7 +2937,7 @@ public class SlideNewSettings extends Activity {
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETFIL, katText7.getText()
-									.toString(), 0);
+									.toString(), 1);
 							readDB();
 							katText7.setText("");
 							listAdapte7 = new SettingsArrayAdapter(mContext,
@@ -3120,7 +3121,7 @@ public class SlideNewSettings extends Activity {
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETFVF, katText8.getText()
-									.toString(), 0);
+									.toString(), 1);
 							readDB();
 							katText8.setText("");
 							listAdapte8 = new SettingsArrayAdapter(mContext,
@@ -3304,7 +3305,7 @@ public class SlideNewSettings extends Activity {
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETBLI, katText9.getText()
-									.toString(), 0);
+									.toString(), 1);
 							readDB();
 							katText9.setText("");
 							listAdapte9 = new SettingsArrayAdapter(mContext,
@@ -3488,7 +3489,7 @@ public class SlideNewSettings extends Activity {
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETKOR, katText10.getText()
-									.toString(), 0);
+									.toString(), 1);
 							readDB();
 							katText10.setText("");
 							listAdapte10 = new SettingsArrayAdapter(mContext,
@@ -3639,7 +3640,7 @@ public class SlideNewSettings extends Activity {
 										Toast.LENGTH_SHORT).show();
 							} else {
 								writeDB(DB.MY_DB_TABLE_SETFF, Kat1.getText()
-										.toString(), 0);
+										.toString(), 1);
 								readDB();
 								Kat1.setText("");
 								listAdapter1 = new SettingsArrayAdapter(
@@ -3787,7 +3788,7 @@ public class SlideNewSettings extends Activity {
 										Toast.LENGTH_SHORT).show();
 							} else {
 								writeDB(DB.MY_DB_TABLE_SETEMP, Kat7.getText()
-										.toString(), 0);
+										.toString(), 1);
 								readDB();
 								Kat7.setText("");
 								listAdapter7 = new SettingsArrayAdapter(
@@ -3960,7 +3961,7 @@ public class SlideNewSettings extends Activity {
 										Toast.LENGTH_SHORT).show();
 							} else {
 								writeDB(DB.MY_DB_TABLE_SETSON, Kat6.getText()
-										.toString(), 0);
+										.toString(), 1);
 								readDB();
 								Kat6.setText("");
 								listAdapter6 = new SettingsArrayAdapter(
