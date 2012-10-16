@@ -110,13 +110,16 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="wrap_content"
-							    android:gravity="left"
-							    android:textSize="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Kameramodell:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="left"
+					        android:paddingRight="5dp"
+					        android:text="@string/camera_model"
+					        android:textSize="12dp" >
+
 						</TextView>
 				    	<TextView
 							    android:id="@+id/filmcam"
@@ -138,13 +141,16 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="wrap_content"
-							    android:gravity="left"
-							    android:textSize="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Datum:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="left"
+					        android:paddingRight="5dp"
+					        android:text="@string/date"
+					        android:textSize="12dp" >
+
 						</TextView>
 				    	<TextView
 							    android:id="@+id/datuminfo"
@@ -215,13 +221,16 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="wrap_content"
-							    android:gravity="right"
-							    android:textSize="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Filmnotiz:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingRight="5dp"
+					        android:text="@string/film_note"
+					        android:textSize="12dp" >
+
 						</TextView>
 				    	<TextView
 							    android:id="@+id/filmnotiz"
@@ -251,13 +260,16 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="wrap_content"
-							    android:gravity="left"
-							    android:textSize="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Filmformat:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="left"
+					        android:paddingRight="5dp"
+					        android:text="@string/film_format"
+					        android:textSize="12dp" >
+
 						</TextView>
 				    	<TextView
 							    android:id="@+id/filmformat"
@@ -276,13 +288,16 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="wrap_content"
-							    android:gravity="right"
-							    android:textSize="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Empfindlichkeit:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingRight="5dp"
+					        android:text="@string/film_speed"
+					        android:textSize="12dp" >
+
 						</TextView>
 				    	<TextView
 							    android:id="@+id/filmemp"
@@ -301,13 +316,16 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="wrap_content"
-							    android:gravity="right"
-							    android:textSize="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Filmtyp:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingRight="5dp"
+					        android:text="@string/film_type"
+					        android:textSize="12dp" >
+
 						</TextView>
 				    	<TextView
 							    android:id="@+id/filmtyp"
@@ -381,13 +399,16 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="wrap_content" 
 					    android:layout_width="wrap_content">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="wrap_content"
-							    android:gravity="right"
-							    android:textSize="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Sonderentwicklung:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingRight="5dp"
+					        android:text="@string/processing"
+					        android:textSize="12dp" >
+
 						</TextView>
 				    	<TextView
 							    android:id="@+id/filmsonder"
@@ -405,13 +426,16 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="match_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="wrap_content"
-							    android:gravity="right"
-							    android:textSize="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Sonderentwicklung:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingRight="5dp"
+					        android:text="@string/processing"
+					        android:textSize="12dp" >
+
 						</TextView>
 				    	<TextView
 							    android:id="@+id/filmsonders"
@@ -445,6 +469,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         >
+
     <Button
         android:id="@+id/button_goon"
         android:layout_width="fill_parent"
@@ -452,7 +477,8 @@
         android:background="@drawable/custom_button"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="Film fortsetzen" />
+        android:text="@string/continue_film" />
+
 </LinearLayout>
    </TableLayout>    
          

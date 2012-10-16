@@ -122,7 +122,7 @@ public class FilmAuswahlActivity extends Activity {
 			myList.setVisibility(ListView.VISIBLE);
 			image.setVisibility(ImageView.GONE);
 		}
-		pics.setText(gesamtPics + " Bilder"); 
+		pics.setText(gesamtPics + " " + getString(R.string.pictures)); 
 		adapter = new FilmsArrayAdapter(mContext, listItems, 1);
 		myList.setOnItemClickListener(notlongClickListener);
 		myList.setOnItemLongClickListener(longClickListener);

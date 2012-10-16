@@ -103,13 +103,14 @@
         
 	    android:layout_height="wrap_content" 
 	    android:layout_width="fill_parent">
+
 			    <TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:textStyle="bold"
-				    android:layout_height="wrap_content"
-				    android:text="Allgemein : "
-				    >
+			        android:id="@+id/freecell"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:text="@string/general"
+			        android:textStyle="bold" >
+
 				</TextView>
 				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/maini"
@@ -123,13 +124,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/ge"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Geotag: ">
+					        android:id="@+id/ge"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/geotag" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/geoTag"
@@ -177,13 +181,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Zeitstempel: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/timestamp" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/zeitStempel"
@@ -273,13 +280,14 @@
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
+
 			    <TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:textStyle="bold"
-				    android:layout_height="wrap_content"
-				    android:text="Kamera : "
-				    >
+			        android:id="@+id/freecell"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:text="@string/camera"
+			        android:textStyle="bold" >
+
 				</TextView>
 				
 			        
@@ -310,13 +318,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Objektiv: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/lens" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/showobjektiv"
@@ -386,13 +397,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Blende: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/aperture">
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/showblende"
@@ -434,19 +448,25 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent">
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainio"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
+
+					    <LinearLayout
+					        xmlns:android="http://schemas.android.com/apk/res/android"
+					        android:id="@+id/mainio"
+					        android:layout_width="fill_parent"
+					        android:layout_height="fill_parent"
+					        android:layout_weight=".44"
+					        android:gravity="left"
+					        android:paddingRight="5dp" >
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Zeit: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/exposure" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/showzeit"
@@ -496,13 +516,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Fokus: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/focus" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/showfokus"
@@ -560,13 +583,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Filter: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/filter" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/showfilter"
@@ -624,13 +650,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Filter-VF: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/filter_vf" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/showfiltervf"
@@ -680,13 +709,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Makro: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/macro" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/showmakro"
@@ -732,13 +764,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Messmethode: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/measurement" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/showmessung"
@@ -786,13 +821,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Belichtungskorrektur: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/exposure_correction" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/showbelichtung"
@@ -838,13 +876,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Makro-VF: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/macro_vf" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/showmakrovf"
@@ -890,13 +931,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Blitz: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/flash" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/showblitz"
@@ -942,13 +986,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Blitz-Korrektur: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/flash_correction" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/showblitzkorr"
@@ -1051,13 +1098,14 @@
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
+
 			    <TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:textStyle="bold"
-				    android:layout_height="wrap_content"
-				    android:text="Sonstiges : "
-				    >
+			        android:id="@+id/freecell"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:text="@string/misc"
+			        android:textStyle="bold" >
+
 				</TextView>
 				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/maini"
@@ -1071,13 +1119,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Notiz: ">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/note" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/shownotiz"
@@ -1126,13 +1177,16 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Kamera-Notiz:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:paddingRight="5dp"
+					        android:text="@string/camera_note" >
+
 						</TextView>
 				    	<TextView
 				                 android:id="@+id/shownotizkam"

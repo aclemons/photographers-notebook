@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="strings_tutorial_1">
+        <item>Herzlich Willkommen im Photographers Notebook!</item>
+        <item>Zur Einführung zeigen wir Ihnen die wichtigsten Funktionen der App.</item>
+        <item>Wenn Sie auf den Menü-Button tippen, können Sie die Einstellungen zu dieser App finden und die ersten Einstellungen tätigen.</item>
+    	<item>Sind alle Einstellungen vorgenommen, starten Sie Ihren ersten Film, indem Sie den Button "Neuer Film" antippen.</item>
+   		<item>Später können Sie den Film auf dieser Seite wieder aufrufen und bei Bedarf fortführen.</item>
+    </string-array>
+</resources>

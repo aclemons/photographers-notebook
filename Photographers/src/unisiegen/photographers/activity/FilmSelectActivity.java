@@ -458,8 +458,8 @@ public class FilmSelectActivity extends Activity {
 					.findViewById(R.id.cancelbutton);
 			Button editButton = (Button) layoutOwn
 					.findViewById(R.id.editbutton);
-			deleteButton.setText("     Bild l\u00F6schen     ");
-			editButton.setText("     Bild bearbeiten     ");
+			deleteButton.setText(getString(R.string.delete_picture));
+			editButton.setText(getString(R.string.edit_picture));
 
 			editButton.setOnClickListener(new OnClickListener() {
 				@Override
@@ -739,9 +739,9 @@ public class FilmSelectActivity extends Activity {
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							mContext);
 					builder.setMessage(
-							"Wollen Sie den Eintrag wirklich l\u00F6schen ? ?")
+							getString(R.string.question_delete))
 							.setCancelable(false)
-							.setPositiveButton("Ja",
+							.setPositiveButton(getString(R.string.yes),
 									new DialogInterface.OnClickListener() {
 										public void onClick(
 												DialogInterface dialog,
@@ -759,11 +759,11 @@ public class FilmSelectActivity extends Activity {
 											onResume();
 											Toast.makeText(
 													getApplicationContext(),
-													"Bild gel\u00F6scht",
+													getString(R.string.deleted),
 													Toast.LENGTH_SHORT).show();
 										}
 									})
-							.setNegativeButton("Nein",
+							.setNegativeButton(getString(R.string.no),
 									new DialogInterface.OnClickListener() {
 										public void onClick(
 												DialogInterface dialog,
@@ -946,7 +946,7 @@ public class FilmSelectActivity extends Activity {
 				View v = inflater.inflate(R.layout.filminfobox, null, false);
 				final TextView zeitStempel = (TextView) v
 						.findViewById(R.id.zeitStempel);
-				zeitStempel.setText(bild.Zeitstempel + " - " + film.Datum);
+				zeitStempel.setText(bild.Zeitstempel);
 				final TextView zeitGeo = (TextView) v.findViewById(R.id.geoTag);
 				zeitGeo.setText(bild.GeoTag);
 				final TextView objektiv = (TextView) v
