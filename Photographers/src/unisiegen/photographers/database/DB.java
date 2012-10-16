@@ -816,12 +816,69 @@ public class DB {
 	public List<String> getSettingForSpinner(Context mContext, String database,
 			String settingName) {
 
-		List<String> values = new ArrayList<String>();
+		return getSettings(mContext, database, settingName, false);
+	}
+
+	/**
+	 * 
+	 * @return I changed the return type from the more general List to
+	 *         ArrayList, as the user interface, which will use this data can
+	 *         directly work on ArrayLists
+	 */
+	public ArrayList<String> getActivatedSettingsData(Context mContext,
+			String database, String settingName) {
+
+		return getSettings(mContext, database, settingName, false);
+	}
+
+	public int getDefaultSettingNumber(Context mContext, String database,
+			String settingName) {
 
 		SQLiteDatabase myDB = mContext.openOrCreateDatabase(database,
 				Context.MODE_PRIVATE, null);
-		Cursor c = myDB.rawQuery(
-				"SELECT name,value FROM " + settingName + "  ", null);
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT name, value, def FROM ");
+		sql.append(settingName);
+		sql.append(" WHERE value = '1'");
+
+		Cursor c = myDB.rawQuery(new String(sql), null);
+		int count = 0;
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					if (c.getInt(c.getColumnIndex("def")) == 1) {
+						c.close();
+						myDB.close();
+
+						return count;
+					}
+					count++;
+
+				} while (c.moveToNext());
+			}
+		}
+
+		c.close();
+		myDB.close();
+
+		return 0;
+	}
+
+	private ArrayList<String> getSettings(Context mContext, String database,
+			String settingName, boolean onlyActivatedValues) {
+
+		ArrayList<String> values = new ArrayList<String>();
+
+		SQLiteDatabase myDB = mContext.openOrCreateDatabase(database,
+				Context.MODE_PRIVATE, null);
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT name, value FROM ");
+		sql.append(settingName);
+		if (onlyActivatedValues) {
+			sql.append(" WHERE value = '1'");
+		}
+		Cursor c = myDB.rawQuery(new String(sql), null);
+
 		if (c != null) {
 			if (c.moveToFirst()) {
 				do {
@@ -907,4 +964,5 @@ public class DB {
 
 		myDBNummer.close();
 	}
+
 }

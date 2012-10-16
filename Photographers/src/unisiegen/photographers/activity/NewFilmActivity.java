@@ -9,15 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import unisiegen.photographers.database.DB;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -86,22 +84,7 @@ public class NewFilmActivity extends Activity {
 	EditText titleText;
 	Camera mCamera;
 
-	/*
-	 * Datenbank-Variablen
-	 */
-	SQLiteDatabase myDBSet = null;
-	SQLiteDatabase myDB = null;
-	SQLiteDatabase myDBFilm = null;
-	SQLiteDatabase myDBNummer = null;
 	static String MY_DB_NAME;
-	static String MY_DB_NUMMER = "Nummern";
-	static String MY_DB_FILM = "Filme";
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreate(android.os.Bundle) LifeCycle-Methoden
-	 */
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -250,198 +233,44 @@ public class NewFilmActivity extends Activity {
 		}
 	}
 
-	/*
-	 * Datenbank Methoden
-	 */
-
-	private void onCreateDBAndDBTabled() {
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETCAM
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETEMP
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBW
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETNM
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFIL
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBLI
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETSON
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETTYP
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFOK
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBLE
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETZEI
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMES
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETPLU
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMAK
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMVF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFVF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETKOR
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMVF2
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFVF2
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-
-	}
-
+	
 	private void readDB() {
-		onCreateDBAndDBTabled();
-		listCamera = new ArrayList<String>();
-		listFF = new ArrayList<String>();
-		listSS = new ArrayList<String>();
-		listSSS = new ArrayList<String>();
-		listEM = new ArrayList<String>();
-		listTY = new ArrayList<String>();
+		
 		int number = 0;
-		Cursor c = myDB.rawQuery("SELECT name,value FROM " + DB.MY_DB_TABLE_SETCAM
-				+ " WHERE value = '1'", null);
-		if (c != null) {
-			if (c.moveToFirst()) {
-				do {
-					if (c.getString(c.getColumnIndex("name")).equals(
-							settings.getString("KamDef", ""))) {
-						camdef = number;
-					}
-					listCamera.add(c.getString(c.getColumnIndex("name")));
-					number++;
-				} while (c.moveToNext());
-			} else {
-				listCamera.add("Keine Auswahl");
+		listCamera = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM);
+		for (String cam : listCamera) {
+			if (cam.equals(settings.getString("KamDef", ""))) {
+				camdef = number;
 			}
+			number++;
 		}
-		number = 0;
-		Cursor ca = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETFF + " WHERE value = '1'", null);
-		if (ca != null) {
-			if (ca.moveToFirst()) {
-				do {
-					if (ca.getInt(ca.getColumnIndex("def")) == 1) {
-						ffdef = number;
-					}
-					listFF.add(ca.getString(ca.getColumnIndex("name")));
-					number++;
-				} while (ca.moveToNext());
-			} else {
-				listFF.add("Keine Auswahl");
-			}
+		if (listCamera.size() == 0) {
+			listCamera.add("Keine Auswahl");
 		}
-		number = 0;
-		Cursor cf = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETSON + " WHERE value = '1'", null);
-		if (cf != null) {
-			listSSS.add(" ");
-			if (cf.moveToFirst()) {
-				do {
-					if (cf.getInt(cf.getColumnIndex("def")) == 1) {
-						ssdef = number;
-					}
-					listSS.add(cf.getString(cf.getColumnIndex("name")));
-					listSSS.add(cf.getString(cf.getColumnIndex("name")));
-					number++;
-				} while (cf.moveToNext());
-			} else {
-				listSS.add("Keine Auswahl");
-			}
-		}
-		number = 0;
-		Cursor cg = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETEMP + " WHERE value = '1'", null);
-		if (cg != null) {
-			if (cg.moveToFirst()) {
-				do {
-					if (cg.getInt(cg.getColumnIndex("def")) == 1) {
-						emdef = number;
-					}
-					listEM.add(cg.getString(cg.getColumnIndex("name")));
-					number++;
-				} while (cg.moveToNext());
-			} else {
-				listEM.add("Keine Auswahl");
-			}
-		}
-		number = 0;
-		Cursor ch = myDB.rawQuery("SELECT name,value FROM "
-				+ DB.MY_DB_TABLE_SETTYP + " WHERE value = '1'", null);
-		if (ch != null) {
-			if (ch.moveToFirst()) {
-				do {
-					listTY.add(ch.getString(ch.getColumnIndex("name")));
-					number++;
-				} while (ch.moveToNext());
-			}
-		}
-		number = 0;
-		myDB.close();
-		c.close();
-		ca.close();
-		cf.close();
-		cg.close();
-		ch.close();
-	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Men�
-	 * Methoden
-	 */
+		ffdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETFF);
+		listFF = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETFF);		
+		if (listFF.size() == 0) {
+			listFF.add("Keine Auswahl");
+		}
+
+		listSSS = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETSON);
+		listSS = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETSON);
+		ssdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETSON);
+		if (listSSS.size() == 0) {
+			listSSS.add("Keine Auswahl");
+			listSS.add("Keine Auswahl");
+		}
+
+		listEM = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETEMP);
+		emdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETEMP);		
+		if (listEM.size() == 0) {
+			listEM.add("Keine Auswahl");
+		}
+
+		listTY = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETTYP);
+	}
+	
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
