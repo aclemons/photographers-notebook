@@ -696,29 +696,40 @@ public class FilmSelectActivity extends Activity {
 
 						@Override
 						public void onClick(View v) {
-							
-							for(BildObjekt bild : film.Bilder){
-								if(bild.Bildnummer.equals(third.getText())){
-									
-									bild.Fokus = picfocusedit.getSelectedItem().toString();
-									bild.Blende = picblendeedit.getSelectedItem().toString();
-									bild.Zeit = piczeitedit.getSelectedItem().toString();
+
+							for (BildObjekt bild : film.Bilder) {
+								if (bild.Bildnummer.equals(third.getText())) {
+
+									bild.Fokus = picfocusedit.getSelectedItem()
+											.toString();
+									bild.Blende = picblendeedit
+											.getSelectedItem().toString();
+									bild.Zeit = piczeitedit.getSelectedItem()
+											.toString();
 									picmessungedit.getSelectedItem().toString();
 									picplusedit.getSelectedItem().toString();
 									picmakroedit.getSelectedItem().toString();
 									picmakrovfedit.getSelectedItem().toString();
-									bild.Filter = picfilteredit.getSelectedItem().toString();
-									bild.FilterVF = filtervfedit.getSelectedItem().toString();
-									bild.Blitz = picblitzedit.getSelectedItem().toString();
-									bild.Blitzkorrektur = picblitzkorredit.getSelectedItem().toString();
-									bild.Notiz = picnotizedit.getText().toString();
-									bild.KameraNotiz = picnotizcamedit.getText().toString();
-									bild.Objektiv = objektivedit.getSelectedItem().toString();
-									
-									DB.getDB().updatePicture(mContext, film, bild);
+									bild.Filter = picfilteredit
+											.getSelectedItem().toString();
+									bild.FilterVF = filtervfedit
+											.getSelectedItem().toString();
+									bild.Blitz = picblitzedit.getSelectedItem()
+											.toString();
+									bild.Blitzkorrektur = picblitzkorredit
+											.getSelectedItem().toString();
+									bild.Notiz = picnotizedit.getText()
+											.toString();
+									bild.KameraNotiz = picnotizcamedit
+											.getText().toString();
+									bild.Objektiv = objektivedit
+											.getSelectedItem().toString();
+
+									DB.getDB().updatePicture(mContext, film,
+											bild);
 									break;
 								}
-							}							
+							}
 							pwblub.dismiss();
 							onResume();
 						}
@@ -738,23 +749,25 @@ public class FilmSelectActivity extends Activity {
 				public void onClick(View v) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							mContext);
-					builder.setMessage(
-							getString(R.string.question_delete))
+					builder.setMessage(getString(R.string.question_delete))
 							.setCancelable(false)
 							.setPositiveButton(getString(R.string.yes),
 									new DialogInterface.OnClickListener() {
 										public void onClick(
 												DialogInterface dialog,
 												int which) {
-											
-											for(BildObjekt bild : film.Bilder){
-												if(bild.Bildnummer.equals(third.getText())){
-													DB.getDB().deletePicture(mContext, film, bild);
+
+											for (BildObjekt bild : film.Bilder) {
+												if (bild.Bildnummer
+														.equals(third.getText())) {
+													DB.getDB().deletePicture(
+															mContext, film,
+															bild);
 													break;
 												}
 											}
-											
-											bilderimfilm -= 1;											
+
+											bilderimfilm -= 1;
 											pw.dismiss();
 											onResume();
 											Toast.makeText(
@@ -849,74 +862,12 @@ public class FilmSelectActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		if (item.getItemId() == R.id.opt_sett3) {
-			if (settings.getString("allinone", "ja").equals("nein")) {
-				LayoutInflater inflaterOwn = (LayoutInflater) mContext
-						.getSystemService(LAYOUT_INFLATER_SERVICE);
-				View layoutOwn = inflaterOwn.inflate(R.layout.popupoption,
-						(ViewGroup) findViewById(R.id.users), false);
-				final ImageButton setone = (ImageButton) layoutOwn
-						.findViewById(R.id.setone);
-				final ImageButton settwo = (ImageButton) layoutOwn
-						.findViewById(R.id.settwo);
-				final ImageButton setthree = (ImageButton) layoutOwn
-						.findViewById(R.id.setthree);
-				final ImageButton setfour = (ImageButton) layoutOwn
-						.findViewById(R.id.setfour);
-
-				setone.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsGen.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				settwo.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsCam.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				setthree.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsPic.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				setfour.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsSon.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				pw = new PopupWindow(layoutOwn,
-						ViewGroup.LayoutParams.WRAP_CONTENT,
-						ViewGroup.LayoutParams.WRAP_CONTENT, true);
-				pw.setAnimationStyle(-1);
-				pw.setBackgroundDrawable(new BitmapDrawable());
-				pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
-			} else {
-				Intent myIntent3 = new Intent(getApplicationContext(),
-						SlideNewSettings.class);
-				startActivityForResult(myIntent3, 0);
-			}
+		if (item.getItemId() == R.id.opt_openSettings) {
+			Intent myIntent3 = new Intent(getApplicationContext(),
+					SlideNewSettings.class);
+			startActivityForResult(myIntent3, 0);
 			return true;
-		} else if (item.getItemId() == R.id.opt_sett1) {
+		} else if (item.getItemId() == R.id.opt_backToMenu) {
 			finish();
 			startActivity(new Intent(getApplicationContext(),
 					FilmAuswahlActivity.class));
@@ -1072,7 +1023,7 @@ public class FilmSelectActivity extends Activity {
 		public Pictures(BildObjekt b) {
 			this.name = b.Bildnummer;
 			this.time = b.Zeit;
-			this.blende  = b.Blende;
+			this.blende = b.Blende;
 			this.objektiv = b.Objektiv;
 			this.timestamp = b.Zeitstempel;
 		}
@@ -1084,12 +1035,12 @@ public class FilmSelectActivity extends Activity {
 		public String getTime() {
 			return time;
 		}
-		
-		public String getBlende(){
+
+		public String getBlende() {
 			return blende;
 		}
-		
-		public String getZeitstempel(){
+
+		public String getZeitstempel() {
 			return timestamp;
 		}
 	}
@@ -1145,13 +1096,17 @@ public class FilmSelectActivity extends Activity {
 			TextView textViewTime;
 
 			if (convertView == null) {
-				
+
 				convertView = inflater.inflate(R.layout.film_item, null);
-				textView = (TextView) convertView.findViewById(R.id.listItemText);
-				textViewApertureTime = (TextView) convertView.findViewById(R.id.listItemBlendeZeit);
-				textViewTime = (TextView) convertView.findViewById(R.id.listItemTextTime);
-				convertView.setTag(new PicturesViewHolder(textView, textViewTime, textViewApertureTime));
-				
+				textView = (TextView) convertView
+						.findViewById(R.id.listItemText);
+				textViewApertureTime = (TextView) convertView
+						.findViewById(R.id.listItemBlendeZeit);
+				textViewTime = (TextView) convertView
+						.findViewById(R.id.listItemTextTime);
+				convertView.setTag(new PicturesViewHolder(textView,
+						textViewTime, textViewApertureTime));
+
 			} else {
 				PicturesViewHolder viewHolder = (PicturesViewHolder) convertView
 						.getTag();

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -25,7 +24,6 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.style.UpdateAppearance;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -77,7 +75,7 @@ public class SlideNewSettings extends Activity {
 			"Sie k\u00F6nnen neue Eintr\u00E4ge hinzuf\u00FCgen oder bestehende Beitr\u00E4ge nach langem Antippen bearbeiten",
 			"Im Men\u00FC k\u00F6nnen Sie die Einstellungen zur\u00FCcksetzen oder ein neues Einstellunges-Set erstellen, um es mit bestimmten Einstellungen zu konfigurieren.",
 			"Einige Daten sind bereits vorhanden und vorausgew\u00E4hlt. Sie m\u00FCssen nur noch eine Kamera hinzuf\u00FCgen und Objektive zuordnen.",
-			"Vergessen Sie nicht, Ihre neu angelegten Kameras und Objektive mit einem Haken zu aktivieren.", 
+			"Vergessen Sie nicht, Ihre neu angelegten Kameras und Objektive mit einem Haken zu aktivieren.",
 			"Sie haben au\u00DFerdem die M\u00F6glichkeit, mehrere Einstellungssets zu speichern und sp\u00E4ter wieder zu laden." };
 	Integer contentIndex = 0;
 	TextView tv1, tv2;
@@ -147,7 +145,6 @@ public class SlideNewSettings extends Activity {
 	final static String MY_DB_SET1 = "FotoSettingsOne";
 	final static String MY_DB_SET2 = "FotoSettingsTwo";
 	final static String MY_DB_SET3 = "FotoSettingsThree";
-
 
 	/*
 	 * (non-Javadoc)
@@ -840,49 +837,8 @@ public class SlideNewSettings extends Activity {
 						SharedPreferences.Editor editor = settings.edit();
 						editor.putInt("FIRSTSTART", 1);
 						editor.commit();
-
-						// FilmAuswahlActivity
-						// popupmenue();
 					}
 				});
-
-				final ToggleButton settingsView = (ToggleButton) mainview
-						.findViewById(R.id.settings);
-
-				settingsView.setTextOff("Aus");
-				settingsView.setTextOn("An");
-				settingsView.setGravity(Gravity.LEFT);
-				settingsView
-						.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-							@Override
-							public void onCheckedChanged(
-									CompoundButton buttonView, boolean isChecked) {
-								if (!settingsView.getText().toString()
-										.equals("An")) {
-									if (settingsView.isChecked()) {
-										editors.putString("allinone", "ja");
-										editors.commit();
-									} else {
-										editors.putString("allinone", "nein");
-										editors.commit();
-									}
-								} else {
-									if (settingsView.isChecked()) {
-										editors.putString("allinone", "ja");
-										editors.commit();
-									} else {
-										editors.putString("allinone", "nein");
-										editors.commit();
-									}
-								}
-							}
-						});
-
-				if (settings.getString("allinone", "ja").equals("nein")) {
-					settingsView.setChecked(false);
-				} else {
-					settingsView.setChecked(true);
-				}
 
 				final ToggleButton geotag = (ToggleButton) mainview
 						.findViewById(R.id.geotag);
@@ -1066,7 +1022,8 @@ public class SlideNewSettings extends Activity {
 									.findViewById(R.id.editbutton);
 							Button specButton = (Button) layoutOwn
 									.findViewById(R.id.specbutton);
-							deleteButton.setText("     Eintrag l\u00F6schen     ");
+							deleteButton
+									.setText("     Eintrag l\u00F6schen     ");
 							editButton.setText("     Als Standardwert     ");
 							editButton.setVisibility(Button.GONE);
 							specButton
@@ -1254,7 +1211,8 @@ public class SlideNewSettings extends Activity {
 													.getChildAt(0))
 													.getChildAt(0);
 
-											makedefaultDB(DB.MY_DB_TABLE_SETCAM,
+											makedefaultDB(
+													DB.MY_DB_TABLE_SETCAM,
 													texti.getText().toString());
 
 											myList.setAdapter(listAdapter);
@@ -1671,8 +1629,8 @@ public class SlideNewSettings extends Activity {
 							myListView0.setAdapter(listAdapte0);
 							listAdapte0.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
-									.show();
+									"Eintrag hinzugef\u00FCgt!",
+									Toast.LENGTH_SHORT).show();
 						}
 
 						// --------------
@@ -1853,8 +1811,8 @@ public class SlideNewSettings extends Activity {
 							myListView1.setAdapter(listAdapte1);
 							listAdapte1.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
-									.show();
+									"Eintrag hinzugef\u00FCgt!",
+									Toast.LENGTH_SHORT).show();
 						}
 
 						// --------------
@@ -2037,8 +1995,8 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText2.getText().toString(),0));
 							listAdapte2.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
-									.show();
+									"Eintrag hinzugef\u00FCgt!",
+									Toast.LENGTH_SHORT).show();
 						}
 
 						// --------------
@@ -2221,8 +2179,8 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText3.getText().toString(),0));
 							listAdapte3.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
-									.show();
+									"Eintrag hinzugef\u00FCgt!",
+									Toast.LENGTH_SHORT).show();
 						}
 
 						// --------------
@@ -2405,8 +2363,8 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText4.getText().toString(),0));
 							listAdapte4.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
-									.show();
+									"Eintrag hinzugef\u00FCgt!",
+									Toast.LENGTH_SHORT).show();
 						}
 
 						// --------------
@@ -2505,7 +2463,8 @@ public class SlideNewSettings extends Activity {
 
 												// HIER
 
-												deletefromDB(DB.MY_DB_TABLE_SETNM,
+												deletefromDB(
+														DB.MY_DB_TABLE_SETNM,
 														texti.getText()
 																.toString());
 												readDB();
@@ -2579,8 +2538,8 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText5.getText().toString(),0));
 							listAdapte5.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
-									.show();
+									"Eintrag hinzugef\u00FCgt!",
+									Toast.LENGTH_SHORT).show();
 						}
 
 						// --------------
@@ -2763,8 +2722,8 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText6.getText().toString(),0));
 							listAdapte6.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
-									.show();
+									"Eintrag hinzugef\u00FCgt!",
+									Toast.LENGTH_SHORT).show();
 						}
 
 						// --------------
@@ -2947,8 +2906,8 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText7.getText().toString(),0));
 							listAdapte7.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
-									.show();
+									"Eintrag hinzugef\u00FCgt!",
+									Toast.LENGTH_SHORT).show();
 						}
 
 						// --------------
@@ -3131,8 +3090,8 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText8.getText().toString(),0));
 							listAdapte8.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
-									.show();
+									"Eintrag hinzugef\u00FCgt!",
+									Toast.LENGTH_SHORT).show();
 						}
 
 						// --------------
@@ -3315,8 +3274,8 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText9.getText().toString(),0));
 							listAdapte9.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
-									.show();
+									"Eintrag hinzugef\u00FCgt!",
+									Toast.LENGTH_SHORT).show();
 						}
 
 						// --------------
@@ -3499,8 +3458,8 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText10.getText().toString(),0));
 							listAdapte10.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!", Toast.LENGTH_SHORT)
-									.show();
+									"Eintrag hinzugef\u00FCgt!",
+									Toast.LENGTH_SHORT).show();
 						}
 
 						// --------------
@@ -3557,7 +3516,8 @@ public class SlideNewSettings extends Activity {
 									.findViewById(R.id.cancelbutton);
 							Button editButton = (Button) layoutOwn
 									.findViewById(R.id.editbutton);
-							deleteButton.setText("     Eintrag l\u00F6schen     ");
+							deleteButton
+									.setText("     Eintrag l\u00F6schen     ");
 							editButton.setText("     Als Standardwert     ");
 							editButton
 									.setOnClickListener(new OnClickListener() {
@@ -3706,7 +3666,8 @@ public class SlideNewSettings extends Activity {
 									.findViewById(R.id.cancelbutton);
 							Button editButton = (Button) layoutOwn
 									.findViewById(R.id.editbutton);
-							deleteButton.setText("     Eintrag l\u00F6schen     ");
+							deleteButton
+									.setText("     Eintrag l\u00F6schen     ");
 							editButton.setText("     Als Standardwert     ");
 							editButton
 									.setOnClickListener(new OnClickListener() {
@@ -3715,7 +3676,8 @@ public class SlideNewSettings extends Activity {
 											LinearLayout lins = (LinearLayout) arg1;
 											TextView texti = (TextView) lins
 													.getChildAt(0);
-											makedefaultDB(DB.MY_DB_TABLE_SETEMP,
+											makedefaultDB(
+													DB.MY_DB_TABLE_SETEMP,
 													texti.getText().toString());
 											readDB();
 											listAdapter7.notifyDataSetChanged();
@@ -3872,7 +3834,8 @@ public class SlideNewSettings extends Activity {
 									.findViewById(R.id.cancelbutton);
 							Button editButton = (Button) layoutOwn
 									.findViewById(R.id.editbutton);
-							deleteButton.setText("     Eintrag l\u00F6schen     ");
+							deleteButton
+									.setText("     Eintrag l\u00F6schen     ");
 							editButton.setText("     Als Standardwert     ");
 
 							deleteButton
@@ -3904,7 +3867,8 @@ public class SlideNewSettings extends Activity {
 											LinearLayout lins = (LinearLayout) arg1;
 											TextView texti = (TextView) lins
 													.getChildAt(0);
-											makedefaultDB(DB.MY_DB_TABLE_SETSON,
+											makedefaultDB(
+													DB.MY_DB_TABLE_SETSON,
 													texti.getText().toString());
 											readDB();
 											listAdapter6.notifyDataSetChanged();
@@ -4286,29 +4250,41 @@ public class SlideNewSettings extends Activity {
 						} else if (nummer == 51) {
 							editfromDB(DB.MY_DB_TABLE_SETNM, planet.name, value);
 						} else if (nummer == 79) {
-							editfromDB(DB.MY_DB_TABLE_SETFIL, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETFIL, planet.name,
+									value);
 						} else if (nummer == 56) {
-							editfromDB(DB.MY_DB_TABLE_SETBLI, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETBLI, planet.name,
+									value);
 						} else if (nummer == 67) {
-							editfromDB(DB.MY_DB_TABLE_SETSON, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETSON, planet.name,
+									value);
 						} else if (nummer == 76) {
-							editfromDB(DB.MY_DB_TABLE_SETEMP, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETEMP, planet.name,
+									value);
 						} else if (nummer == 90) {
-							editfromDB(DB.MY_DB_TABLE_SETFOK, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETFOK, planet.name,
+									value);
 						} else if (nummer == 50) {
-							editfromDB(DB.MY_DB_TABLE_SETBLE, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETBLE, planet.name,
+									value);
 						} else if (nummer == 34) {
-							editfromDB(DB.MY_DB_TABLE_SETZEI, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETZEI, planet.name,
+									value);
 						} else if (nummer == 39) {
-							editfromDB(DB.MY_DB_TABLE_SETMES, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETMES, planet.name,
+									value);
 						} else if (nummer == 42) {
-							editfromDB(DB.MY_DB_TABLE_SETPLU, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETPLU, planet.name,
+									value);
 						} else if (nummer == 63) {
-							editfromDB(DB.MY_DB_TABLE_SETMVF, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETMVF, planet.name,
+									value);
 						} else if (nummer == 88) {
-							editfromDB(DB.MY_DB_TABLE_SETFVF, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETFVF, planet.name,
+									value);
 						} else if (nummer == 17) {
-							editfromDB(DB.MY_DB_TABLE_SETKOR, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETKOR, planet.name,
+									value);
 						}
 					}
 				});
@@ -4529,7 +4505,7 @@ public class SlideNewSettings extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		if (item.getItemId() == R.id.opt_perso) {
+		if (item.getItemId() == R.id.opt_settingsToFactoryDefaults) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 			builder.setMessage(
 					"M\u00F6chten Sie wirklich alle Einstellungen zur\u00FCcksetzen ?")
@@ -4551,7 +4527,7 @@ public class SlideNewSettings extends Activity {
 			AlertDialog alert = builder.create();
 			alert.show();
 			return true;
-		} else if (item.getItemId() == R.id.opt_setload) {
+		} else if (item.getItemId() == R.id.opt_loadSetOfSettings) {
 			LayoutInflater inflaterOwn1 = (LayoutInflater) mContext
 					.getSystemService(LAYOUT_INFLATER_SERVICE);
 			View layoutOwn1 = inflaterOwn1.inflate(R.layout.popupmenu,
@@ -4677,7 +4653,7 @@ public class SlideNewSettings extends Activity {
 			pw.setBackgroundDrawable(new BitmapDrawable());
 			pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 			return true;
-		} else if (item.getItemId() == R.id.opt_setset) {
+		} else if (item.getItemId() == R.id.opt_createNewSetOfSettings) {
 			LayoutInflater inflaterOwn = (LayoutInflater) mContext
 					.getSystemService(LAYOUT_INFLATER_SERVICE);
 			View layoutOwn = inflaterOwn.inflate(R.layout.popupmenu,
@@ -5086,7 +5062,7 @@ public class SlideNewSettings extends Activity {
 
 		protected Boolean doInBackground(final String... args) {
 			try {
-				
+
 				DB.getDB().createOrRebuildSettingsTable(mContext);
 
 				onCreateDBAndDBNumber();

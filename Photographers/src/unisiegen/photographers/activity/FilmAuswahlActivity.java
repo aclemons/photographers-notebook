@@ -47,7 +47,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -97,8 +96,8 @@ public class FilmAuswahlActivity extends Activity {
 		myList = (ListView) findViewById(android.R.id.list);
 		TextView pics = (TextView) findViewById(R.id.picanzahl);
 		contentIndex = 0;
-		
-		if (settings.getInt("FIRSTSTART", 0) == 1) { 
+
+		if (settings.getInt("FIRSTSTART", 0) == 1) {
 			ViewGroup view = (ViewGroup) getWindow().getDecorView();
 			view.post(new Runnable() {
 				public void run() {
@@ -122,7 +121,7 @@ public class FilmAuswahlActivity extends Activity {
 			myList.setVisibility(ListView.VISIBLE);
 			image.setVisibility(ImageView.GONE);
 		}
-		pics.setText(gesamtPics + " " + getString(R.string.pictures)); 
+		pics.setText(gesamtPics + " " + getString(R.string.pictures));
 		adapter = new FilmsArrayAdapter(mContext, listItems, 1);
 		myList.setOnItemClickListener(notlongClickListener);
 		myList.setOnItemLongClickListener(longClickListener);
@@ -130,18 +129,17 @@ public class FilmAuswahlActivity extends Activity {
 
 	}
 
-	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.filmauswahl);
 		inflater = getLayoutInflater();
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		if (settings.getInt("FIRSTSTART", 0) == 0) { 
+		if (settings.getInt("FIRSTSTART", 0) == 0) {
 
 			new ResetSettingsTask().execute();
 			SharedPreferences.Editor editor = settings.edit();
-			editor.putInt("FIRSTSTART", 1); 
+			editor.putInt("FIRSTSTART", 1);
 			editor.commit();
 		}
 		Button newFilm = (Button) findViewById(R.id.newFilm);
@@ -168,28 +166,28 @@ public class FilmAuswahlActivity extends Activity {
 
 			Film film = DB.getDB().getFilm(mContext, ids.getText().toString());
 
-			editor.putString("Title", film.Titel); 
-			editor.putString("Datum", film.Datum); 
-			editor.putString("Kamera", film.Kamera); 
+			editor.putString("Title", film.Titel);
+			editor.putString("Datum", film.Datum);
+			editor.putString("Kamera", film.Kamera);
 
-			editor.putString("Filmformat", film.Filmformat); 
-			editor.putString("Empfindlichkeit", film.Empfindlichkeit); 
-			editor.putString("Filmtyp", film.Filmtyp); 
-			editor.putString("Sonder1", film.Sonderentwicklung1); 
-			editor.putString("Sonder2", film.Sonderentwicklung2); 
+			editor.putString("Filmformat", film.Filmformat);
+			editor.putString("Empfindlichkeit", film.Empfindlichkeit);
+			editor.putString("Filmtyp", film.Filmtyp);
+			editor.putString("Sonder1", film.Sonderentwicklung1);
+			editor.putString("Sonder2", film.Sonderentwicklung2);
 
 			int biggestNumber = 0;
 			for (BildObjekt bild : film.Bilder) {
 
 				Integer bildNummer = Integer.valueOf(bild.Bildnummer
-						.replaceAll("[\\D]", ""));  
+						.replaceAll("[\\D]", ""));
 				if (bildNummer > biggestNumber) {
 					biggestNumber = bildNummer;
 				}
-				editor.putInt("BildNummerToBegin", bildNummer + 1); 
+				editor.putInt("BildNummerToBegin", bildNummer + 1);
 			}
 
-			editor.putBoolean("EditMode", true); 
+			editor.putBoolean("EditMode", true);
 			editor.commit();
 			Intent myIntent = new Intent(getApplicationContext(),
 					SlideNewPic.class);
@@ -209,22 +207,22 @@ public class FilmAuswahlActivity extends Activity {
 		public void onClick(View v) {
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-			builder.setMessage(getString(R.string.question_delete)); 
+			builder.setMessage(getString(R.string.question_delete));
 			builder.setCancelable(false);
-			builder.setPositiveButton(getString(R.string.yes), 
+			builder.setPositiveButton(getString(R.string.yes),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 
 							DB.getDB().deleteFilms(mContext,
 									new String[] { ids.getText().toString() });
 							Toast.makeText(getApplicationContext(),
-									getString(R.string.deleted), Toast.LENGTH_SHORT) 
-									.show();
+									getString(R.string.deleted),
+									Toast.LENGTH_SHORT).show();
 							pw.dismiss();
 							onResume();
 						}
 					});
-			builder.setNegativeButton(getString(R.string.no), 
+			builder.setNegativeButton(getString(R.string.no),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							pw.dismiss();
@@ -310,8 +308,8 @@ public class FilmAuswahlActivity extends Activity {
 					.findViewById(R.id.exportbutton);
 			Button editButton = (Button) layoutOwn
 					.findViewById(R.id.editbutton);
-			deleteButton.setText(getString(R.string.delete_film)); 
-			editButton.setText(getString(R.string.continue_film)); 
+			deleteButton.setText(getString(R.string.delete_film));
+			editButton.setText(getString(R.string.continue_film));
 
 			exportButton.setOnClickListener(new OnClickListener() {
 
@@ -350,11 +348,10 @@ public class FilmAuswahlActivity extends Activity {
 					.getChildAt(0);
 			Intent myIntent = new Intent(getApplicationContext(),
 					FilmSelectActivity.class);
-			myIntent.putExtra("ID", ids.getText().toString()); 
+			myIntent.putExtra("ID", ids.getText().toString());
 			startActivityForResult(myIntent, 0);
 		}
 	};
-
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -362,77 +359,15 @@ public class FilmAuswahlActivity extends Activity {
 		return true;
 	}
 
-	
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		if (item.getItemId() == R.id.opt_sett3) {
-			if (settings.getString("allinone", "ja").equals("nein")) {   
-				LayoutInflater inflaterOwn = (LayoutInflater) mContext
-						.getSystemService(LAYOUT_INFLATER_SERVICE);
-				View layoutOwn = inflaterOwn.inflate(R.layout.popupoption,
-						(ViewGroup) findViewById(R.id.users), false);
-				final ImageButton setone = (ImageButton) layoutOwn
-						.findViewById(R.id.setone);
-				final ImageButton settwo = (ImageButton) layoutOwn
-						.findViewById(R.id.settwo);
-				final ImageButton setthree = (ImageButton) layoutOwn
-						.findViewById(R.id.setthree);
-				final ImageButton setfour = (ImageButton) layoutOwn
-						.findViewById(R.id.setfour);
+		if (item.getItemId() == R.id.opt_openSettings) {
 
-				setone.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsGen.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				settwo.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsCam.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				setthree.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsPic.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				setfour.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsSon.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				pw = new PopupWindow(layoutOwn,
-						ViewGroup.LayoutParams.WRAP_CONTENT,
-						ViewGroup.LayoutParams.WRAP_CONTENT, true);
-				pw.setAnimationStyle(-1);
-				pw.setBackgroundDrawable(new BitmapDrawable());
-				pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
-			} else {
-				Intent myIntent3 = new Intent(getApplicationContext(),
-						SlideNewSettings.class);
-				startActivityForResult(myIntent3, 0);
-			}
+			Intent myIntent3 = new Intent(getApplicationContext(),
+					SlideNewSettings.class);
+			startActivityForResult(myIntent3, 0);
 			return true;
-		} else if (item.getItemId() == R.id.opt_sett1) {
+		} else if (item.getItemId() == R.id.opt_backToMenu) {
 			finish();
 			startActivity(new Intent(getApplicationContext(),
 					FilmAuswahlActivity.class));
@@ -442,15 +377,15 @@ public class FilmAuswahlActivity extends Activity {
 		}
 	}
 
-	
 	/**
 	 * Popup f�r Tutorial
 	 */
 	public void popupmenue() {
-		
+
 		Resources res = getResources();
-		final String[] puContent = res.getStringArray(R.array.strings_tutorial_1);
-		
+		final String[] puContent = res
+				.getStringArray(R.array.strings_tutorial_1);
+
 		LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(LAYOUT_INFLATER_SERVICE);
 		View layoutOwn1 = inflater.inflate(R.layout.firstpopup,
@@ -504,8 +439,8 @@ public class FilmAuswahlActivity extends Activity {
 		}
 
 		protected void onPreExecute() {
-			this.dialog.setMessage(getString(R.string.firststart)); 
-			Log.v("DEBUG", "First start detected.");  
+			this.dialog.setMessage(getString(R.string.firststart));
+			Log.v("DEBUG", "First start detected.");
 			this.dialog.setCancelable(false);
 			this.dialog.show();
 		}
@@ -516,7 +451,7 @@ public class FilmAuswahlActivity extends Activity {
 				dialog.dismiss();
 			}
 			SharedPreferences.Editor editor = settings.edit();
-			editor.putString("SettingsTable", DB.MY_DB_SET); 
+			editor.putString("SettingsTable", DB.MY_DB_SET);
 			editor.commit();
 			MY_DB_NAME = DB.MY_DB_SET;
 		}
@@ -528,7 +463,7 @@ public class FilmAuswahlActivity extends Activity {
 				DB.getDB().createOrRebuildFilmTable(mContext);
 
 			} catch (Exception e) {
-				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);  
+				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
 			}
 			return null;
 		}
@@ -542,13 +477,13 @@ public class FilmAuswahlActivity extends Activity {
 
 		public FilmExportTask(String _FilmID) {
 			dialog = new ProgressDialog(mContext);
-			FilmID = _FilmID;			
+			FilmID = _FilmID;
 		}
 
 		protected void onPreExecute() {
-			this.dialog.setMessage(getString(R.string.export)); 
+			this.dialog.setMessage(getString(R.string.export));
 			this.dialog.show();
-			Log.v("Check", "Pre");  
+			Log.v("Check", "Pre");
 		}
 
 		@Override
@@ -557,14 +492,14 @@ public class FilmAuswahlActivity extends Activity {
 				dialog.dismiss();
 			}
 
-			File file = new File(getFilesDir() + "/" + fileName); 
+			File file = new File(getFilesDir() + "/" + fileName);
 
 			Uri u1 = null;
 			u1 = Uri.fromFile(file);
 			Intent sendIntent = new Intent(Intent.ACTION_SEND);
-			sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Film Export"); 
+			sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Film Export");
 			sendIntent.putExtra(Intent.EXTRA_STREAM, u1);
-			sendIntent.setType("text/html"); 
+			sendIntent.setType("text/html");
 			startActivity(sendIntent);
 		}
 
@@ -572,21 +507,21 @@ public class FilmAuswahlActivity extends Activity {
 
 			Film film = DB.getDB().getFilm(mContext, FilmID);
 
-			fileName = FilmID + ".xml"; 
+			fileName = FilmID + ".xml";
 
 			XStream xs = new XStream();
-			xs.alias("Bild", BildObjekt.class); 
-			xs.alias("Film", Film.class); 
+			xs.alias("Bild", BildObjekt.class);
+			xs.alias("Film", Film.class);
 
 			try {
 				FileOutputStream fos = openFileOutput(fileName,
 						Context.MODE_WORLD_READABLE);
 				xs.toXML(film, fos);
 				fos.close();
-				Log.v("Check", "XML Export: " + fileName + " was written.");   
+				Log.v("Check", "XML Export: " + fileName + " was written.");
 			} catch (IOException e) {
 				e.printStackTrace();
-				Log.v("Check", "Failes to write XML Export: " + fileName);  
+				Log.v("Check", "Failes to write XML Export: " + fileName);
 			}
 
 			return null;

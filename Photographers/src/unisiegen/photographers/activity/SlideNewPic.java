@@ -10,14 +10,12 @@ import java.util.Date;
 import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,20 +26,17 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
@@ -122,7 +117,6 @@ public class SlideNewPic extends Activity {
 	static String MY_DB_NAME;
 	static String MY_DB_NUMMER = "Nummern";
 	static String MY_DB_FILM = "Filme";
-	
 
 	/*
 	 * (non-Javadoc)
@@ -253,7 +247,7 @@ public class SlideNewPic extends Activity {
 				SharedPreferences.Editor editor = settings.edit();
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 				String str = sdf.format(new Date());
-				
+
 				sdf = new SimpleDateFormat("dd.MM.yyyy");
 				String datum = sdf.format(new Date());
 
@@ -439,8 +433,8 @@ public class SlideNewPic extends Activity {
 																			// einf�gen
 																			// !!
 
-		myDBFilm.execSQL("INSERT INTO " + DB.MY_DB_FILM_TABLE + " Values (" + null
-				+ ",'" + settings.getString("Datum", " ") + "','"
+		myDBFilm.execSQL("INSERT INTO " + DB.MY_DB_FILM_TABLE + " Values ("
+				+ null + ",'" + settings.getString("Datum", " ") + "','"
 				+ settings.getString("Uhrzeit", " ") + "','"
 				+ settings.getString("Title", " ") + "','"
 				+ settings.getString("Kamera", " ") + "','"
@@ -472,9 +466,10 @@ public class SlideNewPic extends Activity {
 					+ settings.getString("Title", " ") + "';");
 		} else {
 			String encodedImage = Base64.encodeToString(pics, Base64.DEFAULT);
-			myDBNummer.execSQL("INSERT OR REPLACE INTO " + DB.MY_DB_TABLE_NUMMER
-					+ " Values ('" + settings.getString("Title", " ") + "',"
-					+ null + ",'" + settings.getString("Kamera", " ") + "','"
+			myDBNummer.execSQL("INSERT OR REPLACE INTO "
+					+ DB.MY_DB_TABLE_NUMMER + " Values ('"
+					+ settings.getString("Title", " ") + "'," + null + ",'"
+					+ settings.getString("Kamera", " ") + "','"
 					+ settings.getString("Datum", " ") + "','" + picturesNumber
 					+ "','" + encodedImage + "');");
 		}
@@ -636,8 +631,9 @@ public class SlideNewPic extends Activity {
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		int index = 0;
 		Cursor camBWCursor = myDB.rawQuery(
-				"SELECT cam,bw FROM " + DB.MY_DB_TABLE_SETCAMBW + " WHERE cam = '"
-						+ settings.getString("Kamera", "") + "'", null);
+				"SELECT cam,bw FROM " + DB.MY_DB_TABLE_SETCAMBW
+						+ " WHERE cam = '" + settings.getString("Kamera", "")
+						+ "'", null);
 		if (camBWCursor != null) {
 			if (camBWCursor.moveToFirst()) {
 				do {
@@ -654,8 +650,9 @@ public class SlideNewPic extends Activity {
 		camBWCursor.close();
 		index = 0;
 
-		Cursor c_blende = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETBLE + " WHERE value = '" + edit + "'", null);
+		Cursor c_blende = myDB
+				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETBLE
+						+ " WHERE value = '" + edit + "'", null);
 		if (c_blende != null) {
 			if (c_blende.moveToFirst()) {
 				do {
@@ -701,8 +698,9 @@ public class SlideNewPic extends Activity {
 		c_blende.close();
 		index = 0;
 
-		Cursor c_zeit = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETZEI + " WHERE value = '" + edit + "'", null);
+		Cursor c_zeit = myDB
+				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETZEI
+						+ " WHERE value = '" + edit + "'", null);
 		if (c_zeit != null) {
 			if (c_zeit.moveToFirst()) {
 				do {
@@ -723,8 +721,9 @@ public class SlideNewPic extends Activity {
 		c_zeit.close();
 		index = 0;
 
-		Cursor c_focus = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETFOK + " WHERE value = '" + edit + "'", null);
+		Cursor c_focus = myDB
+				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETFOK
+						+ " WHERE value = '" + edit + "'", null);
 		if (c_focus != null) {
 			if (c_focus.moveToFirst()) {
 				do {
@@ -745,8 +744,9 @@ public class SlideNewPic extends Activity {
 		c_focus.close();
 		index = 0;
 
-		Cursor c_filter = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETFIL + " WHERE value = '" + edit + "'", null);
+		Cursor c_filter = myDB
+				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETFIL
+						+ " WHERE value = '" + edit + "'", null);
 		if (c_filter != null) {
 			if (c_filter.moveToFirst()) {
 				do {
@@ -792,8 +792,9 @@ public class SlideNewPic extends Activity {
 		c_makro.close();
 		index = 0;
 
-		Cursor c_messmethode = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETMES + " WHERE value = '" + edit + "'", null);
+		Cursor c_messmethode = myDB
+				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETMES
+						+ " WHERE value = '" + edit + "'", null);
 		if (c_messmethode != null) {
 			if (c_messmethode.moveToFirst()) {
 				do {
@@ -932,8 +933,9 @@ public class SlideNewPic extends Activity {
 			index = 0;
 		}
 
-		Cursor c_blitz = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETBLI + " WHERE value = '" + edit + "'", null);
+		Cursor c_blitz = myDB
+				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETBLI
+						+ " WHERE value = '" + edit + "'", null);
 		if (c_blitz != null) {
 			if (c_blitz.moveToFirst()) {
 				do {
@@ -954,8 +956,9 @@ public class SlideNewPic extends Activity {
 		c_blitz.close();
 		index = 0;
 
-		Cursor c_blitz_korrektur = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETKOR + " WHERE value = '" + edit + "'", null);
+		Cursor c_blitz_korrektur = myDB
+				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETKOR
+						+ " WHERE value = '" + edit + "'", null);
 		if (c_blitz_korrektur != null) {
 			if (c_blitz_korrektur.moveToFirst()) {
 				do {
@@ -1335,74 +1338,12 @@ public class SlideNewPic extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		if (item.getItemId() == R.id.opt_sett3) {
-			if (settings.getString("allinone", "ja").equals("nein")) {
-				LayoutInflater inflaterOwn = (LayoutInflater) mContext
-						.getSystemService(LAYOUT_INFLATER_SERVICE);
-				View layoutOwn = inflaterOwn.inflate(R.layout.popupoption,
-						(ViewGroup) findViewById(R.id.users), false);
-				final ImageButton setone = (ImageButton) layoutOwn
-						.findViewById(R.id.setone);
-				final ImageButton settwo = (ImageButton) layoutOwn
-						.findViewById(R.id.settwo);
-				final ImageButton setthree = (ImageButton) layoutOwn
-						.findViewById(R.id.setthree);
-				final ImageButton setfour = (ImageButton) layoutOwn
-						.findViewById(R.id.setfour);
-
-				setone.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsGen.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				settwo.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsCam.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				setthree.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsPic.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				setfour.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsSon.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				pw = new PopupWindow(layoutOwn,
-						ViewGroup.LayoutParams.WRAP_CONTENT,
-						ViewGroup.LayoutParams.WRAP_CONTENT, true);
-				pw.setAnimationStyle(-1);
-				pw.setBackgroundDrawable(new BitmapDrawable());
-				pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
-			} else {
-				Intent myIntent3 = new Intent(getApplicationContext(),
-						SlideNewSettings.class);
-				startActivityForResult(myIntent3, 0);
-			}
+		if (item.getItemId() == R.id.opt_openSettings) {
+			Intent myIntent3 = new Intent(getApplicationContext(),
+					SlideNewSettings.class);
+			startActivityForResult(myIntent3, 0);
 			return true;
-		} else if (item.getItemId() == R.id.opt_sett1) {
+		} else if (item.getItemId() == R.id.opt_backToMenu) {
 			finish();
 			startActivity(new Intent(getApplicationContext(),
 					FilmAuswahlActivity.class));

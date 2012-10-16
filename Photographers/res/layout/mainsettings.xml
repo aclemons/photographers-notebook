@@ -269,14 +269,7 @@
 				        android:orientation="vertical"
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-				<TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:layout_height="wrap_content"
-				    android:text="Einstellungen auf einer Seite anzeigen :"
-				    >
-				</TextView>   
+					    android:layout_width="fill_parent">				
 				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/maini"
 				        android:gravity="right"
@@ -293,23 +286,8 @@
 				    android:text="GeoTag :"
 				    >
 				</TextView> 
-				<ToggleButton
-				    android:id="@+id/settings"
-				    android:gravity="right"
-				    android:layout_width="fill_parent"
-				    android:layout_weight=".3"
-				    android:layout_height="wrap_content"
-				    >
-				</ToggleButton>
 				    </LinearLayout>
 				</LinearLayout>
-				    
-				    
-				    
-				    
-				    
-				    
-			        
 			        
       </LinearLayout>
    </TableLayout>    

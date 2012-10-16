@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import unisiegen.photographers.database.DB;
 import android.app.Activity;
@@ -34,7 +33,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -233,11 +231,11 @@ public class NewFilmActivity extends Activity {
 		}
 	}
 
-	
 	private void readDB() {
-		
+
 		int number = 0;
-		listCamera = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM);
+		listCamera = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETCAM);
 		for (String cam : listCamera) {
 			if (cam.equals(settings.getString("KamDef", ""))) {
 				camdef = number;
@@ -248,29 +246,36 @@ public class NewFilmActivity extends Activity {
 			listCamera.add("Keine Auswahl");
 		}
 
-		ffdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETFF);
-		listFF = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETFF);		
+		ffdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETFF);
+		listFF = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETFF);
 		if (listFF.size() == 0) {
 			listFF.add("Keine Auswahl");
 		}
 
-		listSSS = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETSON);
-		listSS = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETSON);
-		ssdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETSON);
+		listSSS = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETSON);
+		listSS = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETSON);
+		ssdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETSON);
 		if (listSSS.size() == 0) {
 			listSSS.add("Keine Auswahl");
 			listSS.add("Keine Auswahl");
 		}
 
-		listEM = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETEMP);
-		emdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETEMP);		
+		listEM = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETEMP);
+		emdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETEMP);
 		if (listEM.size() == 0) {
 			listEM.add("Keine Auswahl");
 		}
 
-		listTY = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETTYP);
+		listTY = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETTYP);
 	}
-	
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -280,74 +285,12 @@ public class NewFilmActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		if (item.getItemId() == R.id.opt_sett3) {
-			if (settings.getString("allinone", "ja").equals("nein")) {
-				LayoutInflater inflaterOwn = (LayoutInflater) mContext
-						.getSystemService(LAYOUT_INFLATER_SERVICE);
-				View layoutOwn = inflaterOwn.inflate(R.layout.popupoption,
-						(ViewGroup) findViewById(R.id.users), false);
-				final ImageButton setone = (ImageButton) layoutOwn
-						.findViewById(R.id.setone);
-				final ImageButton settwo = (ImageButton) layoutOwn
-						.findViewById(R.id.settwo);
-				final ImageButton setthree = (ImageButton) layoutOwn
-						.findViewById(R.id.setthree);
-				final ImageButton setfour = (ImageButton) layoutOwn
-						.findViewById(R.id.setfour);
-
-				setone.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsGen.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				settwo.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsCam.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				setthree.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsPic.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				setfour.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsSon.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				pw = new PopupWindow(layoutOwn,
-						ViewGroup.LayoutParams.WRAP_CONTENT,
-						ViewGroup.LayoutParams.WRAP_CONTENT, true);
-				pw.setAnimationStyle(-1);
-				pw.setBackgroundDrawable(new BitmapDrawable());
-				pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
-			} else {
-				Intent myIntent3 = new Intent(getApplicationContext(),
-						SlideNewSettings.class);
-				startActivityForResult(myIntent3, 0);
-			}
+		if (item.getItemId() == R.id.opt_openSettings) {
+			Intent myIntent3 = new Intent(getApplicationContext(),
+					SlideNewSettings.class);
+			startActivityForResult(myIntent3, 0);
 			return true;
-		} else if (item.getItemId() == R.id.opt_sett1) {
+		} else if (item.getItemId() == R.id.opt_backToMenu) {
 			finish();
 			startActivity(new Intent(getApplicationContext(),
 					FilmAuswahlActivity.class));
