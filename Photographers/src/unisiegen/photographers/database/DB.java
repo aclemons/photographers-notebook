@@ -614,6 +614,7 @@ public class DB {
 		myDBFilm.close();
 	}
 
+	
 	public List<Film> getFilme(Context context) {
 
 		List<Film> filme = new ArrayList<Film>();
@@ -678,6 +679,7 @@ public class DB {
 		return filme;
 	}
 
+	
 	public void deleteFilms(Context context, String[] filmTitel) {
 
 		SQLiteDatabase myDBNummer = context.openOrCreateDatabase(MY_DB_NUMMER,
@@ -692,6 +694,7 @@ public class DB {
 		myDBFilm.close();
 	}
 
+	
 	public Film getFilm(Context context, String title) {
 
 		Film film = new Film();
@@ -813,15 +816,61 @@ public class DB {
 	 *            a table (for a certain type of settings) in the db.
 	 * @return
 	 */
-	public List<String> getSettingForSpinner(Context mContext, String database,
-			String settingName) {
+	public List<String> getSettingForSpinner(Context mContext, String database, String settingName) {		
+		
+		return getSettings(mContext, database, settingName, false);
+	}
+	
+	
+	public List<String> getActivatedSettingsData(Context mContext, String database, String settingName) {
 
+		return getSettings(mContext, database, settingName, false);
+	}
+	
+	public int getDefaultSettingNumber(Context mContext, String database, String settingName){
+		
+		SQLiteDatabase myDB = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT name, value, def FROM ");
+		sql.append(settingName);
+		sql.append(" WHERE value = '1'");
+		
+		Cursor c = myDB.rawQuery(new String(sql), null);
+		int count = 0;
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					if (c.getInt(c.getColumnIndex("def")) == 1) {
+						c.close();
+						myDB.close();
+
+						return count;
+					}
+					count++;
+
+				} while (c.moveToNext());
+			}
+		}
+		
+		c.close();
+		myDB.close();
+
+		return 0;
+	}
+	
+	private List<String> getSettings(Context mContext, String database, String settingName, boolean onlyActivatedValues){
+		
 		List<String> values = new ArrayList<String>();
-
-		SQLiteDatabase myDB = mContext.openOrCreateDatabase(database,
-				Context.MODE_PRIVATE, null);
-		Cursor c = myDB.rawQuery(
-				"SELECT name,value FROM " + settingName + "  ", null);
+		
+		SQLiteDatabase myDB = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT name, value FROM ");
+		sql.append(settingName);
+		if(onlyActivatedValues){
+			sql.append(" WHERE value = '1'");
+		}
+		Cursor c = myDB.rawQuery(new String(sql), null);
+		
 		if (c != null) {
 			if (c.moveToFirst()) {
 				do {
@@ -835,6 +884,7 @@ public class DB {
 
 		return values;
 	}
+	
 
 	public void updatePicture(Context mContext, Film film, BildObjekt bild) {
 
@@ -907,4 +957,5 @@ public class DB {
 
 		myDBNummer.close();
 	}
+	
 }
