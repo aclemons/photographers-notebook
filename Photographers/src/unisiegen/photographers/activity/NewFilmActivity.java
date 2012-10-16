@@ -233,70 +233,44 @@ public class NewFilmActivity extends Activity {
 		}
 	}
 
+	
 	private void readDB() {
-		listCamera = new ArrayList<String>();
-		listFF = new ArrayList<String>();
-		listSS = new ArrayList<String>();
-		listSSS = new ArrayList<String>();
-		listEM = new ArrayList<String>();
-		listTY = new ArrayList<String>();
+		
 		int number = 0;
-
-		List<String> cams = DB.getDB().getActivatedSettingsData(mContext,
-				MY_DB_NAME, DB.MY_DB_TABLE_SETCAM);
-		for (String cam : cams) {
+		listCamera = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM);
+		for (String cam : listCamera) {
 			if (cam.equals(settings.getString("KamDef", ""))) {
 				camdef = number;
 			}
-			listCamera.add(cam);
 			number++;
 		}
-		if (cams.size() == 0) {
+		if (listCamera.size() == 0) {
 			listCamera.add("Keine Auswahl");
 		}
 
-		number = 0;
-		ffdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETFF);
-		List<String> ffs = DB.getDB().getActivatedSettingsData(mContext,
-				MY_DB_NAME, DB.MY_DB_TABLE_SETFF);
-		for (String ff : ffs) {
-			listFF.add(ff);
-		}
-		if (ffs.size() == 0) {
+		ffdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETFF);
+		listFF = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETFF);		
+		if (listFF.size() == 0) {
 			listFF.add("Keine Auswahl");
 		}
 
-		List<String> sss = DB.getDB().getActivatedSettingsData(mContext,
-				MY_DB_NAME, DB.MY_DB_TABLE_SETSON);
-		listSSS.add(" ");
-		ssdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETSON);
-		for (String ss : sss) {
-			listSS.add(ss);
-			listSSS.add(ss);
-		}
-		if (sss.size() == 0) {
+		listSSS = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETSON);
+		listSS = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETSON);
+		ssdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETSON);
+		if (listSSS.size() == 0) {
+			listSSS.add("Keine Auswahl");
 			listSS.add("Keine Auswahl");
 		}
 
-		List<String> ems = DB.getDB().getActivatedSettingsData(mContext,
-				MY_DB_NAME, DB.MY_DB_TABLE_SETEMP);
-		emdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETEMP);
-		for (String em : ems) {
-			listEM.add(em);
-		}
-		if (ems.size() == 0) {
+		listEM = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETEMP);
+		emdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETEMP);		
+		if (listEM.size() == 0) {
 			listEM.add("Keine Auswahl");
 		}
 
-		List<String> typs = DB.getDB().getActivatedSettingsData(mContext,
-				MY_DB_NAME, DB.MY_DB_TABLE_SETTYP);
-		for (String typ : typs) {
-			listTY.add(typ);
-		}
+		listTY = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETTYP);
 	}
+	
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
