@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -88,12 +89,6 @@ public class FilmAuswahlActivity extends Activity {
 	public static LayoutInflater inflater;
 	public Integer contentIndex = 0;
 	public static int gesamt;
-	private static final String[] puContent = new String[] {
-			"Herzlich willkommen im Photographers Notebook!",
-			"Zur Einf\u00FChrung zeigen wir Ihnen die wichtigsten Funktionen der App.",
-			"Wenn Sie auf den Men\u00FC-Button tippen, k\u00F6nnen Sie die Einstellungen zu dieser App finden und die ersten Einstellungen t\u00E4tigen.",
-			"Sind alle Einstellungen vorgenommen, starten Sie Ihren ersten Film, indem Sie den Button \"Neuer Film\" antippen.",
-			"Sp\u00E4ter k\u00F6nnen Sie den Film auf dieser Seite wieder aufrufen und bei Bedarf fortf\u00FChren." };
 
 	@Override
 	protected void onResume() {
@@ -102,7 +97,8 @@ public class FilmAuswahlActivity extends Activity {
 		myList = (ListView) findViewById(android.R.id.list);
 		TextView pics = (TextView) findViewById(R.id.picanzahl);
 		contentIndex = 0;
-		if (settings.getInt("FIRSTSTART", 0) == 1) {
+		
+		if (settings.getInt("FIRSTSTART", 0) == 1) { 
 			ViewGroup view = (ViewGroup) getWindow().getDecorView();
 			view.post(new Runnable() {
 				public void run() {
@@ -126,7 +122,7 @@ public class FilmAuswahlActivity extends Activity {
 			myList.setVisibility(ListView.VISIBLE);
 			image.setVisibility(ImageView.GONE);
 		}
-		pics.setText(gesamtPics + " Bilder");
+		pics.setText(gesamtPics + " Bilder"); 
 		adapter = new FilmsArrayAdapter(mContext, listItems, 1);
 		myList.setOnItemClickListener(notlongClickListener);
 		myList.setOnItemLongClickListener(longClickListener);
@@ -141,11 +137,11 @@ public class FilmAuswahlActivity extends Activity {
 		inflater = getLayoutInflater();
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		if (settings.getInt("FIRSTSTART", 0) == 0) {
+		if (settings.getInt("FIRSTSTART", 0) == 0) { 
 
 			new ResetSettingsTask().execute();
 			SharedPreferences.Editor editor = settings.edit();
-			editor.putInt("FIRSTSTART", 1);
+			editor.putInt("FIRSTSTART", 1); 
 			editor.commit();
 		}
 		Button newFilm = (Button) findViewById(R.id.newFilm);
@@ -172,28 +168,28 @@ public class FilmAuswahlActivity extends Activity {
 
 			Film film = DB.getDB().getFilm(mContext, ids.getText().toString());
 
-			editor.putString("Title", film.Titel);
-			editor.putString("Datum", film.Datum);
-			editor.putString("Kamera", film.Kamera);
+			editor.putString("Title", film.Titel); 
+			editor.putString("Datum", film.Datum); 
+			editor.putString("Kamera", film.Kamera); 
 
-			editor.putString("Filmformat", film.Filmformat);
-			editor.putString("Empfindlichkeit", film.Empfindlichkeit);
-			editor.putString("Filmtyp", film.Filmtyp);
-			editor.putString("Sonder1", film.Sonderentwicklung1);
-			editor.putString("Sonder2", film.Sonderentwicklung2);
+			editor.putString("Filmformat", film.Filmformat); 
+			editor.putString("Empfindlichkeit", film.Empfindlichkeit); 
+			editor.putString("Filmtyp", film.Filmtyp); 
+			editor.putString("Sonder1", film.Sonderentwicklung1); 
+			editor.putString("Sonder2", film.Sonderentwicklung2); 
 
 			int biggestNumber = 0;
 			for (BildObjekt bild : film.Bilder) {
 
 				Integer bildNummer = Integer.valueOf(bild.Bildnummer
-						.replaceAll("[\\D]", ""));
+						.replaceAll("[\\D]", ""));  
 				if (bildNummer > biggestNumber) {
 					biggestNumber = bildNummer;
 				}
-				editor.putInt("BildNummerToBegin", bildNummer + 1);
+				editor.putInt("BildNummerToBegin", bildNummer + 1); 
 			}
 
-			editor.putBoolean("EditMode", true);
+			editor.putBoolean("EditMode", true); 
 			editor.commit();
 			Intent myIntent = new Intent(getApplicationContext(),
 					SlideNewPic.class);
@@ -213,22 +209,22 @@ public class FilmAuswahlActivity extends Activity {
 		public void onClick(View v) {
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-			builder.setMessage("Wollen Sie den Eintrag wirklich l\u00F6schen ?");
+			builder.setMessage(getString(R.string.question_delete)); 
 			builder.setCancelable(false);
-			builder.setPositiveButton("Ja",
+			builder.setPositiveButton(getString(R.string.yes), 
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 
 							DB.getDB().deleteFilms(mContext,
 									new String[] { ids.getText().toString() });
 							Toast.makeText(getApplicationContext(),
-									"Film gel\u00F6scht", Toast.LENGTH_SHORT)
+									getString(R.string.deleted), Toast.LENGTH_SHORT) 
 									.show();
 							pw.dismiss();
 							onResume();
 						}
 					});
-			builder.setNegativeButton("Nein",
+			builder.setNegativeButton(getString(R.string.no), 
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							pw.dismiss();
@@ -314,8 +310,8 @@ public class FilmAuswahlActivity extends Activity {
 					.findViewById(R.id.exportbutton);
 			Button editButton = (Button) layoutOwn
 					.findViewById(R.id.editbutton);
-			deleteButton.setText("     Film l\u00F6schen     ");
-			editButton.setText("     Film fortsetzen     ");
+			deleteButton.setText(getString(R.string.delete_film)); 
+			editButton.setText(getString(R.string.continue_film)); 
 
 			exportButton.setOnClickListener(new OnClickListener() {
 
@@ -354,7 +350,7 @@ public class FilmAuswahlActivity extends Activity {
 					.getChildAt(0);
 			Intent myIntent = new Intent(getApplicationContext(),
 					FilmSelectActivity.class);
-			myIntent.putExtra("ID", ids.getText().toString());
+			myIntent.putExtra("ID", ids.getText().toString()); 
 			startActivityForResult(myIntent, 0);
 		}
 	};
@@ -370,7 +366,7 @@ public class FilmAuswahlActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == R.id.opt_sett3) {
-			if (settings.getString("allinone", "ja").equals("nein")) {
+			if (settings.getString("allinone", "ja").equals("nein")) {   
 				LayoutInflater inflaterOwn = (LayoutInflater) mContext
 						.getSystemService(LAYOUT_INFLATER_SERVICE);
 				View layoutOwn = inflaterOwn.inflate(R.layout.popupoption,
@@ -451,6 +447,10 @@ public class FilmAuswahlActivity extends Activity {
 	 * Popup f�r Tutorial
 	 */
 	public void popupmenue() {
+		
+		Resources res = getResources();
+		final String[] puContent = res.getStringArray(R.array.strings_tutorial_1);
+		
 		LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(LAYOUT_INFLATER_SERVICE);
 		View layoutOwn1 = inflater.inflate(R.layout.firstpopup,
@@ -504,8 +504,8 @@ public class FilmAuswahlActivity extends Activity {
 		}
 
 		protected void onPreExecute() {
-			this.dialog.setMessage("...ersten Start vorbereiten...");
-			Log.v("DEBUG", "First start detected.");
+			this.dialog.setMessage(getString(R.string.firststart)); 
+			Log.v("DEBUG", "First start detected.");  
 			this.dialog.setCancelable(false);
 			this.dialog.show();
 		}
@@ -516,7 +516,7 @@ public class FilmAuswahlActivity extends Activity {
 				dialog.dismiss();
 			}
 			SharedPreferences.Editor editor = settings.edit();
-			editor.putString("SettingsTable", DB.MY_DB_SET);
+			editor.putString("SettingsTable", DB.MY_DB_SET); 
 			editor.commit();
 			MY_DB_NAME = DB.MY_DB_SET;
 		}
@@ -528,7 +528,7 @@ public class FilmAuswahlActivity extends Activity {
 				DB.getDB().createOrRebuildFilmTable(mContext);
 
 			} catch (Exception e) {
-				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
+				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);  
 			}
 			return null;
 		}
@@ -546,9 +546,9 @@ public class FilmAuswahlActivity extends Activity {
 		}
 
 		protected void onPreExecute() {
-			this.dialog.setMessage("...bereite Daten f\u00FCr Export vor...");
+			this.dialog.setMessage(getString(R.string.export)); 
 			this.dialog.show();
-			Log.v("Check", "Pre");
+			Log.v("Check", "Pre");  
 		}
 
 		@Override
@@ -557,14 +557,14 @@ public class FilmAuswahlActivity extends Activity {
 				dialog.dismiss();
 			}
 
-			File file = new File(getFilesDir() + "/" + fileName);
+			File file = new File(getFilesDir() + "/" + fileName); 
 
 			Uri u1 = null;
 			u1 = Uri.fromFile(file);
 			Intent sendIntent = new Intent(Intent.ACTION_SEND);
-			sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Film Export");
+			sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Film Export"); 
 			sendIntent.putExtra(Intent.EXTRA_STREAM, u1);
-			sendIntent.setType("text/html");
+			sendIntent.setType("text/html"); 
 			startActivity(sendIntent);
 		}
 
@@ -572,21 +572,21 @@ public class FilmAuswahlActivity extends Activity {
 
 			Film film = DB.getDB().getFilm(mContext, FilmID);
 
-			fileName = FilmID + ".xml";
+			fileName = FilmID + ".xml"; 
 
 			XStream xs = new XStream();
-			xs.alias("Bild", BildObjekt.class);
-			xs.alias("Film", Film.class);
+			xs.alias("Bild", BildObjekt.class); 
+			xs.alias("Film", Film.class); 
 
 			try {
 				FileOutputStream fos = openFileOutput(fileName,
 						Context.MODE_WORLD_READABLE);
 				xs.toXML(film, fos);
 				fos.close();
-				Log.v("Check", "XML Export: " + fileName + " was written.");
+				Log.v("Check", "XML Export: " + fileName + " was written.");   
 			} catch (IOException e) {
 				e.printStackTrace();
-				Log.v("Check", "Failes to write XML Export: " + fileName);
+				Log.v("Check", "Failes to write XML Export: " + fileName);  
 			}
 
 			return null;

@@ -40,15 +40,15 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 
         </LinearLayout>
     </LinearLayout>
-
+
 <Button
     android:id="@+id/widget41"
     android:layout_width="160dp"
     android:layout_height="wrap_content"
     android:layout_x="80dp"
-    android:background="@drawable/custom_button"
     android:layout_y="239dp"
-    android:text="Weiter"
+    android:background="@drawable/custom_button"
+    android:text="@string/proceed"
     android:textSize="26sp"
     android:textStyle="bold" />
 

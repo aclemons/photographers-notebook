@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, AuswahlActivity!</string>
     <string name="app_name">Photographers</string>
-
+    <string name="question_delete">Wollen Sie den Eintrag wirklich löschen?</string>
+	<string name="yes">Ja</string>
+	<string name="deleted">Eintrag gelöscht.</string>
+	<string name="no">Nein</string>
+	<string name="delete_film">Film löschen</string>
+	<string name="continue_film">Film fortsetzen</string>
+	<string name="firststart">Ersten Start vorbereiten...</string>
+	<string name="export">Bereite Daten für Export vor...</string>
+	<string name="create_new_film">Neuen Film erstellen</string>
+	<string name="new_film">Neuer Film</string>
+	<string name="film_selection">Filmauswahl</string>
+	<string name="proceed">Weiter</string>
 </resources>
