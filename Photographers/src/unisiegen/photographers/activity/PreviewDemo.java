@@ -61,12 +61,12 @@ public class PreviewDemo extends Activity {
 					camera.takePicture(shutterCallback, rawCallback,
 							jpegCallback);
 					Snappi = 1;
-					snap.setText("Neues Bild");
+					snap.setText(getString(R.string.new_picture));
 				} else {
 					camera.startPreview();
 					Snappi = 0;
 					save.setEnabled(false);
-					snap.setText("Klick");
+					snap.setText(getString(R.string.click));
 				}
 			}
 		});
@@ -115,7 +115,7 @@ public class PreviewDemo extends Activity {
 				camera = null;
 				Toast.makeText(
 						getApplicationContext(),
-						"Fehler bei der Camera, bitte versuchen Sie es nochmal",
+						getString(R.string.cam_error),
 						Toast.LENGTH_SHORT).show();
 			}
 		}

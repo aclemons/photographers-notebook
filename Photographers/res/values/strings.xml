@@ -52,4 +52,8 @@
 	<string name="preview_pic">Vorschaubild</string>
 	<string name="cancel">Abbrechen</string>
 	<string name="input_error">Fehlerhafte Eingabe</string>
+	<string name="click">Klick</string>
+	<string name="save">Speichern</string>
+	<string name="cam_error">Kamera-Fehler, bitte versuchen Sie es erneut!</string>
+	<string name="new_picture">Neues Bild</string>
 </resources>
