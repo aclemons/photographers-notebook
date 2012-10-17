@@ -5,6 +5,7 @@
 	<string name="yes">Ja</string>
 	<string name="deleted">Eintrag gelöscht.</string>
 	<string name="no">Nein</string>
+	<string name="start_film">Film beginnen</string>
 	<string name="delete_film">Film löschen</string>
 	<string name="continue_film">Film fortsetzen</string>
 	<string name="firststart">Ersten Start vorbereiten...</string>
@@ -42,4 +43,13 @@
 	<string name="misc">Sonstiges</string>
 	<string name="note">Notiz</string>
 	<string name="camera_note">Kameranotiz</string>
+	<string name="film">Film</string>
+	<string name="no_selection">Keine Auswahl</string>
+	<string name="title">Titel</string>
+	<string name="auto_title">Automatischer Titel</string>
+	<string name="on">An</string>
+	<string name="off">Aus</string>
+	<string name="preview_pic">Vorschaubild</string>
+	<string name="cancel">Abbrechen</string>
+	<string name="input_error">Fehlerhafte Eingabe</string>
 </resources>

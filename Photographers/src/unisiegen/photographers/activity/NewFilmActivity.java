@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -46,12 +47,7 @@ public class NewFilmActivity extends Activity {
 	 */
 	SharedPreferences settings;
 	Context mContext;
-	private static final String[] puContent = new String[] {
-			"Hier k\u00F6nnen Sie einen Filmtitel ausw\u00E4hlen oder ihn automatisch festlegen lassen.",
-			"Die zuvor ausgew\u00E4hlten Kameras und Filmeinstellungen sind hier selektierbar.",
-			"Hier w\u00E4hlen Sie die zuvor angelegten Kameras und Filmeinstellungen aus.",
-			"Auch hier k\u00F6nnen Sie diese durch Tippen auf die Men\u00FC-Taste \u00E4ndern.",
-			"Wenn Sie die Auswahl getroffen haben, tippen Sie bitte auf Film beginnen." };
+	
 	int design = 0;
 	int camdef = 0;
 	int ffdef = 0;
@@ -152,7 +148,7 @@ public class NewFilmActivity extends Activity {
 					startActivityForResult(myIntent, 1);
 				} catch (Exception e) {
 					Toast.makeText(getApplicationContext(),
-							"Fehlerhafte Eingabe!", Toast.LENGTH_SHORT).show();
+							getString(R.string.input_error), Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -176,7 +172,7 @@ public class NewFilmActivity extends Activity {
 			public void onClick(View v) {
 				Date dt = new Date();
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-				titleText.setText(df.format(dt) + " Film");
+				titleText.setText(df.format(dt) + " " + getString(R.string.film));
 			}
 		});
 		spinnerCamera = (Spinner) findViewById(R.id.spinnerCamera);
@@ -243,7 +239,7 @@ public class NewFilmActivity extends Activity {
 			number++;
 		}
 		if (listCamera.size() == 0) {
-			listCamera.add("Keine Auswahl");
+			listCamera.add(getString(R.string.no_selection));
 		}
 
 		ffdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
@@ -251,7 +247,7 @@ public class NewFilmActivity extends Activity {
 		listFF = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
 				DB.MY_DB_TABLE_SETFF);
 		if (listFF.size() == 0) {
-			listFF.add("Keine Auswahl");
+			listFF.add(getString(R.string.no_selection));
 		}
 
 		listSSS = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
@@ -261,8 +257,8 @@ public class NewFilmActivity extends Activity {
 		ssdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
 				DB.MY_DB_TABLE_SETSON);
 		if (listSSS.size() == 0) {
-			listSSS.add("Keine Auswahl");
-			listSS.add("Keine Auswahl");
+			listSSS.add(getString(R.string.no_selection));
+			listSS.add(getString(R.string.no_selection));
 		}
 
 		listEM = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
@@ -270,7 +266,7 @@ public class NewFilmActivity extends Activity {
 		emdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
 				DB.MY_DB_TABLE_SETEMP);
 		if (listEM.size() == 0) {
-			listEM.add("Keine Auswahl");
+			listEM.add(getString(R.string.no_selection));
 		}
 
 		listTY = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
@@ -337,6 +333,8 @@ public class NewFilmActivity extends Activity {
 	 */
 
 	public void popupmenue() {
+		Resources res = getResources();
+		final String[] puContent = res.getStringArray(R.array.strings_tutorial_2);
 		LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(LAYOUT_INFLATER_SERVICE);
 		View layoutOwn1 = inflater.inflate(R.layout.firstpopup,

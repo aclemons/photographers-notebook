@@ -37,13 +37,14 @@
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
+
 			    <TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:layout_height="wrap_content"
-				    android:textStyle="bold"
-				    android:text="Allgemein :"
-				    >
+			        android:id="@+id/freecell"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:text="@string/general"
+			        android:textStyle="bold" >
+
 				</TextView>
 				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/maini"
@@ -57,13 +58,15 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Titel:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:text="@string/title" >
+
 						</TextView>
 						</LinearLayout> 
 						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
@@ -104,13 +107,15 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Automatische Titel:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:text="@string/auto_title" >
+
 						</TextView>
 						</LinearLayout> 
 						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
@@ -131,15 +136,17 @@
 					    android:layout_height="wrap_content" 
 					    android:layout_weight=".1"
 					    android:layout_width="fill_parent">
+
 				    	<ToggleButton
-				                 android:id="@+id/toggletitle"
-				                 android:gravity="center_vertical|center_horizontal"
-				                 android:textOn="An"
-            					 android:background="@drawable/custom_button"
-				                 android:textOff="Aus"
-				                 android:layout_width="fill_parent"
-				             	 android:layout_weight=".5"
-				                 android:layout_height="wrap_content" />
+				    	    android:id="@+id/toggletitle"
+				    	    android:layout_width="fill_parent"
+				    	    android:layout_height="wrap_content"
+				    	    android:layout_weight=".5"
+				    	    android:background="@drawable/custom_button"
+				    	    android:gravity="center_vertical|center_horizontal"
+				    	    android:textOff="@string/off"
+				    	    android:textOn="@string/on" />
+
 				    	<TextView
 							    android:id="@+id/freecell"
 							    android:layout_width="fill_parent"
@@ -147,14 +154,16 @@
 							    android:layout_weight=".9"
 							    android:layout_height="wrap_content">
 						</TextView>
+
 				    	<Button
-				                 android:id="@+id/vorschau"
-            					 android:background="@drawable/custom_button"
-				                 android:gravity="center_horizontal|center_vertical"
-				                 android:text="Vorschau Bild"
-				                 android:layout_width="fill_parent"
-				             	 android:layout_weight=".5"
-				                 android:layout_height="wrap_content" />
+				    	    android:id="@+id/vorschau"
+				    	    android:layout_width="fill_parent"
+				    	    android:layout_height="wrap_content"
+				    	    android:layout_weight=".5"
+				    	    android:background="@drawable/custom_button"
+				    	    android:gravity="center_horizontal|center_vertical"
+				    	    android:text="@string/preview_pic" />
+
 				    	</LinearLayout>
 				    </LinearLayout>
 				</LinearLayout>
@@ -197,13 +206,14 @@
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
+
 			    <TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:textStyle="bold"
-				    android:layout_height="wrap_content"
-				    android:text="Kamera : "
-				    >
+			        android:id="@+id/freecell"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:text="@string/camera"
+			        android:textStyle="bold" >
+
 				</TextView>
 				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/maini"
@@ -217,13 +227,15 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Kamera:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:text="@string/camera" >
+
 						</TextView>
 						</LinearLayout> 
 						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
@@ -289,13 +301,14 @@
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
+
 				    <TextView
-					    android:id="@+id/freecell"
-					    android:layout_width="fill_parent"
-					    android:textStyle="bold"
-					    android:layout_height="wrap_content"
-					    android:text="Film : "
-					    >
+				        android:id="@+id/freecell"
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:text="@string/film"
+				        android:textStyle="bold" >
+
 					</TextView>
 					
 				        
@@ -311,13 +324,15 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Filmnotiz:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:text="@string/film_note" >
+
 						</TextView>
 						</LinearLayout> 
 						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
@@ -333,14 +348,16 @@
 							    android:layout_weight=".34"
 							    android:layout_height="wrap_content">
 						</TextView>
+
 				    	<EditText
-				                 android:id="@+id/filmnotiz"
-				                 android:hint="Notiz..."
-				                 android:gravity="left"
-				                 android:layout_width="fill_parent"
-            					 android:background="@drawable/custom_button"
-				             	 android:layout_weight=".1"
-				                 android:layout_height="wrap_content" />
+				    	    android:id="@+id/filmnotiz"
+				    	    android:layout_width="fill_parent"
+				    	    android:layout_height="wrap_content"
+				    	    android:layout_weight=".1"
+				    	    android:background="@drawable/custom_button"
+				    	    android:gravity="left"
+				    	    android:hint="@string/note" />
+
 				</LinearLayout>
 				</LinearLayout>
 				        
@@ -361,13 +378,15 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Filmformat:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:text="@string/film_format" >
+
 						</TextView>
 						</LinearLayout> 
 						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
@@ -408,13 +427,15 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Empfindlichkeit:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:text="@string/film_speed" >
+
 						</TextView>
 						</LinearLayout> 
 						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
@@ -451,13 +472,15 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Filmtyp:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:text="@string/film_type" >
+
 						</TextView>
 						</LinearLayout> 
 						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
@@ -524,13 +547,14 @@
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
+
 				    <TextView
-					    android:id="@+id/freecell"
-					    android:layout_width="fill_parent"
-					    android:textStyle="bold"
-					    android:layout_height="wrap_content"
-					    android:text="Sonstiges : "
-					    >
+				        android:id="@+id/freecell"
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:text="@string/misc"
+				        android:textStyle="bold" >
+
 					</TextView>
 					<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/maini"
@@ -544,13 +568,15 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Sonderentwicklung:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:text="@string/processing" >
+
 						</TextView>
 						</LinearLayout> 
 						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
@@ -587,13 +613,15 @@
 					    android:layout_height="fill_parent" 
 					    android:layout_weight=".44"
 					    android:layout_width="fill_parent">
+
 					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="Sonderentwicklung:">
+					        android:id="@+id/freecell"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:gravity="right"
+					        android:paddingLeft="12dp"
+					        android:text="@string/processing" >
+
 						</TextView>
 						</LinearLayout> 
 						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
@@ -632,22 +660,20 @@
 					    android:layout_width="fill_parent">
   
         <Button
-                 android:id="@+id/newAll"
-                 android:layout_width="fill_parent"
-                 android:layout_weight=".5"
-                 android:background="@drawable/custom_button"
-                 android:layout_height="wrap_content"
-                 android:text="Film beginnen" /> 
+            android:id="@+id/newAll"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@drawable/custom_button"
+            android:text="@string/start_film" />
                  
         <Button
-                 android:id="@+id/cancelAll"
-                 android:layout_width="fill_parent"
-                 android:background="@drawable/custom_button"
-                 android:layout_weight=".5"
-                 android:layout_height="wrap_content"
-                 android:text="Verwerfen" />
-        
-        
+            android:id="@+id/cancelAll"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@drawable/custom_button"
+            android:text="@string/cancel" />
         
      </LinearLayout>
     
