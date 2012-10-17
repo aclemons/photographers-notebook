@@ -18,7 +18,6 @@ import java.util.List;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.export.BildObjekt;
 import unisiegen.photographers.export.Film;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -35,9 +34,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -57,7 +53,7 @@ import android.widget.Toast;
 
 import com.thoughtworks.xstream.XStream;
 
-public class FilmAuswahlActivity extends Activity {
+public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 
 	/**
 	 * This variable saves the name of the current set for your gear. If this is
@@ -353,29 +349,6 @@ public class FilmAuswahlActivity extends Activity {
 		}
 	};
 
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu, menu);
-		return true;
-	}
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		if (item.getItemId() == R.id.opt_openSettings) {
-
-			Intent myIntent3 = new Intent(getApplicationContext(),
-					SlideNewSettings.class);
-			startActivityForResult(myIntent3, 0);
-			return true;
-		} else if (item.getItemId() == R.id.opt_backToMenu) {
-			finish();
-			startActivity(new Intent(getApplicationContext(),
-					FilmAuswahlActivity.class));
-			return true;
-		} else {
-			return super.onOptionsItemSelected(item);
-		}
-	}
 
 	/**
 	 * Popup f�r Tutorial

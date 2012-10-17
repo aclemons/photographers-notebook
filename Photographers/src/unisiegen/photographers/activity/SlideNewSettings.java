@@ -4490,19 +4490,14 @@ public class SlideNewSettings extends Activity {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-	 * Men�-Methoden und Set Methoden
-	 */
-
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.settingsmenu, menu);
 		return true;
 	}
 
+	
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == R.id.opt_settingsToFactoryDefaults) {

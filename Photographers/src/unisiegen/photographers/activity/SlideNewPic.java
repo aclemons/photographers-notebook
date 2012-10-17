@@ -10,9 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -28,9 +26,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -47,7 +42,7 @@ import android.widget.Toast;
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
 
-public class SlideNewPic extends Activity {
+public class SlideNewPic extends PhotographersNotebookActivity {
 
 	/*
 	 * Sonstige Variablen
@@ -1328,36 +1323,6 @@ public class SlideNewPic extends Activity {
 			return SlideNewPic.CONTENT[position % SlideNewPic.CONTENT.length];
 		}
 
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Men�
-	 * Methoden
-	 */
-
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu, menu);
-		return true;
-	}
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		if (item.getItemId() == R.id.opt_openSettings) {
-			Intent myIntent3 = new Intent(getApplicationContext(),
-					SlideNewSettings.class);
-			startActivityForResult(myIntent3, 0);
-			return true;
-		} else if (item.getItemId() == R.id.opt_backToMenu) {
-			finish();
-			startActivity(new Intent(getApplicationContext(),
-					FilmAuswahlActivity.class));
-			return true;
-		} else {
-			return super.onOptionsItemSelected(item);
-		}
 	}
 
 }

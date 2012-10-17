@@ -10,7 +10,6 @@ import java.util.HashMap;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.export.BildObjekt;
 import unisiegen.photographers.export.Film;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,9 +27,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -53,7 +49,7 @@ import android.widget.Toast;
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
 
-public class FilmSelectActivity extends Activity {
+public class FilmSelectActivity extends PhotographersNotebookActivity {
 
 	/*
 	 * User-Interface Elemente
@@ -847,35 +843,6 @@ public class FilmSelectActivity extends Activity {
 		}
 	};
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Men�
-	 * Methoden
-	 */
-
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu, menu);
-		return true;
-	}
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		if (item.getItemId() == R.id.opt_openSettings) {
-			Intent myIntent3 = new Intent(getApplicationContext(),
-					SlideNewSettings.class);
-			startActivityForResult(myIntent3, 0);
-			return true;
-		} else if (item.getItemId() == R.id.opt_backToMenu) {
-			finish();
-			startActivity(new Intent(getApplicationContext(),
-					FilmAuswahlActivity.class));
-			return true;
-		} else {
-			return super.onOptionsItemSelected(item);
-		}
-	}
 
 	/*
 	 * Pageadapter f�r das hin- und herwischen zwischen den Bildenr. W�hlt man
