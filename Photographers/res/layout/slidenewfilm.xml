@@ -58,13 +58,14 @@
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
+
 			    <TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:layout_height="wrap_content"
-				    android:textStyle="bold"
-				    android:text="Allgemein :"
-				    >
+			        android:id="@+id/freecell"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:text="@string/general"
+			        android:textStyle="bold" >
+
 				</TextView>
 				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/maini"
@@ -100,13 +101,15 @@
 							    android:layout_weight=".34"
 							    android:layout_height="wrap_content">
 						</TextView>
+
 				    	<Button
-            android:id="@+id/button_aufnehmen"
-            android:layout_width="fill_parent"
-            android:layout_weight=".1"
-            			android:background="@drawable/custom_button"
-            android:layout_height="wrap_content"
-            android:text="Foto aufnehmen" android:layout_gravity="bottom"/>
+				    	    android:id="@+id/button_aufnehmen"
+				    	    android:layout_width="fill_parent"
+				    	    android:layout_height="wrap_content"
+				    	    android:layout_gravity="bottom"
+				    	    android:layout_weight=".1"
+				    	    android:background="@drawable/custom_button"
+				    	    android:text="@string/take_picture" />
 				    	
 						</LinearLayout>
 				    

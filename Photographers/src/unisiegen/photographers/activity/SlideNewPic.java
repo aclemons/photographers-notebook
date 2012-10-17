@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
@@ -51,8 +52,9 @@ public class SlideNewPic extends Activity {
 	/*
 	 * Sonstige Variablen
 	 */
-	private static final String[] CONTENT = new String[] { "Optionen I/II",
-			"Optionen II/II", "Notizen" };
+	
+	static String[] CONTENT = null; // Array is filled in the onCreate() method.
+	
 	SharedPreferences settings;
 	Context mContext;
 	LocationManager locManager;
@@ -161,12 +163,16 @@ public class SlideNewPic extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+				
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.slidenewfilm);
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
-
+		
+		Resources res = getResources();
+		CONTENT = res.getStringArray(R.array.slide_contents);	
+		
 		nummerView = (TextView) findViewById(R.id.TextView_nr);
 		bildtoedit = false;
 		blende = new HashMap<String, Integer>();
@@ -184,7 +190,7 @@ public class SlideNewPic extends Activity {
 
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		int aktuellebildnummer = settings.getInt("BildNummerToBegin", 1);
-		nummerView.setText("Bild " + aktuellebildnummer);
+		nummerView.setText(getString(R.string.picture) + " " + aktuellebildnummer);
 
 		if (settings.getBoolean("EditMode", false)) {
 			picturesNumber = settings.getInt("BildNummern", 1);
@@ -208,15 +214,15 @@ public class SlideNewPic extends Activity {
 		plus.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				nummerView.setText("Bild "
+				nummerView.setText(getString(R.string.picture) + " "
 						+ (Integer.valueOf(nummerView.getText().toString()
 								.replaceAll("[\\D]", "")) + 1));
 				getPic(nummerView.getText().toString(),
 						settings.getString("Title", " "));
 				if (bildtoedit) {
-					aufnehmen.setText("\u00C4nderungen speichern");
+					aufnehmen.setText(getString(R.string.save_changes));
 				} else {
-					aufnehmen.setText("Foto aufnehmen");
+					aufnehmen.setText(getString(R.string.take_picture));
 				}
 
 			}
@@ -226,16 +232,16 @@ public class SlideNewPic extends Activity {
 			public void onClick(View v) {
 				if (Integer.valueOf(nummerView.getText().toString()
 						.replaceAll("[\\D]", "")) > 1) {
-					nummerView.setText("Bild "
+					nummerView.setText(getString(R.string.picture) + " "
 							+ (Integer.valueOf(nummerView.getText().toString()
 									.replaceAll("[\\D]", "")) - 1));
 					getPic(nummerView.getText().toString(),
 							settings.getString("Title", " "));
 				}
 				if (bildtoedit) {
-					aufnehmen.setText("\u00C4nderungen speichern");
+					aufnehmen.setText(getString(R.string.save_changes));
 				} else {
-					aufnehmen.setText("Foto aufnehmen");
+					aufnehmen.setText(getString(R.string.take_picture));
 				}
 			}
 		});
@@ -262,12 +268,12 @@ public class SlideNewPic extends Activity {
 						myDBNummer.close();
 					}
 					myDBFilm.close();
-					Toast.makeText(getApplicationContext(), "Bild erstellt!",
+					Toast.makeText(getApplicationContext(), getString(R.string.picture_taken),
 							Toast.LENGTH_SHORT).show();
 				} catch (Exception e) {
 					e.printStackTrace();
 					Toast.makeText(getApplicationContext(),
-							"Fehlerhafte Eingabe!", Toast.LENGTH_SHORT).show();
+							getString(R.string.input_error), Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -394,7 +400,7 @@ public class SlideNewPic extends Activity {
 			Toast toast2 = Toast
 					.makeText(
 							this,
-							"GPS ist ausgeschaltet! Schalten sie es jetzt an um den Bildern ein GeoTag hinzuzuf\u00FCgen",
+							getString(R.string.gps_off),
 							Toast.LENGTH_LONG);
 			toast2.show();
 		}
@@ -474,7 +480,7 @@ public class SlideNewPic extends Activity {
 					+ "','" + encodedImage + "');");
 		}
 		Log.v("Foto", "Eintrag vorm Speichern : " + pics);
-		nummerView.setText("Bild "
+		nummerView.setText(getString(R.string.picture) + " "
 				+ (Integer.valueOf(nummerView.getText().toString()
 						.replaceAll("[\\D]", "")) + 1));
 	}
@@ -644,7 +650,7 @@ public class SlideNewPic extends Activity {
 					index++;
 				} while (camBWCursor.moveToNext());
 			} else {
-				al_spinner_objektiv.add("Keine Auswahl");
+				al_spinner_objektiv.add(getString(R.string.no_selection));
 			}
 		}
 		camBWCursor.close();
@@ -692,7 +698,7 @@ public class SlideNewPic extends Activity {
 
 				} while (c_blende.moveToNext());
 			} else {
-				al_spinner_blende.add("Keine Auswahl");
+				al_spinner_blende.add(getString(R.string.no_selection));
 			}
 		}
 		c_blende.close();
@@ -715,7 +721,7 @@ public class SlideNewPic extends Activity {
 
 				} while (c_zeit.moveToNext());
 			} else {
-				al_spinner_zeit.add("Keine Auswahl");
+				al_spinner_zeit.add(getString(R.string.no_selection));
 			}
 		}
 		c_zeit.close();
@@ -738,7 +744,7 @@ public class SlideNewPic extends Activity {
 							.getColumnIndex("name")));
 				} while (c_focus.moveToNext());
 			} else {
-				al_spinner_focus.add("Keine Auswahl");
+				al_spinner_focus.add(getString(R.string.no_selection));
 			}
 		}
 		c_focus.close();
@@ -761,7 +767,7 @@ public class SlideNewPic extends Activity {
 							.getColumnIndex("name")));
 				} while (c_filter.moveToNext());
 			} else {
-				al_spinner_filter.add("Keine Auswahl");
+				al_spinner_filter.add(getString(R.string.no_selection));
 			}
 		}
 		c_filter.close();
@@ -784,7 +790,7 @@ public class SlideNewPic extends Activity {
 							.getColumnIndex("name")));
 				} while (c_makro.moveToNext());
 			} else {
-				al_spinner_makro.add("Keine Auswahl");
+				al_spinner_makro.add(getString(R.string.no_selection));
 			}
 		} else {
 			Log.v("Check", "NULL :(");
@@ -809,7 +815,7 @@ public class SlideNewPic extends Activity {
 							.getString(c_messmethode.getColumnIndex("name")));
 				} while (c_messmethode.moveToNext());
 			} else {
-				al_spinner_messmethode.add("Keine Auswahl");
+				al_spinner_messmethode.add(getString(R.string.no_selection));
 			}
 		}
 		c_messmethode.close();
@@ -835,7 +841,7 @@ public class SlideNewPic extends Activity {
 											.getColumnIndex("name")));
 				} while (c_belichtungs_korrektur.moveToNext());
 			} else {
-				al_spinner_belichtungs_korrektur.add("Keine Auswahl");
+				al_spinner_belichtungs_korrektur.add(getString(R.string.no_selection));
 			}
 		}
 		c_belichtungs_korrektur.close();
@@ -861,7 +867,7 @@ public class SlideNewPic extends Activity {
 								.getColumnIndex("name")));
 					} while (change.moveToNext());
 				} else {
-					al_spinner_filter_vf.add("Keine Auswahl");
+					al_spinner_filter_vf.add(getString(R.string.no_selection));
 				}
 			}
 			index = 0;
@@ -881,7 +887,7 @@ public class SlideNewPic extends Activity {
 								.getColumnIndex("name")));
 					} while (changes.moveToNext());
 				} else {
-					al_spinner_makro_vf.add("Keine Auswahl");
+					al_spinner_makro_vf.add(getString(R.string.no_selection));
 				}
 			}
 			change.close();
@@ -905,7 +911,7 @@ public class SlideNewPic extends Activity {
 								.getColumnIndex("name")));
 					} while (change2.moveToNext());
 				} else {
-					al_spinner_filter_vf.add("Keine Auswahl");
+					al_spinner_filter_vf.add(getString(R.string.no_selection));
 				}
 			}
 			index = 0;
@@ -925,7 +931,7 @@ public class SlideNewPic extends Activity {
 								.getColumnIndex("name")));
 					} while (changes2.moveToNext());
 				} else {
-					al_spinner_makro_vf.add("Keine Auswahl");
+					al_spinner_makro_vf.add(getString(R.string.no_selection));
 				}
 			}
 			change2.close();
@@ -950,7 +956,7 @@ public class SlideNewPic extends Activity {
 							.getColumnIndex("name")));
 				} while (c_blitz.moveToNext());
 			} else {
-				al_spinner_blitz.add("Keine Auswahl");
+				al_spinner_blitz.add(getString(R.string.no_selection));
 			}
 		}
 		c_blitz.close();
@@ -974,7 +980,7 @@ public class SlideNewPic extends Activity {
 									.getColumnIndex("name")));
 				} while (c_blitz_korrektur.moveToNext());
 			} else {
-				al_spinner_blitz_korrektur.add("Keine Auswahl");
+				al_spinner_blitz_korrektur.add(getString(R.string.no_selection));
 			}
 		}
 		c_blitz_korrektur.close();
@@ -1318,6 +1324,7 @@ public class SlideNewPic extends Activity {
 				setFooterColor(0xFF000000);
 			if (viewPager.getCurrentItem() == 2)
 				setFooterColor(0xFF000000);
+			
 			return SlideNewPic.CONTENT[position % SlideNewPic.CONTENT.length];
 		}
 

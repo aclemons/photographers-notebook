@@ -41,14 +41,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                
-                
                 <TextView
                     android:id="@+id/TextView05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="Objektiv:" />
+                    android:text="@string/lens" />
 
                 <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -73,18 +71,12 @@
                         android:layout_weight=".1" />
                 </LinearLayout>
                 
-                
-                
-                
-                
-                
-                
                 <TextView
                     android:id="@+id/TextView02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="Blende:" />
+                    android:text="@string/aperture" />
 
                 <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -114,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="Zeit:" />
+                    android:text="@string/exposure" />
 
                 <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -144,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="Fokus:" />
+                    android:text="@string/focus" />
 
                 <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -174,7 +166,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="Filter:" />
+                    android:text="@string/filter" />
 
                 <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -199,14 +191,12 @@
                         android:layout_weight=".1" />
                 </LinearLayout>
 
-                    
-                    
                 <TextView
                     android:id="@+id/TextView05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="Makro:" />
+                    android:text="@string/macro" />
 
                 <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"

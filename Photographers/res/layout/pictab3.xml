@@ -39,7 +39,7 @@
                 android:id="@+id/text_notizen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notizen:" android:layout_gravity="right" android:layout_marginLeft="12dp" android:layout_marginTop="5dp"/>
+                android:text="@string/note" android:layout_gravity="right" android:layout_marginLeft="12dp" android:layout_marginTop="5dp"/>
 
             <EditText
                 android:id="@+id/edit_notizen"
@@ -55,7 +55,7 @@
                 android:id="@+id/text_kamera_notizen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kamera-Notizen:" android:layout_marginLeft="12dp" android:layout_marginTop="5dp"/>
+                android:text="@string/camera_note" android:layout_marginLeft="12dp" android:layout_marginTop="5dp"/>
 
             <EditText
                 android:id="@+id/edit_kamera_notizen"
