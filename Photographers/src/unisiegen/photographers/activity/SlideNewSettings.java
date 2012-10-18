@@ -15,6 +15,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.BitmapDrawable;
@@ -64,19 +65,9 @@ public class SlideNewSettings extends Activity {
 	/*
 	 * Sonstige Variablen
 	 */
-	private static final String[] CONTENT = new String[] { "Allgemein",
-			"Kameramodell", "Fokus", "Blende", "Zeit", "Messung", "Korrektur",
-			"Makro", "Makro-VF", "Filter", "Filter-VF", "Filmformate",
-			"Empfindlichkeit", "Blitz", "Blitz-Korr", "Sonderentwicklung" };
-
-	private static final String[] puContent = new String[] {
-			"Hier k\u00F6nnen Sie ihre Einstellungen personalisieren.",
-			"Bestimmen Sie, welche Einstellungen sp\u00E4ter in den Auswahl-Bildschirmen vorhanden sein sollen.",
-			"Sie k\u00F6nnen neue Eintr\u00E4ge hinzuf\u00FCgen oder bestehende Beitr\u00E4ge nach langem Antippen bearbeiten",
-			"Im Men\u00FC k\u00F6nnen Sie die Einstellungen zur\u00FCcksetzen oder ein neues Einstellunges-Set erstellen, um es mit bestimmten Einstellungen zu konfigurieren.",
-			"Einige Daten sind bereits vorhanden und vorausgew\u00E4hlt. Sie m\u00FCssen nur noch eine Kamera hinzuf\u00FCgen und Objektive zuordnen.",
-			"Vergessen Sie nicht, Ihre neu angelegten Kameras und Objektive mit einem Haken zu aktivieren.",
-			"Sie haben au\u00DFerdem die M\u00F6glichkeit, mehrere Einstellungssets zu speichern und sp\u00E4ter wieder zu laden." };
+	private static String[] CONTENT = null; // The arrays are initialized in the onCreate() method.
+	private static String[] puContent = null;
+	
 	Integer contentIndex = 0;
 	TextView tv1, tv2;
 	Button weiter, close;
@@ -155,6 +146,11 @@ public class SlideNewSettings extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		Resources res = getResources();
+		CONTENT = res.getStringArray(R.array.settings_slide_contents);
+		puContent = res.getStringArray(R.array.strings_tutorial_3);
+		
 		setContentView(R.layout.slidenewsettings);
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -450,8 +446,8 @@ public class SlideNewSettings extends Activity {
 			}
 		}
 		// BLUB
-		if (settings.getString("Verlaengerung", "Faktor (*)").equals(
-				"Faktor (*)")) {
+		if (settings.getString("Verlaengerung", getString(R.string.factor)).equals(
+				getString(R.string.factor))) {
 
 			Cursor ce6 = myDB.rawQuery("SELECT name,value,def FROM "
 					+ DB.MY_DB_TABLE_SETMVF, null);
@@ -843,14 +839,14 @@ public class SlideNewSettings extends Activity {
 				final ToggleButton geotag = (ToggleButton) mainview
 						.findViewById(R.id.geotag);
 
-				geotag.setTextOff("Aus");
-				geotag.setTextOn("An");
+				geotag.setTextOff(getString(R.string.off));
+				geotag.setTextOn(getString(R.string.on));
 				geotag.setGravity(Gravity.LEFT);
 				geotag.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 					@Override
 					public void onCheckedChanged(CompoundButton buttonView,
 							boolean isChecked) {
-						if (!geotag.getText().toString().equals("An")) {
+						if (!geotag.getText().toString().equals(getString(R.string.on))) {
 							if (geotag.isChecked()) {
 								editors.putString("geoTag", "ja");
 								editors.commit();
@@ -881,9 +877,9 @@ public class SlideNewSettings extends Activity {
 				final Spinner blendenstufen = (Spinner) mainview
 						.findViewById(R.id.blenden);
 				ArrayList<String> blendenarray = new ArrayList<String>();
-				blendenarray.add("1/1");
-				blendenarray.add("1/2");
-				blendenarray.add("1/3");
+				blendenarray.add(getString(R.string.one_one)); 
+				blendenarray.add(getString(R.string.one_two));
+				blendenarray.add(getString(R.string.one_three));
 				ArrayAdapter<String> blendenadapter = new ArrayAdapter<String>(
 						mContext, android.R.layout.simple_spinner_item,
 						blendenarray);
@@ -905,10 +901,10 @@ public class SlideNewSettings extends Activity {
 							}
 
 						});
-				if (settings.getString("blendenstufe", "1/1").equals("1/1")) {
+				if (settings.getString("blendenstufe", getString(R.string.one_one)).equals(getString(R.string.one_one))) {
 					blendenstufen.setSelection(0);
-				} else if (settings.getString("blendenstufe", "1/1").equals(
-						"1/2")) {
+				} else if (settings.getString("blendenstufe", getString(R.string.one_one)).equals(
+						getString(R.string.one_two))) {
 					blendenstufen.setSelection(1);
 				} else {
 					blendenstufen.setSelection(2);
@@ -917,9 +913,9 @@ public class SlideNewSettings extends Activity {
 				final Spinner zeitstempel = (Spinner) mainview
 						.findViewById(R.id.zeitstempel);
 				ArrayList<String> zeitstempelarray = new ArrayList<String>();
-				zeitstempelarray.add("An");
-				zeitstempelarray.add("Aus");
-				zeitstempelarray.add("-1 Minute");
+				zeitstempelarray.add(getString(R.string.on));
+				zeitstempelarray.add(getString(R.string.off));
+				zeitstempelarray.add(getString(R.string.minus_one_minute));
 				ArrayAdapter<String> zeitstempeladapter = new ArrayAdapter<String>(
 						mContext, android.R.layout.simple_spinner_item,
 						zeitstempelarray);
@@ -941,10 +937,10 @@ public class SlideNewSettings extends Activity {
 							}
 
 						});
-				if (settings.getString("zeitStempel", "An").equals("An")) {
+				if (settings.getString("zeitStempel", getString(R.string.on)).equals(getString(R.string.on))) {
 					zeitstempel.setSelection(0);
-				} else if (settings.getString("zeitStempel", "An")
-						.equals("Aus")) {
+				} else if (settings.getString("zeitStempel", getString(R.string.on))
+						.equals(getString(R.string.off))) {
 					zeitstempel.setSelection(1);
 				} else {
 					zeitstempel.setSelection(2);
@@ -953,8 +949,8 @@ public class SlideNewSettings extends Activity {
 				final Spinner verlang = (Spinner) mainview
 						.findViewById(R.id.verlang);
 				ArrayList<String> verlangarray = new ArrayList<String>();
-				verlangarray.add("Faktor (*)");
-				verlangarray.add("Blendenzugaben (+)");
+				verlangarray.add(getString(R.string.factor)); 
+				verlangarray.add(getString(R.string.aperture_adjusting));
 				ArrayAdapter<String> verlangadapter = new ArrayAdapter<String>(
 						mContext, android.R.layout.simple_spinner_item,
 						verlangarray);
@@ -975,8 +971,8 @@ public class SlideNewSettings extends Activity {
 					}
 
 				});
-				if (settings.getString("verlang", "Faktor (*)").equals(
-						"Faktor (*)")) {
+				if (settings.getString("verlang", getString(R.string.factor)).equals(
+						getString(R.string.factor))) {
 					verlang.setSelection(0);
 				} else {
 					verlang.setSelection(1);
@@ -995,7 +991,7 @@ public class SlideNewSettings extends Activity {
 					myList = (ListView) v.findViewById(android.R.id.list);
 					addKate = (Button) v.findViewById(R.id.addkamera);
 					Kat = (EditText) v.findViewById(R.id.kameramodell);
-					freecell.setText("Kameramodelle");
+					freecell.setText(getString(R.string.camera_models));
 					tablor.setBackgroundResource(R.drawable.shaperedtable);
 					tablor.setPadding(4, 0, -2, 0);
 					listAdapter = new CamArrayAdapter(mContext, aplanets, 0);
@@ -1023,8 +1019,8 @@ public class SlideNewSettings extends Activity {
 							Button specButton = (Button) layoutOwn
 									.findViewById(R.id.specbutton);
 							deleteButton
-									.setText("     Eintrag l\u00F6schen     ");
-							editButton.setText("     Als Standardwert     ");
+									.setText(getString(R.string.delete_entry));
+							editButton.setText(getString(R.string.make_default));
 							editButton.setVisibility(Button.GONE);
 							specButton
 									.setOnClickListener(new OnClickListener() {
@@ -1057,7 +1053,7 @@ public class SlideNewSettings extends Activity {
 											Katspec = (EditText) layoutOwn2
 													.findViewById(R.id.kameramodell);
 											freecellspec
-													.setText("W\u00E4hlen sie Objektive f\u00FCr die Kamera aus");
+													.setText(getString(R.string.choose_lens));
 											tablorspec
 													.setBackgroundResource(R.drawable.shaperedtable);
 											tablorspec.setPadding(2, 2, 2, 2);
@@ -1078,11 +1074,11 @@ public class SlideNewSettings extends Activity {
 															AlertDialog.Builder builder = new AlertDialog.Builder(
 																	mContext);
 															builder.setMessage(
-																	"M\u00F6chten Sie den eintrag wirklich l\u00F6schen?")
+																	getString(R.string.delete_entry))
 																	.setCancelable(
 																			false)
 																	.setPositiveButton(
-																			"Ja",
+																			getString(R.string.yes),
 																			new DialogInterface.OnClickListener() {
 																				public void onClick(
 																						DialogInterface dialog,
@@ -1120,7 +1116,7 @@ public class SlideNewSettings extends Activity {
 																				}
 																			})
 																	.setNegativeButton(
-																			"Nein",
+																			getString(R.string.no),
 																			new DialogInterface.OnClickListener() {
 																				public void onClick(
 																						DialogInterface dialog,
@@ -1168,7 +1164,7 @@ public class SlideNewSettings extends Activity {
 																			.length() == 0) {
 																Toast.makeText(
 																		getApplicationContext(),
-																		"Das Textfeld ist leer oder das Objekt existiert bereits!",
+																		getString(R.string.empty_or_existing_entry),
 																		Toast.LENGTH_SHORT)
 																		.show();
 															} else {
@@ -1217,7 +1213,7 @@ public class SlideNewSettings extends Activity {
 
 											myList.setAdapter(listAdapter);
 											Toast.makeText(mContext,
-													"Standardwert gespeichert",
+													getString(R.string.default_saved),
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
 										}
@@ -1276,7 +1272,7 @@ public class SlideNewSettings extends Activity {
 									|| Kat.getText().toString().trim().length() == 0) {
 								Toast.makeText(
 										getApplicationContext(),
-										"Das Textfeld ist leer oder das Objekt existiert bereits!",
+										getString(R.string.empty_or_existing_entry),
 										Toast.LENGTH_SHORT).show();
 							} else {
 								writeDB(DB.MY_DB_TABLE_SETCAM, Kat.getText()
@@ -1305,7 +1301,7 @@ public class SlideNewSettings extends Activity {
 								Katspec = (EditText) layoutOwn2
 										.findViewById(R.id.kameramodell);
 								freecellspec
-										.setText("W\u00E4hlen sie Objektive f\u00FCr die Kamera aus");
+										.setText(getString(R.string.choose_lens));
 								tablorspec
 										.setBackgroundResource(R.drawable.shaperedtable);
 								tablorspec.setPadding(2, 2, 2, 2);
@@ -1323,10 +1319,10 @@ public class SlideNewSettings extends Activity {
 												AlertDialog.Builder builder = new AlertDialog.Builder(
 														mContext);
 												builder.setMessage(
-														"M\u00F6chten Sie den eintrag wirklich l\u00F6schen?")
+														getString(R.string.question_delete))
 														.setCancelable(false)
 														.setPositiveButton(
-																"Ja",
+																getString(R.string.yes),
 																new DialogInterface.OnClickListener() {
 																	public void onClick(
 																			DialogInterface dialog,
@@ -1364,7 +1360,7 @@ public class SlideNewSettings extends Activity {
 																	}
 																})
 														.setNegativeButton(
-																"Nein",
+																getString(R.string.no),
 																new DialogInterface.OnClickListener() {
 																	public void onClick(
 																			DialogInterface dialog,
@@ -1408,7 +1404,7 @@ public class SlideNewSettings extends Activity {
 																.length() == 0) {
 													Toast.makeText(
 															getApplicationContext(),
-															"Das Textfeld ist leer oder das Objekt existiert bereits!",
+															getString(R.string.empty_or_existing_entry),
 															Toast.LENGTH_SHORT)
 															.show();
 												} else {
@@ -1489,7 +1485,7 @@ public class SlideNewSettings extends Activity {
 				myListView0 = (ListView) slideView0
 						.findViewById(android.R.id.list);
 
-				freecell3.setText("Fokus");
+				freecell3.setText(getString(R.string.focus));
 				tablor3.setBackgroundResource(R.drawable.shaperedtable);
 				listAdapte0 = new SettingsArrayAdapter(mContext, planet0, 90);
 				myListView0.setAdapter(listAdapte0);
@@ -1518,9 +1514,9 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag l\u00F6schen     ");
+										.setText(getString(R.string.delete_entry));
 								editButton
-										.setText("     Als Standardwert     ");
+										.setText(getString(R.string.make_default));
 								editButton
 										.setOnClickListener(new OnClickListener() {
 											@Override
@@ -1539,7 +1535,7 @@ public class SlideNewSettings extends Activity {
 
 												Toast.makeText(
 														mContext,
-														"Standardwert gespeichert",
+														getString(R.string.default_saved),
 														Toast.LENGTH_SHORT)
 														.show();
 												pw.dismiss();
@@ -1568,7 +1564,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gel\u00F6scht!",
+														getString(R.string.deleted),
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -1616,7 +1612,7 @@ public class SlideNewSettings extends Activity {
 										.length() == 0) {
 							Toast.makeText(
 									getApplicationContext(),
-									"Das Textfeld ist leer oder das Objekt existiert bereits!",
+									getString(R.string.empty_or_existing_entry),
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETFOK, katText0.getText()
@@ -1629,7 +1625,7 @@ public class SlideNewSettings extends Activity {
 							myListView0.setAdapter(listAdapte0);
 							listAdapte0.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!",
+									getString(R.string.entry_saved),
 									Toast.LENGTH_SHORT).show();
 						}
 
@@ -1663,7 +1659,7 @@ public class SlideNewSettings extends Activity {
 				myListView1 = (ListView) slideView1
 						.findViewById(android.R.id.list);
 
-				freecell3.setText("Blende");
+				freecell3.setText(getString(R.string.aperture));
 				tablor3.setBackgroundResource(R.drawable.shaperedtable);
 				listAdapte1 = new SettingsArrayAdapter(mContext, planet1, 50);
 				myListView1.setAdapter(listAdapte1);
@@ -1692,9 +1688,9 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag l\u00F6schen     ");
+										.setText(getString(R.string.delete_entry));
 								editButton
-										.setText("     Als Standardwert     ");
+										.setText(getString(R.string.make_default));
 								editButton
 										.setOnClickListener(new OnClickListener() {
 											@Override
@@ -1722,7 +1718,7 @@ public class SlideNewSettings extends Activity {
 												editor1.commit();
 												Toast.makeText(
 														mContext,
-														"Standardwert gespeichert",
+														getString(R.string.default_saved),
 														Toast.LENGTH_SHORT)
 														.show();
 												pw.dismiss();
@@ -1751,7 +1747,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gel\u00F6scht!",
+														getString(R.string.entry_saved),
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -1799,7 +1795,7 @@ public class SlideNewSettings extends Activity {
 										.length() == 0) {
 							Toast.makeText(
 									getApplicationContext(),
-									"Das Textfeld ist leer oder das Objekt existiert bereits!",
+									getString(R.string.empty_or_existing_entry),
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETBLE, katText1.getText()
@@ -1811,7 +1807,7 @@ public class SlideNewSettings extends Activity {
 							myListView1.setAdapter(listAdapte1);
 							listAdapte1.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!",
+									getString(R.string.entry_saved),
 									Toast.LENGTH_SHORT).show();
 						}
 
@@ -1845,7 +1841,7 @@ public class SlideNewSettings extends Activity {
 				myListView2 = (ListView) slideView2
 						.findViewById(android.R.id.list);
 
-				freecell3.setText("Zeit");
+				freecell3.setText(getString(R.string.exposure));
 				tablor3.setBackgroundResource(R.drawable.shaperedtable);
 				listAdapte2 = new SettingsArrayAdapter(mContext, planet2, 34);
 				myListView2.setAdapter(listAdapte2);
@@ -1874,9 +1870,9 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag l\u00F6schen     ");
+										.setText(getString(R.string.delete_entry));
 								editButton
-										.setText("     Als Standardwert     ");
+										.setText(getString(R.string.make_default));
 								editButton
 										.setOnClickListener(new OnClickListener() {
 											@Override
@@ -1904,7 +1900,7 @@ public class SlideNewSettings extends Activity {
 												editor1.commit();
 												Toast.makeText(
 														mContext,
-														"Standardwert gespeichert",
+														getString(R.string.default_saved),
 														Toast.LENGTH_SHORT)
 														.show();
 												pw.dismiss();
@@ -1933,7 +1929,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gel\u00F6scht!",
+														getString(R.string.deleted),
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -1981,7 +1977,7 @@ public class SlideNewSettings extends Activity {
 										.length() == 0) {
 							Toast.makeText(
 									getApplicationContext(),
-									"Das Textfeld ist leer oder das Objekt existiert bereits!",
+									getString(R.string.empty_or_existing_entry),
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETZEI, katText2.getText()
@@ -1995,7 +1991,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText2.getText().toString(),0));
 							listAdapte2.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!",
+									getString(R.string.entry_saved),
 									Toast.LENGTH_SHORT).show();
 						}
 
@@ -2029,7 +2025,7 @@ public class SlideNewSettings extends Activity {
 				myListView3 = (ListView) slideView3
 						.findViewById(android.R.id.list);
 
-				freecell3.setText("Messung");
+				freecell3.setText(getString(R.string.measurement));
 				tablor3.setBackgroundResource(R.drawable.shaperedtable);
 				listAdapte3 = new SettingsArrayAdapter(mContext, planet3, 39);
 				myListView3.setAdapter(listAdapte3);
@@ -2058,9 +2054,9 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag l\u00F6schen     ");
+										.setText(getString(R.string.delete_entry));
 								editButton
-										.setText("     Als Standardwert     ");
+										.setText(getString(R.string.make_default));
 								editButton
 										.setOnClickListener(new OnClickListener() {
 											@Override
@@ -2088,7 +2084,7 @@ public class SlideNewSettings extends Activity {
 												editor1.commit();
 												Toast.makeText(
 														mContext,
-														"Standardwert gespeichert",
+														getString(R.string.default_saved),
 														Toast.LENGTH_SHORT)
 														.show();
 												pw.dismiss();
@@ -2117,7 +2113,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gel\u00F6scht!",
+														getString(R.string.deleted),
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -2165,7 +2161,7 @@ public class SlideNewSettings extends Activity {
 										.length() == 0) {
 							Toast.makeText(
 									getApplicationContext(),
-									"Das Textfeld ist leer oder das Objekt existiert bereits!",
+									getString(R.string.empty_or_existing_entry),
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETMES, katText3.getText()
@@ -2179,7 +2175,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText3.getText().toString(),0));
 							listAdapte3.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!",
+									getString(R.string.entry_saved),
 									Toast.LENGTH_SHORT).show();
 						}
 
@@ -2213,7 +2209,7 @@ public class SlideNewSettings extends Activity {
 				myListView4 = (ListView) slideView4
 						.findViewById(android.R.id.list);
 
-				freecell3.setText("+/- Korrektur");
+				freecell3.setText(getString(R.string.exposure_correction));
 				tablor3.setBackgroundResource(R.drawable.shaperedtable);
 				listAdapte4 = new SettingsArrayAdapter(mContext, planet4, 42);
 				myListView4.setAdapter(listAdapte4);
@@ -2242,9 +2238,9 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag l\u00F6schen     ");
+										.setText(getString(R.string.delete_entry));
 								editButton
-										.setText("     Als Standardwert     ");
+										.setText(getString(R.string.make_default));
 								editButton
 										.setOnClickListener(new OnClickListener() {
 											@Override
@@ -2272,7 +2268,7 @@ public class SlideNewSettings extends Activity {
 												editor1.commit();
 												Toast.makeText(
 														mContext,
-														"Standardwert gespeichert",
+														getString(R.string.default_saved),
 														Toast.LENGTH_SHORT)
 														.show();
 												pw.dismiss();
@@ -2301,7 +2297,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gel\u00F6scht!",
+														getString(R.string.deleted),
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -2349,7 +2345,7 @@ public class SlideNewSettings extends Activity {
 										.length() == 0) {
 							Toast.makeText(
 									getApplicationContext(),
-									"Das Textfeld ist leer oder das Objekt existiert bereits!",
+									getString(R.string.empty_or_existing_entry),
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETPLU, katText4.getText()
@@ -2363,7 +2359,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText4.getText().toString(),0));
 							listAdapte4.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!",
+									getString(R.string.entry_saved),
 									Toast.LENGTH_SHORT).show();
 						}
 
@@ -2397,7 +2393,7 @@ public class SlideNewSettings extends Activity {
 				myListView5 = (ListView) slideView5
 						.findViewById(android.R.id.list);
 
-				freecell3.setText("Makro");
+				freecell3.setText(getString(R.string.macro));
 				tablor3.setBackgroundResource(R.drawable.shaperedtable);
 				listAdapte5 = new SettingsArrayAdapter(mContext, planets3, 51);
 				myListView5.setAdapter(listAdapte5);
@@ -2426,9 +2422,9 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag l\u00F6schen     ");
+										.setText(getString(R.string.delete_entry));
 								editButton
-										.setText("     Als Standardwert     ");
+										.setText(getString(R.string.make_default));
 								editButton
 										.setOnClickListener(new OnClickListener() {
 											@Override
@@ -2447,7 +2443,7 @@ public class SlideNewSettings extends Activity {
 
 												Toast.makeText(
 														mContext,
-														"Standardwert gespeichert",
+														getString(R.string.default_saved),
 														Toast.LENGTH_SHORT)
 														.show();
 												pw.dismiss();
@@ -2476,7 +2472,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gel\u00F6scht!",
+														getString(R.string.deleted),
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -2524,7 +2520,7 @@ public class SlideNewSettings extends Activity {
 										.length() == 0) {
 							Toast.makeText(
 									getApplicationContext(),
-									"Das Textfeld ist leer oder das Objekt existiert bereits!",
+									getString(R.string.empty_or_existing_entry),
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETNM, katText5.getText()
@@ -2538,7 +2534,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText5.getText().toString(),0));
 							listAdapte5.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!",
+									getString(R.string.entry_saved),
 									Toast.LENGTH_SHORT).show();
 						}
 
@@ -2572,7 +2568,7 @@ public class SlideNewSettings extends Activity {
 				myListView6 = (ListView) slideView6
 						.findViewById(android.R.id.list);
 
-				freecell3.setText("Makro-VF");
+				freecell3.setText(getString(R.string.macro_vf));
 				tablor3.setBackgroundResource(R.drawable.shaperedtable);
 				listAdapte6 = new SettingsArrayAdapter(mContext, planet5, 63);
 				myListView6.setAdapter(listAdapte6);
@@ -2601,9 +2597,9 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag l\u00F6schen     ");
+										.setText(getString(R.string.delete_entry));
 								editButton
-										.setText("     Als Standardwert     ");
+										.setText(getString(R.string.make_default));
 								editButton
 										.setOnClickListener(new OnClickListener() {
 											@Override
@@ -2631,7 +2627,7 @@ public class SlideNewSettings extends Activity {
 												editor1.commit();
 												Toast.makeText(
 														mContext,
-														"Standardwert gespeichert",
+														getString(R.string.default_saved),
 														Toast.LENGTH_SHORT)
 														.show();
 												pw.dismiss();
@@ -2660,7 +2656,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gel\u00F6scht!",
+														getString(R.string.deleted),
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -2708,7 +2704,7 @@ public class SlideNewSettings extends Activity {
 										.length() == 0) {
 							Toast.makeText(
 									getApplicationContext(),
-									"Das Textfeld ist leer oder das Objekt existiert bereits!",
+									getString(R.string.empty_or_existing_entry),
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETMVF, katText6.getText()
@@ -2722,7 +2718,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText6.getText().toString(),0));
 							listAdapte6.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!",
+									getString(R.string.entry_saved),
 									Toast.LENGTH_SHORT).show();
 						}
 
@@ -2756,7 +2752,7 @@ public class SlideNewSettings extends Activity {
 				myListView7 = (ListView) slideView7
 						.findViewById(android.R.id.list);
 
-				freecell3.setText("Filter");
+				freecell3.setText(getString(R.string.filter));
 				tablor3.setBackgroundResource(R.drawable.shaperedtable);
 				listAdapte7 = new SettingsArrayAdapter(mContext, planets4, 79);
 				myListView7.setAdapter(listAdapte7);
@@ -2785,9 +2781,9 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag l\u00F6schen     ");
+										.setText(getString(R.string.delete_entry));
 								editButton
-										.setText("     Als Standardwert     ");
+										.setText(getString(R.string.make_default));
 								editButton
 										.setOnClickListener(new OnClickListener() {
 											@Override
@@ -2815,7 +2811,7 @@ public class SlideNewSettings extends Activity {
 												editor1.commit();
 												Toast.makeText(
 														mContext,
-														"Standardwert gespeichert",
+														getString(R.string.default_saved),
 														Toast.LENGTH_SHORT)
 														.show();
 												pw.dismiss();
@@ -2844,7 +2840,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gel\u00F6scht!",
+														getString(R.string.deleted),
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -2892,7 +2888,7 @@ public class SlideNewSettings extends Activity {
 										.length() == 0) {
 							Toast.makeText(
 									getApplicationContext(),
-									"Das Textfeld ist leer oder das Objekt existiert bereits!",
+									getString(R.string.empty_or_existing_entry),
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETFIL, katText7.getText()
@@ -2906,7 +2902,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText7.getText().toString(),0));
 							listAdapte7.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!",
+									getString(R.string.entry_saved),
 									Toast.LENGTH_SHORT).show();
 						}
 
@@ -2940,7 +2936,7 @@ public class SlideNewSettings extends Activity {
 				myListView8 = (ListView) slideView8
 						.findViewById(android.R.id.list);
 
-				freecell3.setText("Filter-VF");
+				freecell3.setText(getString(R.string.filter_vf));
 				tablor3.setBackgroundResource(R.drawable.shaperedtable);
 				listAdapte8 = new SettingsArrayAdapter(mContext, planet6, 88);
 				myListView8.setAdapter(listAdapte8);
@@ -2969,9 +2965,9 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag l\u00F6schen     ");
+										.setText(getString(R.string.delete_entry));
 								editButton
-										.setText("     Als Standardwert     ");
+										.setText(getString(R.string.make_default));
 								editButton
 										.setOnClickListener(new OnClickListener() {
 											@Override
@@ -2999,7 +2995,7 @@ public class SlideNewSettings extends Activity {
 												editor1.commit();
 												Toast.makeText(
 														mContext,
-														"Standardwert gespeichert",
+														getString(R.string.default_saved),
 														Toast.LENGTH_SHORT)
 														.show();
 												pw.dismiss();
@@ -3028,7 +3024,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gel\u00F6scht!",
+														getString(R.string.deleted),
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -3076,7 +3072,7 @@ public class SlideNewSettings extends Activity {
 										.length() == 0) {
 							Toast.makeText(
 									getApplicationContext(),
-									"Das Textfeld ist leer oder das Objekt existiert bereits!",
+									getString(R.string.empty_or_existing_entry),
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETFVF, katText8.getText()
@@ -3090,7 +3086,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText8.getText().toString(),0));
 							listAdapte8.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!",
+									getString(R.string.entry_saved),
 									Toast.LENGTH_SHORT).show();
 						}
 
@@ -3124,7 +3120,8 @@ public class SlideNewSettings extends Activity {
 				myListView9 = (ListView) slideView9
 						.findViewById(android.R.id.list);
 
-				freecell3.setText("Blitz");
+				freecell3.setText(getString(R.string.flash
+						));
 				tablor3.setBackgroundResource(R.drawable.shapebluetable);
 				listAdapte9 = new SettingsArrayAdapter(mContext, planets5, 56);
 				myListView9.setAdapter(listAdapte9);
@@ -3153,9 +3150,9 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag l\u00F6schen     ");
+										.setText(getString(R.string.delete_entry));
 								editButton
-										.setText("     Als Standardwert     ");
+										.setText(getString(R.string.make_default));
 								editButton
 										.setOnClickListener(new OnClickListener() {
 											@Override
@@ -3183,7 +3180,7 @@ public class SlideNewSettings extends Activity {
 												editor1.commit();
 												Toast.makeText(
 														mContext,
-														"Standardwert gespeichert",
+														getString(R.string.default_saved),
 														Toast.LENGTH_SHORT)
 														.show();
 												pw.dismiss();
@@ -3212,7 +3209,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gel\u00F6scht!",
+														getString(R.string.deleted),
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -3260,7 +3257,7 @@ public class SlideNewSettings extends Activity {
 										.length() == 0) {
 							Toast.makeText(
 									getApplicationContext(),
-									"Das Textfeld ist leer oder das Objekt existiert bereits!",
+									getString(R.string.empty_or_existing_entry),
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETBLI, katText9.getText()
@@ -3274,7 +3271,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText9.getText().toString(),0));
 							listAdapte9.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!",
+									getString(R.string.entry_saved),
 									Toast.LENGTH_SHORT).show();
 						}
 
@@ -3308,7 +3305,7 @@ public class SlideNewSettings extends Activity {
 				myListView10 = (ListView) slideView10
 						.findViewById(android.R.id.list);
 
-				freecell3.setText("Blitz Korrektur");
+				freecell3.setText(getString(R.string.flash_correction));
 				tablor3.setBackgroundResource(R.drawable.shapebluetable);
 				listAdapte10 = new SettingsArrayAdapter(mContext, planet7, 17);
 				myListView10.setAdapter(listAdapte10);
@@ -3337,9 +3334,9 @@ public class SlideNewSettings extends Activity {
 								Button editButton = (Button) layoutOwn
 										.findViewById(R.id.editbutton);
 								deleteButton
-										.setText("     Eintrag l\u00F6schen     ");
+										.setText(getString(R.string.delete_entry));
 								editButton
-										.setText("     Als Standardwert     ");
+										.setText(getString(R.string.make_default));
 								editButton
 										.setOnClickListener(new OnClickListener() {
 											@Override
@@ -3367,7 +3364,7 @@ public class SlideNewSettings extends Activity {
 												editor1.commit();
 												Toast.makeText(
 														mContext,
-														"Standardwert gespeichert",
+														getString(R.string.default_saved),
 														Toast.LENGTH_SHORT)
 														.show();
 												pw.dismiss();
@@ -3396,7 +3393,7 @@ public class SlideNewSettings extends Activity {
 														.notifyDataSetChanged();
 												Toast.makeText(
 														getApplicationContext(),
-														"Eintrag gel\u00F6scht!",
+														getString(R.string.deleted),
 														Toast.LENGTH_SHORT)
 														.show();
 
@@ -3444,7 +3441,7 @@ public class SlideNewSettings extends Activity {
 										.length() == 0) {
 							Toast.makeText(
 									getApplicationContext(),
-									"Das Textfeld ist leer oder das Objekt existiert bereits!",
+									getString(R.string.empty_or_existing_entry),
 									Toast.LENGTH_SHORT).show();
 						} else {
 							writeDB(DB.MY_DB_TABLE_SETKOR, katText10.getText()
@@ -3458,7 +3455,7 @@ public class SlideNewSettings extends Activity {
 							// Settings(katText10.getText().toString(),0));
 							listAdapte10.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									"Eintrag hinzugef\u00FCgt!",
+									getString(R.string.entry_saved),
 									Toast.LENGTH_SHORT).show();
 						}
 
@@ -3491,7 +3488,7 @@ public class SlideNewSettings extends Activity {
 					myList1 = (ListView) va.findViewById(android.R.id.list);
 					addKate1 = (Button) va.findViewById(R.id.addkamera);
 					Kat1 = (EditText) va.findViewById(R.id.kameramodell);
-					freecell1.setText("Filmformate");
+					freecell1.setText(getString(R.string.film_formats));
 					tablor1.setBackgroundResource(R.drawable.shapegreentable);
 					tablor1.setPadding(4, 0, -2, 0);
 					listAdapter1 = new SettingsArrayAdapter(mContext,
@@ -3517,8 +3514,8 @@ public class SlideNewSettings extends Activity {
 							Button editButton = (Button) layoutOwn
 									.findViewById(R.id.editbutton);
 							deleteButton
-									.setText("     Eintrag l\u00F6schen     ");
-							editButton.setText("     Als Standardwert     ");
+									.setText(getString(R.string.delete_entry));
+							editButton.setText(getString(R.string.make_default));
 							editButton
 									.setOnClickListener(new OnClickListener() {
 										@Override
@@ -3532,7 +3529,7 @@ public class SlideNewSettings extends Activity {
 											listAdapter1.notifyDataSetChanged();
 
 											Toast.makeText(mContext,
-													"Standardwert gespeichert",
+													getString(R.string.default_saved),
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
 										}
@@ -3553,7 +3550,7 @@ public class SlideNewSettings extends Activity {
 											listAdapter1.notifyDataSetChanged();
 											Toast.makeText(
 													getApplicationContext(),
-													"Eintrag gel\u00F6scht!",
+													getString(R.string.deleted),
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
 										}
@@ -3596,7 +3593,7 @@ public class SlideNewSettings extends Activity {
 											.length() == 0) {
 								Toast.makeText(
 										getApplicationContext(),
-										"Das Textfeld ist leer oder das Objekt existiert bereits!",
+										getString(R.string.empty_or_existing_entry),
 										Toast.LENGTH_SHORT).show();
 							} else {
 								writeDB(DB.MY_DB_TABLE_SETFF, Kat1.getText()
@@ -3610,7 +3607,7 @@ public class SlideNewSettings extends Activity {
 								// Settings(Kat1.getText().toString(),0));
 								listAdapter1.notifyDataSetChanged();
 								Toast.makeText(getApplicationContext(),
-										"Eintrag hinzugef\u00FCgt!",
+										getString(R.string.entry_saved),
 										Toast.LENGTH_SHORT).show();
 							}
 						}
@@ -3641,7 +3638,7 @@ public class SlideNewSettings extends Activity {
 					myList7 = (ListView) vg.findViewById(android.R.id.list);
 					addKate7 = (Button) vg.findViewById(R.id.addkamera);
 					Kat7 = (EditText) vg.findViewById(R.id.kameramodell);
-					freecell7.setText("Empfindlichkeit");
+					freecell7.setText(getString(R.string.film_speed));
 					tablor7.setBackgroundResource(R.drawable.shapegreentable);
 					tablor7.setPadding(4, 0, -2, 0);
 					listAdapter7 = new SettingsArrayAdapter(mContext,
@@ -3667,8 +3664,8 @@ public class SlideNewSettings extends Activity {
 							Button editButton = (Button) layoutOwn
 									.findViewById(R.id.editbutton);
 							deleteButton
-									.setText("     Eintrag l\u00F6schen     ");
-							editButton.setText("     Als Standardwert     ");
+									.setText(getString(R.string.delete_entry));
+							editButton.setText(getString(R.string.make_default));
 							editButton
 									.setOnClickListener(new OnClickListener() {
 										@Override
@@ -3682,7 +3679,7 @@ public class SlideNewSettings extends Activity {
 											readDB();
 											listAdapter7.notifyDataSetChanged();
 											Toast.makeText(mContext,
-													"Standardwert gespeichert",
+													getString(R.string.default_saved),
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
 										}
@@ -3703,7 +3700,7 @@ public class SlideNewSettings extends Activity {
 											listAdapter7.notifyDataSetChanged();
 											Toast.makeText(
 													getApplicationContext(),
-													"Eintrag gel\u00F6scht!",
+													getString(R.string.deleted),
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
 										}
@@ -3746,7 +3743,7 @@ public class SlideNewSettings extends Activity {
 											.length() == 0) {
 								Toast.makeText(
 										getApplicationContext(),
-										"Das Textfeld ist leer oder das Objekt existiert bereits!",
+										getString(R.string.empty_or_existing_entry),
 										Toast.LENGTH_SHORT).show();
 							} else {
 								writeDB(DB.MY_DB_TABLE_SETEMP, Kat7.getText()
@@ -3760,7 +3757,7 @@ public class SlideNewSettings extends Activity {
 								// Settings(Kat7.getText().toString(),0));
 								listAdapter7.notifyDataSetChanged();
 								Toast.makeText(getApplicationContext(),
-										"Eintrag hinzugef\u00FCgt!",
+										getString(R.string.entry_saved),
 										Toast.LENGTH_SHORT).show();
 							}
 						}
@@ -3800,7 +3797,7 @@ public class SlideNewSettings extends Activity {
 					/*
 					 * Text und Farbe �ndern
 					 */
-					freecell6.setText("Sonderentwicklung");
+					freecell6.setText(getString(R.string.processing));
 					tablor6.setBackgroundResource(R.drawable.shapebluetable);
 
 					tablor6.setPadding(4, 0, -2, 0);
@@ -3835,8 +3832,8 @@ public class SlideNewSettings extends Activity {
 							Button editButton = (Button) layoutOwn
 									.findViewById(R.id.editbutton);
 							deleteButton
-									.setText("     Eintrag l\u00F6schen     ");
-							editButton.setText("     Als Standardwert     ");
+									.setText(getString(R.string.delete_entry));
+							editButton.setText(getString(R.string.make_default));
 
 							deleteButton
 									.setOnClickListener(new OnClickListener() {
@@ -3854,7 +3851,7 @@ public class SlideNewSettings extends Activity {
 											listAdapter6.notifyDataSetChanged();
 											Toast.makeText(
 													getApplicationContext(),
-													"Eintrag gel\u00F6scht!",
+													getString(R.string.deleted),
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
 										}
@@ -3873,7 +3870,7 @@ public class SlideNewSettings extends Activity {
 											readDB();
 											listAdapter6.notifyDataSetChanged();
 											Toast.makeText(mContext,
-													"Standardwert gespeichert",
+													getString(R.string.default_saved),
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
 										}
@@ -3921,7 +3918,7 @@ public class SlideNewSettings extends Activity {
 											.length() == 0) {
 								Toast.makeText(
 										getApplicationContext(),
-										"Das Textfeld ist leer oder das Objekt existiert bereits!",
+										getString(R.string.empty_or_existing_entry),
 										Toast.LENGTH_SHORT).show();
 							} else {
 								writeDB(DB.MY_DB_TABLE_SETSON, Kat6.getText()
@@ -3935,7 +3932,7 @@ public class SlideNewSettings extends Activity {
 								// Settings(Kat6.getText().toString(),0));
 								listAdapter6.notifyDataSetChanged();
 								Toast.makeText(getApplicationContext(),
-										"Eintrag hinzugef\u00FCgt!",
+										getString(R.string.entry_saved),
 										Toast.LENGTH_SHORT).show();
 							}
 						}
@@ -4539,12 +4536,12 @@ public class SlideNewSettings extends Activity {
 					.findViewById(R.id.setthree);
 			final Button setfour1 = (Button) layoutOwn1
 					.findViewById(R.id.setfour);
-			setsave1.setText("Laden");
+			setsave1.setText(getString(R.string.load));
 			setSetButtonColor(setone1, settwo1, setthree1, setfour1);
-			setone1.setText(settings.getString("SetButtonOne", "Default"));
-			settwo1.setText(settings.getString("SetButtonTwo", "Set-Zwei"));
-			setthree1.setText(settings.getString("SetButtonThree", "Set-Drei"));
-			setfour1.setText(settings.getString("SetButtonFour", "Set-Vier"));
+			setone1.setText(settings.getString("SetButtonOne", getString(R.string.set_default))); 
+			settwo1.setText(settings.getString("SetButtonTwo", getString(R.string.set_two)));
+			setthree1.setText(settings.getString("SetButtonThree", getString(R.string.set_three)));
+			setfour1.setText(settings.getString("SetButtonFour", getString(R.string.set_four)));
 			setone1.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -4637,7 +4634,7 @@ public class SlideNewSettings extends Activity {
 					mIndicator.setCurrentItem(0);
 					viewPager.setCurrentItem(0, false);
 					Toast.makeText(getApplicationContext(),
-							"Set wurde erfolgreich geladen!",
+							getString(R.string.set_loaded),
 							Toast.LENGTH_SHORT).show();
 				}
 			});
@@ -4666,10 +4663,10 @@ public class SlideNewSettings extends Activity {
 			final Button setfour = (Button) layoutOwn
 					.findViewById(R.id.setfour);
 			setSetButtonColor(setone, settwo, setthree, setfour);
-			setone.setText(settings.getString("SetButtonOne", "Default"));
-			settwo.setText(settings.getString("SetButtonTwo", "Set-Zwei"));
-			setthree.setText(settings.getString("SetButtonThree", "Set-Drei"));
-			setfour.setText(settings.getString("SetButtonFour", "Set.Vier"));
+			setone.setText(settings.getString("SetButtonOne", getString(R.string.set_default)));
+			settwo.setText(settings.getString("SetButtonTwo", getString(R.string.set_two)));
+			setthree.setText(settings.getString("SetButtonThree", getString(R.string.set_three)));
+			setfour.setText(settings.getString("SetButtonFour", getString(R.string.set_four)));
 			setone.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -4683,7 +4680,7 @@ public class SlideNewSettings extends Activity {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Das geladene Set kann nicht \u00FCberschrieben werden!",
+								getString(R.string.set_not_saved),
 								Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -4701,7 +4698,7 @@ public class SlideNewSettings extends Activity {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Das geladene Set kann nicht \u00FCberschrieben werden!",
+								getString(R.string.set_not_saved),
 								Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -4719,7 +4716,7 @@ public class SlideNewSettings extends Activity {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Das geladene Set kann nicht \u00FCberschrieben werden!",
+								getString(R.string.set_not_saved),
 								Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -4737,7 +4734,7 @@ public class SlideNewSettings extends Activity {
 					} else {
 						Toast.makeText(
 								getApplicationContext(),
-								"Das geladene Set kann nicht \u00FCberschrieben werden!",
+								getString(R.string.set_not_saved),
 								Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -4748,7 +4745,7 @@ public class SlideNewSettings extends Activity {
 					if (setedit.getText().toString().length() == 0
 							|| setedit.getText().toString().trim().length() == 0) {
 						Toast.makeText(getApplicationContext(),
-								"Leerer Name ist nicht erlaubt!",
+								getString(R.string.empty_name_not_allowed),
 								Toast.LENGTH_SHORT).show();
 					} else {
 						if (setButtonClicked == 1) {
@@ -4831,7 +4828,7 @@ public class SlideNewSettings extends Activity {
 		}
 
 		protected void onPreExecute() {
-			this.dialog.setMessage("...saving settings-set...");
+			this.dialog.setMessage(getString(R.string.save_set));
 			this.dialog.show();
 		}
 
@@ -4847,7 +4844,7 @@ public class SlideNewSettings extends Activity {
 			viewPager.setCurrentItem(0, false);
 			Toast.makeText(
 					getApplicationContext(),
-					"Set wurde erfolgreich erstellt und und kann nun bearbeitet werden!",
+					getString(R.string.set_saved),
 					Toast.LENGTH_SHORT).show();
 
 		}
@@ -5032,7 +5029,7 @@ public class SlideNewSettings extends Activity {
 		}
 
 		protected void onPreExecute() {
-			this.dialog.setMessage("...reset to default...");
+			this.dialog.setMessage(getString(R.string.reset));
 			this.dialog.show();
 		}
 

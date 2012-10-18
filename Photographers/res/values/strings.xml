@@ -3,24 +3,34 @@
     <string name="app_name">Photographers</string>
     <string name="question_delete">Wollen Sie den Eintrag wirklich löschen?</string>
 	<string name="yes">Ja</string>
-	<string name="deleted">Eintrag gelöscht.</string>
+	<string name="deleted">Eintrag gelöscht</string>
+	<string name="entry_saved">Eintrag erstellt</string>
 	<string name="no">Nein</string>
+	<string name="load">Laden</string>
 	<string name="start_film">Film beginnen</string>
 	<string name="delete_film">Film löschen</string>
 	<string name="continue_film">Film fortsetzen</string>
 	<string name="firststart">Ersten Start vorbereiten...</string>
 	<string name="export">Bereite Daten für Export vor...</string>
+	<string name="save_set">Set speichern...</string>
+	<string name="reset">Reset auf Defaultwerte...</string>
+	<string name="set_saved">Set wurde erfolgreich erstellt und und kann nun bearbeitet werden!</string>
 	<string name="create_new_film">Neuen Film erstellen</string>
 	<string name="new_film">Neuer Film</string>
 	<string name="film_selection">Filmauswahl</string>
 	<string name="proceed">Weiter</string>
 	<string name="pictures">Bilder</string>
+	<string name="delete_entry">Eintrag löschen</string>
+	<string name="make_default">Als Standardwert</string>
 	<string name="delete_picture">Bild löschen</string>
 	<string name="edit_picture">Bild bearbeiten</string>
+	<string name="default_saved">Standardwert gespeichert</string>
 	<string name="camera_model">Kameramodell</string>
+	<string name="camera_models">Kameramodelle</string>
 	<string name="date">Datum</string>
 	<string name="film_note">Filmnotiz</string>
 	<string name="film_format">Filmformat</string>
+	<string name="film_formats">Filmformate</string>
 	<string name="film_speed">Empfindlichkeit</string>
 	<string name="film_type">Filmtyp</string>
 	<string name="processing">Sonderentwicklung</string>
@@ -61,6 +71,21 @@
 	<string name="picture">Bild</string>
 	<string name="take_picture">Bild aufnehmen</string>
 	<string name="picture_taken">Bild erstellt!</string>
+	<string name="minus_one_minute">-1 Minute</string>
+	<string name="factor">Faktor (*)</string>
+	<string name="aperture_adjusting">Blendenzugaben (+)</string>
+	<string name="one_one">1/1</string>
+	<string name="one_two">1/2</string>
+	<string name="one_three">1/3</string>
+	<string name="set_default">Standard</string>
+	<string name="set_two">Set-Zwei</string>
+	<string name="set_three">Set-Drei</string>
+	<string name="set_four">Set-Vier</string>
+	<string name="set_loaded">Set wurde erfolgreich geladen.</string>
+	<string name="set_not_saved">Das geladene Set kann nicht überschrieben werden.</string>
+	<string name="empty_name_not_allowed">Leerer Name ist nicht erlaubt.</string>
+	<string name="choose_lens">Wählen Sie die Objektive für die Kamera aus.</string>
+	<string name="empty_or_existing_entry">Das Textfeld ist leer oder das Objekt existiert bereits!</string>
 	<string-array name="strings_tutorial_1">
 	    <item>Herzlich Willkommen im Photographers Notebook!</item>
         <item>Zur Einführung zeigen wir Ihnen die wichtigsten Funktionen der App.</item>
@@ -68,18 +93,42 @@
     	<item>Sind alle Einstellungen vorgenommen, starten Sie Ihren ersten Film, indem Sie den Button "Neuer Film" antippen.</item>
    		<item>Später können Sie den Film auf dieser Seite wieder aufrufen und bei Bedarf fortführen.</item>
 	</string-array>
-	<string-array
-        name="strings_tutorial_2">
+	<string-array name="strings_tutorial_2">
         <item>Hier können Sie einen Filmtitel auswählen oder ihn automatisch festlegen lassen.</item>
         <item>Die zuvor ausgewählten Kameras und Filmeinstellungen sind hier selektierbar.</item>
         <item>Hier wählen Sie die zuvor angelegten Kameras und Filmeinstellungen aus.</item>
     	<item>Auch hier können Sie diese durch Tippen auf die Menü-Taste andern.</item>
    		<item>Wenn Sie die Auswahl getroffen haben, tippen Sie bitte auf Film beginnen.</item>
     </string-array>
-    <string-array
-        name="slide_contents">
+    <string-array name="strings_tutorial_3">
+        <item>Hier können Sie ihre Einstellungen personalisieren.</item>
+        <item>Bestimmen Sie, welche Einstellungen später in den Auswahl-Bildschirmen vorhanden sein sollen.</item>
+        <item>Sie können neue Einträge hinzufügen oder bestehende Beiträge nach langem Antippen bearbeiten.</item>
+        <item>Im Menü können Sie die Einstellungen zurücksetzen oder ein neues Einstellunges-Set erstellen, um es mit bestimmten Einstellungen zu konfigurieren.</item>
+        <item>Einige Daten sind bereits vorhanden und vorausgewählt. Sie müssen nur noch eine Kamera hinzufügen und Objektive zuordnen.</item>
+        <item>Sie haben außerdem die Möglichkeit, mehrere Einstellungssets zu speichern und später wieder zu laden.</item>
+    </string-array>    
+    <string-array name="pic_slide_contents">
         <item>Optionen I/II</item>
         <item>Optionen II/II</item>
         <item>Notizen</item>
     </string-array>
+    <string-array name ="settings_slide_contents">
+        <item>Allgemein</item>
+		<item>Kameramodell</item>
+		<item>Fokus</item>
+		<item>Blende</item>
+		<item>Zeit</item>
+		<item>Messmethode</item>
+		<item>Belichtung +/-</item>
+		<item>Makro</item>
+		<item>Makro-VF</item>
+		<item>Filter</item>
+		<item>Filter-VF</item>
+		<item>Filmformate</item>
+		<item>Empfindlichkeit</item>
+		<item>Blitz</item>
+		<item>Blitz-Korr</item>
+		<item>Sonderentwicklung</item>
+	</string-array>
 </resources>

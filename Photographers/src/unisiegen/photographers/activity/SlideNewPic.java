@@ -166,7 +166,7 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
 		
 		Resources res = getResources();
-		CONTENT = res.getStringArray(R.array.slide_contents);	
+		CONTENT = res.getStringArray(R.array.pic_slide_contents);	
 		
 		nummerView = (TextView) findViewById(R.id.TextView_nr);
 		bildtoedit = false;
