@@ -370,7 +370,12 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	 */
 	private void getLocation() {
 		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		String provider = LocationManager.GPS_PROVIDER;
+		String locationProvider = LocationManager.GPS_PROVIDER;
+		
+		Location lastKnownLocation = locManager.getLastKnownLocation(locationProvider);
+		piclat = lastKnownLocation.getLatitude();
+		piclong = lastKnownLocation.getLongitude();
+		
 		locationListener = new LocationListener() {
 			public void onLocationChanged(Location location) {
 				piclat = location.getLatitude();
@@ -388,7 +393,7 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 			}
 		};
 
-		locManager.requestLocationUpdates(provider, 120000, 100,
+		locManager.requestLocationUpdates(locationProvider, 120000, 100,
 				locationListener);
 		if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 		} else {
