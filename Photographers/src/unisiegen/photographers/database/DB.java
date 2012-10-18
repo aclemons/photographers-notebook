@@ -664,7 +664,7 @@ public class DB {
 						c1.close();
 
 						// Bilder holen
-						film.Bilder = this.getBilder(context, film.Titel);
+						film.Bilder = this.getBilder(context, film.Titel, null);
 
 					} while (c.moveToNext());
 				}
@@ -746,23 +746,38 @@ public class DB {
 				myDBFilm.close();
 				myDBNummer.close();
 
-				film.Bilder = this.getBilder(context, title);
+				film.Bilder = this.getBilder(context, title, null);
 			}
 		}
 		return film;
 	}
+	
+	
+	public ArrayList<BildObjekt> getBild(Context context, String filmTitle, String bildNumemr) {
+		
+		ArrayList<BildObjekt> bilder = getBilder(context, filmTitle, bildNumemr);
+		return bilder;
+	}
 
-	private ArrayList<BildObjekt> getBilder(Context context, String title) {
+	
+	private ArrayList<BildObjekt> getBilder(Context context, String title, String bildNummer) {
 
-		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
+		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
 
-		Cursor c2 = myDBFilm
-				.rawQuery(
-						"SELECT _id,picfokus,picuhrzeit,piclat,piclong,filmdatum,picobjektiv, picblende,piczeit,picmessung, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
-								+ DB.MY_DB_FILM_TABLE
-								+ " WHERE filmtitle = '"
-								+ title + "'", null);
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT _id,picfokus,picuhrzeit,piclat,piclong,filmdatum,picobjektiv, picblende,piczeit,picmessung, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM ");
+		sql.append(DB.MY_DB_FILM_TABLE);
+		sql.append(" WHERE filmtitle = '");
+		sql.append(title);
+		if(bildNummer == null){
+			sql.append("';");
+		} else {
+			sql.append("' AND picnummer = '");
+			sql.append(bildNummer);
+			sql.append("';");
+		}
+		
+		Cursor c2 = myDBFilm.rawQuery(new String(sql), null);
 
 		ArrayList<BildObjekt> bilder = new ArrayList<BildObjekt>();
 		if (c2 != null) {

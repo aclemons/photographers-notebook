@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.export.BildObjekt;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -47,9 +48,9 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	/*
 	 * Sonstige Variablen
 	 */
-	
+
 	static String[] CONTENT = null; // Array is filled in the onCreate() method.
-	
+
 	SharedPreferences settings;
 	Context mContext;
 	LocationManager locManager;
@@ -112,8 +113,6 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	SQLiteDatabase myDBFilm = null;
 	SQLiteDatabase myDBNummer = null;
 	static String MY_DB_NAME;
-	static String MY_DB_NUMMER = "Nummern";
-	static String MY_DB_FILM = "Filme";
 
 	/*
 	 * (non-Javadoc)
@@ -158,16 +157,16 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-				
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.slidenewfilm);
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
-		
+
 		Resources res = getResources();
-		CONTENT = res.getStringArray(R.array.pic_slide_contents);	
-		
+		CONTENT = res.getStringArray(R.array.pic_slide_contents);
+
 		nummerView = (TextView) findViewById(R.id.TextView_nr);
 		bildtoedit = false;
 		blende = new HashMap<String, Integer>();
@@ -185,7 +184,8 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		int aktuellebildnummer = settings.getInt("BildNummerToBegin", 1);
-		nummerView.setText(getString(R.string.picture) + " " + aktuellebildnummer);
+		nummerView.setText(getString(R.string.picture) + " "
+				+ aktuellebildnummer);
 
 		if (settings.getBoolean("EditMode", false)) {
 			picturesNumber = settings.getInt("BildNummern", 1);
@@ -209,10 +209,11 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		plus.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				nummerView.setText(getString(R.string.picture) + " "
+				nummerView.setText(getString(R.string.picture)
+						+ " "
 						+ (Integer.valueOf(nummerView.getText().toString()
 								.replaceAll("[\\D]", "")) + 1));
-				getPic(nummerView.getText().toString(),
+				updateUIFromPicture(nummerView.getText().toString(),
 						settings.getString("Title", " "));
 				if (bildtoedit) {
 					aufnehmen.setText(getString(R.string.save_changes));
@@ -227,10 +228,11 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 			public void onClick(View v) {
 				if (Integer.valueOf(nummerView.getText().toString()
 						.replaceAll("[\\D]", "")) > 1) {
-					nummerView.setText(getString(R.string.picture) + " "
+					nummerView.setText(getString(R.string.picture)
+							+ " "
 							+ (Integer.valueOf(nummerView.getText().toString()
 									.replaceAll("[\\D]", "")) - 1));
-					getPic(nummerView.getText().toString(),
+					updateUIFromPicture(nummerView.getText().toString(),
 							settings.getString("Title", " "));
 				}
 				if (bildtoedit) {
@@ -263,12 +265,14 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 						myDBNummer.close();
 					}
 					myDBFilm.close();
-					Toast.makeText(getApplicationContext(), getString(R.string.picture_taken),
+					Toast.makeText(getApplicationContext(),
+							getString(R.string.picture_taken),
 							Toast.LENGTH_SHORT).show();
 				} catch (Exception e) {
 					e.printStackTrace();
 					Toast.makeText(getApplicationContext(),
-							getString(R.string.input_error), Toast.LENGTH_SHORT).show();
+							getString(R.string.input_error), Toast.LENGTH_SHORT)
+							.show();
 				}
 			}
 		});
@@ -279,90 +283,57 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	 * Falls ein Bild bearbeitet werden soll, setze Spinner auf die Werte des
 	 * Bildes
 	 */
-	private void getPic(String Bildnummer, String FilmTitel) {
-		onCreateDBAndDBTabledFilm();
-		Cursor c = myDBFilm
-				.rawQuery(
-						"SELECT _id,picfokus,picblende,piczeit,picmessung,picobjektiv, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM "
-								+ DB.MY_DB_FILM_TABLE
-								+ " WHERE filmtitle = '"
-								+ FilmTitel
-								+ "' AND picnummer = '"
-								+ Bildnummer + "'", null);
-		if (c != null) {
-			if (c.moveToFirst()) {
-				bildtoedit = true;
-				do {
-					try {
-						if (!blende.isEmpty()) {
-							spinner_blende.setSelection(blende.get(c
-									.getString(c.getColumnIndex("picblende"))));
-						}
-						if (!filtervf.isEmpty()) {
-							spinner_filter_vf
-									.setSelection(filtervf.get(c.getString(c
-											.getColumnIndex("picfiltervf"))));
-						}
-						if (!objektiv.isEmpty()) {
-							spinner_objektiv
-									.setSelection(objektiv.get(c.getString(c
-											.getColumnIndex("picobjektiv"))));
-						}
-						if (!zeit.isEmpty()) {
-							spinner_zeit.setSelection(zeit.get(c.getString(c
-									.getColumnIndex("piczeit"))));
-						}
-						if (!fokus.isEmpty()) {
-							spinner_fokus.setSelection(fokus.get(c.getString(c
-									.getColumnIndex("picfokus"))));
-						}
-						if (!filter.isEmpty()) {
-							spinner_filter.setSelection(filter.get(c
-									.getString(c.getColumnIndex("picfilter"))));
-						}
-						if (!makro.isEmpty()) {
-							spinner_makro.setSelection(makro.get(c.getString(c
-									.getColumnIndex("picmakro"))));
-						}
-						if (!mess.isEmpty()) {
-							spinner_messmethode
-									.setSelection(mess.get(c.getString(c
-											.getColumnIndex("picmessung"))));
-						}
-						if (!belichtung.isEmpty()) {
-							spinner_belichtungs_korrektur
-									.setSelection(belichtung.get(c.getString(c
-											.getColumnIndex("pickorr"))));
-						}
-						if (!makrovf.isEmpty()) {
-							spinner_makro_vf
-									.setSelection(makrovf.get(c.getString(c
-											.getColumnIndex("picmakrovf"))));
-						}
-						if (!blitz.isEmpty()) {
-							spinner_blitz.setSelection(blitz.get(c.getString(c
-									.getColumnIndex("picblitz"))));
-						}
-						if (!blitzkorr.isEmpty()) {
-							spinner_blitz_korrektur.setSelection(blitzkorr
-									.get(c.getString(c
-											.getColumnIndex("picblitzkorr"))));
-						}
-						edit_notizen.setText(c.getString(c
-								.getColumnIndex("picnotiz")));
-						edit_kamera_notizen.setText(c.getString(c
-								.getColumnIndex("pickameranotiz")));
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				} while (c.moveToNext());
-			} else {
-				bildtoedit = false;
-				Log.v("Check", "Kein Bild vorhanden");
+	private void updateUIFromPicture(String picNumber, String filmTitle) {
+
+		ArrayList<BildObjekt> bilder = DB.getDB().getBild(mContext, filmTitle,
+				picNumber);
+		if (bilder == null || bilder.size() != 1) {
+			bildtoedit = false;
+			Log.v("Check", "Kein Bild vorhanden");
+		} else {
+			BildObjekt bild = bilder.get(0);
+			bildtoedit = true;
+			if (!blende.isEmpty()) {
+				spinner_blende.setSelection(blende.get(bild.Blende));
 			}
+			if (!filtervf.isEmpty()) {
+				spinner_filter_vf.setSelection(filtervf.get(bild.FilterVF));
+			}
+			if (!objektiv.isEmpty()) {
+				spinner_objektiv.setSelection(objektiv.get(bild.Objektiv));
+			}
+			if (!zeit.isEmpty()) {
+				spinner_zeit.setSelection(zeit.get(bild.Zeit));
+			}
+			if (!fokus.isEmpty()) {
+				spinner_fokus.setSelection(fokus.get(bild.Fokus));
+			}
+			if (!filter.isEmpty()) {
+				spinner_filter.setSelection(filter.get(bild.Filter));
+			}
+			if (!makro.isEmpty()) {
+				spinner_makro.setSelection(makro.get(bild.Makro));
+			}
+			if (!mess.isEmpty()) {
+				spinner_messmethode.setSelection(mess.get(bild.Messmethode));
+			}
+			if (!belichtung.isEmpty()) {
+				spinner_belichtungs_korrektur.setSelection(belichtung
+						.get(bild.Belichtungskorrektur));
+			}
+			if (!makrovf.isEmpty()) {
+				spinner_makro_vf.setSelection(makrovf.get(bild.MakroVF));
+			}
+			if (!blitz.isEmpty()) {
+				spinner_blitz.setSelection(blitz.get(bild.Blitz));
+			}
+			if (!blitzkorr.isEmpty()) {
+				spinner_blitz_korrektur.setSelection(blitzkorr
+						.get(bild.Blitzkorrektur));
+			}
+			edit_notizen.setText(bild.Notiz);
+			edit_kamera_notizen.setText(bild.KameraNotiz);
 		}
-		c.close();
-		myDBFilm.close();
 	}
 
 	/*
@@ -371,11 +342,14 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	private void getLocation() {
 		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		String locationProvider = LocationManager.GPS_PROVIDER;
-		
-		Location lastKnownLocation = locManager.getLastKnownLocation(locationProvider);
-		piclat = lastKnownLocation.getLatitude();
-		piclong = lastKnownLocation.getLongitude();
-		
+
+		Location lastKnownLocation = locManager
+				.getLastKnownLocation(locationProvider);
+		if (lastKnownLocation != null) {
+			piclat = lastKnownLocation.getLatitude();
+			piclong = lastKnownLocation.getLongitude();
+		}
+
 		locationListener = new LocationListener() {
 			public void onLocationChanged(Location location) {
 				piclat = location.getLatitude();
@@ -397,11 +371,8 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 				locationListener);
 		if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 		} else {
-			Toast toast2 = Toast
-					.makeText(
-							this,
-							getString(R.string.gps_off),
-							Toast.LENGTH_LONG);
+			Toast toast2 = Toast.makeText(this, getString(R.string.gps_off),
+					Toast.LENGTH_LONG);
 			toast2.show();
 		}
 	}
@@ -411,7 +382,7 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	 */
 
 	private void onCreateDBAndDBTabledFilm() {
-		myDBFilm = mContext.openOrCreateDatabase(MY_DB_FILM,
+		myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
 				Context.MODE_PRIVATE, null);
 		myDBFilm.execSQL("CREATE TABLE IF NOT EXISTS "
 				+ DB.MY_DB_FILM_TABLE
@@ -420,7 +391,7 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	}
 
 	private void onCreateDBAndDBNumber() {
-		myDBNummer = mContext.openOrCreateDatabase(MY_DB_NUMMER,
+		myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER,
 				Context.MODE_PRIVATE, null);
 		myDBNummer
 				.execSQL("CREATE TABLE IF NOT EXISTS "
@@ -480,7 +451,8 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 					+ "','" + encodedImage + "');");
 		}
 		Log.v("Foto", "Eintrag vorm Speichern : " + pics);
-		nummerView.setText(getString(R.string.picture) + " "
+		nummerView.setText(getString(R.string.picture)
+				+ " "
 				+ (Integer.valueOf(nummerView.getText().toString()
 						.replaceAll("[\\D]", "")) + 1));
 	}
@@ -841,7 +813,8 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 											.getColumnIndex("name")));
 				} while (c_belichtungs_korrektur.moveToNext());
 			} else {
-				al_spinner_belichtungs_korrektur.add(getString(R.string.no_selection));
+				al_spinner_belichtungs_korrektur
+						.add(getString(R.string.no_selection));
 			}
 		}
 		c_belichtungs_korrektur.close();
@@ -980,7 +953,8 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 									.getColumnIndex("name")));
 				} while (c_blitz_korrektur.moveToNext());
 			} else {
-				al_spinner_blitz_korrektur.add(getString(R.string.no_selection));
+				al_spinner_blitz_korrektur
+						.add(getString(R.string.no_selection));
 			}
 		}
 		c_blitz_korrektur.close();
@@ -991,7 +965,8 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	 * HilfsKlassen f�r SlideView etc.
 	 */
 
-	public void setFooterColor(int footerColor) { // Farbe f�r die Balken unter
+	public void setFooterColor(int footerColor) { // Farbe f�r die Balken
+													// unter
 													// dem Titel (SlideView)
 		mIndicator.setFooterColor(footerColor);
 	}
@@ -1324,7 +1299,7 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 				setFooterColor(0xFF000000);
 			if (viewPager.getCurrentItem() == 2)
 				setFooterColor(0xFF000000);
-			
+
 			return SlideNewPic.CONTENT[position % SlideNewPic.CONTENT.length];
 		}
 
