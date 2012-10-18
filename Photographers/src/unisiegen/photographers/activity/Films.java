@@ -7,15 +7,15 @@ import android.util.Base64;
 
 class Films {
 	private String name = "";
-	private String time = "";
+	private String datum = "";
 	private String cam = "";
 	private String pics = "";
 	private Bitmap bild;
 
-	public Films(String name, String time, String cam, String pics,
+	public Films(String name, String datum, String cam, String pics,
 			String Bild) {
 		this.name = name;
-		this.time = time;
+		this.datum = datum;
 		this.cam = cam;
 		this.pics = pics;
 		this.bild = BitmapFactory.decodeByteArray(
@@ -24,7 +24,7 @@ class Films {
 	}
 
 	public Films(Film film) {
-		this(film.Titel, film.Bilder.get(0).Zeit, film.Kamera, "",
+		this(film.Titel, film.Datum, film.Kamera, "",
 				film.iconData);
 	}
 
@@ -32,8 +32,8 @@ class Films {
 		return name;
 	}
 
-	public String getTime() {
-		return time;
+	public String getDate() {
+		return datum;
 	}
 
 	public String getCam() {

@@ -243,30 +243,30 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			Films planet = (Films) this.getItem(position);
 			TextView textView;
-			TextView textViewTime;
+			TextView textViewDate;
 			TextView textViewCam;
 			TextView textViewPics;
 			ImageView imageViewBild;
 			if (convertView == null) {
 				convertView = inflater.inflate(R.layout.sqltablecell, null);
 				textView = (TextView) convertView.findViewById(R.id.filmtitle);
-				textViewTime = (TextView) convertView.findViewById(R.id.time);
+				textViewDate = (TextView) convertView.findViewById(R.id.date);
 				textViewCam = (TextView) convertView.findViewById(R.id.cam);
 				textViewPics = (TextView) convertView.findViewById(R.id.fotos);
 				imageViewBild = (ImageView) convertView
 						.findViewById(R.id.imageview);
-				convertView.setTag(new FilmsViewHolder(textView, textViewTime,
+				convertView.setTag(new FilmsViewHolder(textView, textViewDate,
 						textViewCam, textViewPics, imageViewBild));
 			} else {
 				FilmsViewHolder viewHolder = (FilmsViewHolder) convertView
 						.getTag();
-				textViewTime = viewHolder.getTextViewTime();
+				textViewDate = viewHolder.getTextViewTime();
 				textView = viewHolder.getTextViewName();
 				textViewCam = viewHolder.getTextViewCam();
 				textViewPics = viewHolder.getTextViewPics();
 				imageViewBild = viewHolder.getBildView();
 			}
-			textViewTime.setText(planet.getTime());
+			textViewDate.setText(planet.getDate());
 			textView.setText(planet.getName());
 			textViewCam.setText(planet.getCam());
 			textViewPics.setText(planet.getPics());
