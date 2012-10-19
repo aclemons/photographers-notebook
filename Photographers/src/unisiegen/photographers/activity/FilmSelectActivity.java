@@ -223,8 +223,8 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 			belichtung.put(f, index++);
 		}
 
-		if (settings.getString("Verlaengerung", "Faktor (*)").equals(
-				"Faktor (*)")) {
+		if (settings.getString("Verlaengerung", getString(R.string.factor)).equals(
+				getString(R.string.factor))) {
 
 			index = 0;
 			for (String f : DB.getDB().getSettingForSpinner(mContext,
@@ -240,8 +240,8 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 				makrovf.put(f, index++);
 			}
 
-		} else if (settings.getString("Verlaengerung", "Faktor (*)").equals(
-				"Blendenzugaben (+)")) {
+		} else if (settings.getString("Verlaengerung", getString(R.string.factor)).equals(
+				getString(R.string.aperture_adjusting))) {
 
 			index = 0;
 			for (String f : DB.getDB().getSettingForSpinner(mContext,

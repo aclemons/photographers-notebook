@@ -479,8 +479,8 @@ public class SlideNewSettings extends Activity {
 			}
 			ce6.close();
 			ce7.close();
-		} else if (settings.getString("Verlaengerung", "Faktor (*)").equals(
-				"Blendenzugaben (+)")) {
+		} else if (settings.getString("Verlaengerung", getString(R.string.factor)).equals(
+				getString(R.string.aperture_adjusting))) {
 			Cursor ce6 = myDB.rawQuery("SELECT name,value,def FROM "
 					+ DB.MY_DB_TABLE_SETMVF2, null);
 			if (ce6 != null) {
@@ -971,7 +971,7 @@ public class SlideNewSettings extends Activity {
 					}
 
 				});
-				if (settings.getString("verlang", getString(R.string.factor)).equals(
+				if (settings.getString("Verlaengerung", getString(R.string.factor)).equals(
 						getString(R.string.factor))) {
 					verlang.setSelection(0);
 				} else {
