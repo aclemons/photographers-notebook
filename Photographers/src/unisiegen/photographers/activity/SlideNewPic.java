@@ -6,6 +6,7 @@ package unisiegen.photographers.activity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -248,16 +249,27 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 			@Override
 			public void onClick(View v) {
 				SharedPreferences.Editor editor = settings.edit();
-				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-				String str = sdf.format(new Date());
-
-				sdf = new SimpleDateFormat("dd.MM.yyyy");
+				String str = "-";
+				SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 				String datum = sdf.format(new Date());
-
+				
+				if (settings.getString("zeitStempel", getString(R.string.on)) == getString(R.string.on)) {
+					sdf = new SimpleDateFormat("HH:mm");
+					str = sdf.format(new Date());
+				} else if (settings.getString("zeitStempel", getString(R.string.on)) == getString(R.string.minus_one_minute)) {
+					sdf = new SimpleDateFormat("HH:mm");
+					Calendar cal = Calendar.getInstance();
+					cal.add(Calendar.MINUTE, -1);
+					str = sdf.format(cal.getTime());
+				} else if (settings.getString("zeitStempel", getString(R.string.on)) == getString(R.string.off)) {
+					datum = "-";
+				}
+				
+				editor.putString("Uhrzeit", str);
+				editor.putString("Datum", datum);
+				editor.commit();
+				
 				try {
-					editor.putString("Uhrzeit", str);
-					editor.putString("Datum", datum);
-					editor.commit();
 					if (bildtoedit) {
 						editFilm();
 					} else {
