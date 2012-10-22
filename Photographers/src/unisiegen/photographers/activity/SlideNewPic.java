@@ -249,23 +249,23 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 			@Override
 			public void onClick(View v) {
 				SharedPreferences.Editor editor = settings.edit();
-				String str = "-";
-				SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-				String datum = sdf.format(new Date());
+				Calendar cal = Calendar.getInstance();				
 				
-				if (settings.getString("zeitStempel", getString(R.string.on)) == getString(R.string.on)) {
-					sdf = new SimpleDateFormat("HH:mm");
-					str = sdf.format(new Date());
-				} else if (settings.getString("zeitStempel", getString(R.string.on)) == getString(R.string.minus_one_minute)) {
-					sdf = new SimpleDateFormat("HH:mm");
-					Calendar cal = Calendar.getInstance();
+				if (settings.getString("zeitStempel", getString(R.string.on)) == getString(R.string.minus_one_minute)) {
 					cal.add(Calendar.MINUTE, -1);
-					str = sdf.format(cal.getTime());
-				} else if (settings.getString("zeitStempel", getString(R.string.on)) == getString(R.string.off)) {
-					datum = "-";
 				}
+								
+				String zeit = "-";
+				String datum = "-";
 				
-				editor.putString("Uhrzeit", str);
+				if (settings.getString("zeitStempel", getString(R.string.on)) != getString(R.string.off)) {
+					SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");							
+					datum = sdf.format(cal.getTime());
+					sdf = new SimpleDateFormat("HH:mm");
+					zeit = sdf.format(cal.getTime());		
+				}
+	
+				editor.putString("Uhrzeit", zeit);
 				editor.putString("Datum", datum);
 				editor.commit();
 				
