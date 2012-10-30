@@ -636,6 +636,7 @@ public class DB {
 						film.Titel = c.getString(c.getColumnIndex("title"));
 						film.Kamera = c.getString(c.getColumnIndex("camera"));
 						film.Datum = c.getString(c.getColumnIndex("datum"));
+						film.Pics = c.getString(c.getColumnIndex("bilder"));
 						film.setIcon(c.getString(c.getColumnIndex("pic")));
 
 						Cursor c1 = myDBFilm

@@ -19,6 +19,7 @@ public class Film {
 	public String Datum;
 	public Bitmap icon;
 	public String iconData;
+	public String Pics;
 	
 	public ArrayList<BildObjekt> Bilder;	
 	

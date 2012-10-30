@@ -269,7 +269,7 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 			textViewDate.setText(planet.getDate());
 			textView.setText(planet.getName());
 			textViewCam.setText(planet.getCam());
-			textViewPics.setText(planet.getPics());
+			textViewPics.setText(planet.getPics() + " " + getString(R.string.pictures));
 			imageViewBild.setImageBitmap(planet.getBild());
 			return convertView;
 		}

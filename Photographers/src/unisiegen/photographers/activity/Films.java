@@ -24,7 +24,7 @@ class Films {
 	}
 
 	public Films(Film film) {
-		this(film.Titel, film.Datum, film.Kamera, "",
+		this(film.Titel, film.Datum, film.Kamera, film.Pics,
 				film.iconData);
 	}
 
