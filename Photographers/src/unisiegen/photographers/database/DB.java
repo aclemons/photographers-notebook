@@ -752,32 +752,33 @@ public class DB {
 		}
 		return film;
 	}
-	
-	
-	public ArrayList<BildObjekt> getBild(Context context, String filmTitle, String bildNumemr) {
-		
+
+	public ArrayList<BildObjekt> getBild(Context context, String filmTitle,
+			String bildNumemr) {
+
 		ArrayList<BildObjekt> bilder = getBilder(context, filmTitle, bildNumemr);
 		return bilder;
 	}
 
-	
-	private ArrayList<BildObjekt> getBilder(Context context, String title, String bildNummer) {
+	private ArrayList<BildObjekt> getBilder(Context context, String title,
+			String bildNummer) {
 
-		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
+		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM,
+				Context.MODE_PRIVATE, null);
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT _id,picfokus,picuhrzeit,piclat,piclong,filmdatum,picobjektiv, picblende,piczeit,picmessung, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM ");
 		sql.append(DB.MY_DB_FILM_TABLE);
 		sql.append(" WHERE filmtitle = '");
 		sql.append(title);
-		if(bildNummer == null){
+		if (bildNummer == null) {
 			sql.append("';");
 		} else {
 			sql.append("' AND picnummer = '");
 			sql.append(bildNummer);
 			sql.append("';");
 		}
-		
+
 		Cursor c2 = myDBFilm.rawQuery(new String(sql), null);
 
 		ArrayList<BildObjekt> bilder = new ArrayList<BildObjekt>();
@@ -844,7 +845,7 @@ public class DB {
 	public ArrayList<String> getActivatedSettingsData(Context mContext,
 			String database, String settingName) {
 
-		return getSettings(mContext, database, settingName, false);
+		return getSettings(mContext, database, settingName, true);
 	}
 
 	public int getDefaultSettingNumber(Context mContext, String database,
@@ -905,6 +906,36 @@ public class DB {
 		}
 		c.close();
 		myDB.close();
+
+		return values;
+	}
+
+	public ArrayList<String> getLensesForCamera(Context mContext,
+			String dbName, String camera) {
+
+		ArrayList<String> values = new ArrayList<String>();
+
+		SQLiteDatabase db = mContext.openOrCreateDatabase(dbName,
+				Context.MODE_PRIVATE, null);
+
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT cam, bw FROM ");
+		sql.append(DB.MY_DB_TABLE_SETCAMBW);
+		sql.append(" WHERE cam = '");
+		sql.append(camera);
+		sql.append("'");
+
+		Cursor c = db.rawQuery(new String(sql), null);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					values.add(c.getString(c.getColumnIndex("bw")));
+
+				} while (c.moveToNext());
+			}
+		}
+		c.close();
+		db.close();
 
 		return values;
 	}

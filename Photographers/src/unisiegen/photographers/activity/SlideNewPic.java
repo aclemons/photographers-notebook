@@ -7,7 +7,6 @@ package unisiegen.photographers.activity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
@@ -15,7 +14,6 @@ import unisiegen.photographers.export.BildObjekt;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
@@ -132,15 +130,13 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	}
 
 	@Override
-	protected void onResume() {	
+	protected void onResume() {
 		super.onResume();
 		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
 		if (settings.getString("geoTag", "nein").equals("ja")) {
 			getLocation();
 		}
-		
 		fuellen();
-		
 		try {
 			spinner_blende.setSelection(defblende);
 			spinner_filter_vf.setSelection(deffiltervf);
@@ -156,16 +152,16 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		Bundle bundle = getIntent().getExtras(); // Check if user wants to edit a certain picture, if yes update UI accordingly.
+
+		// Check if user wants to edit a certain picture, if yes update UI
+		// accordingly.
+		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
 			String selectedPic = bundle.getString("picToEdit");
 			nummerView.setText(selectedPic);
 			updateUIFromPicture(selectedPic, settings.getString("Title", " "));
 			aufnehmen.setText(getString(R.string.save_changes));
-		}	
-		
-		
+		}
 	}
 
 	@Override
@@ -261,26 +257,26 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 			@Override
 			public void onClick(View v) {
 				SharedPreferences.Editor editor = settings.edit();
-				Calendar cal = Calendar.getInstance();				
-				
+				Calendar cal = Calendar.getInstance();
+
 				if (settings.getString("zeitStempel", getString(R.string.on)) == getString(R.string.minus_one_minute)) {
 					cal.add(Calendar.MINUTE, -1);
 				}
-								
+
 				String zeit = "-";
 				String datum = "-";
-				
+
 				if (settings.getString("zeitStempel", getString(R.string.on)) != getString(R.string.off)) {
-					SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");							
+					SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 					datum = sdf.format(cal.getTime());
 					sdf = new SimpleDateFormat("HH:mm");
-					zeit = sdf.format(cal.getTime());		
+					zeit = sdf.format(cal.getTime());
 				}
-	
+
 				editor.putString("Uhrzeit", zeit);
 				editor.putString("Datum", datum);
 				editor.commit();
-				
+
 				try {
 					if (bildtoedit) {
 						editFilm();
@@ -618,10 +614,7 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 
 	private void fuellen() {
 		onCreateDBAndDBTabled();
-		al_spinner_blende = new ArrayList<String>();
 		al_spinner_filter_vf = new ArrayList<String>();
-		al_spinner_objektiv = new ArrayList<String>();
-		al_spinner_zeit = new ArrayList<String>();
 		al_spinner_focus = new ArrayList<String>();
 		al_spinner_filter = new ArrayList<String>();
 		al_spinner_makro = new ArrayList<String>();
@@ -632,366 +625,192 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		al_spinner_blitz_korrektur = new ArrayList<String>();
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		int index = 0;
-		Cursor camBWCursor = myDB.rawQuery(
-				"SELECT cam,bw FROM " + DB.MY_DB_TABLE_SETCAMBW
-						+ " WHERE cam = '" + settings.getString("Kamera", "")
-						+ "'", null);
-		if (camBWCursor != null) {
-			if (camBWCursor.moveToFirst()) {
-				do {
-					al_spinner_objektiv.add(camBWCursor.getString(camBWCursor
-							.getColumnIndex("bw")));
-					objektiv.put(camBWCursor.getString(camBWCursor
-							.getColumnIndex("bw")), index);
-					index++;
-				} while (camBWCursor.moveToNext());
+
+		al_spinner_objektiv = DB.getDB().getLensesForCamera(mContext,
+				MY_DB_NAME, settings.getString("Kamera", ""));
+		for (String lens : al_spinner_objektiv) {
+			objektiv.put(lens, index);
+			index++;
+		}
+		if (al_spinner_objektiv.size() == 0) {
+			al_spinner_objektiv.add(getString(R.string.no_selection));
+		}
+
+		// Get default aperture values from Database. Add additional values
+		// ad-hoc: 1/2 or 1/3 stop values are added manually, not from database!
+		defblende = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETBLE);
+		ArrayList<String> tmp = DB.getDB().getActivatedSettingsData(mContext,
+				MY_DB_NAME, DB.MY_DB_TABLE_SETBLE);
+		al_spinner_blende = new ArrayList<String>();
+		index = 0;
+		for (String aperture : tmp) {
+			if (aperture.equals("Auto")) {
+				al_spinner_blende.add(aperture);
+				blende.put(aperture, index++);
 			} else {
-				al_spinner_objektiv.add(getString(R.string.no_selection));
+				if (settings.getString("blendenstufe", "1/1").equals("1/1")) {
+					al_spinner_blende.add(aperture);
+				} else if (settings.getString("blendenstufe", "1/1").equals(
+						"1/2")) {
+					al_spinner_blende.add(aperture);
+					al_spinner_blende.add(aperture + " + 1/2");
+				} else {
+					al_spinner_blende.add(aperture);
+					al_spinner_blende.add(aperture + " + 1/3");
+					al_spinner_blende.add(aperture + " + 2/3");
+				}
 			}
 		}
-		camBWCursor.close();
-		index = 0;
-
-		Cursor c_blende = myDB
-				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETBLE
-						+ " WHERE value = '" + edit + "'", null);
-		if (c_blende != null) {
-			if (c_blende.moveToFirst()) {
-				do {
-					if (c_blende.getInt(c_blende.getColumnIndex("def")) == 1) {
-						defblende = index;
-					}
-
-					blende.put(
-							c_blende.getString(c_blende.getColumnIndex("name")),
-							index);
-					index++;
-
-					if ((c_blende.getString(c_blende.getColumnIndex("name"))
-							.equals("Auto"))) {
-						al_spinner_blende.add(c_blende.getString(c_blende
-								.getColumnIndex("name")));
-					} else {
-						if (settings.getString("blendenstufe", "1/1").equals(
-								"1/1")) {
-							al_spinner_blende.add(c_blende.getString(c_blende
-									.getColumnIndex("name")));
-						} else if (settings.getString("blendenstufe", "1/1")
-								.equals("1/2")) {
-							al_spinner_blende.add(c_blende.getString(c_blende
-									.getColumnIndex("name")));
-							al_spinner_blende.add(c_blende.getString(c_blende
-									.getColumnIndex("name")) + "+1/2");
-						} else {
-							al_spinner_blende.add(c_blende.getString(c_blende
-									.getColumnIndex("name")));
-							al_spinner_blende.add(c_blende.getString(c_blende
-									.getColumnIndex("name")) + "+1/2");
-							al_spinner_blende.add(c_blende.getString(c_blende
-									.getColumnIndex("name")) + "+1/3");
-						}
-					}
-
-				} while (c_blende.moveToNext());
-			} else {
-				al_spinner_blende.add(getString(R.string.no_selection));
-			}
+		if (tmp.size() == 0) {
+			al_spinner_blende.add(getString(R.string.no_selection));
 		}
-		c_blende.close();
+
+		// Achtung, das hier und alle folgenden refactorings sind falsch, da das
+		// SQL Statement im Original anders war (selektierte nach value - was
+		// immer das sein mag). q
 		index = 0;
-
-		Cursor c_zeit = myDB
-				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETZEI
-						+ " WHERE value = '" + edit + "'", null);
-		if (c_zeit != null) {
-			if (c_zeit.moveToFirst()) {
-				do {
-					if (c_zeit.getInt(c_zeit.getColumnIndex("def")) == 1) {
-						defzeit = index;
-					}
-					zeit.put(c_zeit.getString(c_zeit.getColumnIndex("name")),
-							index);
-					index++;
-					al_spinner_zeit.add(c_zeit.getString(c_zeit
-							.getColumnIndex("name")));
-
-				} while (c_zeit.moveToNext());
-			} else {
-				al_spinner_zeit.add(getString(R.string.no_selection));
-			}
+		defzeit = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETZEI);
+		al_spinner_zeit = DB.getDB().getActivatedSettingsData(mContext,
+				MY_DB_NAME, DB.MY_DB_TABLE_SETZEI);
+		for (String time : al_spinner_zeit) {
+			zeit.put(time, index++);
 		}
-		c_zeit.close();
-		index = 0;
-
-		Cursor c_focus = myDB
-				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETFOK
-						+ " WHERE value = '" + edit + "'", null);
-		if (c_focus != null) {
-			if (c_focus.moveToFirst()) {
-				do {
-					if (c_focus.getInt(c_focus.getColumnIndex("def")) == 1) {
-						deffokus = index;
-					}
-					fokus.put(
-							c_focus.getString(c_focus.getColumnIndex("name")),
-							index);
-					index++;
-					al_spinner_focus.add(c_focus.getString(c_focus
-							.getColumnIndex("name")));
-				} while (c_focus.moveToNext());
-			} else {
-				al_spinner_focus.add(getString(R.string.no_selection));
-			}
+		if (al_spinner_zeit.size() == 0) {
+			al_spinner_zeit.add(getString(R.string.no_selection));
 		}
-		c_focus.close();
-		index = 0;
 
-		Cursor c_filter = myDB
-				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETFIL
-						+ " WHERE value = '" + edit + "'", null);
-		if (c_filter != null) {
-			if (c_filter.moveToFirst()) {
-				do {
-					if (c_filter.getInt(c_filter.getColumnIndex("def")) == 1) {
-						deffilter = index;
-					}
-					filter.put(
-							c_filter.getString(c_filter.getColumnIndex("name")),
-							index);
-					index++;
-					al_spinner_filter.add(c_filter.getString(c_filter
-							.getColumnIndex("name")));
-				} while (c_filter.moveToNext());
-			} else {
-				al_spinner_filter.add(getString(R.string.no_selection));
-			}
-		}
-		c_filter.close();
 		index = 0;
+		deffokus = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETFOK);
+		al_spinner_focus = DB.getDB().getActivatedSettingsData(mContext,
+				MY_DB_NAME, DB.MY_DB_TABLE_SETFOK);
+		for (String focus : al_spinner_focus) {
+			fokus.put(focus, index++);
+		}
+		if (al_spinner_focus.size() == 0) {
+			al_spinner_focus.add(getString(R.string.no_selection));
+		}
 
-		Cursor c_makro = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETNM + " WHERE value = '" + edit + "'", null);
-		if (c_makro != null) {
-			if (c_makro.moveToFirst()) {
-				do {
-					if (c_makro.getInt(c_makro.getColumnIndex("def")) == 1) {
-						defmakro = index;
-					}
-					makro.put(
-							c_makro.getString(c_makro.getColumnIndex("name")),
-							index);
-					index++;
-					Log.v("Check", "Makro ist nicht leer");
-					al_spinner_makro.add(c_makro.getString(c_makro
-							.getColumnIndex("name")));
-				} while (c_makro.moveToNext());
-			} else {
-				al_spinner_makro.add(getString(R.string.no_selection));
-			}
-		} else {
-			Log.v("Check", "NULL :(");
-		}
-		c_makro.close();
 		index = 0;
+		deffilter = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETFIL);
+		al_spinner_filter = DB.getDB().getActivatedSettingsData(mContext,
+				MY_DB_NAME, DB.MY_DB_TABLE_SETFIL);
+		for (String tmpFilter : al_spinner_filter) {
+			filter.put(tmpFilter, index++);
+		}
+		if (al_spinner_filter.size() == 0) {
+			al_spinner_filter.add(getString(R.string.no_selection));
+		}
 
-		Cursor c_messmethode = myDB
-				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETMES
-						+ " WHERE value = '" + edit + "'", null);
-		if (c_messmethode != null) {
-			if (c_messmethode.moveToFirst()) {
-				do {
-					if (c_messmethode.getInt(c_messmethode
-							.getColumnIndex("def")) == 1) {
-						defmessung = index;
-					}
-					mess.put(c_messmethode.getString(c_messmethode
-							.getColumnIndex("name")), index);
-					index++;
-					al_spinner_messmethode.add(c_messmethode
-							.getString(c_messmethode.getColumnIndex("name")));
-				} while (c_messmethode.moveToNext());
-			} else {
-				al_spinner_messmethode.add(getString(R.string.no_selection));
-			}
-		}
-		c_messmethode.close();
 		index = 0;
+		defmakro = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETNM);
+		al_spinner_makro = DB.getDB().getActivatedSettingsData(mContext,
+				MY_DB_NAME, DB.MY_DB_TABLE_SETNM);
+		for (String tmpMakro : al_spinner_makro) {
+			makro.put(tmpMakro, index++);
+		}
+		if (al_spinner_makro.size() == 0) {
+			al_spinner_makro.add(getString(R.string.no_selection));
+		}
 
-		Cursor c_belichtungs_korrektur = myDB.rawQuery(
-				"SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETPLU
-						+ " WHERE value = '" + edit + "'", null);
-		if (c_belichtungs_korrektur != null) {
-			if (c_belichtungs_korrektur.moveToFirst()) {
-				do {
-					if (c_belichtungs_korrektur.getInt(c_belichtungs_korrektur
-							.getColumnIndex("def")) == 1) {
-						defkorr = index;
-					}
-					belichtung.put(c_belichtungs_korrektur
-							.getString(c_belichtungs_korrektur
-									.getColumnIndex("name")), index);
-					index++;
-					al_spinner_belichtungs_korrektur
-							.add(c_belichtungs_korrektur
-									.getString(c_belichtungs_korrektur
-											.getColumnIndex("name")));
-				} while (c_belichtungs_korrektur.moveToNext());
-			} else {
-				al_spinner_belichtungs_korrektur
-						.add(getString(R.string.no_selection));
-			}
-		}
-		c_belichtungs_korrektur.close();
 		index = 0;
+		defmessung = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETMES);
+		al_spinner_messmethode = DB.getDB().getActivatedSettingsData(mContext,
+				MY_DB_NAME, DB.MY_DB_TABLE_SETMES);
+		for (String messMethode : al_spinner_messmethode) {
+			mess.put(messMethode, index++);
+		}
+		if (al_spinner_messmethode.size() == 0) {
+			al_spinner_messmethode.add(getString(R.string.no_selection));
+		}
+
+		index = 0;
+		defkorr = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETPLU);
+		al_spinner_belichtungs_korrektur = DB.getDB().getActivatedSettingsData(
+				mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETPLU);
+		for (String korrektur : al_spinner_belichtungs_korrektur) {
+			belichtung.put(korrektur, index++);
+		}
+		if (al_spinner_belichtungs_korrektur.size() == 0) {
+			al_spinner_belichtungs_korrektur
+					.add(getString(R.string.no_selection));
+		}
+
+		String filterVFTable = DB.MY_DB_TABLE_SETFVF;
+		String makroVFTable = DB.MY_DB_TABLE_SETMVF;
 
 		if (settings.getString("Verlaengerung", "Faktor (*)").equals(
 				"Faktor (*)")) {
-			Cursor change = myDB.rawQuery("SELECT name,value,def FROM "
-					+ DB.MY_DB_TABLE_SETFVF + " WHERE value = '" + edit + "'",
-					null);
-			if (change != null) {
-				if (change.moveToFirst()) {
-					do {
-						if (change.getInt(change.getColumnIndex("def")) == 1) {
-							deffiltervf = index;
-						}
-						filtervf.put(
-								change.getString(change.getColumnIndex("name")),
-								index);
-						index++;
-						Log.v("Check", "Index Test : " + index);
-						al_spinner_filter_vf.add(change.getString(change
-								.getColumnIndex("name")));
-					} while (change.moveToNext());
-				} else {
-					al_spinner_filter_vf.add(getString(R.string.no_selection));
-				}
-			}
-			index = 0;
-			Cursor changes = myDB.rawQuery("SELECT name,value,def FROM "
-					+ DB.MY_DB_TABLE_SETMVF + " WHERE value = '" + edit + "'",
-					null);
-			if (changes != null) {
-				if (changes.moveToFirst()) {
-					do {
-						if (changes.getInt(changes.getColumnIndex("def")) == 1) {
-							defmakrovf = index;
-						}
-						makrovf.put(changes.getString(changes
-								.getColumnIndex("name")), index);
-						index++;
-						al_spinner_makro_vf.add(changes.getString(changes
-								.getColumnIndex("name")));
-					} while (changes.moveToNext());
-				} else {
-					al_spinner_makro_vf.add(getString(R.string.no_selection));
-				}
-			}
-			change.close();
-			changes.close();
-			index = 0;
+
+			// values are already correct....
+
 		} else if (settings.getString("Verlaengerung", "Faktor (*)").equals(
 				"Blendenzugaben (+)")) {
-			Cursor change2 = myDB.rawQuery("SELECT name,value,def FROM "
-					+ DB.MY_DB_TABLE_SETFVF2 + " WHERE value = '" + edit + "'",
-					null);
-			if (change2 != null) {
-				if (change2.moveToFirst()) {
-					do {
-						if (change2.getInt(change2.getColumnIndex("def")) == 1) {
-							deffiltervf = index;
-						}
-						filtervf.put(change2.getString(change2
-								.getColumnIndex("name")), index);
-						index++;
-						al_spinner_filter_vf.add(change2.getString(change2
-								.getColumnIndex("name")));
-					} while (change2.moveToNext());
-				} else {
-					al_spinner_filter_vf.add(getString(R.string.no_selection));
-				}
-			}
-			index = 0;
-			Cursor changes2 = myDB.rawQuery("SELECT name,value,def FROM "
-					+ DB.MY_DB_TABLE_SETMVF2 + " WHERE value = '" + edit + "'",
-					null);
-			if (changes2 != null) {
-				if (changes2.moveToFirst()) {
-					do {
-						if (changes2.getInt(changes2.getColumnIndex("def")) == 1) {
-							defmakrovf = index;
-						}
-						makrovf.put(changes2.getString(changes2
-								.getColumnIndex("name")), index);
-						index++;
-						al_spinner_makro_vf.add(changes2.getString(changes2
-								.getColumnIndex("name")));
-					} while (changes2.moveToNext());
-				} else {
-					al_spinner_makro_vf.add(getString(R.string.no_selection));
-				}
-			}
-			change2.close();
-			changes2.close();
-			index = 0;
+
+			filterVFTable = DB.MY_DB_TABLE_SETFVF2;
+			makroVFTable = DB.MY_DB_TABLE_SETMVF2;
+
 		}
 
-		Cursor c_blitz = myDB
-				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETBLI
-						+ " WHERE value = '" + edit + "'", null);
-		if (c_blitz != null) {
-			if (c_blitz.moveToFirst()) {
-				do {
-					if (c_blitz.getInt(c_blitz.getColumnIndex("def")) == 1) {
-						defblitz = index;
-					}
-					blitz.put(
-							c_blitz.getString(c_blitz.getColumnIndex("name")),
-							index);
-					index++;
-					al_spinner_blitz.add(c_blitz.getString(c_blitz
-							.getColumnIndex("name")));
-				} while (c_blitz.moveToNext());
-			} else {
-				al_spinner_blitz.add(getString(R.string.no_selection));
-			}
-		}
-		c_blitz.close();
 		index = 0;
-
-		Cursor c_blitz_korrektur = myDB
-				.rawQuery("SELECT name,value,def FROM " + DB.MY_DB_TABLE_SETKOR
-						+ " WHERE value = '" + edit + "'", null);
-		if (c_blitz_korrektur != null) {
-			if (c_blitz_korrektur.moveToFirst()) {
-				do {
-					if (c_blitz_korrektur.getInt(c_blitz_korrektur
-							.getColumnIndex("def")) == 1) {
-						defblitzkorr = index;
-					}
-					blitzkorr.put(c_blitz_korrektur.getString(c_blitz_korrektur
-							.getColumnIndex("name")), index);
-					index++;
-					al_spinner_blitz_korrektur
-							.add(c_blitz_korrektur.getString(c_blitz_korrektur
-									.getColumnIndex("name")));
-				} while (c_blitz_korrektur.moveToNext());
-			} else {
-				al_spinner_blitz_korrektur
-						.add(getString(R.string.no_selection));
-			}
+		deffiltervf = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				filterVFTable);
+		al_spinner_filter_vf = DB.getDB().getActivatedSettingsData(mContext,
+				MY_DB_NAME, filterVFTable);
+		for (String filterVF : al_spinner_filter_vf) {
+			filtervf.put(filterVF, index++);
 		}
-		c_blitz_korrektur.close();
+		if (al_spinner_filter_vf.size() == 0) {
+			al_spinner_filter_vf.add(getString(R.string.no_selection));
+		}
 
+		index = 0;
+		defmakrovf = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				makroVFTable);
+		al_spinner_makro_vf = DB.getDB().getActivatedSettingsData(mContext,
+				MY_DB_NAME, makroVFTable);
+		for (String makroVF : al_spinner_makro_vf) {
+			makrovf.put(makroVF, index++);
+		}
+		if (al_spinner_makro_vf.size() == 0) {
+			al_spinner_makro_vf.add(getString(R.string.no_selection));
+		}
+
+		index = 0;
+		defblitz = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETBLI);
+		al_spinner_blitz = DB.getDB().getActivatedSettingsData(mContext,
+				MY_DB_NAME, DB.MY_DB_TABLE_SETBLI);
+		for (String blitzval : al_spinner_blitz) {
+			blitz.put(blitzval, index++);
+		}
+		if (al_spinner_blitz.size() == 0) {
+			al_spinner_blitz.add(getString(R.string.no_selection));
+		}
+
+		index = 0;
+		defblitzkorr = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
+				DB.MY_DB_TABLE_SETKOR);
+		al_spinner_blitz_korrektur = DB.getDB().getActivatedSettingsData(
+				mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETKOR);
+		for (String blitzval : al_spinner_blitz_korrektur) {
+			blitzkorr.put(blitzval, index++);
+		}
+		if (al_spinner_blitz_korrektur.size() == 0) {
+			al_spinner_blitz_korrektur.add(getString(R.string.no_selection));
+		}
 	}
 
 	/*
 	 * HilfsKlassen f�r SlideView etc.
 	 */
-
-	public void setFooterColor(int footerColor) { // Farbe f�r die Balken
-													// unter
-													// dem Titel (SlideView)
+	public void setFooterColor(int footerColor) {
 		mIndicator.setFooterColor(footerColor);
 	}
 
