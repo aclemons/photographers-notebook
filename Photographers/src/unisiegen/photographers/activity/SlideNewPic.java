@@ -653,14 +653,20 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 			} else {
 				if (settings.getString("blendenstufe", "1/1").equals("1/1")) {
 					al_spinner_blende.add(aperture);
+					blende.put(aperture, index++);
 				} else if (settings.getString("blendenstufe", "1/1").equals(
 						"1/2")) {
 					al_spinner_blende.add(aperture);
+					blende.put(aperture, index++);
 					al_spinner_blende.add(aperture + " + 1/2");
+					blende.put(aperture + " + 1/2", index++);
 				} else {
 					al_spinner_blende.add(aperture);
+					blende.put(aperture, index++);
 					al_spinner_blende.add(aperture + " + 1/3");
+					blende.put(aperture + " + 1/3", index++);
 					al_spinner_blende.add(aperture + " + 2/3");
+					blende.put(aperture + " + 2/3", index++);
 				}
 			}
 		}
