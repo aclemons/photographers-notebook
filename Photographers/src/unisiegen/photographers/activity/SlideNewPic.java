@@ -158,9 +158,11 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
 			String selectedPic = bundle.getString("picToEdit");
-			nummerView.setText(selectedPic);
-			updateUIFromPicture(selectedPic, settings.getString("Title", " "));
-			aufnehmen.setText(getString(R.string.save_changes));
+			if (selectedPic != null) {
+				nummerView.setText(selectedPic);
+				updateUIFromPicture(selectedPic, settings.getString("Title", " "));
+				aufnehmen.setText(getString(R.string.save_changes));
+			}
 		}
 	}
 
