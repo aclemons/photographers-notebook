@@ -132,13 +132,15 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	}
 
 	@Override
-	protected void onResume() {
+	protected void onResume() {	
 		super.onResume();
 		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
 		if (settings.getString("geoTag", "nein").equals("ja")) {
 			getLocation();
 		}
+		
 		fuellen();
+		
 		try {
 			spinner_blende.setSelection(defblende);
 			spinner_filter_vf.setSelection(deffiltervf);
@@ -154,6 +156,16 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		Bundle bundle = getIntent().getExtras(); // Check if user wants to edit a certain picture, if yes update UI accordingly.
+		if (bundle != null) {
+			String selectedPic = bundle.getString("picToEdit");
+			nummerView.setText(selectedPic);
+			updateUIFromPicture(selectedPic, settings.getString("Title", " "));
+			aufnehmen.setText(getString(R.string.save_changes));
+		}	
+		
+		
 	}
 
 	@Override
