@@ -742,14 +742,15 @@ public class DB {
 					}
 				}
 				c1.close();
-				c.close();
-
-				myDBFilm.close();
-				myDBNummer.close();
 
 				film.Bilder = this.getBilder(context, title, null);
 			}
 		}
+		c.close();
+
+		myDBFilm.close();
+		myDBNummer.close();
+
 		return film;
 	}
 
@@ -1124,9 +1125,9 @@ public class DB {
 		sql.append("'," + null);
 		sql.append(",'");
 		sql.append(f.Kamera);
-		sql.append(",'");
+		sql.append("','");
 		sql.append(f.Datum);
-		sql.append(",'");
+		sql.append("',");
 		sql.append(String.valueOf(picturesNumber));
 		sql.append(",'");
 		sql.append(encodedImage);

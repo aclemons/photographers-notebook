@@ -15,7 +15,6 @@ import unisiegen.photographers.export.Film;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -154,7 +153,8 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 			String selectedPic = bundle.getString("picToEdit");
 			if (selectedPic != null) {
 				nummerView.setText(selectedPic);
-				updateUIFromPicture(selectedPic, settings.getString("Title", " "));
+				updateUIFromPicture(selectedPic,
+						settings.getString("Title", " "));
 				aufnehmen.setText(getString(R.string.save_changes));
 			}
 		}
@@ -228,7 +228,8 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		minus.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (Integer.valueOf(nummerView.getText().toString().replaceAll("[\\D]", "")) > 1) {
+				if (Integer.valueOf(nummerView.getText().toString()
+						.replaceAll("[\\D]", "")) > 1) {
 					decrementSelectedPicture();
 					updateUIFromPicture(nummerView.getText().toString(),
 							settings.getString("Title", " "));
@@ -385,31 +386,31 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	}
 
 	private void incrementSelectedPicture() {
-		
+
 		nummerView.setText(getString(R.string.picture)
 				+ " "
 				+ (Integer.valueOf(nummerView.getText().toString()
 						.replaceAll("[\\D]", "")) + 1));
 	}
-	
+
 	private void decrementSelectedPicture() {
 		nummerView.setText(getString(R.string.picture)
 				+ " "
 				+ (Integer.valueOf(nummerView.getText().toString()
 						.replaceAll("[\\D]", "")) - 1));
 	}
-	
-	
+
 	/**
 	 * prepare a BildObjekt from UI values, to use for database operations etc.
 	 */
-	private BildObjekt getBildFromUI(){
+	private BildObjekt getBildFromUI() {
 		BildObjekt b = new BildObjekt();
 		b.Fokus = spinner_fokus.getSelectedItem().toString();
 		b.Blende = spinner_blende.getSelectedItem().toString();
 		b.Zeit = spinner_zeit.getSelectedItem().toString();
 		b.Messmethode = spinner_messmethode.getSelectedItem().toString();
-		b.Belichtungskorrektur = spinner_belichtungs_korrektur.getSelectedItem().toString(); 
+		b.Belichtungskorrektur = spinner_belichtungs_korrektur
+				.getSelectedItem().toString();
 		b.Makro = spinner_makro.getSelectedItem().toString();
 		b.MakroVF = spinner_makro_vf.getSelectedItem().toString();
 		b.Filter = spinner_filter.getSelectedItem().toString();
@@ -419,12 +420,32 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		b.Notiz = edit_notizen.getText().toString();
 		b.KameraNotiz = edit_kamera_notizen.getText().toString();
 		b.Objektiv = spinner_objektiv.getSelectedItem().toString();
-		// This is somewhat of a hack, as the Film object stores the geolocation as a string, while the database stores two discinct values for longitude and latitude. While saving, we have to split these values, using the "' , '" String.
+		// This is somewhat of a hack, as the Film object stores the geolocation
+		// as a string, while the database stores two discinct values for
+		// longitude and latitude. While saving, we have to split these values,
+		// using the "' , '" String.
 		b.GeoTag = String.valueOf(piclong) + "' , '" + String.valueOf(piclat);
 		b.Bildnummer = nummerView.getText().toString();
 		b.Zeitstempel = settings.getString("Uhrzeit", " ");
-		
+
 		return b;
+	}
+
+	private Film getFilmFromSettings() {
+
+		Film film = new Film();
+
+		film.Datum = settings.getString("Datum", " ");
+		film.Titel = settings.getString("Title", " ");
+		film.Kamera = settings.getString("Kamera", " ");
+		film.Filmformat = settings.getString("Filmformat", " ");
+		film.Empfindlichkeit = settings.getString("Empfindlichkeit", " ");
+		film.Filmtyp = settings.getString("Filmtyp", " ");
+		film.Sonderentwicklung1 = settings.getString("Sonder1", " ");
+		film.Sonderentwicklung2 = settings.getString("Sonder2", " ");
+		film.Filmnotiz = settings.getString("FilmNotiz", " ");
+
+		return film;
 	}
 
 	/**
@@ -434,36 +455,39 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		Log.v("Check", "saveNewPicture()");
 		picturesNumber++;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		
+
 		Film f = DB.getDB().getFilm(mContext, settings.getString("Title", " "));
+		if (f.Titel == null) {
+			f = getFilmFromSettings();
+		}
 		BildObjekt b = getBildFromUI();
-		
+
 		if (settings.getBoolean("EditMode", false)) {
-			
+			// ACHTUNG: DAS WIRD NIE AUFGERUFEN! WARUM IST DAS NIE AUF TRUE?
 			DB.getDB().addPictureUpdateNummer(mContext, f, b, picturesNumber);
 			
 		} else {
-			
+
 			String encodedImage = Base64.encodeToString(pics, Base64.DEFAULT);
-			DB.getDB().addPictureCreateNummer(mContext, f, b, picturesNumber, encodedImage);			
-		}		
-		incrementSelectedPicture();		
+			DB.getDB().addPictureCreateNummer(mContext, f, b, picturesNumber,
+					encodedImage);
+		}
+		incrementSelectedPicture();
 	}
-	
+
 	/**
-	 * Updates the currently selected picture, if changes were made.
+	 * Updates the currently selected picture.
 	 */
 	private void editPicture() {
 		Log.v("Check", "editPicture()");
-		
+
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		String filmTitle = settings.getString("Title", " ");
 		Film f = DB.getDB().getFilm(mContext, filmTitle);
-		BildObjekt b = getBildFromUI();		
-		DB.getDB().updatePicture(mContext, f, b);		
+		BildObjekt b = getBildFromUI();
+		DB.getDB().updatePicture(mContext, f, b);
 	}
 
-	
 	private void fuellen() {
 		al_spinner_filter_vf = new ArrayList<String>();
 		al_spinner_focus = new ArrayList<String>();
