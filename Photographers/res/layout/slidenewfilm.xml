@@ -58,15 +58,6 @@
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
-
-			    <TextView
-			        android:id="@+id/freecell"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:text="@string/general"
-			        android:textStyle="bold" >
-
-				</TextView>
 				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/maini"
 				        android:orientation="vertical"
