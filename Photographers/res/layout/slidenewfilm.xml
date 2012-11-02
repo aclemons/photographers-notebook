@@ -72,22 +72,7 @@
 				        android:orientation="vertical"
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainio"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-					    <TextView
-							    android:id="@+id/freecell"
-							    android:gravity="right"
-							    android:layout_width="wrap_content"
-							    android:paddingLeft="12dp"
-							    android:layout_height="wrap_content"
-							    android:text="">
-						</TextView>
-						</LinearLayout> 
+					    android:layout_width="fill_parent"> 
 						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/mainiof"
 				        android:gravity="left"
