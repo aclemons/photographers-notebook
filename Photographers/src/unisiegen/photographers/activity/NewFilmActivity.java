@@ -43,7 +43,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	 */
 	SharedPreferences settings;
 	Context mContext;
-	
+
 	int design = 0;
 	int camdef = 0;
 	int ffdef = 0;
@@ -144,7 +144,8 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 					startActivityForResult(myIntent, 1);
 				} catch (Exception e) {
 					Toast.makeText(getApplicationContext(),
-							getString(R.string.input_error), Toast.LENGTH_SHORT).show();
+							getString(R.string.input_error), Toast.LENGTH_SHORT)
+							.show();
 				}
 			}
 		});
@@ -168,7 +169,8 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 			public void onClick(View v) {
 				Date dt = new Date();
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-				titleText.setText(df.format(dt) + " " + getString(R.string.film));
+				titleText.setText(df.format(dt) + " "
+						+ getString(R.string.film));
 			}
 		});
 		spinnerCamera = (Spinner) findViewById(R.id.spinnerCamera);
@@ -269,7 +271,6 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 				DB.MY_DB_TABLE_SETTYP);
 	}
 
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -308,7 +309,8 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 
 	public void popupmenue() {
 		Resources res = getResources();
-		final String[] puContent = res.getStringArray(R.array.strings_tutorial_2);
+		final String[] puContent = res
+				.getStringArray(R.array.strings_tutorial_2);
 		LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(LAYOUT_INFLATER_SERVICE);
 		View layoutOwn1 = inflater.inflate(R.layout.firstpopup,

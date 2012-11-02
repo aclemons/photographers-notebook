@@ -465,7 +465,7 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		if (settings.getBoolean("EditMode", false)) {
 			// ACHTUNG: DAS WIRD NIE AUFGERUFEN! WARUM IST DAS NIE AUF TRUE?
 			DB.getDB().addPictureUpdateNummer(mContext, f, b, picturesNumber);
-			
+
 		} else {
 
 			String encodedImage = Base64.encodeToString(pics, Base64.DEFAULT);

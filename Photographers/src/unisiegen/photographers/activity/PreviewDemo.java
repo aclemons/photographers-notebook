@@ -1,7 +1,7 @@
 package unisiegen.photographers.activity;
 
 /**
- * Für die Nutzung der Camera in der "Vorschau"
+ * Fï¿½r die Nutzung der Camera in der "Vorschau"
  */
 
 import android.app.Activity;
@@ -113,15 +113,14 @@ public class PreviewDemo extends Activity {
 			} catch (Exception e) {
 				camera.release();
 				camera = null;
-				Toast.makeText(
-						getApplicationContext(),
-						getString(R.string.cam_error),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),
+						getString(R.string.cam_error), Toast.LENGTH_SHORT)
+						.show();
 			}
 		}
 
 		/*
-		 * Geringste Qualitäts Einstellungen, soll nur der Vorschau dienen
+		 * Geringste Qualitï¿½ts Einstellungen, soll nur der Vorschau dienen
 		 */
 		public void surfaceChanged(SurfaceHolder holder, int format, int width,
 				int height) {

@@ -12,7 +12,7 @@ class FilmsViewHolder {
 
 	public FilmsViewHolder(TextView textViewname, TextView textViewtime,
 			TextView textViewcam, TextView textViewpics, ImageView Bilds) {
-		
+
 		this.textViewTime = textViewtime;
 		this.textViewName = textViewname;
 		this.textViewCam = textViewcam;

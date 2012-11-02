@@ -65,9 +65,10 @@ public class SlideNewSettings extends Activity {
 	/*
 	 * Sonstige Variablen
 	 */
-	private static String[] CONTENT = null; // The arrays are initialized in the onCreate() method.
+	private static String[] CONTENT = null; // The arrays are initialized in the
+											// onCreate() method.
 	private static String[] puContent = null;
-	
+
 	Integer contentIndex = 0;
 	TextView tv1, tv2;
 	Button weiter, close;
@@ -146,11 +147,11 @@ public class SlideNewSettings extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		Resources res = getResources();
 		CONTENT = res.getStringArray(R.array.settings_slide_contents);
 		puContent = res.getStringArray(R.array.strings_tutorial_3);
-		
+
 		setContentView(R.layout.slidenewsettings);
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -446,8 +447,8 @@ public class SlideNewSettings extends Activity {
 			}
 		}
 		// BLUB
-		if (settings.getString("Verlaengerung", getString(R.string.factor)).equals(
-				getString(R.string.factor))) {
+		if (settings.getString("Verlaengerung", getString(R.string.factor))
+				.equals(getString(R.string.factor))) {
 
 			Cursor ce6 = myDB.rawQuery("SELECT name,value,def FROM "
 					+ DB.MY_DB_TABLE_SETMVF, null);
@@ -479,7 +480,8 @@ public class SlideNewSettings extends Activity {
 			}
 			ce6.close();
 			ce7.close();
-		} else if (settings.getString("Verlaengerung", getString(R.string.factor)).equals(
+		} else if (settings.getString("Verlaengerung",
+				getString(R.string.factor)).equals(
 				getString(R.string.aperture_adjusting))) {
 			Cursor ce6 = myDB.rawQuery("SELECT name,value,def FROM "
 					+ DB.MY_DB_TABLE_SETMVF2, null);
@@ -846,7 +848,8 @@ public class SlideNewSettings extends Activity {
 					@Override
 					public void onCheckedChanged(CompoundButton buttonView,
 							boolean isChecked) {
-						if (!geotag.getText().toString().equals(getString(R.string.on))) {
+						if (!geotag.getText().toString()
+								.equals(getString(R.string.on))) {
 							if (geotag.isChecked()) {
 								editors.putString("geoTag", "ja");
 								editors.commit();
@@ -877,7 +880,7 @@ public class SlideNewSettings extends Activity {
 				final Spinner blendenstufen = (Spinner) mainview
 						.findViewById(R.id.blenden);
 				ArrayList<String> blendenarray = new ArrayList<String>();
-				blendenarray.add(getString(R.string.one_one)); 
+				blendenarray.add(getString(R.string.one_one));
 				blendenarray.add(getString(R.string.one_two));
 				blendenarray.add(getString(R.string.one_three));
 				ArrayAdapter<String> blendenadapter = new ArrayAdapter<String>(
@@ -901,9 +904,12 @@ public class SlideNewSettings extends Activity {
 							}
 
 						});
-				if (settings.getString("blendenstufe", getString(R.string.one_one)).equals(getString(R.string.one_one))) {
+				if (settings.getString("blendenstufe",
+						getString(R.string.one_one)).equals(
+						getString(R.string.one_one))) {
 					blendenstufen.setSelection(0);
-				} else if (settings.getString("blendenstufe", getString(R.string.one_one)).equals(
+				} else if (settings.getString("blendenstufe",
+						getString(R.string.one_one)).equals(
 						getString(R.string.one_two))) {
 					blendenstufen.setSelection(1);
 				} else {
@@ -937,10 +943,11 @@ public class SlideNewSettings extends Activity {
 							}
 
 						});
-				if (settings.getString("zeitStempel", getString(R.string.on)).equals(getString(R.string.on))) {
+				if (settings.getString("zeitStempel", getString(R.string.on))
+						.equals(getString(R.string.on))) {
 					zeitstempel.setSelection(0);
-				} else if (settings.getString("zeitStempel", getString(R.string.on))
-						.equals(getString(R.string.off))) {
+				} else if (settings.getString("zeitStempel",
+						getString(R.string.on)).equals(getString(R.string.off))) {
 					zeitstempel.setSelection(1);
 				} else {
 					zeitstempel.setSelection(2);
@@ -949,7 +956,7 @@ public class SlideNewSettings extends Activity {
 				final Spinner verlang = (Spinner) mainview
 						.findViewById(R.id.verlang);
 				ArrayList<String> verlangarray = new ArrayList<String>();
-				verlangarray.add(getString(R.string.factor)); 
+				verlangarray.add(getString(R.string.factor));
 				verlangarray.add(getString(R.string.aperture_adjusting));
 				ArrayAdapter<String> verlangadapter = new ArrayAdapter<String>(
 						mContext, android.R.layout.simple_spinner_item,
@@ -971,7 +978,8 @@ public class SlideNewSettings extends Activity {
 					}
 
 				});
-				if (settings.getString("Verlaengerung", getString(R.string.factor)).equals(
+				if (settings.getString("Verlaengerung",
+						getString(R.string.factor)).equals(
 						getString(R.string.factor))) {
 					verlang.setSelection(0);
 				} else {
@@ -1020,7 +1028,8 @@ public class SlideNewSettings extends Activity {
 									.findViewById(R.id.specbutton);
 							deleteButton
 									.setText(getString(R.string.delete_entry));
-							editButton.setText(getString(R.string.make_default));
+							editButton
+									.setText(getString(R.string.make_default));
 							editButton.setVisibility(Button.GONE);
 							specButton
 									.setOnClickListener(new OnClickListener() {
@@ -1212,7 +1221,8 @@ public class SlideNewSettings extends Activity {
 													texti.getText().toString());
 
 											myList.setAdapter(listAdapter);
-											Toast.makeText(mContext,
+											Toast.makeText(
+													mContext,
 													getString(R.string.default_saved),
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
@@ -3120,8 +3130,7 @@ public class SlideNewSettings extends Activity {
 				myListView9 = (ListView) slideView9
 						.findViewById(android.R.id.list);
 
-				freecell3.setText(getString(R.string.flash
-						));
+				freecell3.setText(getString(R.string.flash));
 				tablor3.setBackgroundResource(R.drawable.shapebluetable);
 				listAdapte9 = new SettingsArrayAdapter(mContext, planets5, 56);
 				myListView9.setAdapter(listAdapte9);
@@ -3515,7 +3524,8 @@ public class SlideNewSettings extends Activity {
 									.findViewById(R.id.editbutton);
 							deleteButton
 									.setText(getString(R.string.delete_entry));
-							editButton.setText(getString(R.string.make_default));
+							editButton
+									.setText(getString(R.string.make_default));
 							editButton
 									.setOnClickListener(new OnClickListener() {
 										@Override
@@ -3528,7 +3538,8 @@ public class SlideNewSettings extends Activity {
 											readDB();
 											listAdapter1.notifyDataSetChanged();
 
-											Toast.makeText(mContext,
+											Toast.makeText(
+													mContext,
 													getString(R.string.default_saved),
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
@@ -3665,7 +3676,8 @@ public class SlideNewSettings extends Activity {
 									.findViewById(R.id.editbutton);
 							deleteButton
 									.setText(getString(R.string.delete_entry));
-							editButton.setText(getString(R.string.make_default));
+							editButton
+									.setText(getString(R.string.make_default));
 							editButton
 									.setOnClickListener(new OnClickListener() {
 										@Override
@@ -3678,7 +3690,8 @@ public class SlideNewSettings extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapter7.notifyDataSetChanged();
-											Toast.makeText(mContext,
+											Toast.makeText(
+													mContext,
 													getString(R.string.default_saved),
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
@@ -3833,7 +3846,8 @@ public class SlideNewSettings extends Activity {
 									.findViewById(R.id.editbutton);
 							deleteButton
 									.setText(getString(R.string.delete_entry));
-							editButton.setText(getString(R.string.make_default));
+							editButton
+									.setText(getString(R.string.make_default));
 
 							deleteButton
 									.setOnClickListener(new OnClickListener() {
@@ -3869,7 +3883,8 @@ public class SlideNewSettings extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapter6.notifyDataSetChanged();
-											Toast.makeText(mContext,
+											Toast.makeText(
+													mContext,
 													getString(R.string.default_saved),
 													Toast.LENGTH_SHORT).show();
 											pw.dismiss();
@@ -4487,14 +4502,12 @@ public class SlideNewSettings extends Activity {
 		}
 	}
 
-	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.settingsmenu, menu);
 		return true;
 	}
 
-	
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == R.id.opt_settingsToFactoryDefaults) {
@@ -4538,10 +4551,14 @@ public class SlideNewSettings extends Activity {
 					.findViewById(R.id.setfour);
 			setsave1.setText(getString(R.string.load));
 			setSetButtonColor(setone1, settwo1, setthree1, setfour1);
-			setone1.setText(settings.getString("SetButtonOne", getString(R.string.set_default))); 
-			settwo1.setText(settings.getString("SetButtonTwo", getString(R.string.set_two)));
-			setthree1.setText(settings.getString("SetButtonThree", getString(R.string.set_three)));
-			setfour1.setText(settings.getString("SetButtonFour", getString(R.string.set_four)));
+			setone1.setText(settings.getString("SetButtonOne",
+					getString(R.string.set_default)));
+			settwo1.setText(settings.getString("SetButtonTwo",
+					getString(R.string.set_two)));
+			setthree1.setText(settings.getString("SetButtonThree",
+					getString(R.string.set_three)));
+			setfour1.setText(settings.getString("SetButtonFour",
+					getString(R.string.set_four)));
 			setone1.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -4634,8 +4651,8 @@ public class SlideNewSettings extends Activity {
 					mIndicator.setCurrentItem(0);
 					viewPager.setCurrentItem(0, false);
 					Toast.makeText(getApplicationContext(),
-							getString(R.string.set_loaded),
-							Toast.LENGTH_SHORT).show();
+							getString(R.string.set_loaded), Toast.LENGTH_SHORT)
+							.show();
 				}
 			});
 			pw = new PopupWindow(layoutOwn1,
@@ -4663,10 +4680,14 @@ public class SlideNewSettings extends Activity {
 			final Button setfour = (Button) layoutOwn
 					.findViewById(R.id.setfour);
 			setSetButtonColor(setone, settwo, setthree, setfour);
-			setone.setText(settings.getString("SetButtonOne", getString(R.string.set_default)));
-			settwo.setText(settings.getString("SetButtonTwo", getString(R.string.set_two)));
-			setthree.setText(settings.getString("SetButtonThree", getString(R.string.set_three)));
-			setfour.setText(settings.getString("SetButtonFour", getString(R.string.set_four)));
+			setone.setText(settings.getString("SetButtonOne",
+					getString(R.string.set_default)));
+			settwo.setText(settings.getString("SetButtonTwo",
+					getString(R.string.set_two)));
+			setthree.setText(settings.getString("SetButtonThree",
+					getString(R.string.set_three)));
+			setfour.setText(settings.getString("SetButtonFour",
+					getString(R.string.set_four)));
 			setone.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -4678,8 +4699,7 @@ public class SlideNewSettings extends Activity {
 						setSetButtonColor(setone, settwo, setthree, setfour);
 						setone.setTextColor(0xaa000000);
 					} else {
-						Toast.makeText(
-								getApplicationContext(),
+						Toast.makeText(getApplicationContext(),
 								getString(R.string.set_not_saved),
 								Toast.LENGTH_SHORT).show();
 					}
@@ -4696,8 +4716,7 @@ public class SlideNewSettings extends Activity {
 						setSetButtonColor(setone, settwo, setthree, setfour);
 						settwo.setTextColor(0xaa000000);
 					} else {
-						Toast.makeText(
-								getApplicationContext(),
+						Toast.makeText(getApplicationContext(),
 								getString(R.string.set_not_saved),
 								Toast.LENGTH_SHORT).show();
 					}
@@ -4714,8 +4733,7 @@ public class SlideNewSettings extends Activity {
 						setSetButtonColor(setone, settwo, setthree, setfour);
 						setthree.setTextColor(0xaa000000);
 					} else {
-						Toast.makeText(
-								getApplicationContext(),
+						Toast.makeText(getApplicationContext(),
 								getString(R.string.set_not_saved),
 								Toast.LENGTH_SHORT).show();
 					}
@@ -4732,8 +4750,7 @@ public class SlideNewSettings extends Activity {
 						setSetButtonColor(setone, settwo, setthree, setfour);
 						setfour.setTextColor(0xaa000000);
 					} else {
-						Toast.makeText(
-								getApplicationContext(),
+						Toast.makeText(getApplicationContext(),
 								getString(R.string.set_not_saved),
 								Toast.LENGTH_SHORT).show();
 					}
@@ -4842,10 +4859,8 @@ public class SlideNewSettings extends Activity {
 			viewPager1.setAdapter(adapter1);
 			mIndicator.setCurrentItem(0);
 			viewPager.setCurrentItem(0, false);
-			Toast.makeText(
-					getApplicationContext(),
-					getString(R.string.set_saved),
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(),
+					getString(R.string.set_saved), Toast.LENGTH_SHORT).show();
 
 		}
 

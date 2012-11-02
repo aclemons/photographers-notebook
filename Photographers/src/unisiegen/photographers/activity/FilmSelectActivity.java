@@ -47,9 +47,9 @@ import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
 
 public class FilmSelectActivity extends PhotographersNotebookActivity {
-	
+
 	private Context mContext;
-	
+
 	/*
 	 * User-Interface Elemente
 	 */
@@ -62,13 +62,11 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 	TitlePageIndicator mIndicator;
 	PopupWindow pw;
 	EditText picnotizedit = null;
-	EditText picnotizcamedit = null;	
-	
+	EditText picnotizcamedit = null;
+
 	boolean minimizes;
 	SharedPreferences settings;
 	private Film film;
-
-	
 
 	/*
 	 * (non-Javadoc)
@@ -206,15 +204,8 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 		TextView filmsonders = (TextView) findViewById(R.id.filmsonders);
 		filmsonders.setText(film.Sonderentwicklung2);
 
-		ArrayList<Pictures> listItems = new ArrayList<Pictures>();
-
-		for (BildObjekt b : film.Bilder) {
-			listItems.add(new Pictures(b));
-		}
-
-		Log.v("Check", "LISTITEMS : " + listItems.size());
-
-		PicturesArrayAdapter adapter = new PicturesArrayAdapter(mContext, listItems, 1);
+		PicturesArrayAdapter adapter = new PicturesArrayAdapter(mContext,
+				film.Bilder, 1);
 		ListView myList = (ListView) findViewById(android.R.id.list);
 		myList.setOnItemClickListener(myClickListener);
 		myList.setOnItemLongClickListener(myLongClickListener);
@@ -365,7 +356,6 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 
 		}
 	};
-
 
 	/*
 	 * Pageadapter f�r das hin- und herwischen zwischen den Bildenr. W�hlt man
