@@ -614,9 +614,9 @@ public class DB {
 		myDBFilm.close();
 	}
 
-	public List<Film> getFilme(Context context) {
+	public ArrayList<Film> getFilme(Context context) {
 
-		List<Film> filme = new ArrayList<Film>();
+		ArrayList<Film> filme = new ArrayList<Film>();
 
 		try {
 			SQLiteDatabase myDBNummer = context.openOrCreateDatabase(

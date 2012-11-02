@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.export.BildObjekt;
@@ -97,12 +96,11 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 				}
 			});
 		}
-		ArrayList<Films> listItems = new ArrayList<Films>();
+
 		int gesamtPics = 0;
-		List<Film> filme = DB.getDB().getFilme(mContext);
+		ArrayList<Film> filme = DB.getDB().getFilme(mContext);
 
 		for (Film film : filme) {
-			listItems.add(new Films(film));
 			gesamtPics = gesamtPics + film.Bilder.size();
 		}
 
@@ -114,8 +112,7 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 			image.setVisibility(ImageView.GONE);
 		}
 		pics.setText(gesamtPics + " " + getString(R.string.pictures));
-		ArrayAdapter<Films> adapter = new FilmsArrayAdapter(mContext,
-				listItems, 1);
+		ArrayAdapter<Film> adapter = new FilmsArrayAdapter(mContext, filme, 1);
 		myList.setOnItemClickListener(notlongClickListener);
 		myList.setOnItemLongClickListener(longClickListener);
 		myList.setAdapter(adapter);
@@ -225,11 +222,11 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 		}
 	}
 
-	private class FilmsArrayAdapter extends ArrayAdapter<Films> {
+	private class FilmsArrayAdapter extends ArrayAdapter<Film> {
 
 		private LayoutInflater inflater;
 
-		public FilmsArrayAdapter(Context context, ArrayList<Films> planetList,
+		public FilmsArrayAdapter(Context context, ArrayList<Film> planetList,
 				int number) {
 			super(context, R.layout.sqltablecell, R.id.filmtitle, planetList);
 			inflater = LayoutInflater.from(context);
@@ -237,7 +234,7 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			Films planet = (Films) this.getItem(position);
+			Film planet = (Film) this.getItem(position);
 			TextView textView;
 			TextView textViewDate;
 			TextView textViewCam;
@@ -262,12 +259,12 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 				textViewPics = viewHolder.getTextViewPics();
 				imageViewBild = viewHolder.getBildView();
 			}
-			textViewDate.setText(planet.getDate());
-			textView.setText(planet.getName());
-			textViewCam.setText(planet.getCam());
-			textViewPics.setText(planet.getPics() + " "
+			textViewDate.setText(planet.Datum);
+			textView.setText(planet.Titel);
+			textViewCam.setText(planet.Kamera);
+			textViewPics.setText(planet.Pics + " "
 					+ getString(R.string.pictures));
-			imageViewBild.setImageBitmap(planet.getBild());
+			imageViewBild.setImageBitmap(planet.icon);
 			return convertView;
 		}
 	}
