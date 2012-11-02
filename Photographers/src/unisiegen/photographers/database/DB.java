@@ -1012,4 +1012,78 @@ public class DB {
 		myDBNummer.close();
 	}
 
+	public void addPicture(Context mContext, Film f, BildObjekt b) {
+		
+		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("INSERT INTO ");
+		sql.append(DB.MY_DB_FILM_TABLE);
+		sql.append(" Values (" + null);
+		sql.append(",'");
+		sql.append(f.Datum);		
+		sql.append("','");
+		sql.append(b.Zeitstempel);
+		sql.append("','");
+		sql.append(f.Titel);
+		sql.append("','");
+		sql.append(f.Kamera);
+		sql.append("','");
+		sql.append(f.Filmformat);
+		sql.append("','");
+		sql.append(f.Empfindlichkeit);
+		sql.append("','");
+		sql.append(f.Filmtyp);
+		sql.append("','");
+		sql.append(f.Sonderentwicklung1);
+		sql.append("','");
+		sql.append(f.Sonderentwicklung2);
+		sql.append("','");
+		sql.append(b.Fokus);
+		sql.append("','");
+		sql.append(b.Blende);
+		sql.append("','");
+		sql.append(b.Zeit);
+		sql.append("','");
+		sql.append(b.Messmethode);
+		sql.append("','");
+		sql.append(b.Belichtungskorrektur);
+		sql.append("','");
+		sql.append(b.Makro);
+		sql.append("','");
+		sql.append(b.MakroVF);
+		sql.append("','");
+		sql.append(b.Filter);
+		sql.append("','");
+		sql.append(b.FilterVF);
+		sql.append("','");
+		sql.append(b.Blitz);
+		sql.append("','");
+		sql.append(b.Blitzkorrektur);
+		sql.append("','");
+		sql.append(b.Notiz);
+		sql.append("','");
+		sql.append(b.KameraNotiz);
+		sql.append("','");
+		sql.append(b.Objektiv);
+		sql.append("','");
+		
+		String [] geotagParts = b.GeoTag.split("' , '");
+		// lat
+		sql.append(geotagParts[0]);
+		sql.append("','");
+		// long
+		sql.append(geotagParts[1]);
+		sql.append("','");
+		
+		sql.append(f.Filmnotiz);
+		sql.append("','");
+		sql.append(b.Bildnummer);	
+		sql.append("');");
+		
+		myDBFilm.execSQL(new String(sql));
+		
+		myDBFilm.close();
+	}
+
 }

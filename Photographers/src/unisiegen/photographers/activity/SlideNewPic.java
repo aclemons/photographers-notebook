@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.export.BildObjekt;
+import unisiegen.photographers.export.Film;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -425,40 +426,34 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	private void writeFilm() { // Speichern des Bilds
 		Log.v("Check", "writeFilm()");
 		onCreateDBAndDBTabledFilm();
-		onCreateDBAndDBNumber();
+		onCreateDBAndDBNumber();		
 		picturesNumber++;
-		settings = PreferenceManager.getDefaultSharedPreferences(mContext); // datum
-																			// zeit
-																			// einf�gen
-																			// !!
-
-		myDBFilm.execSQL("INSERT INTO " + DB.MY_DB_FILM_TABLE + " Values ("
-				+ null + ",'" + settings.getString("Datum", " ") + "','"
-				+ settings.getString("Uhrzeit", " ") + "','"
-				+ settings.getString("Title", " ") + "','"
-				+ settings.getString("Kamera", " ") + "','"
-				+ settings.getString("Filmformat", " ") + "','"
-				+ settings.getString("Empfindlichkeit", " ") + "','"
-				+ settings.getString("Filmtyp", " ") + "','"
-				+ settings.getString("Sonder1", " ") + "','"
-				+ settings.getString("Sonder2", " ") + "','"
-				+ spinner_fokus.getSelectedItem().toString() + "','"
-				+ spinner_blende.getSelectedItem().toString() + "','"
-				+ spinner_zeit.getSelectedItem().toString() + "','"
-				+ spinner_messmethode.getSelectedItem().toString() + "','"
-				+ spinner_belichtungs_korrektur.getSelectedItem().toString()
-				+ "','" + spinner_makro.getSelectedItem().toString() + "','"
-				+ spinner_makro_vf.getSelectedItem().toString() + "','"
-				+ spinner_filter.getSelectedItem().toString() + "','"
-				+ spinner_filter_vf.getSelectedItem().toString() + "','"
-				+ spinner_blitz.getSelectedItem().toString() + "','"
-				+ spinner_blitz_korrektur.getSelectedItem().toString() + "','"
-				+ edit_notizen.getText().toString() + "','"
-				+ edit_kamera_notizen.getText().toString() + "','"
-				+ spinner_objektiv.getSelectedItem().toString() + "','"
-				+ String.valueOf(piclong) + "','" + String.valueOf(piclat)
-				+ "','" + settings.getString("FilmNotiz", " ") + "','"
-				+ nummerView.getText().toString() + "');");
+		// datum und uhrzeig einfügen!
+		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
+		
+		Film f = DB.getDB().getFilm(mContext, settings.getString("Title", " "));
+		BildObjekt b = new BildObjekt();
+		b.Fokus = spinner_fokus.getSelectedItem().toString();
+		b.Blende = spinner_blende.getSelectedItem().toString();
+		b.Zeit = spinner_zeit.getSelectedItem().toString();
+		b.Messmethode = spinner_messmethode.getSelectedItem().toString();
+		b.Belichtungskorrektur = spinner_belichtungs_korrektur.getSelectedItem().toString(); 
+		b.Makro = spinner_makro.getSelectedItem().toString();
+		b.MakroVF = spinner_makro_vf.getSelectedItem().toString();
+		b.Filter = spinner_filter.getSelectedItem().toString();
+		b.FilterVF = spinner_filter_vf.getSelectedItem().toString();
+		b.Blitz = spinner_blitz.getSelectedItem().toString();
+		b.Blitzkorrektur = spinner_blitz_korrektur.getSelectedItem().toString();
+		b.Notiz = edit_notizen.getText().toString();
+		b.KameraNotiz = edit_kamera_notizen.getText().toString();
+		b.Objektiv = spinner_objektiv.getSelectedItem().toString();
+		// This is somewhat of a hack, as the Film object stores the geolocation as a string, while the database stores two discinct values for longitude and latitude. While saving, we have to split these values, using the "' , '" String.
+		b.GeoTag = String.valueOf(piclong) + "' , '" + String.valueOf(piclat);
+		b.Bildnummer = nummerView.getText().toString();
+		b.Zeitstempel = settings.getString("Uhrzeit", " ");
+		
+		DB.getDB().addPicture(mContext, f, b);
+		//TODO: Stopped here.......
 		if (settings.getBoolean("EditMode", false)) {
 			myDBNummer.execSQL("UPDATE " + DB.MY_DB_TABLE_NUMMER
 					+ " SET bilder = '" + picturesNumber + "' WHERE title = '"
@@ -674,9 +669,6 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 			al_spinner_blende.add(getString(R.string.no_selection));
 		}
 
-		// Achtung, das hier und alle folgenden refactorings sind falsch, da das
-		// SQL Statement im Original anders war (selektierte nach value - was
-		// immer das sein mag). q
 		index = 0;
 		defzeit = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
 				DB.MY_DB_TABLE_SETZEI);
