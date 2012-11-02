@@ -77,13 +77,9 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 	 * Sonstige Variablen
 	 */
 	SharedPreferences settings;
-	ArrayList<Films> listItems;
-	ArrayAdapter<Films> adapter;
 
-	public static Context mContext;
-	public static LayoutInflater inflater;
-	public Integer contentIndex = 0;
-	public static int gesamt;
+	private Context mContext;
+	private Integer contentIndex = 0;
 
 	@Override
 	protected void onResume() {
@@ -101,7 +97,7 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 				}
 			});
 		}
-		listItems = new ArrayList<Films>();
+		ArrayList<Films> listItems = new ArrayList<Films>();
 		int gesamtPics = 0;
 		List<Film> filme = DB.getDB().getFilme(mContext);
 
@@ -118,7 +114,8 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 			image.setVisibility(ImageView.GONE);
 		}
 		pics.setText(gesamtPics + " " + getString(R.string.pictures));
-		adapter = new FilmsArrayAdapter(mContext, listItems, 1);
+		ArrayAdapter<Films> adapter = new FilmsArrayAdapter(mContext,
+				listItems, 1);
 		myList.setOnItemClickListener(notlongClickListener);
 		myList.setOnItemLongClickListener(longClickListener);
 		myList.setAdapter(adapter);
@@ -128,7 +125,6 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.filmauswahl);
-		inflater = getLayoutInflater();
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		if (settings.getInt("FIRSTSTART", 0) == 0) {
@@ -269,7 +265,8 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 			textViewDate.setText(planet.getDate());
 			textView.setText(planet.getName());
 			textViewCam.setText(planet.getCam());
-			textViewPics.setText(planet.getPics() + " " + getString(R.string.pictures));
+			textViewPics.setText(planet.getPics() + " "
+					+ getString(R.string.pictures));
 			imageViewBild.setImageBitmap(planet.getBild());
 			return convertView;
 		}
@@ -348,7 +345,6 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 			startActivityForResult(myIntent, 0);
 		}
 	};
-
 
 	/**
 	 * Popup f�r Tutorial

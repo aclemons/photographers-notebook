@@ -18,9 +18,9 @@ class Films {
 		this.datum = datum;
 		this.cam = cam;
 		this.pics = pics;
-		this.bild = BitmapFactory.decodeByteArray(
-				Base64.decode(Bild, Base64.DEFAULT), 0,
-				(Base64.decode(Bild, Base64.DEFAULT)).length);
+		
+		byte [] imageData = Base64.decode(Bild, Base64.DEFAULT);
+		this.bild = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
 	}
 
 	public Films(Film film) {

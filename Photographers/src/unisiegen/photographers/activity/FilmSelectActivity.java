@@ -5,7 +5,6 @@ package unisiegen.photographers.activity;
  */
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.export.BildObjekt;
@@ -34,7 +33,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -42,7 +40,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,12 +47,13 @@ import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
 
 public class FilmSelectActivity extends PhotographersNotebookActivity {
-
+	
+	private Context mContext;
+	
 	/*
 	 * User-Interface Elemente
 	 */
 	TextView freecell;
-	int design = 0;
 	int bilderimfilm;
 	LinearLayout infoBlock1;
 	TextView filmcam;
@@ -63,215 +61,14 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 	TextView filmtit;
 	TitlePageIndicator mIndicator;
 	PopupWindow pw;
-	Spinner objektivedit = null;
-	Spinner filtervfedit = null;
-	Spinner picfocusedit = null;
-	Spinner picblendeedit = null;
-	Spinner piczeitedit = null;
-	Spinner picmessungedit = null;
-	Spinner picplusedit = null;
-	Spinner picmakroedit = null;
-	Spinner picmakrovfedit = null;
-	Spinner picfilteredit = null;
-	Spinner picblitzedit = null;
-	Spinner picblitzkorredit = null;
 	EditText picnotizedit = null;
-	EditText picnotizcamedit = null;
-
-	/*
-	 * Arrayadapter und ArrayListen der Einstellungen
-	 */
-	ArrayAdapter<String> ad_spinner_blende;
-	ArrayAdapter<String> ad_spinner_zeit;
-	ArrayAdapter<String> ad_spinner_filter_vf;
-	ArrayAdapter<String> ad_spinner_objektiv;
-	ArrayAdapter<String> ad_spinner_focus;
-	ArrayAdapter<String> ad_spinner_filter;
-	ArrayAdapter<String> ad_spinner_makro;
-	ArrayAdapter<String> ad_spinner_messmethode;
-	ArrayAdapter<String> ad_spinner_belichtungs_korrektur;
-	ArrayAdapter<String> ad_spinner_makro_vf;
-	ArrayAdapter<String> ad_spinner_blitz;
-	ArrayAdapter<String> ad_spinner_blitz_korrektur;
-	ArrayList<String> al_spinner_blende;
-	ArrayList<String> al_spinner_filter_vf;
-	ArrayList<String> al_spinner_objektiv;
-	ArrayList<String> al_spinner_zeit;
-	ArrayList<String> al_spinner_focus;
-	ArrayList<String> al_spinner_filter;
-	ArrayList<String> al_spinner_makro;
-	ArrayList<String> al_spinner_messmethode;
-	ArrayList<String> al_spinner_belichtungs_korrektur;
-	ArrayList<String> al_spinner_makro_vf;
-	ArrayList<String> al_spinner_blitz;
-	ArrayList<String> al_spinner_blitz_korrektur;
-	HashMap<String, Integer> blende;
-	HashMap<String, Integer> filtervf;
-	HashMap<String, Integer> objektiv;
-	HashMap<String, Integer> zeit;
-	HashMap<String, Integer> fokus;
-	HashMap<String, Integer> filter;
-	HashMap<String, Integer> makro;
-	HashMap<String, Integer> mess;
-	HashMap<String, Integer> belichtung;
-	HashMap<String, Integer> makrovf;
-	HashMap<String, Integer> blitz;
-	HashMap<String, Integer> blitzkorr;
-
-	static String MY_DB_NAME;
-
-	/*
-	 * Sonstige Variablen
-	 */
-	Context mContext;
-	ArrayList<Pictures> listItems;
+	EditText picnotizcamedit = null;	
+	
 	boolean minimizes;
-	ArrayList<Integer> listItemsID;
-	ArrayAdapter<Pictures> adapter;
 	SharedPreferences settings;
 	private Film film;
 
-	/*
-	 * Es Es werden ArrayListen mit allen Eintr�gen die "gechecked" sind
-	 * erstellt, diese werden dann den "Spinnern" zugeordnet um diese mit den
-	 * richtigen Daten zu f�llen! Die HashMaps dienen f�r den Standart wert. Sie
-	 * beinhalten sp�ter den Index des "Standart-Werts" und dieser kann dann
-	 * einfach dem Spinner �bergeben werden um die richtige Vorauswahl zu
-	 * treffen.
-	 */
-	private void fuellen() {
-		al_spinner_blende = new ArrayList<String>();
-		al_spinner_filter_vf = new ArrayList<String>();
-		al_spinner_objektiv = new ArrayList<String>();
-		al_spinner_zeit = new ArrayList<String>();
-		al_spinner_focus = new ArrayList<String>();
-		al_spinner_filter = new ArrayList<String>();
-		al_spinner_makro = new ArrayList<String>();
-		al_spinner_messmethode = new ArrayList<String>();
-		al_spinner_belichtungs_korrektur = new ArrayList<String>();
-		al_spinner_makro_vf = new ArrayList<String>();
-		al_spinner_blitz = new ArrayList<String>();
-		al_spinner_blitz_korrektur = new ArrayList<String>();
-		blende = new HashMap<String, Integer>();
-		filtervf = new HashMap<String, Integer>();
-		objektiv = new HashMap<String, Integer>();
-		zeit = new HashMap<String, Integer>();
-		fokus = new HashMap<String, Integer>();
-		filter = new HashMap<String, Integer>();
-		makro = new HashMap<String, Integer>();
-		mess = new HashMap<String, Integer>();
-		belichtung = new HashMap<String, Integer>();
-		makrovf = new HashMap<String, Integer>();
-		blitz = new HashMap<String, Integer>();
-		blitzkorr = new HashMap<String, Integer>();
-
-		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-
-		int index = 0;
-		for (String brennweite : DB.getDB().getSettingForSpinner(mContext,
-				MY_DB_NAME, DB.MY_DB_TABLE_SETBW)) {
-			al_spinner_objektiv.add(brennweite);
-			objektiv.put(brennweite, index++);
-		}
-
-		index = 0;
-		for (String b : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETBLE)) {
-			al_spinner_blende.add(b);
-			blende.put(b, index++);
-		}
-
-		index = 0;
-		for (String z : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETZEI)) {
-			al_spinner_zeit.add(z);
-			zeit.put(z, index++);
-		}
-
-		index = 0;
-		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETFOK)) {
-			al_spinner_focus.add(f);
-			fokus.put(f, index++);
-		}
-
-		index = 0;
-		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETFIL)) {
-			al_spinner_filter.add(f);
-			filter.put(f, index++);
-		}
-
-		index = 0;
-		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETNM)) {
-			al_spinner_makro.add(f);
-			makro.put(f, index++);
-		}
-
-		index = 0;
-		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETMES)) {
-			al_spinner_messmethode.add(f);
-			mess.put(f, index++);
-		}
-
-		index = 0;
-		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETPLU)) {
-			al_spinner_belichtungs_korrektur.add(f);
-			belichtung.put(f, index++);
-		}
-
-		if (settings.getString("Verlaengerung", getString(R.string.factor)).equals(
-				getString(R.string.factor))) {
-
-			index = 0;
-			for (String f : DB.getDB().getSettingForSpinner(mContext,
-					MY_DB_NAME, DB.MY_DB_TABLE_SETFVF)) {
-				al_spinner_filter_vf.add(f);
-				filtervf.put(f, index++);
-			}
-
-			index = 0;
-			for (String f : DB.getDB().getSettingForSpinner(mContext,
-					MY_DB_NAME, DB.MY_DB_TABLE_SETMVF)) {
-				al_spinner_makro_vf.add(f);
-				makrovf.put(f, index++);
-			}
-
-		} else if (settings.getString("Verlaengerung", getString(R.string.factor)).equals(
-				getString(R.string.aperture_adjusting))) {
-
-			index = 0;
-			for (String f : DB.getDB().getSettingForSpinner(mContext,
-					MY_DB_NAME, DB.MY_DB_TABLE_SETFVF2)) {
-				al_spinner_filter_vf.add(f);
-				filtervf.put(f, index++);
-			}
-
-			index = 0;
-			for (String f : DB.getDB().getSettingForSpinner(mContext,
-					MY_DB_NAME, DB.MY_DB_TABLE_SETMVF2)) {
-				al_spinner_makro_vf.add(f);
-				makrovf.put(f, index++);
-			}
-		}
-
-		index = 0;
-		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETBLI)) {
-			al_spinner_blitz.add(f);
-			blitz.put(f, index++);
-		}
-
-		index = 0;
-		for (String f : DB.getDB().getSettingForSpinner(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETKOR)) {
-			al_spinner_blitz_korrektur.add(f);
-			blitzkorr.put(f, index++);
-		}
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -285,7 +82,6 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 		setContentView(R.layout.filmselect);
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		minimizes = settings.getBoolean("minimize", false);
-		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
 		infoBlock1 = (LinearLayout) findViewById(R.id.infoblock1);
 		infoBlock2 = (LinearLayout) findViewById(R.id.infoblock2);
 		Button goon = (Button) findViewById(R.id.button_goon);
@@ -365,10 +161,8 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 					;
 					editor.commit();
 				}
-
 			}
 		});
-
 	}
 
 	@Override
@@ -412,7 +206,7 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 		TextView filmsonders = (TextView) findViewById(R.id.filmsonders);
 		filmsonders.setText(film.Sonderentwicklung2);
 
-		listItems = new ArrayList<Pictures>();
+		ArrayList<Pictures> listItems = new ArrayList<Pictures>();
 
 		for (BildObjekt b : film.Bilder) {
 			listItems.add(new Pictures(b));
@@ -420,7 +214,7 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 
 		Log.v("Check", "LISTITEMS : " + listItems.size());
 
-		adapter = new PicturesArrayAdapter(mContext, listItems, 1);
+		PicturesArrayAdapter adapter = new PicturesArrayAdapter(mContext, listItems, 1);
 		ListView myList = (ListView) findViewById(android.R.id.list);
 		myList.setOnItemClickListener(myClickListener);
 		myList.setOnItemLongClickListener(myLongClickListener);
@@ -703,119 +497,6 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 			return "<  >";
 		}
 
-	}
-
-	/*
-	 * Hilfsklasse f�r Bildobjekte (Nur f�r die Custom Zelle der Liste)
-	 */
-
-	private static class Pictures {
-		private String name = "";
-		private String time = "";
-		private String timestamp = "";
-		private String objektiv = "";
-		private String blende = "";
-
-		public Pictures(BildObjekt b) {
-			this.name = b.Bildnummer;
-			this.time = b.Zeit;
-			this.blende = b.Blende;
-			this.objektiv = b.Objektiv;
-			this.timestamp = b.Zeitstempel;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public String getTime() {
-			return time;
-		}
-
-		public String getBlende() {
-			return blende;
-		}
-
-		public String getZeitstempel() {
-			return timestamp;
-		}
-	}
-
-	/*
-	 * Viewholder f�r Picture Elemente
-	 */
-
-	private static class PicturesViewHolder {
-		private TextView textViewTime;
-		private TextView textViewName;
-		private TextView textViewObjektiv;
-
-		public PicturesViewHolder(TextView textViewname, TextView textViewtime,
-				TextView textViewobjektiv) {
-			this.textViewTime = textViewtime;
-			this.textViewObjektiv = textViewobjektiv;
-			this.textViewName = textViewname;
-		}
-
-		public TextView getTextViewName() {
-			return textViewName;
-		}
-
-		public TextView getTextViewTime() {
-			return textViewTime;
-		}
-
-		public TextView getTextViewObjektiv() {
-			return this.textViewObjektiv;
-		}
-	}
-
-	/*
-	 * Custom Array Adapter f�r custom List-Zeilen
-	 */
-
-	private class PicturesArrayAdapter extends ArrayAdapter<Pictures> {
-
-		private LayoutInflater inflater;
-
-		public PicturesArrayAdapter(Context context,
-				ArrayList<Pictures> planetList, int number) {
-			super(context, R.layout.film_item, R.id.listItemText, planetList);
-			inflater = LayoutInflater.from(context);
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			Pictures p = (Pictures) this.getItem(position);
-			TextView textViewApertureTime;
-			TextView textView;
-			TextView textViewTime;
-
-			if (convertView == null) {
-
-				convertView = inflater.inflate(R.layout.film_item, null);
-				textView = (TextView) convertView
-						.findViewById(R.id.listItemText);
-				textViewApertureTime = (TextView) convertView
-						.findViewById(R.id.listItemBlendeZeit);
-				textViewTime = (TextView) convertView
-						.findViewById(R.id.listItemTextTime);
-				convertView.setTag(new PicturesViewHolder(textView,
-						textViewTime, textViewApertureTime));
-
-			} else {
-				PicturesViewHolder viewHolder = (PicturesViewHolder) convertView
-						.getTag();
-				textViewTime = viewHolder.getTextViewTime();
-				textView = viewHolder.getTextViewName();
-				textViewApertureTime = viewHolder.getTextViewObjektiv();
-			}
-			textViewTime.setText(p.getZeitstempel());
-			textView.setText(p.getName());
-			textViewApertureTime.setText(p.getBlende() + " - " + p.getTime());
-
-			return convertView;
-		}
 	}
 
 }
