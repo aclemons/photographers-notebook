@@ -1012,16 +1012,17 @@ public class DB {
 		myDBNummer.close();
 	}
 
-	public void addPicture(Context mContext, Film f, BildObjekt b) {
-		
-		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
-		
+	private void addPicture(Context mContext, Film f, BildObjekt b) {
+
+		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
+				Context.MODE_PRIVATE, null);
+
 		StringBuffer sql = new StringBuffer();
 		sql.append("INSERT INTO ");
 		sql.append(DB.MY_DB_FILM_TABLE);
 		sql.append(" Values (" + null);
 		sql.append(",'");
-		sql.append(f.Datum);		
+		sql.append(f.Datum);
 		sql.append("','");
 		sql.append(b.Zeitstempel);
 		sql.append("','");
@@ -1067,23 +1068,72 @@ public class DB {
 		sql.append("','");
 		sql.append(b.Objektiv);
 		sql.append("','");
-		
-		String [] geotagParts = b.GeoTag.split("' , '");
+
+		String[] geotagParts = b.GeoTag.split("' , '");
 		// lat
 		sql.append(geotagParts[0]);
 		sql.append("','");
 		// long
 		sql.append(geotagParts[1]);
 		sql.append("','");
-		
+
 		sql.append(f.Filmnotiz);
 		sql.append("','");
-		sql.append(b.Bildnummer);	
+		sql.append(b.Bildnummer);
 		sql.append("');");
-		
+
 		myDBFilm.execSQL(new String(sql));
-		
+
 		myDBFilm.close();
+	}
+
+	public void addPictureUpdateNummer(Context mContext, Film f, BildObjekt b,
+			int picturesNumber) {
+
+		addPicture(mContext, f, b);
+
+		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
+				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE ");
+		sql.append(DB.MY_DB_TABLE_NUMMER);
+		sql.append(" SET bilder = '");
+		sql.append(String.valueOf(picturesNumber));
+		sql.append("' WHERE title = '");
+		sql.append(f.Titel);
+		sql.append("';");
+
+		myDBNummer.execSQL(new String(sql));
+		myDBNummer.close();
+	}
+
+	public void addPictureCreateNummer(Context mContext, Film f, BildObjekt b,
+			int picturesNumber, String encodedImage) {
+
+		addPicture(mContext, f, b);
+
+		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
+				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+
+		StringBuffer sql = new StringBuffer();
+		sql.append("INSERT OR REPLACE INTO ");
+		sql.append(DB.MY_DB_TABLE_NUMMER);
+		sql.append(" Values ('");
+		sql.append(f.Titel);
+		sql.append("'," + null);
+		sql.append(",'");
+		sql.append(f.Kamera);
+		sql.append(",'");
+		sql.append(f.Datum);
+		sql.append(",'");
+		sql.append(String.valueOf(picturesNumber));
+		sql.append(",'");
+		sql.append(encodedImage);
+		sql.append("');");
+
+		myDBNummer.execSQL(new String(sql));
+		myDBNummer.close();
 	}
 
 }

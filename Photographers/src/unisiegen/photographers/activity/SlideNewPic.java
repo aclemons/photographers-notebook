@@ -105,13 +105,6 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 	ViewPager viewPager;
 	TitlePageIndicator mIndicator;
 
-	/*
-	 * Datenbank-Variablen
-	 */
-	SQLiteDatabase myDBSet = null;
-	SQLiteDatabase myDB = null;
-	SQLiteDatabase myDBFilm = null;
-	SQLiteDatabase myDBNummer = null;
 	static String MY_DB_NAME;
 
 	/*
@@ -221,10 +214,7 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		plus.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				nummerView.setText(getString(R.string.picture)
-						+ " "
-						+ (Integer.valueOf(nummerView.getText().toString()
-								.replaceAll("[\\D]", "")) + 1));
+				incrementSelectedPicture();
 				updateUIFromPicture(nummerView.getText().toString(),
 						settings.getString("Title", " "));
 				if (bildtoedit) {
@@ -238,12 +228,8 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		minus.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (Integer.valueOf(nummerView.getText().toString()
-						.replaceAll("[\\D]", "")) > 1) {
-					nummerView.setText(getString(R.string.picture)
-							+ " "
-							+ (Integer.valueOf(nummerView.getText().toString()
-									.replaceAll("[\\D]", "")) - 1));
+				if (Integer.valueOf(nummerView.getText().toString().replaceAll("[\\D]", "")) > 1) {
+					decrementSelectedPicture();
 					updateUIFromPicture(nummerView.getText().toString(),
 							settings.getString("Title", " "));
 				}
@@ -282,12 +268,10 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 
 				try {
 					if (bildtoedit) {
-						editFilm();
+						editPicture();
 					} else {
-						writeFilm();
-						myDBNummer.close();
+						saveNewPicture();
 					}
-					myDBFilm.close();
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.picture_taken),
 							Toast.LENGTH_SHORT).show();
@@ -400,38 +384,26 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		}
 	}
 
-	/*
-	 * Datenbank Methoden
-	 */
-
-	private void onCreateDBAndDBTabledFilm() {
-		myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
-		myDBFilm.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_FILM_TABLE
-				+ " (_id integer primary key autoincrement, filmdatum varchar(100), picuhrzeit varchar(100), filmtitle varchar(100), filmcamera varchar(100), filmformat varchar(100), filmempfindlichkeit varchar(100), filmtyp varchar(100), filmsonder varchar(100), filmsonders varchar(100), picfokus varchar(100), picblende varchar(100), piczeit varchar(100), picmessung varchar(100), pickorr varchar(100), picmakro varchar(100), picmakrovf varchar(100), picfilter varchar(100), picfiltervf varchar(100), picblitz varchar(100), picblitzkorr varchar(100), picnotiz varchar(100), pickameranotiz varchar(100), picobjektiv varchar(100),piclong varchar(100),piclat varchar(100),filmnotiz varchar(100), picnummer varchar(100))"
-				+ ";");
-	}
-
-	private void onCreateDBAndDBNumber() {
-		myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER,
-				Context.MODE_PRIVATE, null);
-		myDBNummer
-				.execSQL("CREATE TABLE IF NOT EXISTS "
-						+ DB.MY_DB_TABLE_NUMMER
-						+ " (title varchar(100) primary key, value integer,camera varchar(100), datum varchar(100), bilder integer, pic varchar(999))"
-						+ ";");
-	}
-
-	private void writeFilm() { // Speichern des Bilds
-		Log.v("Check", "writeFilm()");
-		onCreateDBAndDBTabledFilm();
-		onCreateDBAndDBNumber();		
-		picturesNumber++;
-		// datum und uhrzeig einfügen!
-		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
+	private void incrementSelectedPicture() {
 		
-		Film f = DB.getDB().getFilm(mContext, settings.getString("Title", " "));
+		nummerView.setText(getString(R.string.picture)
+				+ " "
+				+ (Integer.valueOf(nummerView.getText().toString()
+						.replaceAll("[\\D]", "")) + 1));
+	}
+	
+	private void decrementSelectedPicture() {
+		nummerView.setText(getString(R.string.picture)
+				+ " "
+				+ (Integer.valueOf(nummerView.getText().toString()
+						.replaceAll("[\\D]", "")) - 1));
+	}
+	
+	
+	/**
+	 * prepare a BildObjekt from UI values, to use for database operations etc.
+	 */
+	private BildObjekt getBildFromUI(){
 		BildObjekt b = new BildObjekt();
 		b.Fokus = spinner_fokus.getSelectedItem().toString();
 		b.Blende = spinner_blende.getSelectedItem().toString();
@@ -452,165 +424,47 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 		b.Bildnummer = nummerView.getText().toString();
 		b.Zeitstempel = settings.getString("Uhrzeit", " ");
 		
-		DB.getDB().addPicture(mContext, f, b);
-		//TODO: Stopped here.......
-		if (settings.getBoolean("EditMode", false)) {
-			myDBNummer.execSQL("UPDATE " + DB.MY_DB_TABLE_NUMMER
-					+ " SET bilder = '" + picturesNumber + "' WHERE title = '"
-					+ settings.getString("Title", " ") + "';");
-		} else {
-			String encodedImage = Base64.encodeToString(pics, Base64.DEFAULT);
-			myDBNummer.execSQL("INSERT OR REPLACE INTO "
-					+ DB.MY_DB_TABLE_NUMMER + " Values ('"
-					+ settings.getString("Title", " ") + "'," + null + ",'"
-					+ settings.getString("Kamera", " ") + "','"
-					+ settings.getString("Datum", " ") + "','" + picturesNumber
-					+ "','" + encodedImage + "');");
-		}
-		Log.v("Foto", "Eintrag vorm Speichern : " + pics);
-		nummerView.setText(getString(R.string.picture)
-				+ " "
-				+ (Integer.valueOf(nummerView.getText().toString()
-						.replaceAll("[\\D]", "")) + 1));
+		return b;
 	}
 
-	private void editFilm() { // Bearbeite ein gespeichertes Bild
-		Log.v("Check", "editFilm()");
-		onCreateDBAndDBTabledFilm();
+	/**
+	 * Save a newly created picture to the current selected film
+	 */
+	private void saveNewPicture() {
+		Log.v("Check", "saveNewPicture()");
+		picturesNumber++;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmdatum = '"
-				+ settings.getString("Datum", " ") + "', filmtitle = '"
-				+ settings.getString("Title", " ") + "', filmcamera = '"
-				+ settings.getString("Kamera", " ") + "', filmformat = '"
-				+ settings.getString("Filmformat", " ")
-				+ "', filmempfindlichkeit = '"
-				+ settings.getString("Empfindlichkeit", " ") + "', filmtyp = '"
-				+ settings.getString("Filmtyp", " ") + "', filmsonder = '"
-				+ settings.getString("Sonder1", " ") + "', filmsonders = '"
-				+ settings.getString("Sonder2", " ") + "', picfokus = '"
-				+ spinner_fokus.getSelectedItem().toString()
-				+ "', picblende = '"
-				+ spinner_blende.getSelectedItem().toString()
-				+ "', piczeit = '" + spinner_zeit.getSelectedItem().toString()
-				+ "', picmessung = '"
-				+ spinner_messmethode.getSelectedItem().toString()
-				+ "', pickorr = '"
-				+ spinner_belichtungs_korrektur.getSelectedItem().toString()
-				+ "', picmakro = '"
-				+ spinner_makro.getSelectedItem().toString()
-				+ "', picmakrovf = '"
-				+ spinner_makro_vf.getSelectedItem().toString()
-				+ "', picfilter = '"
-				+ spinner_filter.getSelectedItem().toString()
-				+ "', picfiltervf = '"
-				+ spinner_filter_vf.getSelectedItem().toString()
-				+ "', picblitz = '"
-				+ spinner_blitz.getSelectedItem().toString()
-				+ "', picblitzkorr = '"
-				+ spinner_blitz_korrektur.getSelectedItem().toString()
-				+ "', picnotiz = '" + edit_notizen.getText().toString()
-				+ "', pickameranotiz = '"
-				+ edit_kamera_notizen.getText().toString()
-				+ "', picobjektiv = '"
-				+ spinner_objektiv.getSelectedItem().toString()
-				+ "', picnummer = '" + nummerView.getText().toString()
-				+ "' WHERE filmtitle = '" + settings.getString("Title", " ")
-				+ "' AND picnummer = '" + nummerView.getText().toString()
-				+ "';");
-
+		
+		Film f = DB.getDB().getFilm(mContext, settings.getString("Title", " "));
+		BildObjekt b = getBildFromUI();
+		
+		if (settings.getBoolean("EditMode", false)) {
+			
+			DB.getDB().addPictureUpdateNummer(mContext, f, b, picturesNumber);
+			
+		} else {
+			
+			String encodedImage = Base64.encodeToString(pics, Base64.DEFAULT);
+			DB.getDB().addPictureCreateNummer(mContext, f, b, picturesNumber, encodedImage);			
+		}		
+		incrementSelectedPicture();		
+	}
+	
+	/**
+	 * Updates the currently selected picture, if changes were made.
+	 */
+	private void editPicture() {
+		Log.v("Check", "editPicture()");
+		
+		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
+		String filmTitle = settings.getString("Title", " ");
+		Film f = DB.getDB().getFilm(mContext, filmTitle);
+		BildObjekt b = getBildFromUI();		
+		DB.getDB().updatePicture(mContext, f, b);		
 	}
 
-	private void onCreateDBAndDBTabled() {
-
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETCAM
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETEMP
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBW
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETNM
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFIL
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBLI
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETSON
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETTYP
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFOK
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBLE
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETZEI
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMES
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETPLU
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMAK
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMVF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFVF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETKOR
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMVF2
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFVF2
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-
-	}
-
+	
 	private void fuellen() {
-		onCreateDBAndDBTabled();
 		al_spinner_filter_vf = new ArrayList<String>();
 		al_spinner_focus = new ArrayList<String>();
 		al_spinner_filter = new ArrayList<String>();
