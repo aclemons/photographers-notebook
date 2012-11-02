@@ -60,7 +60,7 @@ import android.widget.ToggleButton;
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
 
-public class SlideNewSettings extends Activity {
+public class EditSettingsActivity extends Activity {
 
 	/*
 	 * Sonstige Variablen
@@ -4034,8 +4034,8 @@ public class SlideNewSettings extends Activity {
 			if (viewPager.getCurrentItem() == 15)
 				setFooterColor(0xFF0000BB);
 
-			return SlideNewSettings.CONTENT[position
-					% SlideNewSettings.CONTENT.length];
+			return EditSettingsActivity.CONTENT[position
+					% EditSettingsActivity.CONTENT.length];
 		}
 
 	}

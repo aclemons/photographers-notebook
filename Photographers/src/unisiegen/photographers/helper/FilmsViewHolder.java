@@ -1,9 +1,9 @@
-package unisiegen.photographers.activity;
+package unisiegen.photographers.helper;
 
 import android.widget.ImageView;
 import android.widget.TextView;
 
-class FilmsViewHolder {
+public class FilmsViewHolder {
 	private TextView textViewTime;
 	private TextView textViewName;
 	private TextView textViewCam;

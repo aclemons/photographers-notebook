@@ -42,7 +42,7 @@ import android.widget.Toast;
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
 
-public class SlideNewPic extends PhotographersNotebookActivity {
+public class NewPictureActivity extends PhotographersNotebookActivity {
 
 	/*
 	 * Sonstige Variablen
@@ -1021,7 +1021,7 @@ public class SlideNewPic extends PhotographersNotebookActivity {
 			if (viewPager.getCurrentItem() == 2)
 				setFooterColor(0xFF000000);
 
-			return SlideNewPic.CONTENT[position % SlideNewPic.CONTENT.length];
+			return NewPictureActivity.CONTENT[position % NewPictureActivity.CONTENT.length];
 		}
 
 	}

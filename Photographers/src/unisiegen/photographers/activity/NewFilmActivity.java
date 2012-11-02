@@ -93,7 +93,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 			@Override
 			public void onClick(View v) {
 				Intent myIntent = new Intent(getApplicationContext(),
-						PreviewDemo.class);
+						TakePreviewPictureActivity.class);
 				startActivityForResult(myIntent, 0);
 
 			}
@@ -128,7 +128,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 					editor.commit();
 					Log.v("Check", "Check if Bild vorhanden : " + (pic == null));
 					Intent myIntent = new Intent(getApplicationContext(),
-							SlideNewPic.class);
+							NewPictureActivity.class);
 					if (pic != null) {
 						myIntent.putExtra("image", pic);
 					} else {

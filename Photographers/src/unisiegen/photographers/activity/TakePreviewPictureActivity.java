@@ -18,7 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class PreviewDemo extends Activity {
+public class TakePreviewPictureActivity extends Activity {
 	private SurfaceView preview = null;
 	private SurfaceHolder previewHolder = null;
 	private Camera camera = null;
@@ -43,7 +43,7 @@ public class PreviewDemo extends Activity {
 
 		save.setEnabled(false);
 
-		final Intent intent = new Intent(PreviewDemo.this,
+		final Intent intent = new Intent(TakePreviewPictureActivity.this,
 				NewFilmActivity.class);
 		final Activity test = this;
 

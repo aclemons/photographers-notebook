@@ -1,7 +1,8 @@
-package unisiegen.photographers.activity;
+package unisiegen.photographers.helper;
 
 import java.util.ArrayList;
 
+import unisiegen.photographers.activity.R;
 import unisiegen.photographers.export.BildObjekt;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-class PicturesArrayAdapter extends ArrayAdapter<BildObjekt> {
+public class PicturesArrayAdapter extends ArrayAdapter<BildObjekt> {
 
 	private LayoutInflater inflater;
 

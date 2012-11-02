@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.export.BildObjekt;
 import unisiegen.photographers.export.Film;
+import unisiegen.photographers.helper.FilmsViewHolder;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -52,7 +53,7 @@ import android.widget.Toast;
 
 import com.thoughtworks.xstream.XStream;
 
-public class FilmAuswahlActivity extends PhotographersNotebookActivity {
+public class FilmContentActivity extends PhotographersNotebookActivity {
 
 	/**
 	 * This variable saves the name of the current set for your gear. If this is
@@ -179,7 +180,7 @@ public class FilmAuswahlActivity extends PhotographersNotebookActivity {
 			editor.putBoolean("EditMode", true);
 			editor.commit();
 			Intent myIntent = new Intent(getApplicationContext(),
-					SlideNewPic.class);
+					NewPictureActivity.class);
 			startActivityForResult(myIntent, 1);
 			pw.dismiss();
 		}

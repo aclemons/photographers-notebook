@@ -18,13 +18,13 @@ public class PhotographersNotebookActivity extends Activity {
 
 		if (item.getItemId() == R.id.opt_openSettings) {
 			Intent myIntent3 = new Intent(getApplicationContext(),
-					SlideNewSettings.class);
+					EditSettingsActivity.class);
 			startActivityForResult(myIntent3, 0);
 			return true;
 		} else if (item.getItemId() == R.id.opt_backToMenu) {
 			finish();
 			startActivity(new Intent(getApplicationContext(),
-					FilmAuswahlActivity.class));
+					FilmContentActivity.class));
 			return true;
 		} else {
 			return super.onOptionsItemSelected(item);

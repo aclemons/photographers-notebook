@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.export.BildObjekt;
 import unisiegen.photographers.export.Film;
+import unisiegen.photographers.helper.PicturesArrayAdapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -116,7 +117,7 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 				editor.putBoolean("EditMode", true);
 				editor.commit();
 				Intent myIntent = new Intent(getApplicationContext(),
-						SlideNewPic.class);
+						NewPictureActivity.class);
 				startActivityForResult(myIntent, 1);
 			}
 		});
@@ -248,7 +249,7 @@ public class FilmSelectActivity extends PhotographersNotebookActivity {
 					pw.dismiss();
 					String selektiertesBild = (String) third.getText();
 					Intent myIntent = new Intent(getApplicationContext(),
-							SlideNewPic.class);
+							NewPictureActivity.class);
 					myIntent.putExtra("picToEdit", selektiertesBild);
 					startActivity(myIntent);
 				}
