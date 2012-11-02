@@ -24,7 +24,7 @@ public class PhotographersNotebookActivity extends Activity {
 		} else if (item.getItemId() == R.id.opt_backToMenu) {
 			finish();
 			startActivity(new Intent(getApplicationContext(),
-					FilmContentActivity.class));
+					FilmSelectionActivity.class));
 			return true;
 		} else {
 			return super.onOptionsItemSelected(item);

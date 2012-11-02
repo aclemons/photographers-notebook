@@ -1,35 +1,28 @@
 package unisiegen.photographers.activity;
 
 /**
- * Activity f�r die Auswahl eines Film (View die beim Start angezeigt wird)
- * Hier kann man einen bestehenden Film ausw�hlen, bearbeiten und betrachten
- * Oder man kann einen neuen Film starten
- * 
- * Hier werden einige Methoden genauer erkl�rt, viele der Methoden kommen in anderen Activitys in selber Art 
- * und Weise wieder vor und werden dort dann nicht mehr ausf�hrlich besprochen.
+ * In dieser Activity sieht man den ausgew�hlten Film mit allen Infos und kann sich die zugeh�rigen Bilder betrachten und ausw�hlen.
  */
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.export.BildObjekt;
 import unisiegen.photographers.export.Film;
-import unisiegen.photographers.helper.FilmsViewHolder;
+import unisiegen.photographers.helper.PicturesArrayAdapter;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -41,458 +34,460 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.thoughtworks.xstream.XStream;
+import com.viewpagerindicator.TitlePageIndicator;
+import com.viewpagerindicator.TitleProvider;
 
 public class FilmContentActivity extends PhotographersNotebookActivity {
 
-	/**
-	 * This variable saves the name of the current set for your gear. If this is
-	 * changed, a different database is used to store your gear... Sets may be
-	 * broken at the moment. TODO: Test
-	 */
-	static String MY_DB_NAME;
+	private Context mContext;
 
 	/*
 	 * User-Interface Elemente
 	 */
-	TableLayout tableout;
-	TableLayout table;
-	LinearLayout scolli;
-	TextView tv1, tv2;
-	ListView myList;
-	Button weiter, close;
+	TextView freecell;
+	int bilderimfilm;
+	LinearLayout infoBlock1;
+	TextView filmcam;
+	LinearLayout infoBlock2;
+	TextView filmtit;
+	TitlePageIndicator mIndicator;
 	PopupWindow pw;
+	EditText picnotizedit = null;
+	EditText picnotizcamedit = null;
+
+	boolean minimizes;
+	SharedPreferences settings;
+	private Film film;
 
 	/*
-	 * Sonstige Variablen
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onCreate(android.os.Bundle) Lifecycle-Methoden
 	 */
-	SharedPreferences settings;
-
-	private Context mContext;
-	private Integer contentIndex = 0;
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		ImageView image = (ImageView) findViewById(R.id.image);
-		myList = (ListView) findViewById(android.R.id.list);
-		TextView pics = (TextView) findViewById(R.id.picanzahl);
-		contentIndex = 0;
-
-		if (settings.getInt("FIRSTSTART", 0) == 1) {
-			ViewGroup view = (ViewGroup) getWindow().getDecorView();
-			view.post(new Runnable() {
-				public void run() {
-					popupmenue();
-				}
-			});
-		}
-
-		int gesamtPics = 0;
-		ArrayList<Film> filme = DB.getDB().getFilme(mContext);
-
-		for (Film film : filme) {
-			gesamtPics = gesamtPics + film.Bilder.size();
-		}
-
-		if (gesamtPics == 0) {
-			myList.setVisibility(ListView.GONE);
-			image.setVisibility(ImageView.VISIBLE);
-		} else {
-			myList.setVisibility(ListView.VISIBLE);
-			image.setVisibility(ImageView.GONE);
-		}
-		pics.setText(gesamtPics + " " + getString(R.string.pictures));
-		ArrayAdapter<Film> adapter = new FilmsArrayAdapter(mContext, filme, 1);
-		myList.setOnItemClickListener(notlongClickListener);
-		myList.setOnItemLongClickListener(longClickListener);
-		myList.setAdapter(adapter);
-
-	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.filmauswahl);
 		mContext = this;
+		setContentView(R.layout.filmselect);
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		if (settings.getInt("FIRSTSTART", 0) == 0) {
-
-			new ResetSettingsTask().execute();
-			SharedPreferences.Editor editor = settings.edit();
-			editor.putInt("FIRSTSTART", 1);
-			editor.commit();
-		}
-		Button newFilm = (Button) findViewById(R.id.newFilm);
-		newFilm.setOnClickListener(new OnClickListener() {
+		minimizes = settings.getBoolean("minimize", false);
+		infoBlock1 = (LinearLayout) findViewById(R.id.infoblock1);
+		infoBlock2 = (LinearLayout) findViewById(R.id.infoblock2);
+		Button goon = (Button) findViewById(R.id.button_goon);
+		goon.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				SharedPreferences.Editor editor = settings.edit();
+
+				film = DB.getDB().getFilm(mContext,
+						getIntent().getExtras().getString("ID"));
+				editor.putString("Title", film.Titel);
+
+				editor.putString("Datum", film.Datum);
+				editor.putString("Kamera", film.Kamera);
+				editor.putInt("BildNummern", film.Bilder.size());
+
+				editor.putString("Filmformat", film.Filmformat);
+				editor.putString("Empfindlichkeit", film.Empfindlichkeit);
+				editor.putString("Filmtyp", film.Filmtyp);
+				editor.putString("Sonder1", film.Sonderentwicklung1);
+				editor.putString("Sonder2", film.Sonderentwicklung2);
+
+				int biggestNumber = 0;
+				for (BildObjekt bild : film.Bilder) {
+
+					Integer bildNummer = Integer.valueOf(bild.Bildnummer
+							.replaceAll("[\\D]", ""));
+					if (bildNummer > biggestNumber) {
+						biggestNumber = bildNummer;
+					}
+					editor.putInt("BildNummerToBegin", bildNummer + 1);
+				}
+
+				editor.putBoolean("EditMode", true);
+				editor.commit();
 				Intent myIntent = new Intent(getApplicationContext(),
-						NewFilmActivity.class);
-				startActivityForResult(myIntent, 0);
+						NewPictureActivity.class);
+				startActivityForResult(myIntent, 1);
+			}
+		});
+
+		final ImageButton minimize = (ImageButton) findViewById(R.id.mini);
+
+		if (minimizes) {
+			minimize.setBackgroundDrawable(getResources().getDrawable(
+					R.drawable.expander_ic_minimized));
+			infoBlock1.setVisibility(LinearLayout.GONE);
+			infoBlock2.setVisibility(LinearLayout.GONE);
+		} else {
+			minimize.setBackgroundDrawable(getResources().getDrawable(
+					R.drawable.expander_ic_maximized));
+			infoBlock1.setVisibility(LinearLayout.VISIBLE);
+			infoBlock2.setVisibility(LinearLayout.VISIBLE);
+		}
+		Log.v("Check", "Minimiert ? : " + minimizes);
+		minimize.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.v("Check", "Minimiert (im OnClick) ? : " + minimizes);
+				if (!minimizes) {
+					infoBlock1.setVisibility(LinearLayout.GONE);
+					infoBlock2.setVisibility(LinearLayout.GONE);
+					minimize.setBackgroundDrawable(getResources().getDrawable(
+							R.drawable.expander_ic_minimized));
+					SharedPreferences.Editor editor = settings.edit();
+					editor.putBoolean("minimize", true);
+					minimizes = true;
+					editor.commit();
+				} else {
+					infoBlock1.setVisibility(LinearLayout.VISIBLE);
+					infoBlock2.setVisibility(LinearLayout.VISIBLE);
+					minimize.setBackgroundDrawable(getResources().getDrawable(
+							R.drawable.expander_ic_maximized));
+					SharedPreferences.Editor editor = settings.edit();
+					editor.putBoolean("minimize", false);
+					minimizes = false;
+					;
+					editor.commit();
+				}
 			}
 		});
 	}
 
-	private final class EditFilmDialogAction implements OnClickListener {
-		private final TextView ids;
+	@Override
+	protected void onResume() {
+		super.onResume();
 
-		private EditFilmDialogAction(TextView ids) {
-			this.ids = ids;
-		}
+		film = DB.getDB().getFilm(mContext,
+				getIntent().getExtras().getString("ID"));
 
-		@Override
-		public void onClick(View v) {
-			SharedPreferences.Editor editor = settings.edit();
+		filmtit = (TextView) findViewById(R.id.filmtitle);
+		filmtit.setText(film.Titel);
 
-			Film film = DB.getDB().getFilm(mContext, ids.getText().toString());
+		filmcam = (TextView) findViewById(R.id.filmcam);
+		filmcam.setText(film.Kamera);
 
-			editor.putString("Title", film.Titel);
-			editor.putString("Datum", film.Datum);
-			editor.putString("Kamera", film.Kamera);
+		TextView datum = (TextView) findViewById(R.id.datuminfo);
+		datum.setText(film.Datum);
 
-			editor.putString("Filmformat", film.Filmformat);
-			editor.putString("Empfindlichkeit", film.Empfindlichkeit);
-			editor.putString("Filmtyp", film.Filmtyp);
-			editor.putString("Sonder1", film.Sonderentwicklung1);
-			editor.putString("Sonder2", film.Sonderentwicklung2);
+		bilderimfilm = film.Bilder.size();
+		ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
 
-			int biggestNumber = 0;
-			for (BildObjekt bild : film.Bilder) {
+		byte[] data = Base64.decode(film.iconData, Base64.DEFAULT);
+		vorschauImage.setImageBitmap(BitmapFactory.decodeByteArray(data, 0,
+				data.length));
 
-				Integer bildNummer = Integer.valueOf(bild.Bildnummer
-						.replaceAll("[\\D]", ""));
-				if (bildNummer > biggestNumber) {
-					biggestNumber = bildNummer;
-				}
-				editor.putInt("BildNummerToBegin", bildNummer + 1);
-			}
+		TextView filmnotiz = (TextView) findViewById(R.id.filmnotiz);
+		filmnotiz.setText(film.Filmnotiz);
 
-			editor.putBoolean("EditMode", true);
-			editor.commit();
-			Intent myIntent = new Intent(getApplicationContext(),
-					NewPictureActivity.class);
-			startActivityForResult(myIntent, 1);
-			pw.dismiss();
-		}
-	}
+		TextView filmformat = (TextView) findViewById(R.id.filmformat);
+		filmformat.setText(film.Filmformat);
 
-	private final class DeleteFilmDialogAction implements OnClickListener {
-		private final TextView ids;
+		TextView filmtyp = (TextView) findViewById(R.id.filmtyp);
+		filmtyp.setText(film.Filmtyp);
 
-		private DeleteFilmDialogAction(TextView ids) {
-			this.ids = ids;
-		}
+		TextView filmemp = (TextView) findViewById(R.id.filmemp);
+		filmemp.setText(film.Empfindlichkeit);
 
-		@Override
-		public void onClick(View v) {
+		TextView filmsonder = (TextView) findViewById(R.id.filmsonder);
+		filmsonder.setText(film.Sonderentwicklung1);
 
-			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-			builder.setMessage(getString(R.string.question_delete));
-			builder.setCancelable(false);
-			builder.setPositiveButton(getString(R.string.yes),
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
+		TextView filmsonders = (TextView) findViewById(R.id.filmsonders);
+		filmsonders.setText(film.Sonderentwicklung2);
 
-							DB.getDB().deleteFilms(mContext,
-									new String[] { ids.getText().toString() });
-							Toast.makeText(getApplicationContext(),
-									getString(R.string.deleted),
-									Toast.LENGTH_SHORT).show();
-							pw.dismiss();
-							onResume();
-						}
-					});
-			builder.setNegativeButton(getString(R.string.no),
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							pw.dismiss();
-						}
-					});
-			AlertDialog alert = builder.create();
-			alert.show();
-		}
-	}
-
-	private class FilmsArrayAdapter extends ArrayAdapter<Film> {
-
-		private LayoutInflater inflater;
-
-		public FilmsArrayAdapter(Context context, ArrayList<Film> planetList,
-				int number) {
-			super(context, R.layout.sqltablecell, R.id.filmtitle, planetList);
-			inflater = LayoutInflater.from(context);
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			Film planet = (Film) this.getItem(position);
-			TextView textView;
-			TextView textViewDate;
-			TextView textViewCam;
-			TextView textViewPics;
-			ImageView imageViewBild;
-			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.sqltablecell, null);
-				textView = (TextView) convertView.findViewById(R.id.filmtitle);
-				textViewDate = (TextView) convertView.findViewById(R.id.date);
-				textViewCam = (TextView) convertView.findViewById(R.id.cam);
-				textViewPics = (TextView) convertView.findViewById(R.id.fotos);
-				imageViewBild = (ImageView) convertView
-						.findViewById(R.id.imageview);
-				convertView.setTag(new FilmsViewHolder(textView, textViewDate,
-						textViewCam, textViewPics, imageViewBild));
-			} else {
-				FilmsViewHolder viewHolder = (FilmsViewHolder) convertView
-						.getTag();
-				textViewDate = viewHolder.getTextViewTime();
-				textView = viewHolder.getTextViewName();
-				textViewCam = viewHolder.getTextViewCam();
-				textViewPics = viewHolder.getTextViewPics();
-				imageViewBild = viewHolder.getBildView();
-			}
-			textViewDate.setText(planet.Datum);
-			textView.setText(planet.Titel);
-			textViewCam.setText(planet.Kamera);
-			textViewPics.setText(planet.Pics + " "
-					+ getString(R.string.pictures));
-			imageViewBild.setImageBitmap(planet.icon);
-			return convertView;
-		}
+		PicturesArrayAdapter adapter = new PicturesArrayAdapter(mContext,
+				film.Bilder, 1);
+		ListView myList = (ListView) findViewById(android.R.id.list);
+		myList.setOnItemClickListener(myClickListener);
+		myList.setOnItemLongClickListener(myLongClickListener);
+		myList.setAdapter(adapter);
 	}
 
 	/*
-	 * Klicken auf eine Zeile (langer und kurzer klick)
+	 * Itemclick Methoden
 	 */
-	public OnItemLongClickListener longClickListener = new OnItemLongClickListener() {
+
+	public OnItemLongClickListener myLongClickListener = new OnItemLongClickListener() {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 				int arg2, long arg3) {
-			// 4 child 2 kind
-			LinearLayout lin = (LinearLayout) arg1;
-			LinearLayout lins = (LinearLayout) lin.getChildAt(1);
-			final TextView ids = (TextView) ((LinearLayout) lins.getChildAt(2))
-					.getChildAt(0);
+
+			LinearLayout first = (LinearLayout) arg1;
+			LinearLayout second = (LinearLayout) first.getChildAt(0);
+			final TextView third = (TextView) second.getChildAt(0);
 
 			Display display = ((WindowManager) mContext
 					.getSystemService(Context.WINDOW_SERVICE))
 					.getDefaultDisplay();
 			LayoutInflater inflaterOwn = (LayoutInflater) mContext
 					.getSystemService(LAYOUT_INFLATER_SERVICE);
-			View layoutOwn = inflaterOwn.inflate(R.layout.longclickwithexport,
+			View layoutOwn = inflaterOwn.inflate(R.layout.longclick,
 					(ViewGroup) findViewById(R.id.testen), false);
 			Button deleteButton = (Button) layoutOwn
 					.findViewById(R.id.deletebutton);
 			Button cancelButton = (Button) layoutOwn
 					.findViewById(R.id.cancelbutton);
-			Button exportButton = (Button) layoutOwn
-					.findViewById(R.id.exportbutton);
 			Button editButton = (Button) layoutOwn
 					.findViewById(R.id.editbutton);
-			deleteButton.setText(getString(R.string.delete_film));
-			editButton.setText(getString(R.string.continue_film));
+			deleteButton.setText(getString(R.string.delete_picture));
+			editButton.setText(getString(R.string.edit_picture));
 
-			exportButton.setOnClickListener(new OnClickListener() {
-
+			editButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					exportFilm(ids.getText().toString());
 					pw.dismiss();
+					String selektiertesBild = (String) third.getText();
+					Intent myIntent = new Intent(getApplicationContext(),
+							NewPictureActivity.class);
+					myIntent.putExtra("picToEdit", selektiertesBild);
+					startActivity(myIntent);
 				}
 			});
-			deleteButton.setOnClickListener(new DeleteFilmDialogAction(ids));
-			editButton.setOnClickListener(new EditFilmDialogAction(ids));
+
+			deleteButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							mContext);
+					builder.setMessage(getString(R.string.question_delete))
+							.setCancelable(false)
+							.setPositiveButton(getString(R.string.yes),
+									new DialogInterface.OnClickListener() {
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+
+											for (BildObjekt bild : film.Bilder) {
+												if (bild.Bildnummer
+														.equals(third.getText())) {
+													DB.getDB().deletePicture(
+															mContext, film,
+															bild);
+													break;
+												}
+											}
+
+											bilderimfilm -= 1;
+											pw.dismiss();
+											onResume();
+											Toast.makeText(
+													getApplicationContext(),
+													getString(R.string.deleted),
+													Toast.LENGTH_SHORT).show();
+										}
+									})
+							.setNegativeButton(getString(R.string.no),
+									new DialogInterface.OnClickListener() {
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											pw.dismiss();
+										}
+									});
+					AlertDialog alert = builder.create();
+					alert.show();
+
+				}
+			});
+
 			cancelButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					pw.dismiss();
+
 				}
 			});
+
 			int width = display.getWidth();
 			int height = display.getHeight();
 			pw = new PopupWindow(layoutOwn, (int) (width / 1.6),
-					(int) (height / 2), true);
+					(int) (height / 2.5), true);
 			pw.setAnimationStyle(7);
 			pw.setBackgroundDrawable(new BitmapDrawable());
 			pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
+
 			return true;
 		}
 	};
 
-	public OnItemClickListener notlongClickListener = new OnItemClickListener() {
+	public OnItemClickListener myClickListener = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			LinearLayout lin = (LinearLayout) arg1;
-			LinearLayout lins = (LinearLayout) lin.getChildAt(1);
-			TextView ids = (TextView) ((LinearLayout) lins.getChildAt(2))
-					.getChildAt(0);
-			Intent myIntent = new Intent(getApplicationContext(),
-					FilmSelectActivity.class);
-			myIntent.putExtra("ID", ids.getText().toString());
-			startActivityForResult(myIntent, 0);
+
+			final Context mContext2 = mContext;
+			Display display = ((WindowManager) mContext2
+					.getSystemService(Context.WINDOW_SERVICE))
+					.getDefaultDisplay();
+			int width = display.getWidth();
+			int height = display.getHeight();
+			LayoutInflater inflaterOwn = (LayoutInflater) mContext2
+					.getSystemService(LAYOUT_INFLATER_SERVICE);
+			View layoutOwn = inflaterOwn.inflate(R.layout.slidi,
+					(ViewGroup) findViewById(R.id.testen), false);
+			ViewPager viewPager = (ViewPager) layoutOwn
+					.findViewById(R.id.viewPager);
+			MyPagerAdapter adapter = new MyPagerAdapter(mContext2);
+			viewPager.setAdapter(adapter);
+			viewPager.getAdapter().setPrimaryItem(viewPager, 2, null);
+
+			mIndicator = (TitlePageIndicator) layoutOwn
+					.findViewById(R.id.indicator);
+			mIndicator.setViewPager(viewPager);
+			mIndicator.setFooterColor(0xFF000000);
+
+			pw = new PopupWindow(layoutOwn, (int) (width), (int) (height), true);
+			pw.setAnimationStyle(7);
+			// pw.setBackgroundDrawable(new BitmapDrawable());
+			pw.setBackgroundDrawable(getResources().getDrawable(
+					R.drawable.infobg));
+			pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
+			viewPager.setCurrentItem(arg2);
+
 		}
 	};
 
-	/**
-	 * Popup f�r Tutorial
+	/*
+	 * Pageadapter f�r das hin- und herwischen zwischen den Bildenr. W�hlt man
+	 * ein Bild aus, wird ein "Popup" ge�ffnet in der alle Informationen zu dem
+	 * Bild vorhanden sind in dieser Ansicht l�sst sich dann auch zwischen den
+	 * Bildern hin- und herwechseln. Es wird einfach eine ArrayList<Views>
+	 * gef�llt. Quasi fertige Views in eine Liste, die beim Wischen
+	 * durchgegangen wird.
 	 */
-	public void popupmenue() {
+	private class MyPagerAdapter extends PagerAdapter implements TitleProvider {
 
-		Resources res = getResources();
-		final String[] puContent = res
-				.getStringArray(R.array.strings_tutorial_1);
+		private ArrayList<View> views;
 
-		LayoutInflater inflater = (LayoutInflater) mContext
-				.getSystemService(LAYOUT_INFLATER_SERVICE);
-		View layoutOwn1 = inflater.inflate(R.layout.firstpopup,
-				(ViewGroup) findViewById(R.id.widget), false);
+		public MyPagerAdapter(Context context) {
+			views = new ArrayList<View>();
+			LayoutInflater inflater = getLayoutInflater();
 
-		pw = new PopupWindow(layoutOwn1, 500, 500, true);
-		pw.setAnimationStyle(7);
-		pw.setBackgroundDrawable(new BitmapDrawable());
-		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);
-		tv1.setText(puContent[contentIndex]);
-		contentIndex++;
+			for (BildObjekt bild : film.Bilder) {
+				View v = inflater.inflate(R.layout.filminfobox, null, false);
+				final TextView zeitStempel = (TextView) v
+						.findViewById(R.id.zeitStempel);
+				zeitStempel.setText(bild.Zeitstempel);
+				final TextView zeitGeo = (TextView) v.findViewById(R.id.geoTag);
+				zeitGeo.setText(bild.GeoTag);
+				final TextView objektiv = (TextView) v
+						.findViewById(R.id.showobjektiv);
+				objektiv.setText(bild.Objektiv);
+				final TextView filtervf = (TextView) v
+						.findViewById(R.id.showfiltervf);
+				filtervf.setText(bild.FilterVF);
+				final TextView picfocus = (TextView) v
+						.findViewById(R.id.showfokus);
+				picfocus.setText(bild.Fokus);
+				final TextView picblende = (TextView) v
+						.findViewById(R.id.showblende);
+				picblende.setText(bild.Blende);
+				final TextView piczeit = (TextView) v
+						.findViewById(R.id.showzeit);
+				piczeit.setText(bild.Zeit);
+				final TextView picmessung = (TextView) v
+						.findViewById(R.id.showmessung);
+				picmessung.setText(bild.Messmethode);
+				final TextView picplus = (TextView) v
+						.findViewById(R.id.showbelichtung);
+				picplus.setText(bild.Belichtungskorrektur);
+				final TextView picmakro = (TextView) v
+						.findViewById(R.id.showmakro);
+				picmakro.setText(bild.Makro);
+				final TextView picmakrovf = (TextView) v
+						.findViewById(R.id.showmakrovf);
+				picmakrovf.setText(bild.MakroVF);
+				final TextView picfilter = (TextView) v
+						.findViewById(R.id.showfilter);
+				picfilter.setText(bild.Filter);
+				final TextView picblitz = (TextView) v
+						.findViewById(R.id.showblitz);
+				picblitz.setText(bild.Blitz);
+				final TextView picblitzkorr = (TextView) v
+						.findViewById(R.id.showblitzkorr);
+				picblitzkorr.setText(bild.Blitzkorrektur);
+				final TextView picnotiz = (TextView) v
+						.findViewById(R.id.shownotiz);
+				picnotiz.setText(bild.Notiz);
+				final TextView picnotizcam = (TextView) v
+						.findViewById(R.id.shownotizkam);
+				picnotizcam.setText(bild.KameraNotiz);
+				final TextView picTitle = (TextView) v
+						.findViewById(R.id.pictitle);
+				picTitle.setText(bild.Bildnummer);
 
-		weiter = (Button) layoutOwn1.findViewById(R.id.widget41);
-		weiter.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (contentIndex == puContent.length) {
-					pw.dismiss();
-				} else {
-					tv1.setText(puContent[contentIndex]);
-					contentIndex++;
-					if (contentIndex == 3) {
-						openOptionsMenu();
-					}
-				}
+				views.add(v);
 			}
-		});
-
-		close = (Button) layoutOwn1.findViewById(R.id.closebutton);
-		close.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				pw.dismiss();
-			}
-		});
-
-		pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
-	}
-
-	public void exportFilm(String FilmID) {
-		new FilmExportTask(FilmID).execute();
-
-	}
-
-	public class ResetSettingsTask extends AsyncTask<String, Void, Boolean> {
-
-		private ProgressDialog dialog;
-
-		public ResetSettingsTask() {
-			dialog = new ProgressDialog(mContext);
-		}
-
-		protected void onPreExecute() {
-			this.dialog.setMessage(getString(R.string.firststart));
-			Log.v("DEBUG", "First start detected.");
-			this.dialog.setCancelable(false);
-			this.dialog.show();
 		}
 
 		@Override
-		protected void onPostExecute(final Boolean success) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
-			}
-			SharedPreferences.Editor editor = settings.edit();
-			editor.putString("SettingsTable", DB.MY_DB_SET);
-			editor.commit();
-			MY_DB_NAME = DB.MY_DB_SET;
-		}
+		public void destroyItem(View view, int arg1, Object object) {
+			// Es werden immer nur die 2 nächsten und die 2 letzten Views
+			// "gespeichert" bzw. berechnet, der Rest wird erstmal gelöscht.
 
-		protected Boolean doInBackground(final String... args) {
-			try {
-				DB.getDB().createOrRebuildSettingsTable(mContext);
-				DB.getDB().createOrRebuildNummernTable(mContext);
-				DB.getDB().createOrRebuildFilmTable(mContext);
-
-			} catch (Exception e) {
-				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
-			}
-			return null;
-		}
-	}
-
-	public class FilmExportTask extends AsyncTask<String, Void, Boolean> {
-
-		String FilmID;
-		String fileName;
-		private ProgressDialog dialog;
-
-		public FilmExportTask(String _FilmID) {
-			dialog = new ProgressDialog(mContext);
-			FilmID = _FilmID;
-		}
-
-		protected void onPreExecute() {
-			this.dialog.setMessage(getString(R.string.export));
-			this.dialog.show();
-			Log.v("Check", "Pre");
+			((ViewPager) view).removeView((LinearLayout) object);
 		}
 
 		@Override
-		protected void onPostExecute(final Boolean success) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
-			}
+		public void finishUpdate(View arg0) {
 
-			File file = new File(getFilesDir() + "/" + fileName);
-
-			Uri u1 = null;
-			u1 = Uri.fromFile(file);
-			Intent sendIntent = new Intent(Intent.ACTION_SEND);
-			sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Film Export");
-			sendIntent.putExtra(Intent.EXTRA_STREAM, u1);
-			sendIntent.setType("text/html");
-			startActivity(sendIntent);
 		}
 
-		protected Boolean doInBackground(final String... args) {
+		@Override
+		public int getCount() {
+			return views.size(); // Wieviele Views zum Wischen
+		}
 
-			Film film = DB.getDB().getFilm(mContext, FilmID);
+		@Override
+		public Object instantiateItem(View view, int position) {
+			// Das vorpuffern, wenn die View bald drankommt... s.o.
+			View myView = views.get(position);
+			((ViewPager) view).addView(myView);
+			return myView;
+		}
 
-			fileName = FilmID + ".xml";
+		@Override
+		public boolean isViewFromObject(View view, Object object) {
+			return view == object;
+		}
 
-			XStream xs = new XStream();
-			xs.alias("Bild", BildObjekt.class);
-			xs.alias("Film", Film.class);
+		@Override
+		public void restoreState(Parcelable arg0, ClassLoader arg1) {
 
-			try {
-				FileOutputStream fos = openFileOutput(fileName,
-						Context.MODE_WORLD_READABLE);
-				xs.toXML(film, fos);
-				fos.close();
-				Log.v("Check", "XML Export: " + fileName + " was written.");
-			} catch (IOException e) {
-				e.printStackTrace();
-				Log.v("Check", "Failes to write XML Export: " + fileName);
-			}
+		}
 
+		@Override
+		public Parcelable saveState() {
 			return null;
 		}
+
+		@Override
+		public void startUpdate(View arg0) {
+
+		}
+
+		@Override
+		public String getTitle(int position) { // Kommt vom TitleProvider um den
+												// Titel einer View festzulegen
+			if (position == 0) {
+				return " >";
+			} else if (position == (views.size() - 1)) {
+				return "< ";
+			}
+			return "<  >";
+		}
+
 	}
 
 }
