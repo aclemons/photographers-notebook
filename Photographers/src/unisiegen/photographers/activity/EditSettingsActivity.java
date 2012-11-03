@@ -160,7 +160,7 @@ public class EditSettingsActivity extends Activity {
 		readDB();
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-		MyPagerAdapter adapter = new MyPagerAdapter(this);
+		SettingsPager adapter = new SettingsPager(this);
 		viewPager.setAdapter(adapter);
 		mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 		mIndicator.setViewPager(viewPager);
@@ -786,7 +786,7 @@ public class EditSettingsActivity extends Activity {
 		mIndicator.setFooterColor(footerColor);
 	}
 
-	private class MyPagerAdapter extends PagerAdapter implements TitleProvider {
+	private class SettingsPager extends PagerAdapter implements TitleProvider {
 
 		@Override
 		public int getItemPosition(Object object) {
@@ -797,7 +797,7 @@ public class EditSettingsActivity extends Activity {
 		private ArrayList<View> views;
 		LayoutInflater inflater = getLayoutInflater();
 
-		public MyPagerAdapter(Context context) {
+		public SettingsPager(Context context) {
 			views = new ArrayList<View>();
 
 		}
@@ -820,6 +820,7 @@ public class EditSettingsActivity extends Activity {
 		@Override
 		public Object instantiateItem(View view, int position) {
 			View myView = null;
+			
 			if (position == 0) {
 				View mainview = inflater.inflate(R.layout.mainsettings, null,
 						false);
@@ -1111,7 +1112,7 @@ public class EditSettingsActivity extends Activity {
 																							.notifyDataSetChanged();
 																					readDB();
 																					viewPager = (ViewPager) findViewById(R.id.viewPager);
-																					MyPagerAdapter adapter = new MyPagerAdapter(
+																					SettingsPager adapter = new SettingsPager(
 																							mContext);
 																					viewPager
 																							.setAdapter(adapter);
@@ -1356,7 +1357,7 @@ public class EditSettingsActivity extends Activity {
 																				.notifyDataSetChanged();
 																		readDB();
 																		viewPager = (ViewPager) findViewById(R.id.viewPager);
-																		MyPagerAdapter adapter = new MyPagerAdapter(
+																		SettingsPager adapter = new SettingsPager(
 																				mContext);
 																		viewPager
 																				.setAdapter(adapter);
@@ -4407,7 +4408,7 @@ public class EditSettingsActivity extends Activity {
 							myDB.close();
 							readDB();
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
-							MyPagerAdapter adapter = new MyPagerAdapter(
+							SettingsPager adapter = new SettingsPager(
 									mContext);
 							viewPager.setAdapter(adapter);
 							mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
@@ -4423,7 +4424,7 @@ public class EditSettingsActivity extends Activity {
 							readDB();
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-							MyPagerAdapter adapter = new MyPagerAdapter(
+							SettingsPager adapter = new SettingsPager(
 									mContext);
 							viewPager.setAdapter(adapter);
 							mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
@@ -4613,7 +4614,7 @@ public class EditSettingsActivity extends Activity {
 						MY_DB_NAME = MY_DB_SET;
 						readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
-						MyPagerAdapter adapter111 = new MyPagerAdapter(mContext);
+						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
 
 					} else if (setButtonClicked == 2) {
@@ -4623,7 +4624,7 @@ public class EditSettingsActivity extends Activity {
 						MY_DB_NAME = MY_DB_SET1;
 						readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
-						MyPagerAdapter adapter111 = new MyPagerAdapter(mContext);
+						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
 
 					} else if (setButtonClicked == 3) {
@@ -4633,7 +4634,7 @@ public class EditSettingsActivity extends Activity {
 						MY_DB_NAME = MY_DB_SET2;
 						readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
-						MyPagerAdapter adapter111 = new MyPagerAdapter(mContext);
+						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
 
 					} else if (setButtonClicked == 4) {
@@ -4643,7 +4644,7 @@ public class EditSettingsActivity extends Activity {
 						MY_DB_NAME = MY_DB_SET3;
 						readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
-						MyPagerAdapter adapter111 = new MyPagerAdapter(mContext);
+						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
 
 					}
@@ -4855,7 +4856,7 @@ public class EditSettingsActivity extends Activity {
 				dialog.dismiss();
 			}
 			ViewPager viewPager1 = (ViewPager) findViewById(R.id.viewPager);
-			MyPagerAdapter adapter1 = new MyPagerAdapter(mContext);
+			SettingsPager adapter1 = new SettingsPager(mContext);
 			viewPager1.setAdapter(adapter1);
 			mIndicator.setCurrentItem(0);
 			viewPager.setCurrentItem(0, false);
@@ -5059,7 +5060,7 @@ public class EditSettingsActivity extends Activity {
 			MY_DB_NAME = MY_DB_SET;
 			readDB();
 			viewPager = (ViewPager) findViewById(R.id.viewPager);
-			MyPagerAdapter adapter = new MyPagerAdapter(mContext);
+			SettingsPager adapter = new SettingsPager(mContext);
 			viewPager.setAdapter(adapter);
 			mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 			mIndicator.setViewPager(viewPager);

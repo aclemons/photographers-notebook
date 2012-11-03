@@ -160,7 +160,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-		MyPagerAdapter adapter = new MyPagerAdapter(this);
+		PictureSettingsPager adapter = new PictureSettingsPager(this);
 		viewPager.setAdapter(adapter);
 		mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 		mIndicator.setViewPager(viewPager);
@@ -453,7 +453,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		mIndicator.setFooterColor(footerColor);
 	}
 
-	private class MyPagerAdapter extends PagerAdapter implements TitleProvider {
+	private class PictureSettingsPager extends PagerAdapter implements TitleProvider {
 
 		private ArrayList<View> views;
 		
@@ -525,7 +525,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			return spinner;
 		}
 
-		public MyPagerAdapter(Context context) {
+		public PictureSettingsPager(Context context) {
 			final SharedPreferences.Editor editors = settings.edit();
 			views = new ArrayList<View>();
 			LayoutInflater inflater = getLayoutInflater();
