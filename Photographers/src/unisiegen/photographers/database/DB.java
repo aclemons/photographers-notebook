@@ -3,8 +3,8 @@ package unisiegen.photographers.database;
 import java.util.ArrayList;
 import java.util.List;
 
-import unisiegen.photographers.export.BildObjekt;
-import unisiegen.photographers.export.Film;
+import unisiegen.photographers.model.Bild;
+import unisiegen.photographers.model.Film;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -754,14 +754,14 @@ public class DB {
 		return film;
 	}
 
-	public ArrayList<BildObjekt> getBild(Context context, String filmTitle,
+	public ArrayList<Bild> getBild(Context context, String filmTitle,
 			String bildNumemr) {
 
-		ArrayList<BildObjekt> bilder = getBilder(context, filmTitle, bildNumemr);
+		ArrayList<Bild> bilder = getBilder(context, filmTitle, bildNumemr);
 		return bilder;
 	}
 
-	private ArrayList<BildObjekt> getBilder(Context context, String title,
+	private ArrayList<Bild> getBilder(Context context, String title,
 			String bildNummer) {
 
 		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM,
@@ -782,11 +782,11 @@ public class DB {
 
 		Cursor c2 = myDBFilm.rawQuery(new String(sql), null);
 
-		ArrayList<BildObjekt> bilder = new ArrayList<BildObjekt>();
+		ArrayList<Bild> bilder = new ArrayList<Bild>();
 		if (c2 != null) {
 			if (c2.moveToFirst()) {
 				do {
-					bilder.add(new BildObjekt(
+					bilder.add(new Bild(
 							c2.getString(c2.getColumnIndex("picnummer")),
 							c2.getString(c2.getColumnIndex("picobjektiv")),
 							c2.getString(c2.getColumnIndex("picblende")),
@@ -941,7 +941,7 @@ public class DB {
 		return values;
 	}
 
-	public void updatePicture(Context mContext, Film film, BildObjekt bild) {
+	public void updatePicture(Context mContext, Film film, Bild bild) {
 
 		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
 				Context.MODE_PRIVATE, null);
@@ -986,7 +986,7 @@ public class DB {
 		myDBFilm.close();
 	}
 
-	public void deletePicture(Context mContext, Film film, BildObjekt bild) {
+	public void deletePicture(Context mContext, Film film, Bild bild) {
 
 		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
 				Context.MODE_PRIVATE, null);
@@ -1013,7 +1013,7 @@ public class DB {
 		myDBNummer.close();
 	}
 
-	private void addPicture(Context mContext, Film f, BildObjekt b) {
+	private void addPicture(Context mContext, Film f, Bild b) {
 
 		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
 				Context.MODE_PRIVATE, null);
@@ -1088,7 +1088,7 @@ public class DB {
 		myDBFilm.close();
 	}
 
-	public void addPictureUpdateNummer(Context mContext, Film f, BildObjekt b,
+	public void addPictureUpdateNummer(Context mContext, Film f, Bild b,
 			int picturesNumber) {
 
 		addPicture(mContext, f, b);
@@ -1109,7 +1109,7 @@ public class DB {
 		myDBNummer.close();
 	}
 
-	public void addPictureCreateNummer(Context mContext, Film f, BildObjekt b,
+	public void addPictureCreateNummer(Context mContext, Film f, Bild b,
 			int picturesNumber, String encodedImage) {
 
 		addPicture(mContext, f, b);

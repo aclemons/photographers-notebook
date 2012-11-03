@@ -10,8 +10,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
-import unisiegen.photographers.export.BildObjekt;
-import unisiegen.photographers.export.Film;
+import unisiegen.photographers.model.Bild;
+import unisiegen.photographers.model.Film;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -250,13 +250,13 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	 */
 	private void updateUIFromPicture(String picNumber, String filmTitle) {
 
-		ArrayList<BildObjekt> bilder = DB.getDB().getBild(mContext, filmTitle,
+		ArrayList<Bild> bilder = DB.getDB().getBild(mContext, filmTitle,
 				picNumber);
 		if (bilder == null || bilder.size() != 1) {
 			bildtoedit = false;
 			Log.v("Check", "Kein Bild vorhanden");
 		} else {
-			BildObjekt bild = bilder.get(0);
+			Bild bild = bilder.get(0);
 			bildtoedit = true;
 			if (!blende.isEmpty()) {
 				spinner_blende.setSelection(blende.get(bild.Blende));
@@ -360,8 +360,8 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	/**
 	 * prepare a BildObjekt from UI values, to use for database operations etc.
 	 */
-	private BildObjekt getBildFromUI() {
-		BildObjekt b = new BildObjekt();
+	private Bild getBildFromUI() {
+		Bild b = new Bild();
 		b.Fokus = spinner_fokus.getSelectedItem().toString();
 		b.Blende = spinner_blende.getSelectedItem().toString();
 		b.Zeit = spinner_zeit.getSelectedItem().toString();
@@ -417,7 +417,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		if (f.Titel == null) {
 			f = getFilmFromSettings();
 		}
-		BildObjekt b = getBildFromUI();
+		Bild b = getBildFromUI();
 
 		if (settings.getBoolean("EditMode", false)) {
 			// ACHTUNG: DAS WIRD NIE AUFGERUFEN! WARUM IST DAS NIE AUF TRUE?
@@ -441,7 +441,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		String filmTitle = settings.getString("Title", " ");
 		Film f = DB.getDB().getFilm(mContext, filmTitle);
-		BildObjekt b = getBildFromUI();
+		Bild b = getBildFromUI();
 		DB.getDB().updatePicture(mContext, f, b);
 	}
 

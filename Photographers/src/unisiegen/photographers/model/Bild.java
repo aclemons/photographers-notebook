@@ -1,6 +1,6 @@
-package unisiegen.photographers.export;
+package unisiegen.photographers.model;
 
-public class BildObjekt {
+public class Bild {
 	
 	public String Bildnummer;
 	public String Objektiv;
@@ -20,7 +20,7 @@ public class BildObjekt {
 	public String Notiz;
 	public String KameraNotiz;
 	
-	public BildObjekt(String _bildnummer, String _objektiv, String _blende, String _zeit, 
+	public Bild(String _bildnummer, String _objektiv, String _blende, String _zeit, 
 			 	      String _fokus, String _filter, String _makro, String _filterVF, 
 			 	      String _makroVF,String _messmethode, String _belichtungskorrektur, 
 			 	      String _blitz, String _blitzkorrektur, String _zeitstempel, String _geoTag, 
@@ -45,7 +45,7 @@ public class BildObjekt {
 		KameraNotiz = _kameraNotiz;
 	}
 	
-	public BildObjekt(){
+	public Bild(){
 		
 	}
 }

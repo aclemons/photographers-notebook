@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import unisiegen.photographers.database.DB;
-import unisiegen.photographers.export.BildObjekt;
-import unisiegen.photographers.export.Film;
 import unisiegen.photographers.helper.FilmsViewHolder;
+import unisiegen.photographers.model.Bild;
+import unisiegen.photographers.model.Film;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -167,7 +167,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			editor.putString("Sonder2", film.Sonderentwicklung2);
 
 			int biggestNumber = 0;
-			for (BildObjekt bild : film.Bilder) {
+			for (Bild bild : film.Bilder) {
 
 				Integer bildNummer = Integer.valueOf(bild.Bildnummer
 						.replaceAll("[\\D]", ""));
@@ -477,7 +477,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			fileName = FilmID + ".xml";
 
 			XStream xs = new XStream();
-			xs.alias("Bild", BildObjekt.class);
+			xs.alias("Bild", Bild.class);
 			xs.alias("Film", Film.class);
 
 			try {

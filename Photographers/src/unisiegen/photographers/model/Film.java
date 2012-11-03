@@ -1,4 +1,4 @@
-package unisiegen.photographers.export;
+package unisiegen.photographers.model;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class Film {
 	public String iconData;
 	public String Pics;
 	
-	public ArrayList<BildObjekt> Bilder;	
+	public ArrayList<Bild> Bilder;	
 	
 	public Film() {
 	}

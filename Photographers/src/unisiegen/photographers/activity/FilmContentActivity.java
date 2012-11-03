@@ -7,9 +7,9 @@ package unisiegen.photographers.activity;
 import java.util.ArrayList;
 
 import unisiegen.photographers.database.DB;
-import unisiegen.photographers.export.BildObjekt;
-import unisiegen.photographers.export.Film;
 import unisiegen.photographers.helper.PicturesArrayAdapter;
+import unisiegen.photographers.model.Bild;
+import unisiegen.photographers.model.Film;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -104,7 +104,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 				editor.putString("Sonder2", film.Sonderentwicklung2);
 
 				int biggestNumber = 0;
-				for (BildObjekt bild : film.Bilder) {
+				for (Bild bild : film.Bilder) {
 
 					Integer bildNummer = Integer.valueOf(bild.Bildnummer
 							.replaceAll("[\\D]", ""));
@@ -268,7 +268,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 												DialogInterface dialog,
 												int which) {
 
-											for (BildObjekt bild : film.Bilder) {
+											for (Bild bild : film.Bilder) {
 												if (bild.Bildnummer
 														.equals(third.getText())) {
 													DB.getDB().deletePicture(
@@ -374,7 +374,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 			views = new ArrayList<View>();
 			LayoutInflater inflater = getLayoutInflater();
 
-			for (BildObjekt bild : film.Bilder) {
+			for (Bild bild : film.Bilder) {
 				View v = inflater.inflate(R.layout.filminfobox, null, false);
 				final TextView zeitStempel = (TextView) v
 						.findViewById(R.id.zeitStempel);
