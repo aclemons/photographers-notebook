@@ -65,7 +65,7 @@ public class EditSettingsActivity extends Activity {
 	/*
 	 * Sonstige Variablen
 	 */
-	private static String[] CONTENT = null; 
+	private static String[] CONTENT = null;
 	private static String[] puContent = null;
 
 	Integer contentIndex = 0;
@@ -83,18 +83,18 @@ public class EditSettingsActivity extends Activity {
 	 * User-Interface Variablen
 	 */
 	TableLayout tablor7, tablor6, tablor1, tablorspec, tablor, tablor3;
-	
+
 	TextView freecell7, freecell6, freecell1, freecellspec, freecell,
 			freecell3;
-	
+
 	CheckBox checki7, checki6, checki1, checkispec, checki, checki3;
-	
+
 	Button addKate7, addKate6, addKate1, addKatespec, addKate, addKate3;
-	
+
 	EditText Kat7, Kat6, Kat1, Katspec, Kat3, Kat, katText0, katText1,
 			katText2, katText3, katText4, katText5, katText6, katText7,
 			katText8, katText9, katText10;
-	
+
 	ListView myList7, myList6, myList3, myList1, myListspec, myList,
 			myListView0, myListView1, myListView2, myListView3, myListView4,
 			myListView5, myListView6, myListView7, myListView8, myListView9,
@@ -121,12 +121,11 @@ public class EditSettingsActivity extends Activity {
 	 * Datenbank Variablen
 	 */
 	static String MY_DB_NAME;
-	
+
 	SQLiteDatabase myDBNummer = null;
 	SQLiteDatabase myDBFilm = null;
 	SQLiteDatabase myDB = null;
 	SQLiteDatabase myDBSet = null;
-
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -233,9 +232,9 @@ public class EditSettingsActivity extends Activity {
 		pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 	}
 
-
 	private void writeDB(String TableName, String Name, int Value) {
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
+				null);
 		myDB.execSQL("INSERT INTO " + TableName + " Values (" + null + ",'"
 				+ "" + Name + "" + "','" + Value + "','" + 0 + "');");
 		myDB.close();
@@ -246,8 +245,9 @@ public class EditSettingsActivity extends Activity {
 	 */
 	private ArrayList<String> getListCAMBW(String Cam) {
 		ArrayList<String> camList = new ArrayList<String>();
-		
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
+
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
+				null);
 		Cursor camBWCursor = myDB.rawQuery("SELECT cam,bw FROM "
 				+ DB.MY_DB_TABLE_SETCAMBW + " WHERE cam = '" + Cam + "'", null);
 		if (camBWCursor != null) {
@@ -265,7 +265,7 @@ public class EditSettingsActivity extends Activity {
 	}
 
 	private void readDB() {
-		
+
 		aplanets = new ArrayList<Settings>();
 		aplanetsspec = new ArrayList<Settings>();
 		aplanets1 = new ArrayList<Settings>();
@@ -300,226 +300,43 @@ public class EditSettingsActivity extends Activity {
 		planet6 = new ArrayList<Settings>();
 		planet7 = new ArrayList<Settings>();
 
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
-		
-		Cursor cc = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETNM, null);
-		if (cc != null) {
-			if (cc.moveToFirst()) {
-				do {
-					defCheck0.put(cc.getString(cc.getColumnIndex("name")),
-							cc.getInt(cc.getColumnIndex("def")));
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
+				null);
 
-					planets3.add(new Settings(cc.getString(cc
-							.getColumnIndex("name")), cc.getInt(cc
-							.getColumnIndex("value"))));
-				} while (cc.moveToNext());
-			}
-		}
+		setupSetting(DB.MY_DB_TABLE_SETNM, defCheck0, planets3);
+		setupSetting(DB.MY_DB_TABLE_SETFIL, defCheck1, planets4);
+		setupSetting(DB.MY_DB_TABLE_SETBLI, defCheck2, planets5);
+		setupSetting(DB.MY_DB_TABLE_SETFOK, defCheck3, planet0);
+		setupSetting(DB.MY_DB_TABLE_SETBLE, defCheck4, planet1);
+		setupSetting(DB.MY_DB_TABLE_SETZEI, defCheck5, planet2);
+		setupSetting(DB.MY_DB_TABLE_SETMES, defCheck6, planet3);
+		setupSetting(DB.MY_DB_TABLE_SETPLU, defCheck7, planet4);
 
-		Cursor cd = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETFIL, null);
-		if (cd != null) {
-			if (cd.moveToFirst()) {
-				do {
-					defCheck1.put(cd.getString(cd.getColumnIndex("name")),
-							cd.getInt(cd.getColumnIndex("def")));
-					planets4.add(new Settings(cd.getString(cd
-							.getColumnIndex("name")), cd.getInt(cd
-							.getColumnIndex("value"))));
-				} while (cd.moveToNext());
-			}
-		}
+		String tableMakroVF = DB.MY_DB_TABLE_SETMVF;
+		String tableFilterVF = DB.MY_DB_TABLE_SETFVF;
 
-		Cursor ce = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETBLI, null);
-		if (ce != null) {
-			if (ce.moveToFirst()) {
-				do {
-					defCheck2.put(ce.getString(ce.getColumnIndex("name")),
-							ce.getInt(ce.getColumnIndex("def")));
-					planets5.add(new Settings(ce.getString(ce
-							.getColumnIndex("name")), ce.getInt(ce
-							.getColumnIndex("value"))));
-				} while (ce.moveToNext());
-			}
-		}
-
-		Cursor ce1 = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETFOK, null);
-		if (ce1 != null) {
-			if (ce1.moveToFirst()) {
-				do {
-					defCheck3.put(ce1.getString(ce1.getColumnIndex("name")),
-							ce1.getInt(ce1.getColumnIndex("def")));
-					planet0.add(new Settings(ce1.getString(ce1
-							.getColumnIndex("name")), ce1.getInt(ce1
-							.getColumnIndex("value"))));
-				} while (ce1.moveToNext());
-			}
-		}
-		Cursor ce2 = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETBLE, null);
-		if (ce2 != null) {
-			if (ce2.moveToFirst()) {
-				do {
-					defCheck4.put(ce2.getString(ce2.getColumnIndex("name")),
-							ce2.getInt(ce2.getColumnIndex("def")));
-					planet1.add(new Settings(ce2.getString(ce2
-							.getColumnIndex("name")), ce2.getInt(ce2
-							.getColumnIndex("value"))));
-				} while (ce2.moveToNext());
-			}
-		}
-		Cursor ce3 = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETZEI, null);
-		if (ce3 != null) {
-			if (ce3.moveToFirst()) {
-				do {
-					defCheck5.put(ce3.getString(ce3.getColumnIndex("name")),
-							ce3.getInt(ce3.getColumnIndex("def")));
-					planet2.add(new Settings(ce3.getString(ce3
-							.getColumnIndex("name")), ce3.getInt(ce3
-							.getColumnIndex("value"))));
-				} while (ce3.moveToNext());
-			}
-		}
-		Cursor ce4 = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETMES, null);
-		if (ce4 != null) {
-			if (ce4.moveToFirst()) {
-				do {
-					defCheck6.put(ce4.getString(ce4.getColumnIndex("name")),
-							ce4.getInt(ce4.getColumnIndex("def")));
-					planet3.add(new Settings(ce4.getString(ce4
-							.getColumnIndex("name")), ce4.getInt(ce4
-							.getColumnIndex("value"))));
-				} while (ce4.moveToNext());
-			}
-		}
-		Cursor ce5 = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETPLU, null);
-		if (ce5 != null) {
-			if (ce5.moveToFirst()) {
-				do {
-					defCheck7.put(ce5.getString(ce5.getColumnIndex("name")),
-							ce5.getInt(ce5.getColumnIndex("def")));
-					planet4.add(new Settings(ce5.getString(ce5
-							.getColumnIndex("name")), ce5.getInt(ce5
-							.getColumnIndex("value"))));
-				} while (ce5.moveToNext());
-			}
-		}
-		// BLUB
 		if (settings.getString("Verlaengerung", getString(R.string.factor))
 				.equals(getString(R.string.factor))) {
 
-			Cursor ce6 = myDB.rawQuery("SELECT name,value,def FROM "
-					+ DB.MY_DB_TABLE_SETMVF, null);
-			if (ce6 != null) {
-				if (ce6.moveToFirst()) {
-					do {
-						defCheck8.put(
-								ce6.getString(ce6.getColumnIndex("name")),
-								ce6.getInt(ce6.getColumnIndex("def")));
-						planet5.add(new Settings(ce6.getString(ce6
-								.getColumnIndex("name")), ce6.getInt(ce6
-								.getColumnIndex("value"))));
-					} while (ce6.moveToNext());
-				}
-			}
-			Cursor ce7 = myDB.rawQuery("SELECT name,value,def FROM "
-					+ DB.MY_DB_TABLE_SETFVF, null);
-			if (ce7 != null) {
-				if (ce7.moveToFirst()) {
-					do {
-						defCheck9.put(
-								ce7.getString(ce7.getColumnIndex("name")),
-								ce7.getInt(ce7.getColumnIndex("def")));
-						planet6.add(new Settings(ce7.getString(ce7
-								.getColumnIndex("name")), ce7.getInt(ce7
-								.getColumnIndex("value"))));
-					} while (ce7.moveToNext());
-				}
-			}
-			ce6.close();
-			ce7.close();
+			// werte sind schon ok
+
 		} else if (settings.getString("Verlaengerung",
 				getString(R.string.factor)).equals(
 				getString(R.string.aperture_adjusting))) {
-			Cursor ce6 = myDB.rawQuery("SELECT name,value,def FROM "
-					+ DB.MY_DB_TABLE_SETMVF2, null);
-			if (ce6 != null) {
-				if (ce6.moveToFirst()) {
-					do {
-						defCheck8.put(
-								ce6.getString(ce6.getColumnIndex("name")),
-								ce6.getInt(ce6.getColumnIndex("def")));
-						planet5.add(new Settings(ce6.getString(ce6
-								.getColumnIndex("name")), ce6.getInt(ce6
-								.getColumnIndex("value"))));
-					} while (ce6.moveToNext());
-				}
-			}
-			Cursor ce7 = myDB.rawQuery("SELECT name,value,def FROM "
-					+ DB.MY_DB_TABLE_SETFVF2, null);
-			if (ce7 != null) {
-				if (ce7.moveToFirst()) {
-					do {
-						defCheck9.put(
-								ce7.getString(ce7.getColumnIndex("name")),
-								ce7.getInt(ce7.getColumnIndex("def")));
-						planet6.add(new Settings(ce7.getString(ce7
-								.getColumnIndex("name")), ce7.getInt(ce7
-								.getColumnIndex("value"))));
-					} while (ce7.moveToNext());
-				}
-			}
-			ce6.close();
-			ce7.close();
+
+			tableMakroVF = DB.MY_DB_TABLE_SETMVF2;
+			tableFilterVF = DB.MY_DB_TABLE_SETFVF2;
 		}
 
-		Cursor ce8 = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETKOR, null);
-		if (ce8 != null) {
-			if (ce8.moveToFirst()) {
-				do {
-					defCheck10.put(ce8.getString(ce8.getColumnIndex("name")),
-							ce8.getInt(ce8.getColumnIndex("def")));
-					planet7.add(new Settings(ce8.getString(ce8
-							.getColumnIndex("name")), ce8.getInt(ce8
-							.getColumnIndex("value"))));
-				} while (ce8.moveToNext());
-			}
-		}
+		setupSetting(tableMakroVF, defCheck8, planet5);
+		setupSetting(tableFilterVF, defCheck9, planet6);
+		setupSetting(DB.MY_DB_TABLE_SETKOR, defCheck10, planet7);
+		setupSetting(DB.MY_DB_TABLE_SETCAM, defCheck11, aplanets);
 
-		// cb.close();
-		ce8.close();
-		cc.close();
-		cd.close();
-		ce.close();
-		ce1.close();
-		ce2.close();
-		ce3.close();
-		ce4.close();
-		ce5.close();
-
-		ce8.close();
-
-		Cursor c = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETCAM, null);
-		if (c != null) {
-			if (c.moveToFirst()) {
-				do {
-					defCheck11.put(c.getString(c.getColumnIndex("name")),
-							c.getInt(c.getColumnIndex("def")));
-					aplanets.add(new Settings(c.getString(c
-							.getColumnIndex("name")), c.getInt(c
-							.getColumnIndex("value"))));
-				} while (c.moveToNext());
-			}
-		}
-
+		// TODO: Diese &§/($&§( Settings Klasse in das Modell packen und sauber
+		// coden.
+		// TODO: Settings Klasse als RÜckgabewert der DB bei Setting Anfragen
+		// nutzen.
 		Cursor cspec = myDB.rawQuery("SELECT name,value FROM "
 				+ DB.MY_DB_TABLE_SETBW, null);
 		if (cspec != null) {
@@ -533,78 +350,43 @@ public class EditSettingsActivity extends Activity {
 		}
 		cspec.close();
 
-		Cursor ca = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETFF, null);
-		if (ca != null) {
-			if (ca.moveToFirst()) {
-				do {
-					defCheck12.put(ca.getString(ca.getColumnIndex("name")),
-							ca.getInt(ca.getColumnIndex("def")));
-					aplanets1.add(new Settings(ca.getString(ca
-							.getColumnIndex("name")), ca.getInt(ca
-							.getColumnIndex("value"))));
-				} while (ca.moveToNext());
-			}
-		}
+		setupSetting(DB.MY_DB_TABLE_SETFF, defCheck12, aplanets1);
+		setupSetting(DB.MY_DB_TABLE_SETEMP, defCheck13, aplanets7);
+		setupSetting(DB.MY_DB_TABLE_SETBW, defCheck14, aplanets2);
+		setupSetting(DB.MY_DB_TABLE_SETSON, defCheck15, aplanets6);
 
-		Cursor caa = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETEMP, null);
-		if (caa != null) {
-			if (caa.moveToFirst()) {
-				do {
-					defCheck13.put(caa.getString(caa.getColumnIndex("name")),
-							caa.getInt(caa.getColumnIndex("def")));
-					aplanets7.add(new Settings(caa.getString(caa
-							.getColumnIndex("name")), caa.getInt(caa
-							.getColumnIndex("value"))));
-				} while (caa.moveToNext());
-			}
-		}
-
-		Cursor cb = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETBW, null);
-		if (cb != null) {
-			if (cb.moveToFirst()) {
-				do {
-					defCheck14.put(cb.getString(cb.getColumnIndex("name")),
-							cb.getInt(cb.getColumnIndex("def")));
-					aplanets2.add(new Settings(cb.getString(cb
-							.getColumnIndex("name")), cb.getInt(cb
-							.getColumnIndex("value"))));
-				} while (cb.moveToNext());
-			}
-		}
-
-		Cursor cf = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETSON, null);
-		if (cf != null) {
-			if (cf.moveToFirst()) {
-				do {
-					defCheck15.put(cf.getString(cf.getColumnIndex("name")),
-							cf.getInt(cf.getColumnIndex("def")));
-					aplanets6.add(new Settings(cf.getString(cf
-							.getColumnIndex("name")), cf.getInt(cf
-							.getColumnIndex("value"))));
-				} while (cf.moveToNext());
-			}
-		}
 		myDB.close();
-		ca.close();
-		caa.close();
-		cb.close();
-		cf.close();
 		stopManagingCursor(cspec);
-		stopManagingCursor(ca);
-		stopManagingCursor(caa);
-		stopManagingCursor(cb);
+	}
 
+	private void setupSetting(String table, HashMap<String, Integer> check,
+			ArrayList<Settings> values) {
+
+		SQLiteDatabase db = mContext.openOrCreateDatabase(MY_DB_NAME,
+				Context.MODE_PRIVATE, null);
+		Cursor c = db.rawQuery("SELECT name, value, def FROM " + table, null);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					check.put(c.getString(c.getColumnIndex("name")),
+							c.getInt(c.getColumnIndex("def")));
+					values.add(new Settings(c.getString(c
+							.getColumnIndex("name")), c.getInt(c
+							.getColumnIndex("value"))));
+				} while (c.moveToNext());
+			}
+		}
+		c.close();
+		db.close();
 	}
 
 	private void deletefromDB(String TableName, String Name) {
-		
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
+
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
+				null);
 		try {
-			myDB.execSQL("DELETE FROM " + TableName + " WHERE name = '" + Name + "'");
+			myDB.execSQL("DELETE FROM " + TableName + " WHERE name = '" + Name
+					+ "'");
 			myDB.close();
 		} catch (Exception e) {
 			Log.v("Check", "Fehler Delete : " + e);
@@ -614,7 +396,8 @@ public class EditSettingsActivity extends Activity {
 
 	// Brennweiten
 	private void deletefromDB(String TableName, String Name, String Bw) {
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
+				null);
 		try {
 			myDB.execSQL("DELETE FROM " + TableName + " WHERE bw = '" + Bw
 					+ "'");
@@ -627,10 +410,12 @@ public class EditSettingsActivity extends Activity {
 
 	// Set ausw�hlen
 	private void makedefaultDB(String TableName, String Name) {
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
+				null);
 		try {
 			myDB.execSQL("UPDATE " + TableName + " SET def = '" + 0 + "'");
-			myDB.execSQL("UPDATE " + TableName + " SET def = '" + 1 + "' WHERE name = '" + Name + "'");
+			myDB.execSQL("UPDATE " + TableName + " SET def = '" + 1
+					+ "' WHERE name = '" + Name + "'");
 			myDB.close();
 		} catch (Exception e) {
 			Log.v("Check", "Fehler beim Standartsetzen : " + e);
@@ -639,16 +424,18 @@ public class EditSettingsActivity extends Activity {
 	}
 
 	private void editfromDB(String TableName, String Name, int value) {
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
+				null);
 		try {
-			myDB.execSQL("UPDATE " + TableName + " SET value = '" + value + "' WHERE name = '" + Name + "'");
+			myDB.execSQL("UPDATE " + TableName + " SET value = '" + value
+					+ "' WHERE name = '" + Name + "'");
 			myDB.close();
 		} catch (Exception e) {
 			Log.v("Check", "Fehler Delete : " + e);
 			myDB.close();
 		}
 	}
-	
+
 	/*
 	 * Hilfsklassen f�r Custom-ListViews und SlideViews
 	 */
@@ -691,7 +478,7 @@ public class EditSettingsActivity extends Activity {
 		@Override
 		public Object instantiateItem(View view, int position) {
 			View myView = null;
-			
+
 			if (position == 0) {
 				View mainview = inflater.inflate(R.layout.mainsettings, null,
 						false);
@@ -858,7 +645,6 @@ public class EditSettingsActivity extends Activity {
 					verlang.setSelection(1);
 				}
 
-				// views.add(mainview);
 				myView = mainview;
 			} else
 
@@ -1351,8 +1137,6 @@ public class EditSettingsActivity extends Activity {
 					});
 				}
 				myView = v;
-				// ((ViewPager) view).addView(v);
-
 			}
 
 			else if (position == 2) {
@@ -1869,8 +1653,6 @@ public class EditSettingsActivity extends Activity {
 							listAdapte2 = new SettingsArrayAdapter(mContext,
 									planet2, 34);
 							myListView2.setAdapter(listAdapte2);
-							// planet2.add(new
-							// Settings(katText2.getText().toString(),0));
 							listAdapte2.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
 									getString(R.string.entry_saved),
@@ -2053,8 +1835,6 @@ public class EditSettingsActivity extends Activity {
 							listAdapte3 = new SettingsArrayAdapter(mContext,
 									planet3, 39);
 							myListView3.setAdapter(listAdapte3);
-							// planet3.add(new
-							// Settings(katText3.getText().toString(),0));
 							listAdapte3.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
 									getString(R.string.entry_saved),
@@ -2237,8 +2017,6 @@ public class EditSettingsActivity extends Activity {
 							listAdapte4 = new SettingsArrayAdapter(mContext,
 									planet4, 42);
 							myListView4.setAdapter(listAdapte4);
-							// planet4.add(new
-							// Settings(katText4.getText().toString(),0));
 							listAdapte4.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
 									getString(R.string.entry_saved),
@@ -2412,8 +2190,6 @@ public class EditSettingsActivity extends Activity {
 							listAdapte5 = new SettingsArrayAdapter(mContext,
 									planets3, 51);
 							myListView5.setAdapter(listAdapte5);
-							// planets3.add(new
-							// Settings(katText5.getText().toString(),0));
 							listAdapte5.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
 									getString(R.string.entry_saved),
@@ -2596,8 +2372,6 @@ public class EditSettingsActivity extends Activity {
 							listAdapte6 = new SettingsArrayAdapter(mContext,
 									planet5, 63);
 							myListView6.setAdapter(listAdapte6);
-							// planet5.add(new
-							// Settings(katText6.getText().toString(),0));
 							listAdapte6.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
 									getString(R.string.entry_saved),
@@ -2780,8 +2554,6 @@ public class EditSettingsActivity extends Activity {
 							listAdapte7 = new SettingsArrayAdapter(mContext,
 									planets4, 79);
 							myListView7.setAdapter(listAdapte7);
-							// planets4.add(new
-							// Settings(katText7.getText().toString(),0));
 							listAdapte7.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
 									getString(R.string.entry_saved),
@@ -2964,8 +2736,6 @@ public class EditSettingsActivity extends Activity {
 							listAdapte8 = new SettingsArrayAdapter(mContext,
 									planet6, 88);
 							myListView8.setAdapter(listAdapte8);
-							// planet6.add(new
-							// Settings(katText8.getText().toString(),0));
 							listAdapte8.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
 									getString(R.string.entry_saved),
@@ -3148,8 +2918,6 @@ public class EditSettingsActivity extends Activity {
 							listAdapte9 = new SettingsArrayAdapter(mContext,
 									planets5, 56);
 							myListView9.setAdapter(listAdapte9);
-							// planets5.add(new
-							// Settings(katText9.getText().toString(),0));
 							listAdapte9.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
 									getString(R.string.entry_saved),
@@ -3332,8 +3100,6 @@ public class EditSettingsActivity extends Activity {
 							listAdapte10 = new SettingsArrayAdapter(mContext,
 									planet7, 17);
 							myListView10.setAdapter(listAdapte10);
-							// planet7.add(new
-							// Settings(katText10.getText().toString(),0));
 							listAdapte10.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
 									getString(R.string.entry_saved),
@@ -3486,8 +3252,6 @@ public class EditSettingsActivity extends Activity {
 								listAdapter1 = new SettingsArrayAdapter(
 										mContext, aplanets1, 19);
 								myList1.setAdapter(listAdapter1);
-								// aplanets1.add(new
-								// Settings(Kat1.getText().toString(),0));
 								listAdapter1.notifyDataSetChanged();
 								Toast.makeText(getApplicationContext(),
 										getString(R.string.entry_saved),
@@ -3510,7 +3274,6 @@ public class EditSettingsActivity extends Activity {
 					});
 				}
 				myView = va;
-				// ((ViewPager) view).addView(va);
 
 			} else if (position == 12) {
 				View vg = inflater.inflate(R.layout.settingsauswahl, null,
@@ -3638,8 +3401,6 @@ public class EditSettingsActivity extends Activity {
 								listAdapter7 = new SettingsArrayAdapter(
 										mContext, aplanets7, 76);
 								myList7.setAdapter(listAdapter7);
-								// aplanets7.add(new
-								// Settings(Kat7.getText().toString(),0));
 								listAdapter7.notifyDataSetChanged();
 								Toast.makeText(getApplicationContext(),
 										getString(R.string.entry_saved),
@@ -3662,7 +3423,6 @@ public class EditSettingsActivity extends Activity {
 					});
 				}
 				myView = vg;
-				// ((ViewPager) view).addView(vg);
 
 			} else if (position == 15) {
 				// SONDER SETTINGS
@@ -3815,8 +3575,6 @@ public class EditSettingsActivity extends Activity {
 								listAdapter6 = new SettingsArrayAdapter(
 										mContext, aplanets6, 67);
 								myList6.setAdapter(listAdapter6);
-								// aplanets6.add(new
-								// Settings(Kat6.getText().toString(),0));
 								listAdapter6.notifyDataSetChanged();
 								Toast.makeText(getApplicationContext(),
 										getString(R.string.entry_saved),
@@ -3842,10 +3600,8 @@ public class EditSettingsActivity extends Activity {
 					});
 				}
 				myView = vf;
-				// ((ViewPager) view).addView(vf);
 				// ---------------------------------------------------------------------------
 			}
-			// myView = v;
 			((ViewPager) view).addView(myView);
 			return myView;
 
@@ -4007,7 +3763,8 @@ public class EditSettingsActivity extends Activity {
 			grid.setEnabled(false);
 			grid.clearFocus();
 
-			myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
+			myDB = mContext.openOrCreateDatabase(MY_DB_NAME,
+					Context.MODE_PRIVATE, null);
 			int kontrolle = 0;
 			Cursor camBWCursor = myDB.rawQuery(
 					"SELECT cam,bw FROM " + DB.MY_DB_TABLE_SETCAMBW
@@ -4065,15 +3822,6 @@ public class EditSettingsActivity extends Activity {
 			textView.setText(planet.getName());
 
 			settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-
-			// ArrayList<String> camBWs = getListCAMBW(planet.getName());
-			// ArrayAdapter camBWsAdapter = new
-			// ArrayAdapter<String>(getApplicationContext(), R.layout.objektive,
-			// camBWs);
-
-			// testtext.setText("TEST");
-			// grid.addView(testtext);
-
 			textView.setTextColor(0xFF000000);
 
 			return convertView;
@@ -4274,20 +4022,21 @@ public class EditSettingsActivity extends Activity {
 							ContentValues args = new ContentValues();
 							args.put("cam", camera);
 							args.put("bw", planet.getName());
-							myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
+							myDB = mContext.openOrCreateDatabase(MY_DB_NAME,
+									Context.MODE_PRIVATE, null);
 							myDB.insert(DB.MY_DB_TABLE_SETCAMBW, null, args);
 							myDB.close();
 							readDB();
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
-							SettingsPager adapter = new SettingsPager(
-									mContext);
+							SettingsPager adapter = new SettingsPager(mContext);
 							viewPager.setAdapter(adapter);
 							mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 							mIndicator.setViewPager(viewPager);
 							viewPager.setCurrentItem(1, false);
 
 						} else {
-							myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
+							myDB = mContext.openOrCreateDatabase(MY_DB_NAME,
+									Context.MODE_PRIVATE, null);
 							myDB.delete(DB.MY_DB_TABLE_SETCAMBW,
 									"cam = '" + camera + "' AND bw = '"
 											+ planet.getName() + "'", null);
@@ -4295,8 +4044,7 @@ public class EditSettingsActivity extends Activity {
 							readDB();
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-							SettingsPager adapter = new SettingsPager(
-									mContext);
+							SettingsPager adapter = new SettingsPager(mContext);
 							viewPager.setAdapter(adapter);
 							mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 							mIndicator.setViewPager(viewPager);
@@ -4870,8 +4618,13 @@ public class EditSettingsActivity extends Activity {
 			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETFVF2);
 			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETKOR);
 
-			myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
+			myDB = mContext.openOrCreateDatabase(MY_DB_NAME,
+					Context.MODE_PRIVATE, null);
 
+			// TODO SD: Careful with this bit, as it is actually quite smart. If
+			// the user creates a new Set, this bit of code will not just create
+			// a new database with the default values, but it will copy the
+			// users existing database of camera gear.
 			for (int xy = 0; xy < TableNames.size(); xy++) {
 				Cursor c = myDB.rawQuery("SELECT name,value,def FROM "
 						+ TableNames.get(xy), null);
@@ -4944,11 +4697,13 @@ public class EditSettingsActivity extends Activity {
 
 				DB.getDB().createOrRebuildSettingsTable(mContext);
 
-				myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+				myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER,
+						Context.MODE_PRIVATE, null);
 				myDBNummer.execSQL("DELETE FROM " + DB.MY_DB_TABLE_NUMMER);
 				myDBNummer.close();
 
-				myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
+				myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
+						Context.MODE_PRIVATE, null);
 				myDBFilm.execSQL("DELETE FROM " + DB.MY_DB_FILM_TABLE);
 				myDBFilm.close();
 
