@@ -65,8 +65,7 @@ public class EditSettingsActivity extends Activity {
 	/*
 	 * Sonstige Variablen
 	 */
-	private static String[] CONTENT = null; // The arrays are initialized in the
-											// onCreate() method.
+	private static String[] CONTENT = null; 
 	private static String[] puContent = null;
 
 	Integer contentIndex = 0;
@@ -84,32 +83,32 @@ public class EditSettingsActivity extends Activity {
 	 * User-Interface Variablen
 	 */
 	TableLayout tablor7, tablor6, tablor1, tablorspec, tablor, tablor3;
+	
 	TextView freecell7, freecell6, freecell1, freecellspec, freecell,
 			freecell3;
+	
 	CheckBox checki7, checki6, checki1, checkispec, checki, checki3;
+	
 	Button addKate7, addKate6, addKate1, addKatespec, addKate, addKate3;
+	
 	EditText Kat7, Kat6, Kat1, Katspec, Kat3, Kat, katText0, katText1,
 			katText2, katText3, katText4, katText5, katText6, katText7,
 			katText8, katText9, katText10;
+	
 	ListView myList7, myList6, myList3, myList1, myListspec, myList,
 			myListView0, myListView1, myListView2, myListView3, myListView4,
 			myListView5, myListView6, myListView7, myListView8, myListView9,
 			myListView10;
+
 	View slideView0, slideView1, slideView2, slideView3, slideView4,
 			slideView5, slideView6, slideView7, slideView8, slideView9,
 			slideView10;
 
-	/*
-	 * Hash-Map f�r Default Werte der Spinner
-	 */
 	HashMap<String, Integer> defCheck0, defCheck1, defCheck2, defCheck3,
 			defCheck4, defCheck5, defCheck6, defCheck7, defCheck8, defCheck9,
 			defCheck10, defCheck11, defCheck12, defCheck13, defCheck14,
 			defCheck15;
 
-	/*
-	 * Custom ArrayAdapter und ArrayList f�r ListView
-	 */
 	ArrayList<Settings> aplanets7, aplanets6, planet1, planet2, planet3,
 			planet4, planet5, planet6, planet7, planet0, planets3, planets4,
 			planets5, aplanetsspec, aplanets, aplanets1, aplanets2;
@@ -121,28 +120,13 @@ public class EditSettingsActivity extends Activity {
 	/*
 	 * Datenbank Variablen
 	 */
+	static String MY_DB_NAME;
+	
 	SQLiteDatabase myDBNummer = null;
-	static String MY_DB_NUMMER = "Nummern";
-	final static String MY_DB_TABLE_NUMMER = "Nummer";
-
 	SQLiteDatabase myDBFilm = null;
-	static String MY_DB_FILM = "Filme";
-	final static String MY_DB_FILM_TABLE = "Film";
-
 	SQLiteDatabase myDB = null;
 	SQLiteDatabase myDBSet = null;
-	static String MY_DB_NAME;
 
-	final static String MY_DB_SET = "Foto";
-	final static String MY_DB_SET1 = "FotoSettingsOne";
-	final static String MY_DB_SET2 = "FotoSettingsTwo";
-	final static String MY_DB_SET3 = "FotoSettingsThree";
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreate(android.os.Bundle) LifeCycle-Methoden
-	 */
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -249,31 +233,9 @@ public class EditSettingsActivity extends Activity {
 		pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 	}
 
-	/*
-	 * Datenbank-Methoden
-	 */
-
-	private void onCreateDBAndDBTabledFilm() {
-		myDBFilm = mContext.openOrCreateDatabase(MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
-		myDBFilm.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_FILM_TABLE
-				+ " (_id integer primary key autoincrement, filmdatum varchar(100), picuhrzeit varchar(100), filmtitle varchar(100), filmcamera varchar(100), filmformat varchar(100), filmempfindlichkeit varchar(100), filmtyp varchar(100), filmsonder varchar(100), filmsonders varchar(100), picfokus varchar(100), picblende varchar(100), piczeit varchar(100), picmessung varchar(100), pickorr varchar(100), picmakro varchar(100), picmakrovf varchar(100), picfilter varchar(100), picfiltervf varchar(100), picblitz varchar(100), picblitzkorr varchar(100), picnotiz varchar(100), pickameranotiz varchar(100), picobjektiv varchar(100), picnummer varchar(100))"
-				+ ";");
-	}
-
-	private void onCreateDBAndDBNumber() {
-		myDBNummer = mContext.openOrCreateDatabase(MY_DB_NUMMER,
-				Context.MODE_PRIVATE, null);
-		myDBNummer
-				.execSQL("CREATE TABLE IF NOT EXISTS "
-						+ MY_DB_TABLE_NUMMER
-						+ " (title varchar(100), value integer primary key,camera varchar(100), datum varchar(100), bilder integer, pic varchar(999))"
-						+ ";");
-	}
 
 	private void writeDB(String TableName, String Name, int Value) {
-		onCreateDBAndDBTabled();
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
 		myDB.execSQL("INSERT INTO " + TableName + " Values (" + null + ",'"
 				+ "" + Name + "" + "','" + Value + "','" + 0 + "');");
 		myDB.close();
@@ -284,8 +246,8 @@ public class EditSettingsActivity extends Activity {
 	 */
 	private ArrayList<String> getListCAMBW(String Cam) {
 		ArrayList<String> camList = new ArrayList<String>();
-		onCreateDBAndDBTabled();
-
+		
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
 		Cursor camBWCursor = myDB.rawQuery("SELECT cam,bw FROM "
 				+ DB.MY_DB_TABLE_SETCAMBW + " WHERE cam = '" + Cam + "'", null);
 		if (camBWCursor != null) {
@@ -303,7 +265,7 @@ public class EditSettingsActivity extends Activity {
 	}
 
 	private void readDB() {
-		onCreateDBAndDBTabled();
+		
 		aplanets = new ArrayList<Settings>();
 		aplanetsspec = new ArrayList<Settings>();
 		aplanets1 = new ArrayList<Settings>();
@@ -338,6 +300,8 @@ public class EditSettingsActivity extends Activity {
 		planet6 = new ArrayList<Settings>();
 		planet7 = new ArrayList<Settings>();
 
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
+		
 		Cursor cc = myDB.rawQuery("SELECT name,value,def FROM "
 				+ DB.MY_DB_TABLE_SETNM, null);
 		if (cc != null) {
@@ -637,10 +601,10 @@ public class EditSettingsActivity extends Activity {
 	}
 
 	private void deletefromDB(String TableName, String Name) {
-		onCreateDBAndDBTabled();
+		
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
 		try {
-			myDB.execSQL("DELETE FROM " + TableName + " WHERE name = '" + Name
-					+ "'");
+			myDB.execSQL("DELETE FROM " + TableName + " WHERE name = '" + Name + "'");
 			myDB.close();
 		} catch (Exception e) {
 			Log.v("Check", "Fehler Delete : " + e);
@@ -650,7 +614,7 @@ public class EditSettingsActivity extends Activity {
 
 	// Brennweiten
 	private void deletefromDB(String TableName, String Name, String Bw) {
-		onCreateDBAndDBTabled();
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
 		try {
 			myDB.execSQL("DELETE FROM " + TableName + " WHERE bw = '" + Bw
 					+ "'");
@@ -663,11 +627,10 @@ public class EditSettingsActivity extends Activity {
 
 	// Set ausw�hlen
 	private void makedefaultDB(String TableName, String Name) {
-		onCreateDBAndDBTabled();
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
 		try {
 			myDB.execSQL("UPDATE " + TableName + " SET def = '" + 0 + "'");
-			myDB.execSQL("UPDATE " + TableName + " SET def = '" + 1
-					+ "' WHERE name = '" + Name + "'");
+			myDB.execSQL("UPDATE " + TableName + " SET def = '" + 1 + "' WHERE name = '" + Name + "'");
 			myDB.close();
 		} catch (Exception e) {
 			Log.v("Check", "Fehler beim Standartsetzen : " + e);
@@ -676,108 +639,16 @@ public class EditSettingsActivity extends Activity {
 	}
 
 	private void editfromDB(String TableName, String Name, int value) {
-		onCreateDBAndDBTabled();
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
 		try {
-			myDB.execSQL("UPDATE " + TableName + " SET value = '" + value
-					+ "' WHERE name = '" + Name + "'");
+			myDB.execSQL("UPDATE " + TableName + " SET value = '" + value + "' WHERE name = '" + Name + "'");
 			myDB.close();
 		} catch (Exception e) {
 			Log.v("Check", "Fehler Delete : " + e);
 			myDB.close();
 		}
 	}
-
-	private void onCreateDBAndDBTabled() {
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETCAMBW
-				+ " (_id integer primary key autoincrement, cam varchar(100), bw varchar(100))"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETCAM
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETEMP
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBW
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETNM
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFIL
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBLI
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETSON
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETTYP
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFOK
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBLE
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETZEI
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMES
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETPLU
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMAK
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMVF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFVF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETKOR
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMVF2
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFVF2
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-
-	}
-
+	
 	/*
 	 * Hilfsklassen f�r Custom-ListViews und SlideViews
 	 */
@@ -4136,7 +4007,7 @@ public class EditSettingsActivity extends Activity {
 			grid.setEnabled(false);
 			grid.clearFocus();
 
-			onCreateDBAndDBTabled();
+			myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
 			int kontrolle = 0;
 			Cursor camBWCursor = myDB.rawQuery(
 					"SELECT cam,bw FROM " + DB.MY_DB_TABLE_SETCAMBW
@@ -4403,7 +4274,7 @@ public class EditSettingsActivity extends Activity {
 							ContentValues args = new ContentValues();
 							args.put("cam", camera);
 							args.put("bw", planet.getName());
-							onCreateDBAndDBTabled();
+							myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
 							myDB.insert(DB.MY_DB_TABLE_SETCAMBW, null, args);
 							myDB.close();
 							readDB();
@@ -4416,7 +4287,7 @@ public class EditSettingsActivity extends Activity {
 							viewPager.setCurrentItem(1, false);
 
 						} else {
-							onCreateDBAndDBTabled();
+							myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
 							myDB.delete(DB.MY_DB_TABLE_SETCAMBW,
 									"cam = '" + camera + "' AND bw = '"
 											+ planet.getName() + "'", null);
@@ -4609,9 +4480,9 @@ public class EditSettingsActivity extends Activity {
 				public void onClick(View v) {
 					if (setButtonClicked == 1) {
 						editor11.putInt("LoadSet", 1);
-						editor11.putString("SettingsTable", MY_DB_SET);
+						editor11.putString("SettingsTable", DB.MY_DB_SET);
 						editor11.commit();
-						MY_DB_NAME = MY_DB_SET;
+						MY_DB_NAME = DB.MY_DB_SET;
 						readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
@@ -4619,9 +4490,9 @@ public class EditSettingsActivity extends Activity {
 
 					} else if (setButtonClicked == 2) {
 						editor11.putInt("LoadSet", 2);
-						editor11.putString("SettingsTable", MY_DB_SET1);
+						editor11.putString("SettingsTable", DB.MY_DB_SET1);
 						editor11.commit();
-						MY_DB_NAME = MY_DB_SET1;
+						MY_DB_NAME = DB.MY_DB_SET1;
 						readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
@@ -4629,9 +4500,9 @@ public class EditSettingsActivity extends Activity {
 
 					} else if (setButtonClicked == 3) {
 						editor11.putInt("LoadSet", 3);
-						editor11.putString("SettingsTable", MY_DB_SET2);
+						editor11.putString("SettingsTable", DB.MY_DB_SET2);
 						editor11.commit();
-						MY_DB_NAME = MY_DB_SET2;
+						MY_DB_NAME = DB.MY_DB_SET2;
 						readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
@@ -4639,9 +4510,9 @@ public class EditSettingsActivity extends Activity {
 
 					} else if (setButtonClicked == 4) {
 						editor11.putInt("LoadSet", 4);
-						editor11.putString("SettingsTable", MY_DB_SET3);
+						editor11.putString("SettingsTable", DB.MY_DB_SET3);
 						editor11.commit();
-						MY_DB_NAME = MY_DB_SET3;
+						MY_DB_NAME = DB.MY_DB_SET3;
 						readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
@@ -4777,7 +4648,7 @@ public class EditSettingsActivity extends Activity {
 							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 							imm.hideSoftInputFromWindow(
 									setedit.getApplicationWindowToken(), 0);
-							new makeSet(MY_DB_SET).execute();
+							new makeSet(DB.MY_DB_SET).execute();
 
 						} else if (setButtonClicked == 2) {
 							editor1.putInt("LoadSet", 2);
@@ -4790,7 +4661,7 @@ public class EditSettingsActivity extends Activity {
 							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 							imm.hideSoftInputFromWindow(
 									setedit.getApplicationWindowToken(), 0);
-							new makeSet(MY_DB_SET1).execute();
+							new makeSet(DB.MY_DB_SET1).execute();
 
 						} else if (setButtonClicked == 3) {
 							editor1.putInt("LoadSet", 3);
@@ -4803,7 +4674,7 @@ public class EditSettingsActivity extends Activity {
 							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 							imm.hideSoftInputFromWindow(
 									setedit.getApplicationWindowToken(), 0);
-							new makeSet(MY_DB_SET2).execute();
+							new makeSet(DB.MY_DB_SET2).execute();
 
 						} else if (setButtonClicked == 4) {
 							editor1.putInt("LoadSet", 4);
@@ -4816,7 +4687,7 @@ public class EditSettingsActivity extends Activity {
 							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 							imm.hideSoftInputFromWindow(
 									setedit.getApplicationWindowToken(), 0);
-							new makeSet(MY_DB_SET3).execute();
+							new makeSet(DB.MY_DB_SET3).execute();
 
 						}
 						pw.dismiss();
@@ -4999,7 +4870,7 @@ public class EditSettingsActivity extends Activity {
 			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETFVF2);
 			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETKOR);
 
-			onCreateDBAndDBTabled();
+			myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
 
 			for (int xy = 0; xy < TableNames.size(); xy++) {
 				Cursor c = myDB.rawQuery("SELECT name,value,def FROM "
@@ -5055,9 +4926,9 @@ public class EditSettingsActivity extends Activity {
 				dialog.dismiss();
 			}
 			SharedPreferences.Editor editor = settings.edit();
-			editor.putString("SettingsTable", MY_DB_SET);
+			editor.putString("SettingsTable", DB.MY_DB_SET);
 			editor.commit();
-			MY_DB_NAME = MY_DB_SET;
+			MY_DB_NAME = DB.MY_DB_SET;
 			readDB();
 			viewPager = (ViewPager) findViewById(R.id.viewPager);
 			SettingsPager adapter = new SettingsPager(mContext);
@@ -5073,12 +4944,12 @@ public class EditSettingsActivity extends Activity {
 
 				DB.getDB().createOrRebuildSettingsTable(mContext);
 
-				onCreateDBAndDBNumber();
-				myDBNummer.execSQL("DELETE FROM " + MY_DB_TABLE_NUMMER);
+				myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+				myDBNummer.execSQL("DELETE FROM " + DB.MY_DB_TABLE_NUMMER);
 				myDBNummer.close();
 
-				onCreateDBAndDBTabledFilm();
-				myDBFilm.execSQL("DELETE FROM " + MY_DB_FILM_TABLE);
+				myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
+				myDBFilm.execSQL("DELETE FROM " + DB.MY_DB_FILM_TABLE);
 				myDBFilm.close();
 
 				settings = PreferenceManager
