@@ -8,7 +8,6 @@ import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
 import android.content.Context;
@@ -45,22 +44,9 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	Context mContext;
 
 	int design = 0;
-	int camdef = 0;
-	int ffdef = 0;
-	int ssdef = 0;
-	int emdef = 0;
-	int tydef = 0;
 	Integer contentIndex = 0;
 	byte[] pic, nopic;
 	boolean mPreviewRunning = false;
-
-	/*
-	 * Spinner Variablen
-	 */
-	ArrayList<String> listCamera, listFF, listSS, listSSS, listEM, listTY;
-	ArrayAdapter<String> adapterCamera, adapterFF, adapterSS, adapterSSS,
-			adapterEM, adapterTY;
-	HashMap<String, Integer> defCheck0, defCheck1, defCheck2, defCheck3;
 
 	/*
 	 * Interface Variablen
@@ -68,8 +54,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	TextView tv1, tv2, weiter, close, newFilm, vorschau, cancel;
 	EditText filmnotiz;
 	PopupWindow pw;
-	Spinner spinnerCamera, spinnerFF, spinnerSS, spinnerSSS, spinnerEM,
-			spinnerTY;
+	Spinner spinnerCamera, spinnerFF, spinnerSS, spinnerSSS, spinnerEM, spinnerTY;
 	ToggleButton titleButton;
 	EditText titleText;
 	Camera mCamera;
@@ -106,23 +91,14 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 				try {
 					SharedPreferences.Editor editor = settings.edit();
 					editor.putString("Title", titleText.getText().toString());
-					editor.putString("FilmNotiz", filmnotiz.getText()
-							.toString());
-					editor.putString("Datum", android.text.format.DateFormat
-							.format("dd.MM.yyyy", new java.util.Date())
-							.toString());
-					editor.putString("Kamera", spinnerCamera.getSelectedItem()
-							.toString());
-					editor.putString("Filmformat", spinnerFF.getSelectedItem()
-							.toString());
-					editor.putString("Empfindlichkeit", spinnerEM
-							.getSelectedItem().toString());
-					editor.putString("Filmtyp", spinnerTY.getSelectedItem()
-							.toString());
-					editor.putString("Sonder1", spinnerSS.getSelectedItem()
-							.toString());
-					editor.putString("Sonder2", spinnerSSS.getSelectedItem()
-							.toString());
+					editor.putString("FilmNotiz", filmnotiz.getText().toString());
+					editor.putString("Datum", android.text.format.DateFormat.format("dd.MM.yyyy", new java.util.Date()).toString());
+					editor.putString("Kamera", spinnerCamera.getSelectedItem().toString());
+					editor.putString("Filmformat", spinnerFF.getSelectedItem().toString());
+					editor.putString("Empfindlichkeit", spinnerEM.getSelectedItem().toString());
+					editor.putString("Filmtyp", spinnerTY.getSelectedItem().toString());
+					editor.putString("Sonder1", spinnerSS.getSelectedItem().toString());
+					editor.putString("Sonder2", spinnerSSS.getSelectedItem().toString());
 					editor.putInt("BildNummerToBegin", 1);
 					editor.putBoolean("EditMode", false);
 					editor.commit();
@@ -157,11 +133,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 		super.onResume();
 		contentIndex = 0;
 		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
-		defCheck0 = new HashMap<String, Integer>();
-		defCheck1 = new HashMap<String, Integer>();
-		defCheck2 = new HashMap<String, Integer>();
-		defCheck3 = new HashMap<String, Integer>();
-		readDB();
+		
 		titleText = (EditText) findViewById(R.id.texttitle);
 		titleButton = (ToggleButton) findViewById(R.id.toggletitle);
 		titleButton.setOnClickListener(new OnClickListener() {
@@ -173,35 +145,14 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 						+ getString(R.string.film));
 			}
 		});
-		spinnerCamera = (Spinner) findViewById(R.id.spinnerCamera);
-		spinnerFF = (Spinner) findViewById(R.id.spinnerFF);
-		spinnerSS = (Spinner) findViewById(R.id.spinnerSS);
-		spinnerSSS = (Spinner) findViewById(R.id.spinnerSSS);
-		spinnerEM = (Spinner) findViewById(R.id.spinnerEM);
-		spinnerTY = (Spinner) findViewById(R.id.spinnerTY);
-		adapterCamera = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listCamera);
-		adapterFF = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listFF);
-		adapterSS = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listSS);
-		adapterSSS = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listSSS);
-		adapterEM = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listEM);
-		adapterTY = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listTY);
-		spinnerCamera.setAdapter(adapterCamera);
-		spinnerFF.setAdapter(adapterFF);
-		spinnerSS.setAdapter(adapterSS);
-		spinnerSSS.setAdapter(adapterSSS);
-		spinnerEM.setAdapter(adapterEM);
-		spinnerTY.setAdapter(adapterTY);
-		spinnerCamera.setSelection(camdef);
-		spinnerFF.setSelection(ffdef);
-		spinnerSS.setSelection(ssdef);
-		spinnerEM.setSelection(emdef);
-		spinnerTY.setSelection(tydef);
+		
+		spinnerCamera = setupSpinner(R.id.spinnerCamera, DB.MY_DB_TABLE_SETCAM);				
+		spinnerFF = setupSpinner(R.id.spinnerFF, DB.MY_DB_TABLE_SETFF);
+		spinnerSS = setupSpinner(R.id.spinnerSS, DB.MY_DB_TABLE_SETSON);
+		spinnerSSS = setupSpinner(R.id.spinnerSSS, DB.MY_DB_TABLE_SETSON);
+		spinnerEM = setupSpinner(R.id.spinnerEM, DB.MY_DB_TABLE_SETEMP);
+		spinnerTY = setupSpinner(R.id.spinnerTY, DB.MY_DB_TABLE_SETTYP);
+		
 		if (settings.getInt("FIRSTSTART", 0) == 1) {
 			ViewGroup view = (ViewGroup) getWindow().getDecorView();
 			view.post(new Runnable() {
@@ -225,50 +176,24 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 		}
 	}
 
-	private void readDB() {
-
-		int number = 0;
-		listCamera = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETCAM);
-		for (String cam : listCamera) {
-			if (cam.equals(settings.getString("KamDef", ""))) {
-				camdef = number;
-			}
-			number++;
+	private Spinner setupSpinner(int uiID, String tableName) {
+		
+		ArrayList<String> values = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, tableName);
+		int defaultValue = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, tableName);		
+		if (values.size() == 0) {
+			values.add(getString(R.string.no_selection));
 		}
-		if (listCamera.size() == 0) {
-			listCamera.add(getString(R.string.no_selection));
+		
+		Spinner spinner = (Spinner) findViewById(uiID);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, values);
+		spinner.setAdapter(adapter);
+		if(defaultValue >= values.size()){
+			spinner.setSelection(0);
+		} else {
+			spinner.setSelection(defaultValue);
 		}
-
-		ffdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETFF);
-		listFF = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETFF);
-		if (listFF.size() == 0) {
-			listFF.add(getString(R.string.no_selection));
-		}
-
-		listSSS = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETSON);
-		listSS = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETSON);
-		ssdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETSON);
-		if (listSSS.size() == 0) {
-			listSSS.add(getString(R.string.no_selection));
-			listSS.add(getString(R.string.no_selection));
-		}
-
-		listEM = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETEMP);
-		emdef = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETEMP);
-		if (listEM.size() == 0) {
-			listEM.add(getString(R.string.no_selection));
-		}
-
-		listTY = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME,
-				DB.MY_DB_TABLE_SETTYP);
+		
+		return spinner;
 	}
 
 	/*
@@ -290,11 +215,6 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 			case 1277:
 				Bundle bundle = data.getExtras();
 				pic = (byte[]) bundle.get("image");
-				Log.v("Check",
-						"SAVE : "
-								+ BitmapFactory.decodeByteArray(pic, 0,
-										pic.length));
-
 				vorschau.setTextColor(0xFF00BB00);
 
 				break;
@@ -303,9 +223,6 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 		}
 	}
 
-	/*
-	 * Hilfe Methode
-	 */
 
 	public void popupmenue() {
 		Resources res = getResources();
