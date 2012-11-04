@@ -80,13 +80,7 @@ public class EditSettingsActivity extends Activity {
 	ViewPager viewPager;
 	TitlePageIndicator mIndicator;
 
-	/*
-	 * User-Interface Variablen
-	 */
-	TableLayout tablor7, tablor6, tablor1, tablorspec, tablor, tablor3;
-
-	TextView freecell7, freecell6, freecell1, freecellspec, freecell,
-			freecell3;
+	TextView freecell7, freecell1, freecellspec, freecell, freecell3;
 
 	CheckBox checki7, checki6, checki1, checkispec, checki, checki3;
 
@@ -552,295 +546,278 @@ public class EditSettingsActivity extends Activity {
 
 		private View createSondView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
-			if (true) {
-				/*
-				 * View �ndern
-				 */
-				freecell6 = (TextView) view.findViewById(R.id.freecell);
-				tablor6 = (TableLayout) view.findViewById(R.id.tablor);
-				myList6 = (ListView) view.findViewById(android.R.id.list);
-				addKate6 = (Button) view.findViewById(R.id.addkamera);
-				Kat6 = (EditText) view.findViewById(R.id.kameramodell);
 
-				/*
-				 * Text und Farbe �ndern
-				 */
-				freecell6.setText(getString(R.string.processing));
-				tablor6.setBackgroundResource(R.drawable.shapebluetable);
+			TextView freecell6 = (TextView) view.findViewById(R.id.freecell);
+			freecell6.setText(getString(R.string.processing));
 
-				tablor6.setPadding(4, 0, -2, 0);
+			TableLayout tablor6 = (TableLayout) view.findViewById(R.id.tablor);
+			tablor6.setBackgroundResource(R.drawable.shapebluetable);
+			tablor6.setPadding(4, 0, -2, 0);
 
-				/*
-				 * Liste �ndern
-				 */
-				listAdapter6 = new SettingsArrayAdapter(mContext, valuesSon, 67);
-				myList6.setAdapter(listAdapter6);
+			myList6 = (ListView) view.findViewById(android.R.id.list);
+			addKate6 = (Button) view.findViewById(R.id.addkamera);
+			Kat6 = (EditText) view.findViewById(R.id.kameramodell);
 
-				myList6.setOnItemLongClickListener(new OnItemLongClickListener() {
-					@Override
-					public boolean onItemLongClick(AdapterView<?> arg0,
-							final View arg1, final int arg2, long arg3) {
+			listAdapter6 = new SettingsArrayAdapter(mContext, valuesSon, 67);
+			myList6.setAdapter(listAdapter6);
 
-						// HIER
+			myList6.setOnItemLongClickListener(new OnItemLongClickListener() {
+				@Override
+				public boolean onItemLongClick(AdapterView<?> arg0,
+						final View arg1, final int arg2, long arg3) {
 
-						Display display = ((WindowManager) mContext
-								.getSystemService(Context.WINDOW_SERVICE))
-								.getDefaultDisplay();
-						LayoutInflater inflaterOwn = (LayoutInflater) mContext
-								.getSystemService(LAYOUT_INFLATER_SERVICE);
-						View layoutOwn = inflaterOwn.inflate(
-								R.layout.longclick,
-								(ViewGroup) findViewById(R.id.testen), false);
-						Button deleteButton = (Button) layoutOwn
-								.findViewById(R.id.deletebutton);
-						Button cancelButton = (Button) layoutOwn
-								.findViewById(R.id.cancelbutton);
-						Button editButton = (Button) layoutOwn
-								.findViewById(R.id.editbutton);
-						deleteButton.setText(getString(R.string.delete_entry));
-						editButton.setText(getString(R.string.make_default));
+					// HIER
 
-						deleteButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								LinearLayout lins = (LinearLayout) arg1;
-								TextView texti = (TextView) lins.getChildAt(0);
-								deletefromDB(DB.MY_DB_TABLE_SETSON, texti
-										.getText().toString());
-								readDB();
-								listAdapter6 = new SettingsArrayAdapter(
-										mContext, valuesSon, 67);
-								myList6.setAdapter(listAdapter6);
-								listAdapter6.notifyDataSetChanged();
-								Toast.makeText(getApplicationContext(),
-										getString(R.string.deleted),
-										Toast.LENGTH_SHORT).show();
-								pw.dismiss();
-							}
-						});
+					Display display = ((WindowManager) mContext
+							.getSystemService(Context.WINDOW_SERVICE))
+							.getDefaultDisplay();
+					LayoutInflater inflaterOwn = (LayoutInflater) mContext
+							.getSystemService(LAYOUT_INFLATER_SERVICE);
+					View layoutOwn = inflaterOwn.inflate(R.layout.longclick,
+							(ViewGroup) findViewById(R.id.testen), false);
+					Button deleteButton = (Button) layoutOwn
+							.findViewById(R.id.deletebutton);
+					Button cancelButton = (Button) layoutOwn
+							.findViewById(R.id.cancelbutton);
+					Button editButton = (Button) layoutOwn
+							.findViewById(R.id.editbutton);
+					deleteButton.setText(getString(R.string.delete_entry));
+					editButton.setText(getString(R.string.make_default));
 
-						editButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								LinearLayout lins = (LinearLayout) arg1;
-								TextView texti = (TextView) lins.getChildAt(0);
-								makedefaultDB(DB.MY_DB_TABLE_SETSON, texti
-										.getText().toString());
-								readDB();
-								listAdapter6.notifyDataSetChanged();
-								Toast.makeText(mContext,
-										getString(R.string.default_saved),
-										Toast.LENGTH_SHORT).show();
-								pw.dismiss();
-							}
-						});
-
-						cancelButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								pw.dismiss();
-
-							}
-						});
-						int width = display.getWidth();
-						int height = display.getHeight();
-						pw = new PopupWindow(layoutOwn, (int) (width / 1.6),
-								(int) (height / 2.5), true);
-						pw.setAnimationStyle(7);
-						pw.setBackgroundDrawable(new BitmapDrawable());
-						pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
-
-						return true;
-
-						// HIER ENDE
-					}
-				});
-				addKate6.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(
-								addKate6.getApplicationWindowToken(), 0);
-						boolean vorhanden = false;
-						for (int i = 0; i < valuesSon.size(); i++) {
-							vorhanden = valuesSon.get(i).getName().toString()
-									.equals(Kat6.getText().toString());
-							if (vorhanden) {
-								i = (valuesSon.size() - 1);
-							}
-						}
-						if (vorhanden
-								|| Kat6.getText().toString().length() == 0
-								|| Kat6.getText().toString().trim().length() == 0) {
-							Toast.makeText(
-									getApplicationContext(),
-									getString(R.string.empty_or_existing_entry),
-									Toast.LENGTH_SHORT).show();
-						} else {
-							writeDB(DB.MY_DB_TABLE_SETSON, Kat6.getText()
-									.toString(), 1);
+					deleteButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							LinearLayout lins = (LinearLayout) arg1;
+							TextView texti = (TextView) lins.getChildAt(0);
+							deletefromDB(DB.MY_DB_TABLE_SETSON, texti.getText()
+									.toString());
 							readDB();
-							Kat6.setText("");
 							listAdapter6 = new SettingsArrayAdapter(mContext,
 									valuesSon, 67);
 							myList6.setAdapter(listAdapter6);
 							listAdapter6.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									getString(R.string.entry_saved),
+									getString(R.string.deleted),
 									Toast.LENGTH_SHORT).show();
+							pw.dismiss();
 						}
-					}
-				});
+					});
 
-				Kat6.setOnKeyListener(new OnKeyListener() {
-					@Override
-					public boolean onKey(View v, int keyCode, KeyEvent event) {
-						// If the event is a key-down event on the "enter"
-						// button
-						if ((event.getAction() == KeyEvent.ACTION_DOWN)
-								&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
-							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-							imm.hideSoftInputFromWindow(
-									Kat6.getApplicationWindowToken(), 0);
-							return true;
+					editButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							LinearLayout lins = (LinearLayout) arg1;
+							TextView texti = (TextView) lins.getChildAt(0);
+							makedefaultDB(DB.MY_DB_TABLE_SETSON, texti
+									.getText().toString());
+							readDB();
+							listAdapter6.notifyDataSetChanged();
+							Toast.makeText(mContext,
+									getString(R.string.default_saved),
+									Toast.LENGTH_SHORT).show();
+							pw.dismiss();
 						}
-						return false;
+					});
+
+					cancelButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							pw.dismiss();
+
+						}
+					});
+					int width = display.getWidth();
+					int height = display.getHeight();
+					pw = new PopupWindow(layoutOwn, (int) (width / 1.6),
+							(int) (height / 2.5), true);
+					pw.setAnimationStyle(7);
+					pw.setBackgroundDrawable(new BitmapDrawable());
+					pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
+
+					return true;
+
+					// HIER ENDE
+				}
+			});
+			addKate6.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(
+							addKate6.getApplicationWindowToken(), 0);
+					boolean vorhanden = false;
+					for (int i = 0; i < valuesSon.size(); i++) {
+						vorhanden = valuesSon.get(i).getName().toString()
+								.equals(Kat6.getText().toString());
+						if (vorhanden) {
+							i = (valuesSon.size() - 1);
+						}
 					}
-				});
-			}
+					if (vorhanden || Kat6.getText().toString().length() == 0
+							|| Kat6.getText().toString().trim().length() == 0) {
+						Toast.makeText(getApplicationContext(),
+								getString(R.string.empty_or_existing_entry),
+								Toast.LENGTH_SHORT).show();
+					} else {
+						writeDB(DB.MY_DB_TABLE_SETSON, Kat6.getText()
+								.toString(), 1);
+						readDB();
+						Kat6.setText("");
+						listAdapter6 = new SettingsArrayAdapter(mContext,
+								valuesSon, 67);
+						myList6.setAdapter(listAdapter6);
+						listAdapter6.notifyDataSetChanged();
+						Toast.makeText(getApplicationContext(),
+								getString(R.string.entry_saved),
+								Toast.LENGTH_SHORT).show();
+					}
+				}
+			});
+
+			Kat6.setOnKeyListener(new OnKeyListener() {
+				@Override
+				public boolean onKey(View v, int keyCode, KeyEvent event) {
+					// If the event is a key-down event on the "enter"
+					// button
+					if ((event.getAction() == KeyEvent.ACTION_DOWN)
+							&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
+						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+						imm.hideSoftInputFromWindow(
+								Kat6.getApplicationWindowToken(), 0);
+						return true;
+					}
+					return false;
+				}
+			});
 			return view;
 		}
 
 		private View createASAView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
-			if (true) {
-				freecell7 = (TextView) view.findViewById(R.id.freecell);
-				tablor7 = (TableLayout) view.findViewById(R.id.tablor);
-				myList7 = (ListView) view.findViewById(android.R.id.list);
-				addKate7 = (Button) view.findViewById(R.id.addkamera);
-				Kat7 = (EditText) view.findViewById(R.id.kameramodell);
-				freecell7.setText(getString(R.string.film_speed));
-				tablor7.setBackgroundResource(R.drawable.shapegreentable);
-				tablor7.setPadding(4, 0, -2, 0);
-				listAdapter7 = new SettingsArrayAdapter(mContext, valuesEmp, 76);
-				myList7.setAdapter(listAdapter7);
-				myList7.setOnItemLongClickListener(new OnItemLongClickListener() {
-					@Override
-					public boolean onItemLongClick(AdapterView<?> arg0,
-							final View arg1, final int arg2, long arg3) {
-						Display display = ((WindowManager) mContext
-								.getSystemService(Context.WINDOW_SERVICE))
-								.getDefaultDisplay();
-						LayoutInflater inflaterOwn = (LayoutInflater) mContext
-								.getSystemService(LAYOUT_INFLATER_SERVICE);
-						View layoutOwn = inflaterOwn.inflate(
-								R.layout.longclick,
-								(ViewGroup) findViewById(R.id.testen), false);
-						Button deleteButton = (Button) layoutOwn
-								.findViewById(R.id.deletebutton);
-						Button cancelButton = (Button) layoutOwn
-								.findViewById(R.id.cancelbutton);
-						Button editButton = (Button) layoutOwn
-								.findViewById(R.id.editbutton);
-						deleteButton.setText(getString(R.string.delete_entry));
-						editButton.setText(getString(R.string.make_default));
-						editButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								LinearLayout lins = (LinearLayout) arg1;
-								TextView texti = (TextView) lins.getChildAt(0);
-								makedefaultDB(DB.MY_DB_TABLE_SETEMP, texti
-										.getText().toString());
-								readDB();
-								listAdapter7.notifyDataSetChanged();
-								Toast.makeText(mContext,
-										getString(R.string.default_saved),
-										Toast.LENGTH_SHORT).show();
-								pw.dismiss();
-							}
-						});
-						deleteButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								LinearLayout lins = (LinearLayout) arg1;
-								TextView texti = (TextView) lins.getChildAt(0);
-								deletefromDB(DB.MY_DB_TABLE_SETEMP, texti
-										.getText().toString());
-								readDB();
-								listAdapter7 = new SettingsArrayAdapter(
-										mContext, valuesEmp, 76);
-								myList7.setAdapter(listAdapter7);
-								listAdapter7.notifyDataSetChanged();
-								Toast.makeText(getApplicationContext(),
-										getString(R.string.deleted),
-										Toast.LENGTH_SHORT).show();
-								pw.dismiss();
-							}
-						});
-						cancelButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								pw.dismiss();
-							}
-						});
-						int width = display.getWidth();
-						int height = display.getHeight();
-						pw = new PopupWindow(layoutOwn, (int) (width / 1.6),
-								(int) (height / 2.5), true);
-						pw.setAnimationStyle(7);
-						pw.setBackgroundDrawable(new BitmapDrawable());
-						pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
-						return true;
-					}
-				});
-				addKate7.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(
-								addKate7.getApplicationWindowToken(), 0);
-						boolean vorhanden = false;
-						for (int i = 0; i < valuesEmp.size(); i++) {
-							vorhanden = valuesEmp.get(i).getName().toString()
-									.equals(Kat7.getText().toString());
-							if (vorhanden) {
-								i = (valuesEmp.size() - 1);
-							}
-						}
-						if (vorhanden
-								|| Kat7.getText().toString().length() == 0
-								|| Kat7.getText().toString().trim().length() == 0) {
-							Toast.makeText(
-									getApplicationContext(),
-									getString(R.string.empty_or_existing_entry),
-									Toast.LENGTH_SHORT).show();
-						} else {
-							writeDB(DB.MY_DB_TABLE_SETEMP, Kat7.getText()
-									.toString(), 1);
+
+			freecell7 = (TextView) view.findViewById(R.id.freecell);
+			TableLayout tablor7 = (TableLayout) view.findViewById(R.id.tablor);
+			myList7 = (ListView) view.findViewById(android.R.id.list);
+			addKate7 = (Button) view.findViewById(R.id.addkamera);
+			Kat7 = (EditText) view.findViewById(R.id.kameramodell);
+			freecell7.setText(getString(R.string.film_speed));
+			tablor7.setBackgroundResource(R.drawable.shapegreentable);
+			tablor7.setPadding(4, 0, -2, 0);
+			listAdapter7 = new SettingsArrayAdapter(mContext, valuesEmp, 76);
+			myList7.setAdapter(listAdapter7);
+			myList7.setOnItemLongClickListener(new OnItemLongClickListener() {
+				@Override
+				public boolean onItemLongClick(AdapterView<?> arg0,
+						final View arg1, final int arg2, long arg3) {
+					Display display = ((WindowManager) mContext
+							.getSystemService(Context.WINDOW_SERVICE))
+							.getDefaultDisplay();
+					LayoutInflater inflaterOwn = (LayoutInflater) mContext
+							.getSystemService(LAYOUT_INFLATER_SERVICE);
+					View layoutOwn = inflaterOwn.inflate(R.layout.longclick,
+							(ViewGroup) findViewById(R.id.testen), false);
+					Button deleteButton = (Button) layoutOwn
+							.findViewById(R.id.deletebutton);
+					Button cancelButton = (Button) layoutOwn
+							.findViewById(R.id.cancelbutton);
+					Button editButton = (Button) layoutOwn
+							.findViewById(R.id.editbutton);
+					deleteButton.setText(getString(R.string.delete_entry));
+					editButton.setText(getString(R.string.make_default));
+					editButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							LinearLayout lins = (LinearLayout) arg1;
+							TextView texti = (TextView) lins.getChildAt(0);
+							makedefaultDB(DB.MY_DB_TABLE_SETEMP, texti
+									.getText().toString());
 							readDB();
-							Kat7.setText("");
+							listAdapter7.notifyDataSetChanged();
+							Toast.makeText(mContext,
+									getString(R.string.default_saved),
+									Toast.LENGTH_SHORT).show();
+							pw.dismiss();
+						}
+					});
+					deleteButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							LinearLayout lins = (LinearLayout) arg1;
+							TextView texti = (TextView) lins.getChildAt(0);
+							deletefromDB(DB.MY_DB_TABLE_SETEMP, texti.getText()
+									.toString());
+							readDB();
 							listAdapter7 = new SettingsArrayAdapter(mContext,
 									valuesEmp, 76);
 							myList7.setAdapter(listAdapter7);
 							listAdapter7.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									getString(R.string.entry_saved),
+									getString(R.string.deleted),
 									Toast.LENGTH_SHORT).show();
+							pw.dismiss();
+						}
+					});
+					cancelButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							pw.dismiss();
+						}
+					});
+					int width = display.getWidth();
+					int height = display.getHeight();
+					pw = new PopupWindow(layoutOwn, (int) (width / 1.6),
+							(int) (height / 2.5), true);
+					pw.setAnimationStyle(7);
+					pw.setBackgroundDrawable(new BitmapDrawable());
+					pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
+					return true;
+				}
+			});
+			addKate7.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(
+							addKate7.getApplicationWindowToken(), 0);
+					boolean vorhanden = false;
+					for (int i = 0; i < valuesEmp.size(); i++) {
+						vorhanden = valuesEmp.get(i).getName().toString()
+								.equals(Kat7.getText().toString());
+						if (vorhanden) {
+							i = (valuesEmp.size() - 1);
 						}
 					}
-				});
-				Kat7.setOnKeyListener(new OnKeyListener() {
-					@Override
-					public boolean onKey(View v, int keyCode, KeyEvent event) {
-						if ((event.getAction() == KeyEvent.ACTION_DOWN)
-								&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
-							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-							imm.hideSoftInputFromWindow(
-									Kat7.getApplicationWindowToken(), 0);
-							return true;
-						}
-						return false;
+					if (vorhanden || Kat7.getText().toString().length() == 0
+							|| Kat7.getText().toString().trim().length() == 0) {
+						Toast.makeText(getApplicationContext(),
+								getString(R.string.empty_or_existing_entry),
+								Toast.LENGTH_SHORT).show();
+					} else {
+						writeDB(DB.MY_DB_TABLE_SETEMP, Kat7.getText()
+								.toString(), 1);
+						readDB();
+						Kat7.setText("");
+						listAdapter7 = new SettingsArrayAdapter(mContext,
+								valuesEmp, 76);
+						myList7.setAdapter(listAdapter7);
+						listAdapter7.notifyDataSetChanged();
+						Toast.makeText(getApplicationContext(),
+								getString(R.string.entry_saved),
+								Toast.LENGTH_SHORT).show();
 					}
-				});
-			}
+				}
+			});
+			Kat7.setOnKeyListener(new OnKeyListener() {
+				@Override
+				public boolean onKey(View v, int keyCode, KeyEvent event) {
+					if ((event.getAction() == KeyEvent.ACTION_DOWN)
+							&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
+						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+						imm.hideSoftInputFromWindow(
+								Kat7.getApplicationWindowToken(), 0);
+						return true;
+					}
+					return false;
+				}
+			});
 			return view;
 		}
 
@@ -848,7 +825,7 @@ public class EditSettingsActivity extends Activity {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
 			freecell3 = (TextView) view.findViewById(R.id.freecell);
-			tablor3 = (TableLayout) view.findViewById(R.id.tablor);
+			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText10 = ((EditText) view.findViewById(R.id.kameramodell));
 			myListView10 = (ListView) view.findViewById(android.R.id.list);
@@ -1018,7 +995,7 @@ public class EditSettingsActivity extends Activity {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
 			freecell3 = (TextView) view.findViewById(R.id.freecell);
-			tablor3 = (TableLayout) view.findViewById(R.id.tablor);
+			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText9 = ((EditText) view.findViewById(R.id.kameramodell));
 			myListView9 = (ListView) view.findViewById(android.R.id.list);
@@ -1186,137 +1163,132 @@ public class EditSettingsActivity extends Activity {
 		private View createFilmFormView() {
 
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
-			if (true) {
-				freecell1 = (TextView) view.findViewById(R.id.freecell);
-				tablor1 = (TableLayout) view.findViewById(R.id.tablor);
-				myList1 = (ListView) view.findViewById(android.R.id.list);
-				addKate1 = (Button) view.findViewById(R.id.addkamera);
-				Kat1 = (EditText) view.findViewById(R.id.kameramodell);
-				freecell1.setText(getString(R.string.film_formats));
-				tablor1.setBackgroundResource(R.drawable.shapegreentable);
-				tablor1.setPadding(4, 0, -2, 0);
-				listAdapter1 = new SettingsArrayAdapter(mContext, valuesFF, 19);
-				myList1.setAdapter(listAdapter1);
-				myList1.setOnItemLongClickListener(new OnItemLongClickListener() {
-					@Override
-					public boolean onItemLongClick(AdapterView<?> arg0,
-							final View arg1, final int arg2, long arg3) {
-						Display display = ((WindowManager) mContext
-								.getSystemService(Context.WINDOW_SERVICE))
-								.getDefaultDisplay();
-						LayoutInflater inflaterOwn = (LayoutInflater) mContext
-								.getSystemService(LAYOUT_INFLATER_SERVICE);
-						View layoutOwn = inflaterOwn.inflate(
-								R.layout.longclick,
-								(ViewGroup) findViewById(R.id.testen), false);
-						Button deleteButton = (Button) layoutOwn
-								.findViewById(R.id.deletebutton);
-						Button cancelButton = (Button) layoutOwn
-								.findViewById(R.id.cancelbutton);
-						Button editButton = (Button) layoutOwn
-								.findViewById(R.id.editbutton);
-						deleteButton.setText(getString(R.string.delete_entry));
-						editButton.setText(getString(R.string.make_default));
-						editButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								LinearLayout lins = (LinearLayout) arg1;
-								TextView texti = (TextView) lins.getChildAt(0);
-								makedefaultDB(DB.MY_DB_TABLE_SETFF, texti
-										.getText().toString());
-								readDB();
-								listAdapter1.notifyDataSetChanged();
 
-								Toast.makeText(mContext,
-										getString(R.string.default_saved),
-										Toast.LENGTH_SHORT).show();
-								pw.dismiss();
-							}
-						});
-						deleteButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								LinearLayout lins = (LinearLayout) arg1;
-								TextView texti = (TextView) lins.getChildAt(0);
-								deletefromDB(DB.MY_DB_TABLE_SETFF, texti
-										.getText().toString());
-								readDB();
-								listAdapter1 = new SettingsArrayAdapter(
-										mContext, valuesFF, 19);
-								myList1.setAdapter(listAdapter1);
-								listAdapter1.notifyDataSetChanged();
-								Toast.makeText(getApplicationContext(),
-										getString(R.string.deleted),
-										Toast.LENGTH_SHORT).show();
-								pw.dismiss();
-							}
-						});
-						cancelButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								pw.dismiss();
-							}
-						});
-						int width = display.getWidth();
-						int height = display.getHeight();
-						pw = new PopupWindow(layoutOwn, (int) (width / 1.6),
-								(int) (height / 2.5), true);
-						pw.setAnimationStyle(7);
-						pw.setBackgroundDrawable(new BitmapDrawable());
-						pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
-						return true;
-					}
-				});
-				addKate1.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(
-								addKate1.getApplicationWindowToken(), 0);
-						boolean vorhanden = false;
-						for (int i = 0; i < valuesFF.size(); i++) {
-							vorhanden = valuesFF.get(i).getName().toString()
-									.equals(Kat1.getText().toString());
-							if (vorhanden) {
-								i = (valuesFF.size() - 1);
-							}
-						}
-						if (vorhanden
-								|| Kat1.getText().toString().length() == 0
-								|| Kat1.getText().toString().trim().length() == 0) {
-							Toast.makeText(
-									getApplicationContext(),
-									getString(R.string.empty_or_existing_entry),
-									Toast.LENGTH_SHORT).show();
-						} else {
-							writeDB(DB.MY_DB_TABLE_SETFF, Kat1.getText()
-									.toString(), 1);
+			freecell1 = (TextView) view.findViewById(R.id.freecell);
+			TableLayout tablor1 = (TableLayout) view.findViewById(R.id.tablor);
+			myList1 = (ListView) view.findViewById(android.R.id.list);
+			addKate1 = (Button) view.findViewById(R.id.addkamera);
+			Kat1 = (EditText) view.findViewById(R.id.kameramodell);
+			freecell1.setText(getString(R.string.film_formats));
+			tablor1.setBackgroundResource(R.drawable.shapegreentable);
+			tablor1.setPadding(4, 0, -2, 0);
+			listAdapter1 = new SettingsArrayAdapter(mContext, valuesFF, 19);
+			myList1.setAdapter(listAdapter1);
+			myList1.setOnItemLongClickListener(new OnItemLongClickListener() {
+				@Override
+				public boolean onItemLongClick(AdapterView<?> arg0,
+						final View arg1, final int arg2, long arg3) {
+					Display display = ((WindowManager) mContext
+							.getSystemService(Context.WINDOW_SERVICE))
+							.getDefaultDisplay();
+					LayoutInflater inflaterOwn = (LayoutInflater) mContext
+							.getSystemService(LAYOUT_INFLATER_SERVICE);
+					View layoutOwn = inflaterOwn.inflate(R.layout.longclick,
+							(ViewGroup) findViewById(R.id.testen), false);
+					Button deleteButton = (Button) layoutOwn
+							.findViewById(R.id.deletebutton);
+					Button cancelButton = (Button) layoutOwn
+							.findViewById(R.id.cancelbutton);
+					Button editButton = (Button) layoutOwn
+							.findViewById(R.id.editbutton);
+					deleteButton.setText(getString(R.string.delete_entry));
+					editButton.setText(getString(R.string.make_default));
+					editButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							LinearLayout lins = (LinearLayout) arg1;
+							TextView texti = (TextView) lins.getChildAt(0);
+							makedefaultDB(DB.MY_DB_TABLE_SETFF, texti.getText()
+									.toString());
 							readDB();
-							Kat1.setText("");
+							listAdapter1.notifyDataSetChanged();
+
+							Toast.makeText(mContext,
+									getString(R.string.default_saved),
+									Toast.LENGTH_SHORT).show();
+							pw.dismiss();
+						}
+					});
+					deleteButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							LinearLayout lins = (LinearLayout) arg1;
+							TextView texti = (TextView) lins.getChildAt(0);
+							deletefromDB(DB.MY_DB_TABLE_SETFF, texti.getText()
+									.toString());
+							readDB();
 							listAdapter1 = new SettingsArrayAdapter(mContext,
 									valuesFF, 19);
 							myList1.setAdapter(listAdapter1);
 							listAdapter1.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
-									getString(R.string.entry_saved),
+									getString(R.string.deleted),
 									Toast.LENGTH_SHORT).show();
+							pw.dismiss();
+						}
+					});
+					cancelButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							pw.dismiss();
+						}
+					});
+					int width = display.getWidth();
+					int height = display.getHeight();
+					pw = new PopupWindow(layoutOwn, (int) (width / 1.6),
+							(int) (height / 2.5), true);
+					pw.setAnimationStyle(7);
+					pw.setBackgroundDrawable(new BitmapDrawable());
+					pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
+					return true;
+				}
+			});
+			addKate1.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(
+							addKate1.getApplicationWindowToken(), 0);
+					boolean vorhanden = false;
+					for (int i = 0; i < valuesFF.size(); i++) {
+						vorhanden = valuesFF.get(i).getName().toString()
+								.equals(Kat1.getText().toString());
+						if (vorhanden) {
+							i = (valuesFF.size() - 1);
 						}
 					}
-				});
-				Kat1.setOnKeyListener(new OnKeyListener() {
-					@Override
-					public boolean onKey(View v, int keyCode, KeyEvent event) {
-						if ((event.getAction() == KeyEvent.ACTION_DOWN)
-								&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
-							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-							imm.hideSoftInputFromWindow(
-									Kat1.getApplicationWindowToken(), 0);
-							return true;
-						}
-						return false;
+					if (vorhanden || Kat1.getText().toString().length() == 0
+							|| Kat1.getText().toString().trim().length() == 0) {
+						Toast.makeText(getApplicationContext(),
+								getString(R.string.empty_or_existing_entry),
+								Toast.LENGTH_SHORT).show();
+					} else {
+						writeDB(DB.MY_DB_TABLE_SETFF,
+								Kat1.getText().toString(), 1);
+						readDB();
+						Kat1.setText("");
+						listAdapter1 = new SettingsArrayAdapter(mContext,
+								valuesFF, 19);
+						myList1.setAdapter(listAdapter1);
+						listAdapter1.notifyDataSetChanged();
+						Toast.makeText(getApplicationContext(),
+								getString(R.string.entry_saved),
+								Toast.LENGTH_SHORT).show();
 					}
-				});
-			}
-
+				}
+			});
+			Kat1.setOnKeyListener(new OnKeyListener() {
+				@Override
+				public boolean onKey(View v, int keyCode, KeyEvent event) {
+					if ((event.getAction() == KeyEvent.ACTION_DOWN)
+							&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
+						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+						imm.hideSoftInputFromWindow(
+								Kat1.getApplicationWindowToken(), 0);
+						return true;
+					}
+					return false;
+				}
+			});
 			return view;
 		}
 
@@ -1324,7 +1296,7 @@ public class EditSettingsActivity extends Activity {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
 			freecell3 = (TextView) view.findViewById(R.id.freecell);
-			tablor3 = (TableLayout) view.findViewById(R.id.tablor);
+			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText8 = ((EditText) view.findViewById(R.id.kameramodell));
 			myListView8 = (ListView) view.findViewById(android.R.id.list);
@@ -1494,7 +1466,7 @@ public class EditSettingsActivity extends Activity {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
 			freecell3 = (TextView) view.findViewById(R.id.freecell);
-			tablor3 = (TableLayout) view.findViewById(R.id.tablor);
+			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText7 = ((EditText) view.findViewById(R.id.kameramodell));
 			myListView7 = (ListView) view.findViewById(android.R.id.list);
@@ -1663,7 +1635,7 @@ public class EditSettingsActivity extends Activity {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
 			freecell3 = (TextView) view.findViewById(R.id.freecell);
-			tablor3 = (TableLayout) view.findViewById(R.id.tablor);
+			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText6 = ((EditText) view.findViewById(R.id.kameramodell));
 			myListView6 = (ListView) view.findViewById(android.R.id.list);
@@ -1832,7 +1804,7 @@ public class EditSettingsActivity extends Activity {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
 			freecell3 = (TextView) view.findViewById(R.id.freecell);
-			tablor3 = (TableLayout) view.findViewById(R.id.tablor);
+			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText5 = ((EditText) view.findViewById(R.id.kameramodell));
 			myListView5 = (ListView) view.findViewById(android.R.id.list);
@@ -1992,7 +1964,7 @@ public class EditSettingsActivity extends Activity {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
 			freecell3 = (TextView) view.findViewById(R.id.freecell);
-			tablor3 = (TableLayout) view.findViewById(R.id.tablor);
+			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText4 = ((EditText) view.findViewById(R.id.kameramodell));
 			myListView4 = (ListView) view.findViewById(android.R.id.list);
@@ -2161,7 +2133,7 @@ public class EditSettingsActivity extends Activity {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
 			freecell3 = (TextView) view.findViewById(R.id.freecell);
-			tablor3 = (TableLayout) view.findViewById(R.id.tablor);
+			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText3 = ((EditText) view.findViewById(R.id.kameramodell));
 			myListView3 = (ListView) view.findViewById(android.R.id.list);
@@ -2330,7 +2302,7 @@ public class EditSettingsActivity extends Activity {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
 			freecell3 = (TextView) view.findViewById(R.id.freecell);
-			tablor3 = (TableLayout) view.findViewById(R.id.tablor);
+			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText2 = ((EditText) view.findViewById(R.id.kameramodell));
 			myListView2 = (ListView) view.findViewById(android.R.id.list);
@@ -2500,7 +2472,7 @@ public class EditSettingsActivity extends Activity {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
 			freecell3 = (TextView) view.findViewById(R.id.freecell);
-			tablor3 = (TableLayout) view.findViewById(R.id.tablor);
+			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText1 = ((EditText) view.findViewById(R.id.kameramodell));
 			myListView1 = (ListView) view.findViewById(android.R.id.list);
@@ -2669,7 +2641,7 @@ public class EditSettingsActivity extends Activity {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
 			freecell3 = (TextView) view.findViewById(R.id.freecell);
-			tablor3 = (TableLayout) view.findViewById(R.id.tablor);
+			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText0 = ((EditText) view.findViewById(R.id.kameramodell));
 			myListView0 = (ListView) view.findViewById(android.R.id.list);
@@ -2829,9 +2801,9 @@ public class EditSettingsActivity extends Activity {
 
 		private View createKameraView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
-			if (true) {
 				freecell = (TextView) view.findViewById(R.id.freecell);
-				tablor = (TableLayout) view.findViewById(R.id.tablor);
+				TableLayout tablor = (TableLayout) view
+						.findViewById(R.id.tablor);
 				myList = (ListView) view.findViewById(android.R.id.list);
 				addKate = (Button) view.findViewById(R.id.addkamera);
 				Kat = (EditText) view.findViewById(R.id.kameramodell);
@@ -2883,7 +2855,7 @@ public class EditSettingsActivity extends Activity {
 										false);
 								freecellspec = (TextView) layoutOwn2
 										.findViewById(R.id.freecell);
-								tablorspec = (TableLayout) layoutOwn2
+								TableLayout tablorspec = (TableLayout) layoutOwn2
 										.findViewById(R.id.tablor);
 								myListspec = (ListView) layoutOwn2
 										.findViewById(android.R.id.list);
@@ -3113,7 +3085,7 @@ public class EditSettingsActivity extends Activity {
 									R.layout.settingsauswahlspec, null, false);
 							freecellspec = (TextView) layoutOwn2
 									.findViewById(R.id.freecell);
-							tablorspec = (TableLayout) layoutOwn2
+							TableLayout tablorspec = (TableLayout) layoutOwn2
 									.findViewById(R.id.tablor);
 							myListspec = (ListView) layoutOwn2
 									.findViewById(android.R.id.list);
@@ -3284,8 +3256,6 @@ public class EditSettingsActivity extends Activity {
 						return false;
 					}
 				});
-			}
-
 			return view;
 		}
 
