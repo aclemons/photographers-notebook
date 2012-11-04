@@ -80,10 +80,6 @@ public class EditSettingsActivity extends Activity {
 	ViewPager viewPager;
 	TitlePageIndicator mIndicator;
 
-	TextView freecell7, freecell1, freecellspec, freecell, freecell3;
-
-	CheckBox checki7, checki6, checki1, checkispec, checki, checki3;
-
 	Button addKate7, addKate6, addKate1, addKatespec, addKate, addKate3;
 
 	EditText Kat7, Kat6, Kat1, Katspec, Kat3, Kat, katText0, katText1,
@@ -694,7 +690,7 @@ public class EditSettingsActivity extends Activity {
 		private View createASAView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell7 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell7 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor7 = (TableLayout) view.findViewById(R.id.tablor);
 			myList7 = (ListView) view.findViewById(android.R.id.list);
 			addKate7 = (Button) view.findViewById(R.id.addkamera);
@@ -824,7 +820,7 @@ public class EditSettingsActivity extends Activity {
 		private View createBlitzKorrView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell3 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell3 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText10 = ((EditText) view.findViewById(R.id.kameramodell));
@@ -994,7 +990,7 @@ public class EditSettingsActivity extends Activity {
 		private View createBlitzView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell3 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell3 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText9 = ((EditText) view.findViewById(R.id.kameramodell));
@@ -1164,7 +1160,7 @@ public class EditSettingsActivity extends Activity {
 
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell1 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell1 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor1 = (TableLayout) view.findViewById(R.id.tablor);
 			myList1 = (ListView) view.findViewById(android.R.id.list);
 			addKate1 = (Button) view.findViewById(R.id.addkamera);
@@ -1295,7 +1291,7 @@ public class EditSettingsActivity extends Activity {
 		private View createFilterVFView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell3 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell3 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText8 = ((EditText) view.findViewById(R.id.kameramodell));
@@ -1465,7 +1461,7 @@ public class EditSettingsActivity extends Activity {
 		private View createFilterView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell3 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell3 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText7 = ((EditText) view.findViewById(R.id.kameramodell));
@@ -1634,7 +1630,7 @@ public class EditSettingsActivity extends Activity {
 		private View createMakroVFView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell3 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell3 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText6 = ((EditText) view.findViewById(R.id.kameramodell));
@@ -1803,7 +1799,7 @@ public class EditSettingsActivity extends Activity {
 		private View createMakroView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell3 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell3 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText5 = ((EditText) view.findViewById(R.id.kameramodell));
@@ -1963,7 +1959,7 @@ public class EditSettingsActivity extends Activity {
 		private View createKorrView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell3 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell3 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText4 = ((EditText) view.findViewById(R.id.kameramodell));
@@ -2132,7 +2128,7 @@ public class EditSettingsActivity extends Activity {
 		private View createMessView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell3 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell3 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText3 = ((EditText) view.findViewById(R.id.kameramodell));
@@ -2301,7 +2297,7 @@ public class EditSettingsActivity extends Activity {
 		private View createZeitView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell3 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell3 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText2 = ((EditText) view.findViewById(R.id.kameramodell));
@@ -2471,7 +2467,7 @@ public class EditSettingsActivity extends Activity {
 
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell3 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell3 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText1 = ((EditText) view.findViewById(R.id.kameramodell));
@@ -2640,7 +2636,7 @@ public class EditSettingsActivity extends Activity {
 		private View createFokusView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
-			freecell3 = (TextView) view.findViewById(R.id.freecell);
+			TextView freecell3 = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor3 = (TableLayout) view.findViewById(R.id.tablor);
 			addKate3 = (Button) view.findViewById(R.id.addkamera);
 			katText0 = ((EditText) view.findViewById(R.id.kameramodell));
@@ -2801,281 +2797,49 @@ public class EditSettingsActivity extends Activity {
 
 		private View createKameraView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
-				freecell = (TextView) view.findViewById(R.id.freecell);
-				TableLayout tablor = (TableLayout) view
-						.findViewById(R.id.tablor);
-				myList = (ListView) view.findViewById(android.R.id.list);
-				addKate = (Button) view.findViewById(R.id.addkamera);
-				Kat = (EditText) view.findViewById(R.id.kameramodell);
-				freecell.setText(getString(R.string.camera_models));
-				tablor.setBackgroundResource(R.drawable.shaperedtable);
-				tablor.setPadding(4, 0, -2, 0);
-				listAdapter = new CamArrayAdapter(mContext, valuesCam, 0);
-				myList.setAdapter(listAdapter);
+			TextView freecell = (TextView) view.findViewById(R.id.freecell);
+			TableLayout tablor = (TableLayout) view.findViewById(R.id.tablor);
+			myList = (ListView) view.findViewById(android.R.id.list);
+			addKate = (Button) view.findViewById(R.id.addkamera);
+			Kat = (EditText) view.findViewById(R.id.kameramodell);
+			freecell.setText(getString(R.string.camera_models));
+			tablor.setBackgroundResource(R.drawable.shaperedtable);
+			tablor.setPadding(4, 0, -2, 0);
+			listAdapter = new CamArrayAdapter(mContext, valuesCam, 0);
+			myList.setAdapter(listAdapter);
 
-				myList.setOnItemLongClickListener(new OnItemLongClickListener() {
-					@Override
-					public boolean onItemLongClick(AdapterView<?> arg0,
-							final View arg1, final int arg2, long arg3) {
-						Display display = ((WindowManager) mContext
-								.getSystemService(Context.WINDOW_SERVICE))
-								.getDefaultDisplay();
-						LayoutInflater inflaterOwn = (LayoutInflater) mContext
-								.getSystemService(LAYOUT_INFLATER_SERVICE);
-						View layoutOwn = inflaterOwn.inflate(
-								R.layout.longclickspec,
-								(ViewGroup) findViewById(R.id.testen), false);
-						Button deleteButton = (Button) layoutOwn
-								.findViewById(R.id.deletebutton);
-						Button cancelButton = (Button) layoutOwn
-								.findViewById(R.id.cancelbutton);
-						Button editButton = (Button) layoutOwn
-								.findViewById(R.id.editbutton);
-						Button specButton = (Button) layoutOwn
-								.findViewById(R.id.specbutton);
-						deleteButton.setText(getString(R.string.delete_entry));
-						editButton.setText(getString(R.string.make_default));
-						editButton.setVisibility(Button.GONE);
-						specButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-
-								// BW F�NGT AN
-
-								LinearLayout lins = (LinearLayout) arg1;
-								final TextView textis = (TextView) ((LinearLayout) lins
-										.getChildAt(0)).getChildAt(0);
-								Display display2 = ((WindowManager) mContext
-										.getSystemService(Context.WINDOW_SERVICE))
-										.getDefaultDisplay();
-								LayoutInflater inflaterOwn2 = (LayoutInflater) mContext
-										.getSystemService(LAYOUT_INFLATER_SERVICE);
-								View layoutOwn2 = inflaterOwn2.inflate(
-										R.layout.settingsauswahlspec, null,
-										false);
-								freecellspec = (TextView) layoutOwn2
-										.findViewById(R.id.freecell);
-								TableLayout tablorspec = (TableLayout) layoutOwn2
-										.findViewById(R.id.tablor);
-								myListspec = (ListView) layoutOwn2
-										.findViewById(android.R.id.list);
-								addKatespec = (Button) layoutOwn2
-										.findViewById(R.id.addkamera);
-								Katspec = (EditText) layoutOwn2
-										.findViewById(R.id.kameramodell);
-								freecellspec
-										.setText(getString(R.string.choose_lens));
-								tablorspec
-										.setBackgroundResource(R.drawable.shaperedtable);
-								tablorspec.setPadding(2, 2, 2, 2);
-								listAdapterspec = new SettingsArrayAdapterSpec(
-										mContext, aplanetsspec, 1337, textis
-												.getText().toString());
-								myListspec.setAdapter(listAdapterspec);
-								myListspec
-										.setOnItemLongClickListener(new OnItemLongClickListener() {
-											@Override
-											public boolean onItemLongClick(
-													AdapterView<?> arg0,
-													final View arg1,
-													final int arg2, long arg3) {
-												AlertDialog.Builder builder = new AlertDialog.Builder(
-														mContext);
-												builder.setMessage(
-														getString(R.string.delete_entry))
-														.setCancelable(false)
-														.setPositiveButton(
-																getString(R.string.yes),
-																new DialogInterface.OnClickListener() {
-																	public void onClick(
-																			DialogInterface dialog,
-																			int which) {
-																		LinearLayout test = (LinearLayout) arg1;
-																		TextView tec = (TextView) test
-																				.getChildAt(0);
-																		deletefromDB(
-																				DB.MY_DB_TABLE_SETCAMBW,
-																				tec.getText()
-																						.toString(),
-																				tec.getText()
-																						.toString());
-																		deletefromDB(
-																				DB.MY_DB_TABLE_SETBW,
-																				tec.getText()
-																						.toString());
-																		aplanetsspec
-																				.remove(arg2);
-																		listAdapterspec
-																				.notifyDataSetChanged();
-																		readDB();
-																		viewPager = (ViewPager) findViewById(R.id.viewPager);
-																		SettingsPager adapter = new SettingsPager(
-																				mContext);
-																		viewPager
-																				.setAdapter(adapter);
-																		mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
-																		mIndicator
-																				.setViewPager(viewPager);
-																		viewPager
-																				.setCurrentItem(
-																						1,
-																						false);
-																	}
-																})
-														.setNegativeButton(
-																getString(R.string.no),
-																new DialogInterface.OnClickListener() {
-																	public void onClick(
-																			DialogInterface dialog,
-																			int which) {
-																	}
-																});
-												AlertDialog alert = builder
-														.create();
-												alert.show();
-												return true;
-											}
-										});
-								addKatespec
-										.setOnClickListener(new View.OnClickListener() {
-
-											public void onClick(View v) {
-												InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-												imm.hideSoftInputFromWindow(
-														Katspec.getApplicationWindowToken(),
-														0);
-												boolean vorhanden = false;
-												for (int i = 0; i < aplanetsspec
-														.size(); i++) {
-													vorhanden = aplanetsspec
-															.get(i)
-															.toString()
-															.equals(Katspec
-																	.getText()
-																	.toString());
-													if (vorhanden) {
-														i = (aplanetsspec
-																.size() - 1);
-													}
-												}
-												if (vorhanden
-														|| Katspec.getText()
-																.toString()
-																.length() == 0
-														|| Katspec.getText()
-																.toString()
-																.trim()
-																.length() == 0) {
-													Toast.makeText(
-															getApplicationContext(),
-															getString(R.string.empty_or_existing_entry),
-															Toast.LENGTH_SHORT)
-															.show();
-												} else {
-													writeDB(DB.MY_DB_TABLE_SETBW,
-															Katspec.getText()
-																	.toString(),
-															1);
-													aplanetsspec
-															.add(new Setting(
-																	Katspec.getText()
-																			.toString(),
-																	1));
-
-													Katspec.setText("");
-													listAdapterspec
-															.notifyDataSetChanged();
-												}
-											}
-										});
-								int width2 = display2.getWidth();
-								int height2 = display2.getHeight();
-								PopupWindow popUp = new PopupWindow(layoutOwn2,
-										(int) (width2 / 1.05),
-										(int) (height2 / 1.05), true);
-								popUp.setAnimationStyle(7);
-								popUp.setBackgroundDrawable(new BitmapDrawable());
-								pw.dismiss();
-								popUp.showAtLocation(layoutOwn2,
-										Gravity.CENTER, 0, 0);
-							}
-						});
-						editButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								LinearLayout lins = (LinearLayout) arg1;
-								TextView texti = (TextView) ((LinearLayout) lins
-										.getChildAt(0)).getChildAt(0);
-
-								makedefaultDB(DB.MY_DB_TABLE_SETCAM, texti
-										.getText().toString());
-
-								myList.setAdapter(listAdapter);
-								Toast.makeText(mContext,
-										getString(R.string.default_saved),
-										Toast.LENGTH_SHORT).show();
-								pw.dismiss();
-							}
-						});
-						deleteButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								LinearLayout lins = (LinearLayout) arg1;
-								TextView texti = (TextView) ((LinearLayout) lins
-										.getChildAt(0)).getChildAt(0);
-								deletefromDB(DB.MY_DB_TABLE_SETCAM, texti
-										.getText().toString());
-								valuesCam.remove(arg2);
-								listAdapter.notifyDataSetChanged();
-								pw.dismiss();
-							}
-						});
-						cancelButton.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								pw.dismiss();
-							}
-						});
-						int width = display.getWidth();
-						int height = display.getHeight();
-						pw = new PopupWindow(layoutOwn, (int) (width / 1.3),
-								(int) (height / 1.6), true);
-						pw.setAnimationStyle(7);
-						pw.setBackgroundDrawable(new BitmapDrawable());
-						pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
-						return true;
-					}
-				});
-				// BW H�RT AUF
-
-				addKate.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(
-								addKate.getApplicationWindowToken(), 0);
-						boolean vorhanden = false;
-						for (int i = 0; i < valuesCam.size(); i++) {
-							vorhanden = valuesCam.get(i).getName().toString()
-									.equals(Kat.getText().toString());
-							if (vorhanden) {
-								i = (valuesCam.size() - 1);
-							}
-						}
-						if (vorhanden
-								|| Kat.getText().toString().length() == 0
-								|| Kat.getText().toString().trim().length() == 0) {
-							Toast.makeText(
-									getApplicationContext(),
-									getString(R.string.empty_or_existing_entry),
-									Toast.LENGTH_SHORT).show();
-						} else {
-							writeDB(DB.MY_DB_TABLE_SETCAM, Kat.getText()
-									.toString(), 1);
-							valuesCam.add(new Setting(Kat.getText().toString(),
-									1));
-							listAdapter.notifyDataSetChanged();
+			myList.setOnItemLongClickListener(new OnItemLongClickListener() {
+				@Override
+				public boolean onItemLongClick(AdapterView<?> arg0,
+						final View arg1, final int arg2, long arg3) {
+					Display display = ((WindowManager) mContext
+							.getSystemService(Context.WINDOW_SERVICE))
+							.getDefaultDisplay();
+					LayoutInflater inflaterOwn = (LayoutInflater) mContext
+							.getSystemService(LAYOUT_INFLATER_SERVICE);
+					View layoutOwn = inflaterOwn.inflate(
+							R.layout.longclickspec,
+							(ViewGroup) findViewById(R.id.testen), false);
+					Button deleteButton = (Button) layoutOwn
+							.findViewById(R.id.deletebutton);
+					Button cancelButton = (Button) layoutOwn
+							.findViewById(R.id.cancelbutton);
+					Button editButton = (Button) layoutOwn
+							.findViewById(R.id.editbutton);
+					Button specButton = (Button) layoutOwn
+							.findViewById(R.id.specbutton);
+					deleteButton.setText(getString(R.string.delete_entry));
+					editButton.setText(getString(R.string.make_default));
+					editButton.setVisibility(Button.GONE);
+					specButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
 
 							// BW F�NGT AN
+
+							LinearLayout lins = (LinearLayout) arg1;
+							final TextView textis = (TextView) ((LinearLayout) lins
+									.getChildAt(0)).getChildAt(0);
 							Display display2 = ((WindowManager) mContext
 									.getSystemService(Context.WINDOW_SERVICE))
 									.getDefaultDisplay();
@@ -3083,7 +2847,7 @@ public class EditSettingsActivity extends Activity {
 									.getSystemService(LAYOUT_INFLATER_SERVICE);
 							View layoutOwn2 = inflaterOwn2.inflate(
 									R.layout.settingsauswahlspec, null, false);
-							freecellspec = (TextView) layoutOwn2
+							TextView freecellspec = (TextView) layoutOwn2
 									.findViewById(R.id.freecell);
 							TableLayout tablorspec = (TableLayout) layoutOwn2
 									.findViewById(R.id.tablor);
@@ -3099,8 +2863,8 @@ public class EditSettingsActivity extends Activity {
 									.setBackgroundResource(R.drawable.shaperedtable);
 							tablorspec.setPadding(2, 2, 2, 2);
 							listAdapterspec = new SettingsArrayAdapterSpec(
-									mContext, aplanetsspec, 1337, Kat.getText()
-											.toString());
+									mContext, aplanetsspec, 1337, textis
+											.getText().toString());
 							myListspec.setAdapter(listAdapterspec);
 							myListspec
 									.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -3112,7 +2876,7 @@ public class EditSettingsActivity extends Activity {
 											AlertDialog.Builder builder = new AlertDialog.Builder(
 													mContext);
 											builder.setMessage(
-													getString(R.string.question_delete))
+													getString(R.string.delete_entry))
 													.setCancelable(false)
 													.setPositiveButton(
 															getString(R.string.yes),
@@ -3168,6 +2932,7 @@ public class EditSettingsActivity extends Activity {
 									});
 							addKatespec
 									.setOnClickListener(new View.OnClickListener() {
+
 										public void onClick(View v) {
 											InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 											imm.hideSoftInputFromWindow(
@@ -3207,26 +2972,13 @@ public class EditSettingsActivity extends Activity {
 																Katspec.getText()
 																		.toString(),
 																1));
+
 												Katspec.setText("");
 												listAdapterspec
 														.notifyDataSetChanged();
 											}
 										}
 									});
-							Katspec.setOnKeyListener(new OnKeyListener() {
-								@Override
-								public boolean onKey(View v, int keyCode,
-										KeyEvent event) {
-									if ((event.getAction() == KeyEvent.ACTION_DOWN)
-											&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
-										InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-										imm.hideSoftInputFromWindow(Katspec
-												.getApplicationWindowToken(), 0);
-										return true;
-									}
-									return false;
-								}
-							});
 							int width2 = display2.getWidth();
 							int height2 = display2.getHeight();
 							PopupWindow popUp = new PopupWindow(layoutOwn2,
@@ -3234,28 +2986,254 @@ public class EditSettingsActivity extends Activity {
 									(int) (height2 / 1.05), true);
 							popUp.setAnimationStyle(7);
 							popUp.setBackgroundDrawable(new BitmapDrawable());
+							pw.dismiss();
 							popUp.showAtLocation(layoutOwn2, Gravity.CENTER, 0,
 									0);
-							// TESTEN ENDE
-							Kat.setText("");
 						}
-					}
-				});
-				// BW H�RT AUF
+					});
+					editButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							LinearLayout lins = (LinearLayout) arg1;
+							TextView texti = (TextView) ((LinearLayout) lins
+									.getChildAt(0)).getChildAt(0);
 
-				Kat.setOnKeyListener(new OnKeyListener() {
-					@Override
-					public boolean onKey(View v, int keyCode, KeyEvent event) {
-						if ((event.getAction() == KeyEvent.ACTION_DOWN)
-								&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
-							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-							imm.hideSoftInputFromWindow(
-									Kat.getApplicationWindowToken(), 0);
-							return true;
+							makedefaultDB(DB.MY_DB_TABLE_SETCAM, texti
+									.getText().toString());
+
+							myList.setAdapter(listAdapter);
+							Toast.makeText(mContext,
+									getString(R.string.default_saved),
+									Toast.LENGTH_SHORT).show();
+							pw.dismiss();
 						}
-						return false;
+					});
+					deleteButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							LinearLayout lins = (LinearLayout) arg1;
+							TextView texti = (TextView) ((LinearLayout) lins
+									.getChildAt(0)).getChildAt(0);
+							deletefromDB(DB.MY_DB_TABLE_SETCAM, texti.getText()
+									.toString());
+							valuesCam.remove(arg2);
+							listAdapter.notifyDataSetChanged();
+							pw.dismiss();
+						}
+					});
+					cancelButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							pw.dismiss();
+						}
+					});
+					int width = display.getWidth();
+					int height = display.getHeight();
+					pw = new PopupWindow(layoutOwn, (int) (width / 1.3),
+							(int) (height / 1.6), true);
+					pw.setAnimationStyle(7);
+					pw.setBackgroundDrawable(new BitmapDrawable());
+					pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
+					return true;
+				}
+			});
+			// BW H�RT AUF
+
+			addKate.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(
+							addKate.getApplicationWindowToken(), 0);
+					boolean vorhanden = false;
+					for (int i = 0; i < valuesCam.size(); i++) {
+						vorhanden = valuesCam.get(i).getName().toString()
+								.equals(Kat.getText().toString());
+						if (vorhanden) {
+							i = (valuesCam.size() - 1);
+						}
 					}
-				});
+					if (vorhanden || Kat.getText().toString().length() == 0
+							|| Kat.getText().toString().trim().length() == 0) {
+						Toast.makeText(getApplicationContext(),
+								getString(R.string.empty_or_existing_entry),
+								Toast.LENGTH_SHORT).show();
+					} else {
+						writeDB(DB.MY_DB_TABLE_SETCAM,
+								Kat.getText().toString(), 1);
+						valuesCam.add(new Setting(Kat.getText().toString(), 1));
+						listAdapter.notifyDataSetChanged();
+
+						// BW F�NGT AN
+						Display display2 = ((WindowManager) mContext
+								.getSystemService(Context.WINDOW_SERVICE))
+								.getDefaultDisplay();
+						LayoutInflater inflaterOwn2 = (LayoutInflater) mContext
+								.getSystemService(LAYOUT_INFLATER_SERVICE);
+						View layoutOwn2 = inflaterOwn2.inflate(
+								R.layout.settingsauswahlspec, null, false);
+						TextView freecellspec = (TextView) layoutOwn2
+								.findViewById(R.id.freecell);
+						TableLayout tablorspec = (TableLayout) layoutOwn2
+								.findViewById(R.id.tablor);
+						myListspec = (ListView) layoutOwn2
+								.findViewById(android.R.id.list);
+						addKatespec = (Button) layoutOwn2
+								.findViewById(R.id.addkamera);
+						Katspec = (EditText) layoutOwn2
+								.findViewById(R.id.kameramodell);
+						freecellspec.setText(getString(R.string.choose_lens));
+						tablorspec
+								.setBackgroundResource(R.drawable.shaperedtable);
+						tablorspec.setPadding(2, 2, 2, 2);
+						listAdapterspec = new SettingsArrayAdapterSpec(
+								mContext, aplanetsspec, 1337, Kat.getText()
+										.toString());
+						myListspec.setAdapter(listAdapterspec);
+						myListspec
+								.setOnItemLongClickListener(new OnItemLongClickListener() {
+									@Override
+									public boolean onItemLongClick(
+											AdapterView<?> arg0,
+											final View arg1, final int arg2,
+											long arg3) {
+										AlertDialog.Builder builder = new AlertDialog.Builder(
+												mContext);
+										builder.setMessage(
+												getString(R.string.question_delete))
+												.setCancelable(false)
+												.setPositiveButton(
+														getString(R.string.yes),
+														new DialogInterface.OnClickListener() {
+															public void onClick(
+																	DialogInterface dialog,
+																	int which) {
+																LinearLayout test = (LinearLayout) arg1;
+																TextView tec = (TextView) test
+																		.getChildAt(0);
+																deletefromDB(
+																		DB.MY_DB_TABLE_SETCAMBW,
+																		tec.getText()
+																				.toString(),
+																		tec.getText()
+																				.toString());
+																deletefromDB(
+																		DB.MY_DB_TABLE_SETBW,
+																		tec.getText()
+																				.toString());
+																aplanetsspec
+																		.remove(arg2);
+																listAdapterspec
+																		.notifyDataSetChanged();
+																readDB();
+																viewPager = (ViewPager) findViewById(R.id.viewPager);
+																SettingsPager adapter = new SettingsPager(
+																		mContext);
+																viewPager
+																		.setAdapter(adapter);
+																mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
+																mIndicator
+																		.setViewPager(viewPager);
+																viewPager
+																		.setCurrentItem(
+																				1,
+																				false);
+															}
+														})
+												.setNegativeButton(
+														getString(R.string.no),
+														new DialogInterface.OnClickListener() {
+															public void onClick(
+																	DialogInterface dialog,
+																	int which) {
+															}
+														});
+										AlertDialog alert = builder.create();
+										alert.show();
+										return true;
+									}
+								});
+						addKatespec
+								.setOnClickListener(new View.OnClickListener() {
+									public void onClick(View v) {
+										InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+										imm.hideSoftInputFromWindow(Katspec
+												.getApplicationWindowToken(), 0);
+										boolean vorhanden = false;
+										for (int i = 0; i < aplanetsspec.size(); i++) {
+											vorhanden = aplanetsspec
+													.get(i)
+													.toString()
+													.equals(Katspec.getText()
+															.toString());
+											if (vorhanden) {
+												i = (aplanetsspec.size() - 1);
+											}
+										}
+										if (vorhanden
+												|| Katspec.getText().toString()
+														.length() == 0
+												|| Katspec.getText().toString()
+														.trim().length() == 0) {
+											Toast.makeText(
+													getApplicationContext(),
+													getString(R.string.empty_or_existing_entry),
+													Toast.LENGTH_SHORT).show();
+										} else {
+											writeDB(DB.MY_DB_TABLE_SETBW,
+													Katspec.getText()
+															.toString(), 1);
+											aplanetsspec.add(new Setting(
+													Katspec.getText()
+															.toString(), 1));
+											Katspec.setText("");
+											listAdapterspec
+													.notifyDataSetChanged();
+										}
+									}
+								});
+						Katspec.setOnKeyListener(new OnKeyListener() {
+							@Override
+							public boolean onKey(View v, int keyCode,
+									KeyEvent event) {
+								if ((event.getAction() == KeyEvent.ACTION_DOWN)
+										&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
+									InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+									imm.hideSoftInputFromWindow(
+											Katspec.getApplicationWindowToken(),
+											0);
+									return true;
+								}
+								return false;
+							}
+						});
+						int width2 = display2.getWidth();
+						int height2 = display2.getHeight();
+						PopupWindow popUp = new PopupWindow(layoutOwn2,
+								(int) (width2 / 1.05), (int) (height2 / 1.05),
+								true);
+						popUp.setAnimationStyle(7);
+						popUp.setBackgroundDrawable(new BitmapDrawable());
+						popUp.showAtLocation(layoutOwn2, Gravity.CENTER, 0, 0);
+						// TESTEN ENDE
+						Kat.setText("");
+					}
+				}
+			});
+			// BW H�RT AUF
+
+			Kat.setOnKeyListener(new OnKeyListener() {
+				@Override
+				public boolean onKey(View v, int keyCode, KeyEvent event) {
+					if ((event.getAction() == KeyEvent.ACTION_DOWN)
+							&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
+						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+						imm.hideSoftInputFromWindow(
+								Kat.getApplicationWindowToken(), 0);
+						return true;
+					}
+					return false;
+				}
+			});
 			return view;
 		}
 
