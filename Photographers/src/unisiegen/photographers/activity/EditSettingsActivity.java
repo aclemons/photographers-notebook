@@ -86,7 +86,7 @@ public class EditSettingsActivity extends Activity {
 			katText2, katText3, katText4, katText5, katText6, katText7,
 			katText8, katText9, katText10;
 
-	ListView myList7, myList6, myList3, myList1, myListspec, myList,
+	ListView myList7, myList3, myList1, myListspec, myList,
 			myListView0, myListView1, myListView2, myListView3, myListView4,
 			myListView5, myListView6, myListView7, myListView8, myListView9,
 			myListView10;
@@ -541,23 +541,24 @@ public class EditSettingsActivity extends Activity {
 		}
 
 		private View createSondView() {
+			
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
+			
+			TextView title = (TextView) view.findViewById(R.id.freecell);
+			title.setText(getString(R.string.processing));
 
-			TextView freecell6 = (TextView) view.findViewById(R.id.freecell);
-			freecell6.setText(getString(R.string.processing));
+			TableLayout layout = (TableLayout) view.findViewById(R.id.tablor);
+			layout.setBackgroundResource(R.drawable.shapebluetable);
+			layout.setPadding(4, 0, -2, 0);
 
-			TableLayout tablor6 = (TableLayout) view.findViewById(R.id.tablor);
-			tablor6.setBackgroundResource(R.drawable.shapebluetable);
-			tablor6.setPadding(4, 0, -2, 0);
-
-			myList6 = (ListView) view.findViewById(android.R.id.list);
+			final ListView list = (ListView) view.findViewById(android.R.id.list);
 			addKate6 = (Button) view.findViewById(R.id.addkamera);
 			Kat6 = (EditText) view.findViewById(R.id.kameramodell);
 
 			listAdapter6 = new SettingsArrayAdapter(mContext, valuesSon, 67);
-			myList6.setAdapter(listAdapter6);
+			list.setAdapter(listAdapter6);
 
-			myList6.setOnItemLongClickListener(new OnItemLongClickListener() {
+			list.setOnItemLongClickListener(new OnItemLongClickListener() {
 				@Override
 				public boolean onItemLongClick(AdapterView<?> arg0,
 						final View arg1, final int arg2, long arg3) {
@@ -590,7 +591,7 @@ public class EditSettingsActivity extends Activity {
 							readDB();
 							listAdapter6 = new SettingsArrayAdapter(mContext,
 									valuesSon, 67);
-							myList6.setAdapter(listAdapter6);
+							list.setAdapter(listAdapter6);
 							listAdapter6.notifyDataSetChanged();
 							Toast.makeText(getApplicationContext(),
 									getString(R.string.deleted),
@@ -660,7 +661,7 @@ public class EditSettingsActivity extends Activity {
 						Kat6.setText("");
 						listAdapter6 = new SettingsArrayAdapter(mContext,
 								valuesSon, 67);
-						myList6.setAdapter(listAdapter6);
+						list.setAdapter(listAdapter6);
 						listAdapter6.notifyDataSetChanged();
 						Toast.makeText(getApplicationContext(),
 								getString(R.string.entry_saved),
