@@ -16,7 +16,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.BitmapDrawable;
@@ -66,9 +65,6 @@ public class EditSettingsActivity extends Activity {
 	/*
 	 * Sonstige Variablen
 	 */
-	private static String[] CONTENT = null;
-	private static String[] puContent = null;
-
 	Integer contentIndex = 0;
 	TextView tv1, tv2;
 	Button weiter, close;
@@ -78,7 +74,7 @@ public class EditSettingsActivity extends Activity {
 	int i = 0;
 	Context mContext;
 	ViewPager viewPager;
-	TitlePageIndicator mIndicator;
+	TitlePageIndicator settingsPageIndicator;
 
 	Button addKate7, addKate6, addKate1, addKatespec, addKate, addKate3;
 
@@ -119,10 +115,6 @@ public class EditSettingsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Resources res = getResources();
-		CONTENT = res.getStringArray(R.array.settings_slide_contents);
-		puContent = res.getStringArray(R.array.strings_tutorial_3);
-
 		setContentView(R.layout.slidenewsettings);
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -131,10 +123,10 @@ public class EditSettingsActivity extends Activity {
 		readDB();
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-		SettingsPager adapter = new SettingsPager(this);
-		viewPager.setAdapter(adapter);
-		mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
-		mIndicator.setViewPager(viewPager);
+		SettingsPager settingsAdapter = new SettingsPager(this);
+		viewPager.setAdapter(settingsAdapter);
+		settingsPageIndicator = (TitlePageIndicator) findViewById(R.id.titles);
+		settingsPageIndicator.setViewPager(viewPager);
 
 		if (settings.getInt("FIRSTSTART", 0) == 1) {
 			ViewGroup view = (ViewGroup) getWindow().getDecorView();
@@ -157,9 +149,7 @@ public class EditSettingsActivity extends Activity {
 					editor.commit();
 				}
 			});
-
 		}
-
 	}
 
 	public void onResume() {
@@ -168,30 +158,30 @@ public class EditSettingsActivity extends Activity {
 	}
 
 	/*
-	 * Popup f�r Hilfe
+	 * Tutorial
 	 */
-
 	public void popupmenue() {
-		LayoutInflater inflater = (LayoutInflater) mContext
-				.getSystemService(LAYOUT_INFLATER_SERVICE);
-		final View layoutOwn1 = inflater.inflate(R.layout.firstpopup,
-				(ViewGroup) findViewById(R.id.widget), false);
+		
+		final String[] tutorialContent = getResources().getStringArray(R.array.strings_tutorial_3);
+		
+		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+		final View layoutOwn1 = inflater.inflate(R.layout.firstpopup,(ViewGroup) findViewById(R.id.widget), false);
 
 		pw = new PopupWindow(layoutOwn1, 500, 500, true);
 		pw.setAnimationStyle(7);
 		pw.setBackgroundDrawable(new BitmapDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);
-		tv1.setText(puContent[contentIndex]);
+		tv1.setText(tutorialContent[contentIndex]);
 		contentIndex++;
 
 		weiter = (Button) layoutOwn1.findViewById(R.id.widget41);
 		weiter.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (contentIndex == puContent.length) {
+				if (contentIndex == tutorialContent.length) {
 					pw.dismiss();
 				} else {
-					tv1.setText(puContent[contentIndex]);
+					tv1.setText(tutorialContent[contentIndex]);
 					contentIndex++;
 					if (contentIndex == 2) {
 						pw.dismiss();
@@ -220,6 +210,7 @@ public class EditSettingsActivity extends Activity {
 		pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 	}
 
+	
 	private void writeDB(String TableName, String Name, int Value) {
 		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
 				null);
@@ -429,11 +420,14 @@ public class EditSettingsActivity extends Activity {
 	 */
 
 	public void setFooterColor(int footerColor) {
-		mIndicator.setFooterColor(footerColor);
+		settingsPageIndicator.setFooterColor(footerColor);
 	}
 
 	private class SettingsPager extends PagerAdapter implements TitleProvider {
 
+		private String[] pageTitles = null;
+		
+		
 		@Override
 		public int getItemPosition(Object object) {
 			return POSITION_NONE;
@@ -444,7 +438,9 @@ public class EditSettingsActivity extends Activity {
 		LayoutInflater inflater = getLayoutInflater();
 
 		public SettingsPager(Context context) {
+			super();
 			views = new ArrayList<View>();
+			pageTitles = getResources().getStringArray(R.array.settings_slide_contents);
 		}
 
 		@Override
@@ -2908,8 +2904,8 @@ public class EditSettingsActivity extends Activity {
 																			mContext);
 																	viewPager
 																			.setAdapter(adapter);
-																	mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
-																	mIndicator
+																	settingsPageIndicator = (TitlePageIndicator) findViewById(R.id.titles);
+																	settingsPageIndicator
 																			.setViewPager(viewPager);
 																	viewPager
 																			.setCurrentItem(
@@ -3131,8 +3127,8 @@ public class EditSettingsActivity extends Activity {
 																		mContext);
 																viewPager
 																		.setAdapter(adapter);
-																mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
-																mIndicator
+																settingsPageIndicator = (TitlePageIndicator) findViewById(R.id.titles);
+																settingsPageIndicator
 																		.setViewPager(viewPager);
 																viewPager
 																		.setCurrentItem(
@@ -3455,8 +3451,7 @@ public class EditSettingsActivity extends Activity {
 			if (viewPager.getCurrentItem() == 15)
 				setFooterColor(0xFF0000BB);
 
-			return EditSettingsActivity.CONTENT[position
-					% EditSettingsActivity.CONTENT.length];
+			return pageTitles[position % pageTitles.length];
 		}
 
 	}
@@ -3788,8 +3783,8 @@ public class EditSettingsActivity extends Activity {
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 							SettingsPager adapter = new SettingsPager(mContext);
 							viewPager.setAdapter(adapter);
-							mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
-							mIndicator.setViewPager(viewPager);
+							settingsPageIndicator = (TitlePageIndicator) findViewById(R.id.titles);
+							settingsPageIndicator.setViewPager(viewPager);
 							viewPager.setCurrentItem(1, false);
 
 						} else {
@@ -3804,8 +3799,8 @@ public class EditSettingsActivity extends Activity {
 
 							SettingsPager adapter = new SettingsPager(mContext);
 							viewPager.setAdapter(adapter);
-							mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
-							mIndicator.setViewPager(viewPager);
+							settingsPageIndicator = (TitlePageIndicator) findViewById(R.id.titles);
+							settingsPageIndicator.setViewPager(viewPager);
 							viewPager.setCurrentItem(1, false);
 						}
 					}
@@ -4026,7 +4021,7 @@ public class EditSettingsActivity extends Activity {
 
 					}
 					pw.dismiss();
-					mIndicator.setCurrentItem(0);
+					settingsPageIndicator.setCurrentItem(0);
 					viewPager.setCurrentItem(0, false);
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.set_loaded), Toast.LENGTH_SHORT)
@@ -4235,7 +4230,7 @@ public class EditSettingsActivity extends Activity {
 			ViewPager viewPager1 = (ViewPager) findViewById(R.id.viewPager);
 			SettingsPager adapter1 = new SettingsPager(mContext);
 			viewPager1.setAdapter(adapter1);
-			mIndicator.setCurrentItem(0);
+			settingsPageIndicator.setCurrentItem(0);
 			viewPager.setCurrentItem(0, false);
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.set_saved), Toast.LENGTH_SHORT).show();
@@ -4444,9 +4439,9 @@ public class EditSettingsActivity extends Activity {
 			viewPager = (ViewPager) findViewById(R.id.viewPager);
 			SettingsPager adapter = new SettingsPager(mContext);
 			viewPager.setAdapter(adapter);
-			mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
-			mIndicator.setViewPager(viewPager);
-			mIndicator.setCurrentItem(0);
+			settingsPageIndicator = (TitlePageIndicator) findViewById(R.id.titles);
+			settingsPageIndicator.setViewPager(viewPager);
+			settingsPageIndicator.setCurrentItem(0);
 			viewPager.setCurrentItem(0, false);
 		}
 
