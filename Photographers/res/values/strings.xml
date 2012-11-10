@@ -131,4 +131,9 @@
 		<item>Blitz-Korr</item>
 		<item>Sonderentwicklung</item>
 	</string-array>
+	<string name="create_new_set">Neues Set erstellen</string>
+	<string name="load_existing_set">Bestehendes Set laden</string>
+	<string name="restore_default_settings">Auf Werkseinstellungen zurücksetzen</string>
+	<string name="settings">Einstellungen</string>
+	<string name="back_to_start">Zurück zur Filmauswahl</string>
 </resources>

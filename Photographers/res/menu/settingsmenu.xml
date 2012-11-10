@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:id="@+id/opt_createNewSetOfSettings" android:title="Neues Set erstellen"
+  <item android:id="@+id/opt_createNewSetOfSettings" android:title="@string/create_new_set"
   android:icon="@android:drawable/ic_menu_set_as"/>
-  <item android:id="@+id/opt_loadSetOfSettings" android:title="Altes Set laden"
+  <item android:id="@+id/opt_loadSetOfSettings" android:title="@string/load_existing_set"
   android:icon="@android:drawable/ic_menu_set_as"/>
-  <item android:id="@+id/opt_settingsToFactoryDefaults" android:title="Werkseinstellungen"
+  <item android:id="@+id/opt_settingsToFactoryDefaults" android:title="@string/restore_default_settings"
   android:icon="@android:drawable/ic_menu_set_as"/>
 </menu>
