@@ -236,7 +236,15 @@ public class EditSettingsActivity extends Activity {
 				+ "" + Name + "" + "','" + Value + "','" + 0 + "');");
 		myDB.close();
 	}
-
+	
+	private void writeCamBW(String CamName, String BWName) {
+		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
+				null);
+		myDB.execSQL("INSERT INTO " + DB.MY_DB_TABLE_SETCAMBW + " Values (" + null + ",'"
+				+ "" + CamName + "" + "','" + BWName + "');");
+		myDB.close();
+	}
+	
 	/*
 	 * Zuordnung der Brennweiten/Objektive zu den Cameras
 	 */
@@ -2822,11 +2830,11 @@ public class EditSettingsActivity extends Activity {
 			tablor.setPadding(4, 0, -2, 0);
 			listAdapter = new CamArrayAdapter(mContext, valuesCam, 0);
 			myList.setAdapter(listAdapter);
-
+						
 			myList.setOnItemLongClickListener(new OnItemLongClickListener() {
 				@Override
 				public boolean onItemLongClick(AdapterView<?> arg0,
-						final View arg1, final int arg2, long arg3) {
+						final View arg1, final int arg2, long arg3) {					
 					Display display = ((WindowManager) mContext
 							.getSystemService(Context.WINDOW_SERVICE))
 							.getDefaultDisplay();
@@ -2979,18 +2987,12 @@ public class EditSettingsActivity extends Activity {
 														Toast.LENGTH_SHORT)
 														.show();
 											} else {
-												writeDB(DB.MY_DB_TABLE_SETBW,
-														Katspec.getText()
-																.toString(), 1);
-												aplanetsspec
-														.add(new Setting(
-																Katspec.getText()
-																		.toString(),
-																1));
-
+												writeDB(DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);	
+												writeCamBW(listAdapter.getItem(arg2).getName().toString(), Katspec.getText().toString()); // We need to write to DB.MY_DB_TABLE_SETCAMBW to set the lens to be selected on the current cam by default.
+												aplanetsspec.add(new Setting(Katspec.getText().toString(), 1));
 												Katspec.setText("");
-												listAdapterspec
-														.notifyDataSetChanged();
+												listAdapterspec.notifyDataSetChanged();
+												listAdapter.notifyDataSetChanged();
 											}
 										}
 									});
@@ -3197,12 +3199,14 @@ public class EditSettingsActivity extends Activity {
 											writeDB(DB.MY_DB_TABLE_SETBW,
 													Katspec.getText()
 															.toString(), 1);
+											writeCamBW(valuesCam.get(valuesCam.size()-1).getName().toString(), Katspec.getText().toString()); // We need to write to DB.MY_DB_TABLE_SETCAMBW to set the lens to be selected on the current cam by default.
 											aplanetsspec.add(new Setting(
 													Katspec.getText()
 															.toString(), 1));
 											Katspec.setText("");
 											listAdapterspec
 													.notifyDataSetChanged();
+											listAdapter.notifyDataSetChanged();
 										}
 									}
 								});
