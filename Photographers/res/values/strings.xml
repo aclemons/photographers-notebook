@@ -136,4 +136,13 @@
 	<string name="restore_default_settings">Auf Werkseinstellungen zurücksetzen</string>
 	<string name="settings">Einstellungen</string>
 	<string name="back_to_start">Zurück zur Filmauswahl</string>
+	<string name="about_this_app">Über diese App</string>
+	<string name="info">&lt;p>Photographers Notebook wurde im Rahmen einer studentischen Projektarbeit am Lehrstuhl 
+	    für Wirtschaftsinformatik und neue Medien an der Universität Siegen entwickelt. Die aktuelle Version ist 
+	    noch im Beta Stadium und wird nur sehr unregelmäßig gepflegt und weiterentwickelt.&lt;/p>
+	    &lt;p>&lt;a href="https://bitbucket.org/sdraxler/photographers-notebook">https://bitbucket.org/sdraxler/photographers-notebook&lt;/a>&lt;/p>
+	    &lt;p>Copyright (C) 2012 Nico Castelli, Christopher Maiworm &lt;br>&lt;/br>
+ 		Copyright (C) 2012 Sebastian Draxler, Alexander Boden, Christian Woehrl (Committers)&lt;br>&lt;/br>
+ 		Lizensiert unter der Apache 2.0 Lizenz&lt;/p>    
+ 	</string>
 </resources>

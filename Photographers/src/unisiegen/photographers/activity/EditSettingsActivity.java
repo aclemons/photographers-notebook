@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Nico Castelli, Christopher Mayworm 
+/* Copyright (C) 2012 Nico Castelli, Christopher Maiworm 
  * Copyright (C) 2012 Sebastian Draxler, Alexander Boden, Christian Woehrl (Committers)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,6 +41,8 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -4218,6 +4220,17 @@ public class EditSettingsActivity extends Activity {
 			pw.setBackgroundDrawable(new BitmapDrawable());
 			pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
 			return true;
+		} else if (item.getItemId() == R.id.opt_about_this_app) {
+				AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		    	alertDialog.setTitle("Info");
+		    	alertDialog.setMessage(Html.fromHtml(getString(R.string.info))); 
+		    	alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {  
+		    	      public void onClick(DialogInterface dialog, int which) {  
+		    	        return;  
+		    	    } });
+		    	alertDialog.show();
+		    	Linkify.addLinks((TextView) alertDialog.findViewById(android.R.id.message), Linkify.ALL);
+		    	return true;
 		} else {
 			return super.onOptionsItemSelected(item);
 		}
