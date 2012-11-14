@@ -4229,14 +4229,14 @@ public class EditSettingsActivity extends Activity {
 			return true;
 		} else if (item.getItemId() == R.id.opt_about_this_app) {
 				AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-		    	alertDialog.setTitle("Info");
+				alertDialog.setTitle(getString(R.string.about_this_app));
 		    	alertDialog.setMessage(Html.fromHtml(getString(R.string.info))); 
 		    	alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {  
 		    	      public void onClick(DialogInterface dialog, int which) {  
 		    	        return;  
 		    	    } });
 		    	alertDialog.show();
-		    	Linkify.addLinks((TextView) alertDialog.findViewById(android.R.id.message), Linkify.ALL);
+		    	Linkify.addLinks((TextView) alertDialog.findViewById(android.R.id.message), Linkify.WEB_URLS);
 		    	return true;
 		} else {
 			return super.onOptionsItemSelected(item);
