@@ -246,17 +246,20 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 				.getStringArray(R.array.strings_tutorial_2);
 		LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(LAYOUT_INFLATER_SERVICE);
-		View layoutOwn1 = inflater.inflate(R.layout.firstpopup,
+		View layoutOwn1 = inflater.inflate(R.layout.popup,
 				(ViewGroup) findViewById(R.id.widget), false);
 
-		pw = new PopupWindow(layoutOwn1, 500, 500, true);
+		pw = new PopupWindow(layoutOwn1);
+		pw.setFocusable(true);
+		pw.setHeight(pw.getMaxAvailableHeight(layoutOwn1)/2);
+		pw.setWidth(pw.getMaxAvailableHeight(layoutOwn1)/2);
 		pw.setAnimationStyle(7);
 		pw.setBackgroundDrawable(new BitmapDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);
 		tv1.setText(puContent[contentIndex]);
 		contentIndex++;
 
-		weiter = (Button) layoutOwn1.findViewById(R.id.widget41);
+		weiter = (Button) layoutOwn1.findViewById(R.id.button_popup);
 		weiter.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
