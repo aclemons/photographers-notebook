@@ -34,6 +34,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -4236,7 +4237,9 @@ public class EditSettingsActivity extends Activity {
 		    	        return;  
 		    	    } });
 		    	alertDialog.show();
-		    	Linkify.addLinks((TextView) alertDialog.findViewById(android.R.id.message), Linkify.WEB_URLS);
+		    	TextView message = (TextView) alertDialog.findViewById(android.R.id.message);
+		    	message.setTextColor(Color.WHITE); // Workaround to prevent dialogue text to change color when touched.
+		    	Linkify.addLinks(message, Linkify.WEB_URLS);
 		    	return true;
 		} else {
 			return super.onOptionsItemSelected(item);
