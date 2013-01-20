@@ -23,9 +23,12 @@ package unisiegen.photographers.activity;
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.model.Bild;
+import unisiegen.photographers.model.Film;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,6 +39,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -118,11 +122,52 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 					editor.putInt("BildNummerToBegin", 1);
 					editor.putBoolean("EditMode", false);
 					editor.commit();
+					
+					Film f = new Film();
+					f.Titel = titleText.getText().toString();
+					f.Filmnotiz = filmnotiz.getText().toString();
+					f.Datum = android.text.format.DateFormat.format("dd.MM.yyyy", new java.util.Date()).toString();
+					f.Kamera = spinnerCamera.getSelectedItem().toString();
+					f.Filmformat = spinnerFF.getSelectedItem().toString();
+					f.Empfindlichkeit = spinnerEM.getSelectedItem().toString();
+					f.Filmtyp = spinnerTY.getSelectedItem().toString();
+					f.Sonderentwicklung1 = spinnerSS.getSelectedItem().toString();
+					f.Sonderentwicklung2 = spinnerSSS.getSelectedItem().toString();
+					
+					Bild b = new Bild();
+					b.Bildnummer = "Bild 0";
+					b.Notiz = "Dummy-Bild für die Filmdaten";
+					b.Belichtungskorrektur = "";
+					b.Blende = "";
+					b.Blitz = "";
+					b.Blitzkorrektur = "";
+					b.Filter = "";
+					b.FilterVF = "";
+					b.Fokus = "";
+					b.GeoTag = "0' , '0"; // Wenn das Format hier nicht stimmt, kracht es wegen dem Splitting des Strings in ein Array in der DB Klasse.
+					b.KameraNotiz = "";
+					b.Makro = "";
+					b.MakroVF = "";
+					b.Messmethode = "";
+					b.Objektiv  = "";
+					b.Zeit = "";
+					
+					Calendar cal = Calendar.getInstance();
+					SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+					
+					b.Zeitstempel = sdf.format(cal.getTime());					
+					
+					byte[] thumbnail;
+					
+					// TODO: Check einbauen der prüft ob ein Film mit gleichem Titel schon in der Datenbank ist!
+					
 					Log.v("Check", "Check if Bild vorhanden : " + (pic == null));
 					Intent myIntent = new Intent(getApplicationContext(),
 							NewPictureActivity.class);
+										
 					if (pic != null) {
 						myIntent.putExtra("image", pic);
+						thumbnail = pic;
 					} else {
 						Bitmap bm = BitmapFactory.decodeResource(
 								getApplicationContext().getResources(),
@@ -131,13 +176,19 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 						bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
 						nopic = baos.toByteArray();
 						myIntent.putExtra("image", nopic);
+						thumbnail = nopic;
 					}
+					
+					String encodedImage = Base64.encodeToString(thumbnail, Base64.DEFAULT);
+					DB.getDB().addPictureCreateNummer(mContext, f, b, 1, encodedImage); 
+					
 					finish();
-					startActivityForResult(myIntent, 1);
+				//	startActivityForResult(myIntent, 1); // Erstmal auskommentiert. Neuer Film wird angelegt, und der Nutzer geht zurück in die Filmauswahlliste.
 				} catch (Exception e) {
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.input_error), Toast.LENGTH_SHORT)
 							.show();
+					e.printStackTrace();
 				}
 			}
 		});

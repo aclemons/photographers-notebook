@@ -257,7 +257,6 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 				}
 			}
 		});
-		System.out.println("foo");
 	}
 
 	/*

@@ -1087,6 +1087,7 @@ public class DB {
 		sql.append("','");
 
 		String[] geotagParts = b.GeoTag.split("' , '");
+		
 		// lat
 		sql.append(geotagParts[0]);
 		sql.append("','");
