@@ -739,7 +739,7 @@ public class DB {
 										+ DB.MY_DB_FILM_TABLE
 										+ " WHERE filmtitle = '"
 										+ film.Titel
-										+ "'", null);
+										+ "'", null); 
 
 				if (c1 != null) {
 					if (c1.moveToFirst()) {
@@ -789,7 +789,7 @@ public class DB {
 		sql.append(" WHERE filmtitle = '");
 		sql.append(title);
 		if (bildNummer == null) {
-			sql.append("';");
+			sql.append("' AND picnummer != 'Bild 0';"); // Ignore the dummy pic "Bild 0" 
 		} else {
 			sql.append("' AND picnummer = '");
 			sql.append(bildNummer);

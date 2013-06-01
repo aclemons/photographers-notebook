@@ -180,7 +180,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 					}
 					
 					String encodedImage = Base64.encodeToString(thumbnail, Base64.DEFAULT);
-					DB.getDB().addPictureCreateNummer(mContext, f, b, 1, encodedImage); 
+					DB.getDB().addPictureCreateNummer(mContext, f, b, 0, encodedImage); 
 					
 					finish();
 				//	startActivityForResult(myIntent, 1); // Erstmal auskommentiert. Neuer Film wird angelegt, und der Nutzer geht zurück in die Filmauswahlliste.

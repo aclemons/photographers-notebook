@@ -120,14 +120,14 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		for (Film film : filme) {
 			gesamtPics = gesamtPics + film.Bilder.size();
 		}
-
-		if (gesamtPics == 0) {
-			myList.setVisibility(ListView.GONE);
-			image.setVisibility(ImageView.VISIBLE);
-		} else {
-			myList.setVisibility(ListView.VISIBLE);
-			image.setVisibility(ImageView.GONE);
-		}
+// 		Does not work anymore as we now allow to create empty films.
+//		if (gesamtPics == 0) {
+//			myList.setVisibility(ListView.GONE);
+//			image.setVisibility(ImageView.VISIBLE);
+//		} else {
+//			myList.setVisibility(ListView.VISIBLE);
+//			image.setVisibility(ImageView.GONE);
+//		}
 		pics.setText(gesamtPics + " " + getString(R.string.pictures));
 		ArrayAdapter<Film> adapter = new FilmsArrayAdapter(mContext, filme, 1);
 		myList.setOnItemClickListener(notlongClickListener);
