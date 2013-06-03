@@ -183,7 +183,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 					DB.getDB().addPictureCreateNummer(mContext, f, b, 0, encodedImage); 
 					
 					finish();
-				//	startActivityForResult(myIntent, 1); // Erstmal auskommentiert. Neuer Film wird angelegt, und der Nutzer geht zurück in die Filmauswahlliste.
+					startActivityForResult(myIntent, 1);
 				} catch (Exception e) {
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.input_error), Toast.LENGTH_SHORT)
