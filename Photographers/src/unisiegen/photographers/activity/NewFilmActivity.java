@@ -319,7 +319,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 				} else {
 					tv1.setText(puContent[contentIndex]);
 					contentIndex++;
-					if (contentIndex == 3) {
+					if (contentIndex == 4) {
 						openOptionsMenu();
 					}
 				}
