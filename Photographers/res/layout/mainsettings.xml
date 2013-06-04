@@ -33,13 +33,20 @@
 	    android:layout_width="wrap_content">
 
 			    <TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:layout_height="wrap_content"
-				    android:textStyle="bold"
-				    android:text="Allgemein :"
-				    >
+			        android:id="@+id/freecell"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:text="@string/general"
+			        android:textStyle="bold" >
+
 				</TextView>
+
+			    <TextView
+			        android:id="@+id/textView1"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/restart_required" />
+
 				<TextView
 				    android:id="@+id/freecell"
 				    android:layout_width="fill_parent"
@@ -54,12 +61,13 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent">
+
 				<TextView
 				    android:id="@+id/freecell"
 				    android:layout_width="fill_parent"
 				    android:layout_height="wrap_content"
-				    android:text="GeoTag :"
-				    >
+				    android:text="@string/geotag" >
+
 				</TextView>   
 				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/maini"
@@ -97,12 +105,13 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent">
+
 				<TextView
 				    android:id="@+id/freecell"
 				    android:layout_width="fill_parent"
 				    android:layout_height="wrap_content"
-				    android:text="Zeitstempel :"
-				    >
+				    android:text="@string/timestamp" >
+
 				</TextView>   
 				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/maini"
@@ -142,12 +151,13 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent">
+
 				<TextView
 				    android:id="@+id/freecell"
 				    android:layout_width="fill_parent"
 				    android:layout_height="wrap_content"
-				    android:text="Verlängerungsfaktor :"
-				    >
+				    android:text="@string/correction_type" >
+
 				</TextView>   
 				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/maini"
@@ -189,12 +199,13 @@
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent">
+
 				<TextView
 				    android:id="@+id/freecell"
 				    android:layout_width="fill_parent"
 				    android:layout_height="wrap_content"
-				    android:text="Blendenstufen :"
-				    >
+				    android:text="@string/aperture_type" >
+
 				</TextView>   
 				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 				        android:id="@+id/maini"
@@ -236,7 +247,7 @@
 				            android:id="@+id/TextView01"
 				            android:layout_width="fill_parent"
 				            android:layout_height="wrap_content"
-				            android:text="Tutorial zurücksetzen :" />
+				            android:text="@string/reset_tutorial" />
 
 				        <LinearLayout
 				            xmlns:android="http://schemas.android.com/apk/res/android"
