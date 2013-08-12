@@ -125,8 +125,6 @@ public class EditSettingsActivity extends Activity {
 	 */
 	static String MY_DB_NAME;
 
-	SQLiteDatabase myDBNummer = null;
-	SQLiteDatabase myDBFilm = null;
 	SQLiteDatabase myDB = null;
 	SQLiteDatabase myDBSet = null;
 
@@ -463,13 +461,10 @@ public class EditSettingsActivity extends Activity {
 			return POSITION_NONE;
 		}
 
-		@SuppressWarnings("unused")
-		private ArrayList<View> views;
 		LayoutInflater inflater = getLayoutInflater();
 
 		public SettingsPager(Context context) {
 			super();
-			views = new ArrayList<View>();
 			pageTitles = getResources().getStringArray(R.array.settings_slide_contents);
 		}
 
@@ -3493,11 +3488,7 @@ public class EditSettingsActivity extends Activity {
 	private static class SettingsViewHolder {
 		private CheckBox checkBox;
 		private TextView textView;
-
-		@SuppressWarnings("unused")
-		public SettingsViewHolder() {
-		}
-
+		
 		public SettingsViewHolder(TextView textView, CheckBox checkBox) {
 			this.checkBox = checkBox;
 			this.textView = textView;
@@ -3770,14 +3761,11 @@ public class EditSettingsActivity extends Activity {
 	private class SettingsArrayAdapterSpec extends ArrayAdapter<Setting> {
 
 		private LayoutInflater inflater;
-		@SuppressWarnings("unused")
-		int nummer = 0;
 		String camera;
 
 		public SettingsArrayAdapterSpec(Context context,
 				ArrayList<Setting> planetList, int number, String cam) {
 			super(context, R.layout.list_item, R.id.listItemText, planetList);
-			nummer = number;
 			camera = cam;
 			inflater = LayoutInflater.from(context);
 		}
@@ -3801,10 +3789,7 @@ public class EditSettingsActivity extends Activity {
 						Setting planet = (Setting) cb.getTag();
 						planet.setChecked(cb.isChecked());
 
-						@SuppressWarnings("unused")
-						int value = 0;
 						if (cb.isChecked() == true) {
-							value = 1;
 
 							ContentValues args = new ContentValues();
 							args.put("cam", camera);
@@ -4497,12 +4482,12 @@ public class EditSettingsActivity extends Activity {
 
 				DB.getDB().createOrRebuildSettingsTable(mContext);
 
-				myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER,
+				SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER,
 						Context.MODE_PRIVATE, null);
 				myDBNummer.execSQL("DELETE FROM " + DB.MY_DB_TABLE_NUMMER);
 				myDBNummer.close();
 
-				myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
+				SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
 						Context.MODE_PRIVATE, null);
 				myDBFilm.execSQL("DELETE FROM " + DB.MY_DB_FILM_TABLE);
 				myDBFilm.close();
