@@ -84,16 +84,15 @@ public class EditSettingsActivity extends Activity {
 	/*
 	 * Sonstige Variablen
 	 */
-	Integer contentIndex = 0;
-	TextView tv1, tv2;
-	Button weiter, close;
-	SharedPreferences settings;
-	PopupWindow pw;
-	int setButtonClicked = 1;
-	int i = 0;
-	Context mContext;
-	ViewPager viewPager;
-	TitlePageIndicator settingsPageIndicator;
+	private Integer contentIndex = 0;
+	private TextView tv1;
+	private Button weiter, close;
+	private SharedPreferences settings;
+	private PopupWindow pw;
+	private int setButtonClicked = 1;
+	private Context mContext;
+	private ViewPager viewPager;
+	private TitlePageIndicator settingsPageIndicator;
 
 	Button addKate7, addKate6, addKate1, addKatespec, addKate, addKate3;
 
@@ -123,7 +122,7 @@ public class EditSettingsActivity extends Activity {
 	/*
 	 * Datenbank Variablen
 	 */
-	static String MY_DB_NAME;
+	private static String MY_DB_NAME;
 
 	SQLiteDatabase myDB = null;
 	SQLiteDatabase myDBSet = null;
