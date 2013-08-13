@@ -26,6 +26,7 @@ import java.util.HashMap;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Setting;
 import unisiegen.photographers.settings.SettingsViewHolder;
+import unisiegen.photographers.settings.SettingsViewPart;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -83,7 +84,7 @@ import com.viewpagerindicator.TitleProvider;
 public class EditSettingsActivity extends Activity {
 
 	
-	public final int ALLGAMEIN_POSITION = 0;
+	public final int ALLGEMEIN_POSITION = 0;
 	public final int KAMERA_POSITION = 1;
 	public final int FOKUS_POSITION = 2;
 	public final int BLENDE_POSITION = 3;
@@ -109,10 +110,10 @@ public class EditSettingsActivity extends Activity {
 	private Integer contentIndex = 0;
 	private TextView tv1;
 	private Button weiter, close;
-	private SharedPreferences settings;
+	SharedPreferences settings;
 	private PopupWindow pw;
 	private int setButtonClicked = 1;
-	private Context mContext;
+	Context mContext;
 	private ViewPager viewPager;
 	private TitlePageIndicator settingsPageIndicator;
 
@@ -252,7 +253,7 @@ public class EditSettingsActivity extends Activity {
 	}
 
 	
-	private void writeDB(String TableName, String Name, int Value) {
+	public void writeDB(String TableName, String Name, int Value) {
 		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
 				null);
 		myDB.execSQL("INSERT INTO " + TableName + " Values (" + null + ",'"
@@ -292,7 +293,7 @@ public class EditSettingsActivity extends Activity {
 		return camList;
 	}
 
-	private void readDB() {
+	public void readDB() {
 
 		checkNM = new HashMap<String, Integer>();
 		checkFil = new HashMap<String, Integer>();
@@ -448,7 +449,7 @@ public class EditSettingsActivity extends Activity {
 		}
 	}
 
-	private void editfromDB(String TableName, String Name, int value) {
+	void editfromDB(String TableName, String Name, int value) {
 		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
 				null);
 		try {
@@ -472,14 +473,13 @@ public class EditSettingsActivity extends Activity {
 	private class SettingsPager extends PagerAdapter implements TitleProvider {
 
 		private String[] pageTitles = null;
-		
+		private LayoutInflater inflater = getLayoutInflater();
 		
 		@Override
 		public int getItemPosition(Object object) {
+			//TODO: Do something useful
 			return POSITION_NONE;
 		}
-
-		LayoutInflater inflater = getLayoutInflater();
 
 		public SettingsPager(Context context) {
 			super();
@@ -498,7 +498,7 @@ public class EditSettingsActivity extends Activity {
 
 		@Override
 		public int getCount() {
-			return 16;
+			return pageTitles.length;
 		}
 
 
@@ -508,14 +508,16 @@ public class EditSettingsActivity extends Activity {
 			View myView = null;
 
 			switch (position) {
-			case ALLGAMEIN_POSITION:
+			case ALLGEMEIN_POSITION:
 				myView = createAllgemeinView();
 				break;
 			case KAMERA_POSITION:
 				myView = createKameraView();
 				break;
 			case FOKUS_POSITION:
-				myView = createFokusView();
+				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.focus, 
+						FOKUS_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFOK).getView();
+//				myView = createFokusView();
 				break;
 			case BLENDE_POSITION:
 				myView = createBlendeView();
@@ -578,7 +580,7 @@ public class EditSettingsActivity extends Activity {
 			addKate6 = (Button) view.findViewById(R.id.addkamera);
 			Kat6 = (EditText) view.findViewById(R.id.kameramodell);
 
-			listAdapter6 = new SettingsArrayAdapter(mContext, valuesSon, SOND_POSITION);
+			listAdapter6 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesSon, SOND_POSITION);
 			list.setAdapter(listAdapter6);
 
 			list.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -612,7 +614,7 @@ public class EditSettingsActivity extends Activity {
 							deletefromDB(DB.MY_DB_TABLE_SETSON, texti.getText()
 									.toString());
 							readDB();
-							listAdapter6 = new SettingsArrayAdapter(mContext,
+							listAdapter6 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 									valuesSon, SOND_POSITION);
 							list.setAdapter(listAdapter6);
 							listAdapter6.notifyDataSetChanged();
@@ -682,7 +684,7 @@ public class EditSettingsActivity extends Activity {
 								.toString(), 1);
 						readDB();
 						Kat6.setText("");
-						listAdapter6 = new SettingsArrayAdapter(mContext,
+						listAdapter6 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesSon, SOND_POSITION);
 						list.setAdapter(listAdapter6);
 						listAdapter6.notifyDataSetChanged();
@@ -722,7 +724,7 @@ public class EditSettingsActivity extends Activity {
 			freecell7.setText(getString(R.string.film_speed));
 			tablor7.setBackgroundResource(R.drawable.shapegreentable);
 			tablor7.setPadding(4, 0, -2, 0);
-			listAdapter7 = new SettingsArrayAdapter(mContext, valuesEmp, ASA_POSITION);
+			listAdapter7 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesEmp, ASA_POSITION);
 			myList7.setAdapter(listAdapter7);
 			myList7.setOnItemLongClickListener(new OnItemLongClickListener() {
 				@Override
@@ -766,7 +768,7 @@ public class EditSettingsActivity extends Activity {
 							deletefromDB(DB.MY_DB_TABLE_SETEMP, texti.getText()
 									.toString());
 							readDB();
-							listAdapter7 = new SettingsArrayAdapter(mContext,
+							listAdapter7 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 									valuesEmp, ASA_POSITION);
 							myList7.setAdapter(listAdapter7);
 							listAdapter7.notifyDataSetChanged();
@@ -815,7 +817,7 @@ public class EditSettingsActivity extends Activity {
 								.toString(), 1);
 						readDB();
 						Kat7.setText("");
-						listAdapter7 = new SettingsArrayAdapter(mContext,
+						listAdapter7 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesEmp, ASA_POSITION);
 						myList7.setAdapter(listAdapter7);
 						listAdapter7.notifyDataSetChanged();
@@ -852,7 +854,7 @@ public class EditSettingsActivity extends Activity {
 
 			freecell3.setText(getString(R.string.flash_correction));
 			tablor3.setBackgroundResource(R.drawable.shapebluetable);
-			listAdapte10 = new SettingsArrayAdapter(mContext, valuesKor, BLITZKORR_POSITION);
+			listAdapte10 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesKor, BLITZKORR_POSITION);
 			myListView10.setAdapter(listAdapte10);
 
 			// --------------
@@ -925,7 +927,7 @@ public class EditSettingsActivity extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapte10 = new SettingsArrayAdapter(
-													mContext, valuesKor, BLITZKORR_POSITION);
+													EditSettingsActivity.this, mContext, valuesKor, BLITZKORR_POSITION);
 											myListView10
 													.setAdapter(listAdapte10);
 											listAdapte10.notifyDataSetChanged();
@@ -982,7 +984,7 @@ public class EditSettingsActivity extends Activity {
 								.toString(), 1);
 						readDB();
 						katText10.setText("");
-						listAdapte10 = new SettingsArrayAdapter(mContext,
+						listAdapte10 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesKor, BLITZKORR_POSITION);
 						myListView10.setAdapter(listAdapte10);
 						listAdapte10.notifyDataSetChanged();
@@ -1022,7 +1024,7 @@ public class EditSettingsActivity extends Activity {
 
 			freecell3.setText(getString(R.string.flash));
 			tablor3.setBackgroundResource(R.drawable.shapebluetable);
-			listAdapte9 = new SettingsArrayAdapter(mContext, valuesBli, BLITZ_POSITION);
+			listAdapte9 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesBli, BLITZ_POSITION);
 			myListView9.setAdapter(listAdapte9);
 
 			// --------------
@@ -1095,7 +1097,7 @@ public class EditSettingsActivity extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapte9 = new SettingsArrayAdapter(
-													mContext, valuesBli, BLITZ_POSITION);
+													EditSettingsActivity.this, mContext, valuesBli, BLITZ_POSITION);
 											myListView9.setAdapter(listAdapte9);
 											listAdapte9.notifyDataSetChanged();
 											Toast.makeText(
@@ -1151,7 +1153,7 @@ public class EditSettingsActivity extends Activity {
 								.toString(), 1);
 						readDB();
 						katText9.setText("");
-						listAdapte9 = new SettingsArrayAdapter(mContext,
+						listAdapte9 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesBli, BLITZ_POSITION);
 						myListView9.setAdapter(listAdapte9);
 						listAdapte9.notifyDataSetChanged();
@@ -1192,7 +1194,7 @@ public class EditSettingsActivity extends Activity {
 			freecell1.setText(getString(R.string.film_formats));
 			tablor1.setBackgroundResource(R.drawable.shapegreentable);
 			tablor1.setPadding(4, 0, -2, 0);
-			listAdapter1 = new SettingsArrayAdapter(mContext, valuesFF, FILMFORMAT_POSITION);
+			listAdapter1 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesFF, FILMFORMAT_POSITION);
 			myList1.setAdapter(listAdapter1);
 			myList1.setOnItemLongClickListener(new OnItemLongClickListener() {
 				@Override
@@ -1237,7 +1239,7 @@ public class EditSettingsActivity extends Activity {
 							deletefromDB(DB.MY_DB_TABLE_SETFF, texti.getText()
 									.toString());
 							readDB();
-							listAdapter1 = new SettingsArrayAdapter(mContext,
+							listAdapter1 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 									valuesFF, FILMFORMAT_POSITION);
 							myList1.setAdapter(listAdapter1);
 							listAdapter1.notifyDataSetChanged();
@@ -1286,7 +1288,7 @@ public class EditSettingsActivity extends Activity {
 								Kat1.getText().toString(), 1);
 						readDB();
 						Kat1.setText("");
-						listAdapter1 = new SettingsArrayAdapter(mContext,
+						listAdapter1 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesFF, FILMFORMAT_POSITION);
 						myList1.setAdapter(listAdapter1);
 						listAdapter1.notifyDataSetChanged();
@@ -1323,7 +1325,7 @@ public class EditSettingsActivity extends Activity {
 
 			freecell3.setText(getString(R.string.filter_vf));
 			tablor3.setBackgroundResource(R.drawable.shaperedtable);
-			listAdapte8 = new SettingsArrayAdapter(mContext, valuesFilterVF, FILTERVF_POSITION);
+			listAdapte8 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesFilterVF, FILTERVF_POSITION);
 			myListView8.setAdapter(listAdapte8);
 
 			// --------------
@@ -1396,7 +1398,7 @@ public class EditSettingsActivity extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapte8 = new SettingsArrayAdapter(
-													mContext, valuesFilterVF,
+													EditSettingsActivity.this, mContext, valuesFilterVF,
 													FILTERVF_POSITION);
 											myListView8.setAdapter(listAdapte8);
 											listAdapte8.notifyDataSetChanged();
@@ -1453,7 +1455,7 @@ public class EditSettingsActivity extends Activity {
 								.toString(), 1);
 						readDB();
 						katText8.setText("");
-						listAdapte8 = new SettingsArrayAdapter(mContext,
+						listAdapte8 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesFilterVF, FILTERVF_POSITION);
 						myListView8.setAdapter(listAdapte8);
 						listAdapte8.notifyDataSetChanged();
@@ -1493,7 +1495,7 @@ public class EditSettingsActivity extends Activity {
 
 			freecell3.setText(getString(R.string.filter));
 			tablor3.setBackgroundResource(R.drawable.shaperedtable);
-			listAdapte7 = new SettingsArrayAdapter(mContext, valuesFil, FILTER_POSITION);
+			listAdapte7 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesFil, FILTER_POSITION);
 			myListView7.setAdapter(listAdapte7);
 
 			// --------------
@@ -1566,7 +1568,7 @@ public class EditSettingsActivity extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapte7 = new SettingsArrayAdapter(
-													mContext, valuesFil, FILTER_POSITION);
+													EditSettingsActivity.this, mContext, valuesFil, FILTER_POSITION);
 											myListView7.setAdapter(listAdapte7);
 											listAdapte7.notifyDataSetChanged();
 											Toast.makeText(
@@ -1622,7 +1624,7 @@ public class EditSettingsActivity extends Activity {
 								.toString(), 1);
 						readDB();
 						katText7.setText("");
-						listAdapte7 = new SettingsArrayAdapter(mContext,
+						listAdapte7 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesFil, FILTER_POSITION);
 						myListView7.setAdapter(listAdapte7);
 						listAdapte7.notifyDataSetChanged();
@@ -1662,7 +1664,7 @@ public class EditSettingsActivity extends Activity {
 
 			freecell3.setText(getString(R.string.macro_vf));
 			tablor3.setBackgroundResource(R.drawable.shaperedtable);
-			listAdapte6 = new SettingsArrayAdapter(mContext, valuesMakroVF, MAKROVF_POSITION);
+			listAdapte6 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesMakroVF, MAKROVF_POSITION);
 			myListView6.setAdapter(listAdapte6);
 
 			// --------------
@@ -1735,7 +1737,7 @@ public class EditSettingsActivity extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapte6 = new SettingsArrayAdapter(
-													mContext, valuesMakroVF, MAKROVF_POSITION);
+													EditSettingsActivity.this, mContext, valuesMakroVF, MAKROVF_POSITION);
 											myListView6.setAdapter(listAdapte6);
 											listAdapte6.notifyDataSetChanged();
 											Toast.makeText(
@@ -1791,7 +1793,7 @@ public class EditSettingsActivity extends Activity {
 								.toString(), 1);
 						readDB();
 						katText6.setText("");
-						listAdapte6 = new SettingsArrayAdapter(mContext,
+						listAdapte6 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesMakroVF, MAKROVF_POSITION);
 						myListView6.setAdapter(listAdapte6);
 						listAdapte6.notifyDataSetChanged();
@@ -1831,7 +1833,7 @@ public class EditSettingsActivity extends Activity {
 
 			freecell3.setText(getString(R.string.macro));
 			tablor3.setBackgroundResource(R.drawable.shaperedtable);
-			listAdapte5 = new SettingsArrayAdapter(mContext, valuesNM, MAKRO_POSITION);
+			listAdapte5 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesNM, MAKRO_POSITION);
 			myListView5.setAdapter(listAdapte5);
 
 			// --------------
@@ -1895,7 +1897,7 @@ public class EditSettingsActivity extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapte5 = new SettingsArrayAdapter(
-													mContext, valuesNM, MAKRO_POSITION);
+													EditSettingsActivity.this, mContext, valuesNM, MAKRO_POSITION);
 											myListView5.setAdapter(listAdapte5);
 											listAdapte5.notifyDataSetChanged();
 											Toast.makeText(
@@ -1951,7 +1953,7 @@ public class EditSettingsActivity extends Activity {
 								.toString(), 1);
 						readDB();
 						katText5.setText("");
-						listAdapte5 = new SettingsArrayAdapter(mContext,
+						listAdapte5 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesNM, MAKRO_POSITION);
 						myListView5.setAdapter(listAdapte5);
 						listAdapte5.notifyDataSetChanged();
@@ -1991,7 +1993,7 @@ public class EditSettingsActivity extends Activity {
 
 			freecell3.setText(getString(R.string.exposure_correction));
 			tablor3.setBackgroundResource(R.drawable.shaperedtable);
-			listAdapte4 = new SettingsArrayAdapter(mContext, valuesPlu, KORREKTUR_POSITION);
+			listAdapte4 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesPlu, KORREKTUR_POSITION);
 			myListView4.setAdapter(listAdapte4);
 
 			// --------------
@@ -2064,7 +2066,7 @@ public class EditSettingsActivity extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapte4 = new SettingsArrayAdapter(
-													mContext, valuesPlu, KORREKTUR_POSITION);
+													EditSettingsActivity.this, mContext, valuesPlu, KORREKTUR_POSITION);
 											myListView4.setAdapter(listAdapte4);
 											listAdapte4.notifyDataSetChanged();
 											Toast.makeText(
@@ -2120,7 +2122,7 @@ public class EditSettingsActivity extends Activity {
 								.toString(), 1);
 						readDB();
 						katText4.setText("");
-						listAdapte4 = new SettingsArrayAdapter(mContext,
+						listAdapte4 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesPlu, KORREKTUR_POSITION);
 						myListView4.setAdapter(listAdapte4);
 						listAdapte4.notifyDataSetChanged();
@@ -2160,7 +2162,7 @@ public class EditSettingsActivity extends Activity {
 
 			freecell3.setText(getString(R.string.measurement));
 			tablor3.setBackgroundResource(R.drawable.shaperedtable);
-			listAdapte3 = new SettingsArrayAdapter(mContext, valuesMes, MESS_POSITION);
+			listAdapte3 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesMes, MESS_POSITION);
 			myListView3.setAdapter(listAdapte3);
 
 			// --------------
@@ -2233,7 +2235,7 @@ public class EditSettingsActivity extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapte3 = new SettingsArrayAdapter(
-													mContext, valuesMes, MESS_POSITION);
+													EditSettingsActivity.this, mContext, valuesMes, MESS_POSITION);
 											myListView3.setAdapter(listAdapte3);
 											listAdapte3.notifyDataSetChanged();
 											Toast.makeText(
@@ -2289,7 +2291,7 @@ public class EditSettingsActivity extends Activity {
 								.toString(), 1);
 						readDB();
 						katText3.setText("");
-						listAdapte3 = new SettingsArrayAdapter(mContext,
+						listAdapte3 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesMes, MESS_POSITION);
 						myListView3.setAdapter(listAdapte3);
 						listAdapte3.notifyDataSetChanged();
@@ -2329,7 +2331,7 @@ public class EditSettingsActivity extends Activity {
 
 			freecell3.setText(getString(R.string.exposure));
 			tablor3.setBackgroundResource(R.drawable.shaperedtable);
-			listAdapte2 = new SettingsArrayAdapter(mContext, valuesZei, ZEITE_POSITION);
+			listAdapte2 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesZei, ZEITE_POSITION);
 			myListView2.setAdapter(listAdapte2);
 
 			// --------------
@@ -2402,7 +2404,7 @@ public class EditSettingsActivity extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapte2 = new SettingsArrayAdapter(
-													mContext, valuesZei, ZEITE_POSITION);
+													EditSettingsActivity.this, mContext, valuesZei, ZEITE_POSITION);
 											myListView2.setAdapter(listAdapte2);
 											listAdapte2.notifyDataSetChanged();
 											Toast.makeText(
@@ -2458,7 +2460,7 @@ public class EditSettingsActivity extends Activity {
 								.toString(), 1);
 						readDB();
 						katText2.setText("");
-						listAdapte2 = new SettingsArrayAdapter(mContext,
+						listAdapte2 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesZei, ZEITE_POSITION);
 						myListView2.setAdapter(listAdapte2);
 						listAdapte2.notifyDataSetChanged();
@@ -2499,7 +2501,7 @@ public class EditSettingsActivity extends Activity {
 
 			freecell3.setText(getString(R.string.aperture));
 			tablor3.setBackgroundResource(R.drawable.shaperedtable);
-			listAdapte1 = new SettingsArrayAdapter(mContext, valuesBle, BLENDE_POSITION);
+			listAdapte1 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesBle, BLENDE_POSITION);
 			myListView1.setAdapter(listAdapte1);
 
 			// --------------
@@ -2572,7 +2574,7 @@ public class EditSettingsActivity extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapte1 = new SettingsArrayAdapter(
-													mContext, valuesBle, BLENDE_POSITION);
+													EditSettingsActivity.this, mContext, valuesBle, BLENDE_POSITION);
 											myListView1.setAdapter(listAdapte1);
 											listAdapte1.notifyDataSetChanged();
 											Toast.makeText(
@@ -2628,7 +2630,7 @@ public class EditSettingsActivity extends Activity {
 								.toString(), 1);
 						readDB();
 						katText1.setText("");
-						listAdapte1 = new SettingsArrayAdapter(mContext,
+						listAdapte1 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesBle, BLENDE_POSITION);
 						myListView1.setAdapter(listAdapte1);
 						listAdapte1.notifyDataSetChanged();
@@ -2658,6 +2660,7 @@ public class EditSettingsActivity extends Activity {
 		}
 
 		private View createFokusView() {
+			
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 
 			TextView freecell3 = (TextView) view.findViewById(R.id.freecell);
@@ -2668,7 +2671,7 @@ public class EditSettingsActivity extends Activity {
 
 			freecell3.setText(getString(R.string.focus));
 			tablor3.setBackgroundResource(R.drawable.shaperedtable);
-			listAdapte0 = new SettingsArrayAdapter(mContext, valuesFok, FOKUS_POSITION);
+			listAdapte0 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext, valuesFok, FOKUS_POSITION);
 			myListView0.setAdapter(listAdapte0);
 
 			// --------------
@@ -2733,7 +2736,7 @@ public class EditSettingsActivity extends Activity {
 													texti.getText().toString());
 											readDB();
 											listAdapte0 = new SettingsArrayAdapter(
-													mContext, valuesFok, FOKUS_POSITION);
+													EditSettingsActivity.this, mContext, valuesFok, FOKUS_POSITION);
 											myListView0.setAdapter(listAdapte0);
 											listAdapte0.notifyDataSetChanged();
 											Toast.makeText(
@@ -2790,7 +2793,7 @@ public class EditSettingsActivity extends Activity {
 
 						readDB();
 						katText0.setText("");
-						listAdapte0 = new SettingsArrayAdapter(mContext,
+						listAdapte0 = new SettingsArrayAdapter(EditSettingsActivity.this, mContext,
 								valuesFok, FOKUS_POSITION);
 						myListView0.setAdapter(listAdapte0);
 						listAdapte0.notifyDataSetChanged();
@@ -3585,144 +3588,6 @@ public class EditSettingsActivity extends Activity {
 
 			settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 			textView.setTextColor(0xFF000000);
-
-			return convertView;
-		}
-
-	}
-
-	private class SettingsArrayAdapter extends ArrayAdapter<Setting> {
-
-		private LayoutInflater inflater;
-		int nummer = 0;
-
-		public SettingsArrayAdapter(Context context, ArrayList<Setting> planetList, int number) {
-			super(context, R.layout.list_item, R.id.listItemText, planetList);
-			nummer = number;
-			// Cache the LayoutInflate to avoid asking for a new one each time.
-			inflater = LayoutInflater.from(context);
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			// Planet to display
-			Setting planet = (Setting) this.getItem(position);
-
-			// The child views in each row.
-			CheckBox checkBox;
-			TextView textView;
-
-			// Create a new row view
-			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.list_item, null);
-
-				// Find the child views.
-				textView = (TextView) convertView
-						.findViewById(R.id.listItemText);
-				checkBox = (CheckBox) convertView.findViewById(R.id.check);
-
-				// Optimization: Tag the row with it's child views, so we don't
-				// have to
-				// call findViewById() later when we reuse the row.
-				convertView.setTag(new SettingsViewHolder(textView, checkBox));
-
-				// If CheckBox is toggled, update the planet it is tagged with.
-				checkBox.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						CheckBox cb = (CheckBox) v;
-						Setting planet = (Setting) cb.getTag();
-						planet.setDisplay(cb.isChecked());
-						int value = 0;
-						if (cb.isChecked() == true) {
-							value = 1;
-						}
-						if (nummer == FILMFORMAT_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETFF, planet.value, value);
-						} else if (nummer == BRENNWEITE_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETBW, planet.value, value);
-						} else if (nummer == MAKRO_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETNM, planet.value, value);
-						} else if (nummer == FILTER_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETFIL, planet.value, value);
-						} else if (nummer == BLITZ_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETBLI, planet.value, value);
-						} else if (nummer == SOND_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETSON, planet.value, value);
-						} else if (nummer == ASA_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETEMP, planet.value, value);
-						} else if (nummer == FOKUS_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETFOK, planet.value, value);
-						} else if (nummer == BLENDE_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETBLE, planet.value, value);
-						} else if (nummer == ZEITE_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETZEI, planet.value, value);
-						} else if (nummer == MESS_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETMES, planet.value, value);
-						} else if (nummer == KORREKTUR_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETPLU, planet.value, value);
-						} else if (nummer == MAKROVF_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETMVF, planet.value, value);
-						} else if (nummer == FILTERVF_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETFVF, planet.value, value);
-						} else if (nummer == BLITZKORR_POSITION) {
-							editfromDB(DB.MY_DB_TABLE_SETKOR, planet.value, value);
-						}
-					}
-				});
-			}
-			// Reuse existing row view
-			else {
-				// Because we use a ViewHolder, we avoid having to call
-				// findViewById().
-				SettingsViewHolder viewHolder = (SettingsViewHolder) convertView
-						.getTag();
-				checkBox = viewHolder.getCheckBox();
-				textView = viewHolder.getTextView();
-			}
-
-			// Tag the CheckBox with the Planet it is displaying, so that we can
-			// access the planet in onClick() when the CheckBox is toggled.
-			checkBox.setTag(planet);
-
-			// Display planet data
-			if (planet.shouldBeDisplayed() == 1) {
-				checkBox.setChecked(true);
-			} else if (planet.shouldBeDisplayed() == 0) {
-				checkBox.setChecked(false);
-			}
-			textView.setText(planet.getValue());
-			settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-			if (nummer == FILMFORMAT_POSITION && checkFF.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == MAKRO_POSITION && checkNM.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == FILTER_POSITION && checkFil.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == BLITZ_POSITION && checkBli.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == SOND_POSITION && checkSon.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == ASA_POSITION && checkEmp.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == FOKUS_POSITION && checkFok.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == BLENDE_POSITION && checkBle.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == ZEITE_POSITION && checkZei.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == MESS_POSITION && checkMes.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == KORREKTUR_POSITION && checkPlu.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == MAKROVF_POSITION && checkMakroVF.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == FILTERVF_POSITION && checkFilterVF.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == BLITZKORR_POSITION && checkKor.get(planet.getValue()) == 1) {
-				textView.setTextColor(0xFF0000AA);
-			} else {
-				textView.setTextColor(0xFF000000);
-			}
 
 			return convertView;
 		}

@@ -21,6 +21,7 @@ import java.util.List;
 
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
+import unisiegen.photographers.model.Setting;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -835,10 +836,39 @@ public class DB {
 
 		return bilder;
 	}
+	
+	public boolean deleteSetting(Context mContext, String database, String settingType, String value){
+		
+		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		
+		try {
+			db.execSQL("DELETE FROM " + settingType + " WHERE name = '" + value + "'");
+			db.close();
+					
+		} catch (Exception e) {
+			db.close();
+			
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean saveSetting(Context mContext, String database, String settingType, String name, int value){
+		
+		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		db.execSQL("INSERT INTO " + settingType + " Values (" + null + ",'"
+				+ "" + name + "" + "','" + value + "','" + 0 + "');");
+		db.close();
+		
+		return true;
+	}
 
 	/**
-	 * This will retrieve a List of the settings, currently save in the
-	 * database. Use this to fill the spinners in the ui.
+	 * This will retrieve a List of ALL settings, with additional data for
+	 * each particular value, if it is enabled and should be shown in the UI.
+	 * This is used by the configuration dialog (EditSettings).
 	 * 
 	 * @param mContext
 	 * @param database
@@ -847,22 +877,64 @@ public class DB {
 	 *            a table (for a certain type of settings) in the db.
 	 * @return
 	 */
-	public List<String> getSettingForSpinner(Context mContext, String database,
-			String settingName) {
+	public ArrayList<Setting> getAllSettings(Context mContext, String database, String settingName) {
 
-		return getSettings(mContext, database, settingName, false);
+		ArrayList<Setting> values = new ArrayList<Setting>();
+		
+		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		Cursor c = db.rawQuery("SELECT name, value FROM " + settingName, null);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					values.add(new Setting(settingName, c.getString(c.getColumnIndex("name")), c.getInt(c.getColumnIndex("value"))));
+					
+				} while (c.moveToNext());
+			}
+		}
+		c.close();
+		db.close();
+		
+		return values;
+	}
+	
+	public boolean setDefaultVal(Context mContext, String database, String settingName, String newDefault){
+		
+		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		
+		db.execSQL("UPDATE " + settingName + " SET def = '" + 0 + "'");
+		db.execSQL("UPDATE " + settingName + " SET def = '" + 1 + "' WHERE name = '" + newDefault + "'");
+		db.close();
+		
+		return true;
 	}
 
 	/**
 	 * 
-	 * @return I changed the return type from the more general List to
-	 *         ArrayList, as the user interface, which will use this data can
-	 *         directly work on ArrayLists
+	 * @return Returns a list of items, usable for various portions of the UI
 	 */
-	public ArrayList<String> getActivatedSettingsData(Context mContext,
-			String database, String settingName) {
+	public ArrayList<String> getActivatedSettingsData(Context mContext, String database, String settingName) {
 
-		return getSettings(mContext, database, settingName, true);
+		ArrayList<String> values = new ArrayList<String>();
+
+		SQLiteDatabase myDB = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT name, value FROM ");
+		sql.append(settingName);
+		sql.append(" WHERE value = '1'");
+		Cursor c = myDB.rawQuery(new String(sql), null);
+
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					values.add(c.getString(c.getColumnIndex("name")));
+
+				} while (c.moveToNext());
+			}
+		}
+		c.close();
+		myDB.close();
+
+		return values;
 	}
 
 	public int getDefaultSettingNumber(Context mContext, String database,
@@ -898,34 +970,6 @@ public class DB {
 		return 0;
 	}
 
-	private ArrayList<String> getSettings(Context mContext, String database,
-			String settingName, boolean onlyActivatedValues) {
-
-		ArrayList<String> values = new ArrayList<String>();
-
-		SQLiteDatabase myDB = mContext.openOrCreateDatabase(database,
-				Context.MODE_PRIVATE, null);
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT name, value FROM ");
-		sql.append(settingName);
-		if (onlyActivatedValues) {
-			sql.append(" WHERE value = '1'");
-		}
-		Cursor c = myDB.rawQuery(new String(sql), null);
-
-		if (c != null) {
-			if (c.moveToFirst()) {
-				do {
-					values.add(c.getString(c.getColumnIndex("name")));
-
-				} while (c.moveToNext());
-			}
-		}
-		c.close();
-		myDB.close();
-
-		return values;
-	}
 
 	public ArrayList<String> getLensesForCamera(Context mContext,
 			String dbName, String camera) {
