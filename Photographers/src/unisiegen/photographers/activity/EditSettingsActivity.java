@@ -345,14 +345,11 @@ public class EditSettingsActivity extends Activity {
 		// coden.
 		// TODO: Settings Klasse als RÜckgabewert der DB bei Setting Anfragen
 		// nutzen.
-		Cursor cspec = myDB.rawQuery("SELECT name,value FROM "
-				+ DB.MY_DB_TABLE_SETBW, null);
+		Cursor cspec = myDB.rawQuery("SELECT name,value FROM " + DB.MY_DB_TABLE_SETBW, null);
 		if (cspec != null) {
 			if (cspec.moveToFirst()) {
 				do {
-					aplanetsspec.add(new Setting(cspec.getString(cspec
-							.getColumnIndex("name")), cspec.getInt(cspec
-							.getColumnIndex("value"))));
+					aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, cspec.getString(cspec.getColumnIndex("name")), cspec.getInt(cspec.getColumnIndex("value"))));
 				} while (cspec.moveToNext());
 			}
 		}
@@ -377,7 +374,7 @@ public class EditSettingsActivity extends Activity {
 				do {
 					check.put(c.getString(c.getColumnIndex("name")),
 							c.getInt(c.getColumnIndex("def")));
-					values.add(new Setting(
+					values.add(new Setting(table,
 							c.getString(c.getColumnIndex("name")), c.getInt(c
 									.getColumnIndex("value"))));
 				} while (c.moveToNext());
@@ -664,7 +661,7 @@ public class EditSettingsActivity extends Activity {
 							addKate6.getApplicationWindowToken(), 0);
 					boolean vorhanden = false;
 					for (int i = 0; i < valuesSon.size(); i++) {
-						vorhanden = valuesSon.get(i).getName().toString()
+						vorhanden = valuesSon.get(i).getValue().toString()
 								.equals(Kat6.getText().toString());
 						if (vorhanden) {
 							i = (valuesSon.size() - 1);
@@ -797,7 +794,7 @@ public class EditSettingsActivity extends Activity {
 							addKate7.getApplicationWindowToken(), 0);
 					boolean vorhanden = false;
 					for (int i = 0; i < valuesEmp.size(); i++) {
-						vorhanden = valuesEmp.get(i).getName().toString()
+						vorhanden = valuesEmp.get(i).getValue().toString()
 								.equals(Kat7.getText().toString());
 						if (vorhanden) {
 							i = (valuesEmp.size() - 1);
@@ -963,7 +960,7 @@ public class EditSettingsActivity extends Activity {
 					// HIER
 
 					for (int i = 0; i < valuesKor.size(); i++) {
-						vorhanden = valuesKor.get(i).getName().toString()
+						vorhanden = valuesKor.get(i).getValue().toString()
 								.equals(katText10.getText().toString());
 						if (vorhanden) {
 							i = (valuesKor.size() - 1);
@@ -1132,7 +1129,7 @@ public class EditSettingsActivity extends Activity {
 					// HIER
 
 					for (int i = 0; i < valuesBli.size(); i++) {
-						vorhanden = valuesBli.get(i).getName().toString()
+						vorhanden = valuesBli.get(i).getValue().toString()
 								.equals(katText9.getText().toString());
 						if (vorhanden) {
 							i = (valuesBli.size() - 1);
@@ -1268,7 +1265,7 @@ public class EditSettingsActivity extends Activity {
 							addKate1.getApplicationWindowToken(), 0);
 					boolean vorhanden = false;
 					for (int i = 0; i < valuesFF.size(); i++) {
-						vorhanden = valuesFF.get(i).getName().toString()
+						vorhanden = valuesFF.get(i).getValue().toString()
 								.equals(Kat1.getText().toString());
 						if (vorhanden) {
 							i = (valuesFF.size() - 1);
@@ -1434,7 +1431,7 @@ public class EditSettingsActivity extends Activity {
 					// HIER
 
 					for (int i = 0; i < valuesFilterVF.size(); i++) {
-						vorhanden = valuesFilterVF.get(i).getName().toString()
+						vorhanden = valuesFilterVF.get(i).getValue().toString()
 								.equals(katText8.getText().toString());
 						if (vorhanden) {
 							i = (valuesFilterVF.size() - 1);
@@ -1603,7 +1600,7 @@ public class EditSettingsActivity extends Activity {
 					// HIER
 
 					for (int i = 0; i < valuesFil.size(); i++) {
-						vorhanden = valuesFil.get(i).getName().toString()
+						vorhanden = valuesFil.get(i).getValue().toString()
 								.equals(katText7.getText().toString());
 						if (vorhanden) {
 							i = (valuesFil.size() - 1);
@@ -1772,7 +1769,7 @@ public class EditSettingsActivity extends Activity {
 					// HIER
 
 					for (int i = 0; i < valuesMakroVF.size(); i++) {
-						vorhanden = valuesMakroVF.get(i).getName().toString()
+						vorhanden = valuesMakroVF.get(i).getValue().toString()
 								.equals(katText6.getText().toString());
 						if (vorhanden) {
 							i = (valuesMakroVF.size() - 1);
@@ -1932,7 +1929,7 @@ public class EditSettingsActivity extends Activity {
 					// HIER
 
 					for (int i = 0; i < valuesNM.size(); i++) {
-						vorhanden = valuesNM.get(i).getName().toString()
+						vorhanden = valuesNM.get(i).getValue().toString()
 								.equals(katText5.getText().toString());
 						if (vorhanden) {
 							i = (valuesNM.size() - 1);
@@ -2101,7 +2098,7 @@ public class EditSettingsActivity extends Activity {
 					// HIER
 
 					for (int i = 0; i < valuesPlu.size(); i++) {
-						vorhanden = valuesPlu.get(i).getName().toString()
+						vorhanden = valuesPlu.get(i).getValue().toString()
 								.equals(katText4.getText().toString());
 						if (vorhanden) {
 							i = (valuesPlu.size() - 1);
@@ -2270,7 +2267,7 @@ public class EditSettingsActivity extends Activity {
 					// HIER
 
 					for (int i = 0; i < valuesMes.size(); i++) {
-						vorhanden = valuesMes.get(i).getName().toString()
+						vorhanden = valuesMes.get(i).getValue().toString()
 								.equals(katText3.getText().toString());
 						if (vorhanden) {
 							i = (valuesMes.size() - 1);
@@ -2439,7 +2436,7 @@ public class EditSettingsActivity extends Activity {
 					// HIER
 
 					for (int i = 0; i < valuesZei.size(); i++) {
-						vorhanden = valuesZei.get(i).getName().toString()
+						vorhanden = valuesZei.get(i).getValue().toString()
 								.equals(katText2.getText().toString());
 						if (vorhanden) {
 							i = (valuesZei.size() - 1);
@@ -2609,7 +2606,7 @@ public class EditSettingsActivity extends Activity {
 					// HIER
 
 					for (int i = 0; i < valuesBle.size(); i++) {
-						vorhanden = valuesBle.get(i).getName().toString()
+						vorhanden = valuesBle.get(i).getValue().toString()
 								.equals(katText1.getText().toString());
 						if (vorhanden) {
 							i = (valuesBle.size() - 1);
@@ -2770,7 +2767,7 @@ public class EditSettingsActivity extends Activity {
 					// HIER
 
 					for (int i = 0; i < valuesFok.size(); i++) {
-						vorhanden = valuesFok.get(i).getName().toString()
+						vorhanden = valuesFok.get(i).getValue().toString()
 								.equals(katText0.getText().toString());
 						if (vorhanden) {
 							break;
@@ -2987,8 +2984,8 @@ public class EditSettingsActivity extends Activity {
 														.show();
 											} else {
 												writeDB(DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);	
-												writeCamBW(listAdapter.getItem(arg2).getName().toString(), Katspec.getText().toString()); // We need to write to DB.MY_DB_TABLE_SETCAMBW to set the lens to be selected on the current cam by default.
-												aplanetsspec.add(new Setting(Katspec.getText().toString(), 1));
+												writeCamBW(listAdapter.getItem(arg2).getValue().toString(), Katspec.getText().toString()); // We need to write to DB.MY_DB_TABLE_SETCAMBW to set the lens to be selected on the current cam by default.
+												aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1));
 												Katspec.setText("");
 												listAdapterspec.notifyDataSetChanged();
 												listAdapter.notifyDataSetChanged();
@@ -3062,7 +3059,7 @@ public class EditSettingsActivity extends Activity {
 							addKate.getApplicationWindowToken(), 0);
 					boolean vorhanden = false;
 					for (int i = 0; i < valuesCam.size(); i++) {
-						vorhanden = valuesCam.get(i).getName().toString()
+						vorhanden = valuesCam.get(i).getValue().toString()
 								.equals(Kat.getText().toString());
 						if (vorhanden) {
 							i = (valuesCam.size() - 1);
@@ -3076,7 +3073,7 @@ public class EditSettingsActivity extends Activity {
 					} else {
 						writeDB(DB.MY_DB_TABLE_SETCAM,
 								Kat.getText().toString(), 1);
-						valuesCam.add(new Setting(Kat.getText().toString(), 1));
+						valuesCam.add(new Setting(DB.MY_DB_TABLE_SETCAM, Kat.getText().toString(), 1));
 						listAdapter.notifyDataSetChanged();
 
 						// BW F�NGT AN
@@ -3198,8 +3195,8 @@ public class EditSettingsActivity extends Activity {
 											writeDB(DB.MY_DB_TABLE_SETBW,
 													Katspec.getText()
 															.toString(), 1);
-											writeCamBW(valuesCam.get(valuesCam.size()-1).getName().toString(), Katspec.getText().toString()); // We need to write to DB.MY_DB_TABLE_SETCAMBW to set the lens to be selected on the current cam by default.
-											aplanetsspec.add(new Setting(
+											writeCamBW(valuesCam.get(valuesCam.size()-1).getValue().toString(), Katspec.getText().toString()); // We need to write to DB.MY_DB_TABLE_SETCAMBW to set the lens to be selected on the current cam by default.
+											aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, 
 													Katspec.getText()
 															.toString(), 1));
 											Katspec.setText("");
@@ -3546,7 +3543,7 @@ public class EditSettingsActivity extends Activity {
 			int kontrolle = 0;
 			Cursor camBWCursor = myDB.rawQuery(
 					"SELECT cam,bw FROM " + DB.MY_DB_TABLE_SETCAMBW
-							+ " WHERE cam = '" + planet.getName() + "'", null);
+							+ " WHERE cam = '" + planet.getValue() + "'", null);
 			if (camBWCursor != null) {
 				if (camBWCursor.moveToFirst()) {
 					do {
@@ -3574,7 +3571,7 @@ public class EditSettingsActivity extends Activity {
 				public void onClick(View v) {
 					CheckBox cb = (CheckBox) v;
 					Setting planet = (Setting) cb.getTag();
-					planet.setChecked(cb.isChecked());
+					planet.setDisplay(cb.isChecked());
 
 					int value = 0;
 					if (cb.isChecked() == true) {
@@ -3582,7 +3579,7 @@ public class EditSettingsActivity extends Activity {
 					}
 
 					if (nummer == 0) {
-						editfromDB(DB.MY_DB_TABLE_SETCAM, planet.name, value);
+						editfromDB(DB.MY_DB_TABLE_SETCAM, planet.value, value);
 					}
 				}
 			});
@@ -3592,12 +3589,12 @@ public class EditSettingsActivity extends Activity {
 			checkBox.setTag(planet);
 
 			// Display planet data
-			if (planet.isChecked() == 1) {
+			if (planet.shouldBeDisplayed() == 1) {
 				checkBox.setChecked(true);
-			} else if (planet.isChecked() == 0) {
+			} else if (planet.shouldBeDisplayed() == 0) {
 				checkBox.setChecked(false);
 			}
-			textView.setText(planet.getName());
+			textView.setText(planet.getValue());
 
 			settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 			textView.setTextColor(0xFF000000);
@@ -3648,52 +3645,52 @@ public class EditSettingsActivity extends Activity {
 					public void onClick(View v) {
 						CheckBox cb = (CheckBox) v;
 						Setting planet = (Setting) cb.getTag();
-						planet.setChecked(cb.isChecked());
+						planet.setDisplay(cb.isChecked());
 						int value = 0;
 						if (cb.isChecked() == true) {
 							value = 1;
 						}
 						if (nummer == 19) {
-							editfromDB(DB.MY_DB_TABLE_SETFF, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETFF, planet.value, value);
 						} else if (nummer == 1337) {
-							editfromDB(DB.MY_DB_TABLE_SETBW, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETBW, planet.value, value);
 						} else if (nummer == 51) {
-							editfromDB(DB.MY_DB_TABLE_SETNM, planet.name, value);
+							editfromDB(DB.MY_DB_TABLE_SETNM, planet.value, value);
 						} else if (nummer == 79) {
-							editfromDB(DB.MY_DB_TABLE_SETFIL, planet.name,
+							editfromDB(DB.MY_DB_TABLE_SETFIL, planet.value,
 									value);
 						} else if (nummer == 56) {
-							editfromDB(DB.MY_DB_TABLE_SETBLI, planet.name,
+							editfromDB(DB.MY_DB_TABLE_SETBLI, planet.value,
 									value);
 						} else if (nummer == 67) {
-							editfromDB(DB.MY_DB_TABLE_SETSON, planet.name,
+							editfromDB(DB.MY_DB_TABLE_SETSON, planet.value,
 									value);
 						} else if (nummer == 76) {
-							editfromDB(DB.MY_DB_TABLE_SETEMP, planet.name,
+							editfromDB(DB.MY_DB_TABLE_SETEMP, planet.value,
 									value);
 						} else if (nummer == 90) {
-							editfromDB(DB.MY_DB_TABLE_SETFOK, planet.name,
+							editfromDB(DB.MY_DB_TABLE_SETFOK, planet.value,
 									value);
 						} else if (nummer == 50) {
-							editfromDB(DB.MY_DB_TABLE_SETBLE, planet.name,
+							editfromDB(DB.MY_DB_TABLE_SETBLE, planet.value,
 									value);
 						} else if (nummer == 34) {
-							editfromDB(DB.MY_DB_TABLE_SETZEI, planet.name,
+							editfromDB(DB.MY_DB_TABLE_SETZEI, planet.value,
 									value);
 						} else if (nummer == 39) {
-							editfromDB(DB.MY_DB_TABLE_SETMES, planet.name,
+							editfromDB(DB.MY_DB_TABLE_SETMES, planet.value,
 									value);
 						} else if (nummer == 42) {
-							editfromDB(DB.MY_DB_TABLE_SETPLU, planet.name,
+							editfromDB(DB.MY_DB_TABLE_SETPLU, planet.value,
 									value);
 						} else if (nummer == 63) {
-							editfromDB(DB.MY_DB_TABLE_SETMVF, planet.name,
+							editfromDB(DB.MY_DB_TABLE_SETMVF, planet.value,
 									value);
 						} else if (nummer == 88) {
-							editfromDB(DB.MY_DB_TABLE_SETFVF, planet.name,
+							editfromDB(DB.MY_DB_TABLE_SETFVF, planet.value,
 									value);
 						} else if (nummer == 17) {
-							editfromDB(DB.MY_DB_TABLE_SETKOR, planet.name,
+							editfromDB(DB.MY_DB_TABLE_SETKOR, planet.value,
 									value);
 						}
 					}
@@ -3714,40 +3711,40 @@ public class EditSettingsActivity extends Activity {
 			checkBox.setTag(planet);
 
 			// Display planet data
-			if (planet.isChecked() == 1) {
+			if (planet.shouldBeDisplayed() == 1) {
 				checkBox.setChecked(true);
-			} else if (planet.isChecked() == 0) {
+			} else if (planet.shouldBeDisplayed() == 0) {
 				checkBox.setChecked(false);
 			}
-			textView.setText(planet.getName());
+			textView.setText(planet.getValue());
 			settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-			if (nummer == 19 && checkFF.get(planet.getName()) == 1) {
+			if (nummer == 19 && checkFF.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 51 && checkNM.get(planet.getName()) == 1) {
+			} else if (nummer == 51 && checkNM.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 79 && checkFil.get(planet.getName()) == 1) {
+			} else if (nummer == 79 && checkFil.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 56 && checkBli.get(planet.getName()) == 1) {
+			} else if (nummer == 56 && checkBli.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 67 && checkSon.get(planet.getName()) == 1) {
+			} else if (nummer == 67 && checkSon.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 76 && checkEmp.get(planet.getName()) == 1) {
+			} else if (nummer == 76 && checkEmp.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 90 && checkFok.get(planet.getName()) == 1) {
+			} else if (nummer == 90 && checkFok.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 50 && checkBle.get(planet.getName()) == 1) {
+			} else if (nummer == 50 && checkBle.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 34 && checkZei.get(planet.getName()) == 1) {
+			} else if (nummer == 34 && checkZei.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 39 && checkMes.get(planet.getName()) == 1) {
+			} else if (nummer == 39 && checkMes.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 42 && checkPlu.get(planet.getName()) == 1) {
+			} else if (nummer == 42 && checkPlu.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 63 && checkMakroVF.get(planet.getName()) == 1) {
+			} else if (nummer == 63 && checkMakroVF.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 88 && checkFilterVF.get(planet.getName()) == 1) {
+			} else if (nummer == 88 && checkFilterVF.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
-			} else if (nummer == 17 && checkKor.get(planet.getName()) == 1) {
+			} else if (nummer == 17 && checkKor.get(planet.getValue()) == 1) {
 				textView.setTextColor(0xFF0000AA);
 			} else {
 				textView.setTextColor(0xFF000000);
@@ -3787,13 +3784,13 @@ public class EditSettingsActivity extends Activity {
 					public void onClick(View v) {
 						CheckBox cb = (CheckBox) v;
 						Setting planet = (Setting) cb.getTag();
-						planet.setChecked(cb.isChecked());
+						planet.setDisplay(cb.isChecked());
 
 						if (cb.isChecked() == true) {
 
 							ContentValues args = new ContentValues();
 							args.put("cam", camera);
-							args.put("bw", planet.getName());
+							args.put("bw", planet.getValue());
 							myDB = mContext.openOrCreateDatabase(MY_DB_NAME,
 									Context.MODE_PRIVATE, null);
 							myDB.insert(DB.MY_DB_TABLE_SETCAMBW, null, args);
@@ -3811,7 +3808,7 @@ public class EditSettingsActivity extends Activity {
 									Context.MODE_PRIVATE, null);
 							myDB.delete(DB.MY_DB_TABLE_SETCAMBW,
 									"cam = '" + camera + "' AND bw = '"
-											+ planet.getName() + "'", null);
+											+ planet.getValue() + "'", null);
 							myDB.close();
 							readDB();
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -3833,26 +3830,26 @@ public class EditSettingsActivity extends Activity {
 			checkBox.setTag(planet);
 
 			ArrayList<String> brennweiten = getListCAMBW(camera);
-			if (brennweiten.contains(planet.getName())) {
+			if (brennweiten.contains(planet.getValue())) {
 				checkBox.setChecked(true);
 			} else {
 				checkBox.setChecked(false);
 			}
 
-			textView.setText(planet.getName());
+			textView.setText(planet.getValue());
 			settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-			if (planet.getName() == settings.getString("KamDef", "")
-					|| planet.getName().equals(
+			if (planet.getValue() == settings.getString("KamDef", "")
+					|| planet.getValue().equals(
 							settings.getString("FormatDef", ""))
-					|| planet.getName().equals(
+					|| planet.getValue().equals(
 							settings.getString("EmpfDef", ""))
-					|| planet.getName().equals(
+					|| planet.getValue().equals(
 							settings.getString("MakroDef", ""))
-					|| planet.getName().equals(
+					|| planet.getValue().equals(
 							settings.getString("FilterDef", ""))
-					|| planet.getName().equals(
+					|| planet.getValue().equals(
 							settings.getString("BlitzDef", ""))
-					|| planet.getName().equals(
+					|| planet.getValue().equals(
 							settings.getString("SonderDef", ""))) {
 				textView.setTextColor(0xFF0000AA);
 			} else {

@@ -20,38 +20,41 @@ public class Setting {
 	
 	// corresponds with the database table
 	public String type;
-	// value that is displays in all the dialogs
-	public String name;
-	// is it selected/activated to be used when creaing a film/picture
-	private boolean checked = false;
+	
+	// The value (of a certain type), as displayed in the UI
+	public String value;
+	
+	// true if selected in settings dialog = should be displayed as possible value in the UI.
+	private boolean shouldBeDisplayed = false;
 
-	public Setting(String name, int Status) {
-		this.name = name;
-		if (Status == 1) {
-			checked = true;
+	public Setting(String type, String value, int shouldBeDisplayed) {
+		this.type = type;
+		this.value = value;
+		if (shouldBeDisplayed == 1) {
+			this.shouldBeDisplayed = true;
 		} else
-			checked = false;
+			this.shouldBeDisplayed = false;
 	}
 
-	public String getName() {
-		return name;
+	public String getValue() {
+		return value;
 	}
 
-	public int isChecked() {
-		if (checked) {
+	public int shouldBeDisplayed() {
+		if (shouldBeDisplayed) {
 			return 1;
 		} else
 			return 0;
 	}
 
-	public void setChecked(boolean checked) {
-		this.checked = checked;
+	public void setDisplay(boolean checked) {
+		this.shouldBeDisplayed = checked;
 	}
 
 	public String toString() {
-		if (checked) {
-			return 1 + " " + name;
+		if (shouldBeDisplayed) {
+			return type + "::" + value + "::1";
 		} else
-			return 0 + " " + name;
+			return type + "::" + value + "::0";
 	}
 }
