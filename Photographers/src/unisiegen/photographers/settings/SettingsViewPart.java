@@ -87,8 +87,7 @@ public class SettingsViewPart {
 		// Fill with Data
 		//TODO: Daten holen sollte eigentlich der SettingsArrayAdapter machen, denke ich...
 		values = DB.getDB().getAllSettings(context, database, settingName);
-		listAdapter = new SettingsArrayAdapter(activity, context, values,
-				position);
+		listAdapter = new SettingsArrayAdapter(context, database, values, position);
 		list.setAdapter(listAdapter);
 
 		layout.setPadding(4, 0, -2, 0);

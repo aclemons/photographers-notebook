@@ -367,11 +367,11 @@ public class EditSettingsActivity extends Activity {
 		// coden.
 		// TODO: Settings Klasse als RÜckgabewert der DB bei Setting Anfragen
 		// nutzen.
-		Cursor cspec = myDB.rawQuery("SELECT name,value FROM " + DB.MY_DB_TABLE_SETBW, null);
+		Cursor cspec = myDB.rawQuery("SELECT name,value, def FROM " + DB.MY_DB_TABLE_SETBW, null);
 		if (cspec != null) {
 			if (cspec.moveToFirst()) {
 				do {
-					aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, cspec.getString(cspec.getColumnIndex("name")), cspec.getInt(cspec.getColumnIndex("value"))));
+					aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, cspec.getString(cspec.getColumnIndex("name")), cspec.getInt(cspec.getColumnIndex("value")), cspec.getInt(cspec.getColumnIndex("def"))));
 				} while (cspec.moveToNext());
 			}
 		}
@@ -396,9 +396,7 @@ public class EditSettingsActivity extends Activity {
 				do {
 					check.put(c.getString(c.getColumnIndex("name")),
 							c.getInt(c.getColumnIndex("def")));
-					values.add(new Setting(table,
-							c.getString(c.getColumnIndex("name")), c.getInt(c
-									.getColumnIndex("value"))));
+					values.add(new Setting(table, c.getString(c.getColumnIndex("name")), c.getInt(c.getColumnIndex("value")), c.getInt(c.getColumnIndex("def"))));
 				} while (c.moveToNext());
 			}
 		}
@@ -750,7 +748,7 @@ public class EditSettingsActivity extends Activity {
 											} else {
 												writeDB(DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);	
 												writeCamBW(listAdapter.getItem(arg2).getValue().toString(), Katspec.getText().toString()); // We need to write to DB.MY_DB_TABLE_SETCAMBW to set the lens to be selected on the current cam by default.
-												aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1));
+												aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1, 0));
 												Katspec.setText("");
 												listAdapterspec.notifyDataSetChanged();
 												listAdapter.notifyDataSetChanged();
@@ -838,7 +836,7 @@ public class EditSettingsActivity extends Activity {
 					} else {
 						writeDB(DB.MY_DB_TABLE_SETCAM,
 								Kat.getText().toString(), 1);
-						valuesCam.add(new Setting(DB.MY_DB_TABLE_SETCAM, Kat.getText().toString(), 1));
+						valuesCam.add(new Setting(DB.MY_DB_TABLE_SETCAM, Kat.getText().toString(), 1, 0));
 						listAdapter.notifyDataSetChanged();
 
 						// BW F�NGT AN
@@ -963,7 +961,7 @@ public class EditSettingsActivity extends Activity {
 											writeCamBW(valuesCam.get(valuesCam.size()-1).getValue().toString(), Katspec.getText().toString()); // We need to write to DB.MY_DB_TABLE_SETCAMBW to set the lens to be selected on the current cam by default.
 											aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, 
 													Katspec.getText()
-															.toString(), 1));
+															.toString(), 1, 0));
 											Katspec.setText("");
 											listAdapterspec
 													.notifyDataSetChanged();

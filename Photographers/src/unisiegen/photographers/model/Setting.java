@@ -26,14 +26,24 @@ public class Setting {
 	
 	// true if selected in settings dialog = should be displayed as possible value in the UI.
 	private boolean shouldBeDisplayed = false;
+	
+	// true, if this specific value is mark as the default value
+	private boolean defaultValue = false;
 
-	public Setting(String type, String value, int shouldBeDisplayed) {
+	public Setting(String type, String value, int shouldBeDisplayed, int defaultValue) {
 		this.type = type;
 		this.value = value;
+		
 		if (shouldBeDisplayed == 1) {
 			this.shouldBeDisplayed = true;
 		} else
 			this.shouldBeDisplayed = false;
+		
+		if (defaultValue == 1) {
+			this.defaultValue = true;
+		} else
+			this.defaultValue = false;
+		
 	}
 	
 	public String getType(){
@@ -51,6 +61,17 @@ public class Setting {
 			return 0;
 	}
 
+	public int isDefaultValue() {
+		if (defaultValue) {
+			return 1;
+		} else
+			return 0;
+	}
+	
+	public boolean isDefaultValueB(){
+		return defaultValue;
+	}
+	
 	public void setDisplay(boolean checked) {
 		this.shouldBeDisplayed = checked;
 	}

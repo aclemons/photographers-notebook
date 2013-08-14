@@ -17,7 +17,6 @@
 package unisiegen.photographers.database;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
@@ -882,11 +881,15 @@ public class DB {
 		ArrayList<Setting> values = new ArrayList<Setting>();
 		
 		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
-		Cursor c = db.rawQuery("SELECT name, value FROM " + settingName, null);
+		Cursor c = db.rawQuery("SELECT name, value, def FROM " + settingName, null);
 		if (c != null) {
 			if (c.moveToFirst()) {
 				do {
-					values.add(new Setting(settingName, c.getString(c.getColumnIndex("name")), c.getInt(c.getColumnIndex("value"))));
+					values.add(new Setting(
+							settingName, c.getString(c.getColumnIndex("name")), 
+							c.getInt(c.getColumnIndex("value")), 
+							c.getInt(c.getColumnIndex("def")))
+					);
 					
 				} while (c.moveToNext());
 			}
