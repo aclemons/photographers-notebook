@@ -66,37 +66,8 @@ public class SettingsArrayAdapter extends ArrayAdapter<Setting> {
 					if (cb.isChecked() == true) {
 						value = 1;
 					}
-					if (nummer == SettingsArrayAdapter.this.editSettingsActivity.FILMFORMAT_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETFF, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.BRENNWEITE_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETBW, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.MAKRO_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETNM, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.FILTER_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETFIL, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.BLITZ_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETBLI, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.SOND_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETSON, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.ASA_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETEMP, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.FOKUS_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETFOK, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.BLENDE_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETBLE, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.ZEITE_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETZEI, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.MESS_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETMES, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.KORREKTUR_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETPLU, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.MAKROVF_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETMVF, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.FILTERVF_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETFVF, planet.value, value);
-					} else if (nummer == SettingsArrayAdapter.this.editSettingsActivity.BLITZKORR_POSITION) {
-						SettingsArrayAdapter.this.editSettingsActivity.editfromDB(DB.MY_DB_TABLE_SETKOR, planet.value, value);
-					}
+					
+					SettingsArrayAdapter.this.editSettingsActivity.editfromDB(planet.getType(), planet.getValue(), value);
 				}
 			});
 		}

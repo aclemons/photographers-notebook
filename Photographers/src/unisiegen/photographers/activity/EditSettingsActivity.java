@@ -84,24 +84,24 @@ import com.viewpagerindicator.TitleProvider;
 public class EditSettingsActivity extends Activity {
 
 	
-	public final int ALLGEMEIN_POSITION = 0;
-	public final int KAMERA_POSITION = 1;
-	public final int FOKUS_POSITION = 2;
-	public final int BLENDE_POSITION = 3;
-	public final int ZEITE_POSITION = 4;
-	public final int MESS_POSITION = 5;
-	public final int KORREKTUR_POSITION = 6;
-	public final int MAKRO_POSITION = 7;
-	public final int MAKROVF_POSITION = 8;
-	public final int FILTER_POSITION = 9;
-	public final int FILTERVF_POSITION = 10;
-	public final int FILMFORMAT_POSITION = 11;
-	public final int ASA_POSITION = 12;
-	public final int BLITZ_POSITION = 13;
-	public final int BLITZKORR_POSITION = 14;
-	public final int SOND_POSITION = 15;
+	public static final int ALLGEMEIN_POSITION = 0;
+	public static final int KAMERA_POSITION = 1;
+	public static final int FOKUS_POSITION = 2;
+	public static final int BLENDE_POSITION = 3;
+	public static final int ZEITE_POSITION = 4;
+	public static final int MESS_POSITION = 5;
+	public static final int KORREKTUR_POSITION = 6;
+	public static final int MAKRO_POSITION = 7;
+	public static final int MAKROVF_POSITION = 8;
+	public static final int FILTER_POSITION = 9;
+	public static final int FILTERVF_POSITION = 10;
+	public static final int FILMFORMAT_POSITION = 11;
+	public static final int ASA_POSITION = 12;
+	public static final int BLITZ_POSITION = 13;
+	public static final int BLITZKORR_POSITION = 14;
+	public static final int SOND_POSITION = 15;
 	
-	public final int BRENNWEITE_POSITION = 1337; // is not shown as view, but as a subview of camera
+	public static final int BRENNWEITE_POSITION = 1337; // is not shown as view, but as a subview of camera
 	
 	
 	/*
@@ -1326,7 +1326,7 @@ public class EditSettingsActivity extends Activity {
 					}
 
 					if (nummer == 0) {
-						editfromDB(DB.MY_DB_TABLE_SETCAM, planet.value, value);
+						editfromDB(DB.MY_DB_TABLE_SETCAM, planet.getValue(), value);
 					}
 				}
 			});

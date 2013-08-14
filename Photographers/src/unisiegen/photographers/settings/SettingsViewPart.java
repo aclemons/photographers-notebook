@@ -85,6 +85,7 @@ public class SettingsViewPart {
 		layout.setBackgroundResource(R.drawable.shaperedtable);
 
 		// Fill with Data
+		//TODO: Daten holen sollte eigentlich der SettingsArrayAdapter machen, denke ich...
 		values = DB.getDB().getAllSettings(context, database, settingName);
 		listAdapter = new SettingsArrayAdapter(activity, context, values,
 				position);

@@ -19,10 +19,10 @@ package unisiegen.photographers.model;
 public class Setting {
 	
 	// corresponds with the database table
-	public String type;
+	private String type;
 	
 	// The value (of a certain type), as displayed in the UI
-	public String value;
+	private String value;
 	
 	// true if selected in settings dialog = should be displayed as possible value in the UI.
 	private boolean shouldBeDisplayed = false;
@@ -34,6 +34,10 @@ public class Setting {
 			this.shouldBeDisplayed = true;
 		} else
 			this.shouldBeDisplayed = false;
+	}
+	
+	public String getType(){
+		return type;
 	}
 
 	public String getValue() {
