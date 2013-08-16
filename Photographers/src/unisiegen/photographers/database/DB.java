@@ -18,11 +18,13 @@ package unisiegen.photographers.database;
 
 import java.util.ArrayList;
 
+import unisiegen.photographers.activity.R;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
 import unisiegen.photographers.model.Setting;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -193,418 +195,132 @@ public class DB {
 		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETMVF2);
 		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETFVF2);
 		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETKOR);
+		
+		Resources res = context.getResources();
+		
+		String[] setff = res.getStringArray(R.array.setff);
+		if (setff != null) {
+			for (int i = 0; i < (setff.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFF + " Values (" + null + ",'" + setff[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
+		
+		String[] setemp = res.getStringArray(R.array.setemp);
+		if (setemp != null) {
+			for (int i = 0; i < (setemp.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values (" + null + ",'" + setemp[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
+		
+		String[] settyp = res.getStringArray(R.array.settyp);
+		if (settyp != null) {
+			for (int i = 0; i < (settyp.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP + " Values (" + null + ",'" + settyp[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
 
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFF + " Values (" + null
-				+ ",'" + "24x36" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFF + " Values (" + null
-				+ ",'" + "4,5x6" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFF + " Values (" + null
-				+ ",'" + "6x6" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFF + " Values (" + null
-				+ ",'" + "6x7" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFF + " Values (" + null
-				+ ",'" + "6x9" + "','" + 1 + "','" + 0 + "');");
+		String[] setnm = res.getStringArray(R.array.setnm);
+		if (setnm != null) {
+			for (int i = 0; i < (setnm.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETNM + " Values (" + null + ",'" + setnm[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
+		
+		String[] setfil = res.getStringArray(R.array.setfil);
+		if (setfil != null) {
+			for (int i = 0; i < (setfil.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values (" + null + ",'" + setfil[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
+		
+		String[] setbli = res.getStringArray(R.array.setbli);
+		if (setbli != null) {
+			for (int i = 0; i < (setbli.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLI + " Values (" + null + ",'" + setbli[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
 
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 25/15\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 40/17\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 50/18\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 64/19\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 100/21\u00b0" + "','" + 1 + "','" + 1
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 125/22\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 160/23\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 200/24\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 320/26\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 400/27\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 640/29\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 800/30\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 1000/31\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 1600/33\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values ("
-				+ null + ",'" + "ISO 3200/36\u00b0" + "','" + 1 + "','" + 0
-				+ "');");
+		String[] setson = res.getStringArray(R.array.setson);
+		if (setson != null) {
+			for (int i = 0; i < (setson.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETSON + " Values (" + null + ",'" + setson[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
+		
+		String[] setfok = res.getStringArray(R.array.setfok);
+		if (setfok != null) {
+			for (int i = 0; i < (setfok.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values (" + null + ",'" + setfok[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
+		
+		String[] setble = res.getStringArray(R.array.setble);
+		if (setble != null) {
+			for (int i = 0; i < (setble.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values (" + null + ",'" + setble[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
 
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP + " Values ("
-				+ null + ",'" + "Farbnegativ (I: CN)" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP + " Values ("
-				+ null + ",'" + "Farbdia (I: CR)" + "','" + 1 + "','" + 0
-				+ "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP + " Values ("
-				+ null + ",'" + "Schwarzwei\u00DF-Negativ (I: SW)" + "','" + 1
-				+ "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP + " Values ("
-				+ null + ",'" + "Schwarzwei\u00DF-Dia (I: SWR)" + "','" + 1
-				+ "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP + " Values ("
-				+ null + ",'" + "Farbdia/Kunstlicht (I: CT)" + "','" + 1
-				+ "','" + 0 + "');");
+		String[] setzei = res.getStringArray(R.array.setzei);
+		if (setzei != null) {
+			for (int i = 0; i < (setzei.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values (" + null + ",'" + setzei[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
 
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETNM + " Values (" + null
-				+ ",'" + "Keiner" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETNM + " Values (" + null
-				+ ",'" + "NL +1" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETNM + " Values (" + null
-				+ ",'" + "NL +2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETNM + " Values (" + null
-				+ ",'" + "NL +3" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETNM + " Values (" + null
-				+ ",'" + "NL +4" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETNM + " Values (" + null
-				+ ",'" + "NL +5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETNM + " Values (" + null
-				+ ",'" + "ZR 10" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETNM + " Values (" + null
-				+ ",'" + "ZR 20" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETNM + " Values (" + null
-				+ ",'" + "ZR 30" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETNM + " Values (" + null
-				+ ",'" + "Balgen" + "','" + 1 + "','" + 0 + "');");
+		String[] setmes = res.getStringArray(R.array.setmes);
+		if (setmes != null) {
+			for (int i = 0; i < (setmes.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMES + " Values (" + null + ",'" + setmes[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
 
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "Keiner" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "Gelb" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "Orange" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "Rot" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "Gelbgr\u00FCn" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "Gr\u00FCn" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "Blau" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "KR" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "KB" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "UV" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "Pol" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "ND x2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "ND x4" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "ND x6" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values ("
-				+ null + ",'" + "Soft" + "','" + 1 + "','" + 0 + "');");
+		String[] setplu = res.getStringArray(R.array.setplu);
+		if (setplu != null) {
+			for (int i = 0; i < (setplu.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values (" + null + ",'" + setplu[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
 
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLI + " Values ("
-				+ null + ",'" + "Kein Blitz" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLI + " Values ("
-				+ null + ",'" + "TTL" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLI + " Values ("
-				+ null + ",'" + "Auto" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLI + " Values ("
-				+ null + ",'" + "Multiblitz 2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLI + " Values ("
-				+ null + ",'" + "Multiblitz 3+" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLI + " Values ("
-				+ null + ",'" + "Manuell 1/1" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLI + " Values ("
-				+ null + ",'" + "Manuell 1/2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLI + " Values ("
-				+ null + ",'" + "Manuell 1/4" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLI + " Values ("
-				+ null + ",'" + "Manuell 1/8" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLI + " Values ("
-				+ null + ",'" + "Manuell 1/16" + "','" + 1 + "','" + 0 + "');");
+		String[] setkor = res.getStringArray(R.array.setkor);
+		if (setkor != null) {
+			for (int i = 0; i < (setkor.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values (" + null + ",'" + setkor[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
+		
+		
+		String[] setmvf = res.getStringArray(R.array.setmvf);
+		if (setmvf != null) {
+			for (int i = 0; i < (setmvf.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF + " Values (" + null + ",'" + setmvf[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
+		
+		String[] setmvf2 = res.getStringArray(R.array.setmvf2);
+		if (setmvf2 != null) {
+			for (int i = 0; i < (setmvf.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF2 + " Values (" + null + ",'" + setmvf2[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
 
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETSON + " Values ("
-				+ null + ",'" + "Normal" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETSON + " Values ("
-				+ null + ",'" + "Push 1" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETSON + " Values ("
-				+ null + ",'" + "Push 2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETSON + " Values ("
-				+ null + ",'" + "Push 3" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETSON + " Values ("
-				+ null + ",'" + "Pull 1" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETSON + " Values ("
-				+ null + ",'" + "Pull 2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETSON + " Values ("
-				+ null + ",'" + "Cross" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETSON + " Values ("
-				+ null + ",'" + "Lowcolor" + "','" + 1 + "','" + 0 + "');");
-
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "Auto" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "Unendlich" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "20 m" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "10 m" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "8 m" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "5 m" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "4 m" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "3 m" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "2 m" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "1,5 m" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "1 m" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "0,8 m" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "0,7 m" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "0,5 m" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values ("
-				+ null + ",'" + "0,3 m" + "','" + 1 + "','" + 0 + "');");
-
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "Auto" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "1,0" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "1,4" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "2,0" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "2,8" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "4" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "5,6" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "8" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "11" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "16" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "22" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "32" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "45" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values ("
-				+ null + ",'" + "64" + "','" + 1 + "','" + 0 + "');");
-
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "Auto" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/8000" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/4000" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/2000" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/1000" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/500" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/250" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/125" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/60" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/30" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/15" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/8" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/4" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1/2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "1s" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "2s" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "4s" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "8s" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values ("
-				+ null + ",'" + "15s" + "','" + 1 + "','" + 0 + "');");
-
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMES + " Values ("
-				+ null + ",'" + "Licht" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMES + " Values ("
-				+ null + ",'" + "Mehrfeld" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMES + " Values ("
-				+ null + ",'" + "Integral" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMES + " Values ("
-				+ null + ",'" + "Spot" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMES + " Values ("
-				+ null + ",'" + "Multispot" + "','" + 1 + "','" + 0 + "');");
-
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "+5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "+4" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "+3" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "+2,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "+2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "+1,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "+1" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "+0,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "0" + "','" + 1 + "','" + 1 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "-0,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "-1" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "-1,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "-2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "-2,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "-3" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "-4" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values ("
-				+ null + ",'" + "-5" + "','" + 1 + "','" + 0 + "');");
-
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "+3" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "+2,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "+2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "+1,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "+1" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "+0,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "0" + "','" + 1 + "','" + 1 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "-0,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "-1" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "-1,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "-2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "-2,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values ("
-				+ null + ",'" + "-3" + "','" + 1 + "','" + 0 + "');");
-
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF + " Values ("
-				+ null + ",'" + "Keiner" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF + " Values ("
-				+ null + ",'" + "x16" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF + " Values ("
-				+ null + ",'" + "x12" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF + " Values ("
-				+ null + ",'" + "x8" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF + " Values ("
-				+ null + ",'" + "x6" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF + " Values ("
-				+ null + ",'" + "x4" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF + " Values ("
-				+ null + ",'" + "x3" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF + " Values ("
-				+ null + ",'" + "x2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF + " Values ("
-				+ null + ",'" + "x1.5" + "','" + 1 + "','" + 0 + "');");
-
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF2 + " Values ("
-				+ null + ",'" + "Keiner" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF2 + " Values ("
-				+ null + ",'" + "+4" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF2 + " Values ("
-				+ null + ",'" + "+3,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF2 + " Values ("
-				+ null + ",'" + "+3" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF2 + " Values ("
-				+ null + ",'" + "+2,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF2 + " Values ("
-				+ null + ",'" + "+2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF2 + " Values ("
-				+ null + ",'" + "+1,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF2 + " Values ("
-				+ null + ",'" + "+1" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF2 + " Values ("
-				+ null + ",'" + "+0,5" + "','" + 1 + "','" + 0 + "');");
-
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF + " Values ("
-				+ null + ",'" + "Keiner" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF + " Values ("
-				+ null + ",'" + "x16" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF + " Values ("
-				+ null + ",'" + "x12" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF + " Values ("
-				+ null + ",'" + "x8" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF + " Values ("
-				+ null + ",'" + "x6" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF + " Values ("
-				+ null + ",'" + "x4" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF + " Values ("
-				+ null + ",'" + "x3" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF + " Values ("
-				+ null + ",'" + "x2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF + " Values ("
-				+ null + ",'" + "x1.5" + "','" + 1 + "','" + 0 + "');");
-
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values ("
-				+ null + ",'" + "Keiner" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values ("
-				+ null + ",'" + "+4" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values ("
-				+ null + ",'" + "+3,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values ("
-				+ null + ",'" + "+3" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values ("
-				+ null + ",'" + "+2,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values ("
-				+ null + ",'" + "+2" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values ("
-				+ null + ",'" + "+1,5" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values ("
-				+ null + ",'" + "+1" + "','" + 1 + "','" + 0 + "');");
-		myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values ("
-				+ null + ",'" + "+0,5" + "','" + 1 + "','" + 0 + "');");
-
+		String[] setfvf = res.getStringArray(R.array.setfvf);
+		if (setfvf != null) {
+			for (int i = 0; i < (setfvf.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF + " Values (" + null + ",'" + setfvf[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
+		
+		String[] setfvf2 = res.getStringArray(R.array.setfvf2);
+		if (setfvf2 != null) {
+			for (int i = 0; i < (setfvf2.length); i++) {
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values (" + null + ",'" + setfvf[i] + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
+				
+		setDefaultVal(context, MY_DB_SET, MY_DB_TABLE_SETKOR, "0");
+		setDefaultVal(context, MY_DB_SET, MY_DB_TABLE_SETPLU, "0");
+		
 		myDBSet.close();
 	}
 
