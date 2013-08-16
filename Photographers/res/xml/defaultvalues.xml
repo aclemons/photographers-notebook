@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="setff">
+	<item>24x36</item>
+	<item>4,5x6</item>
+	<item>6x6</item>
+	<item>6x7</item>
+	<item>6x9</item>
+</string-array>	
+<string-array name="setemp">
+	<item>ISO 25/15°</item>
+	<item>ISO 40/17°</item>
+	<item>ISO 50/18°</item>
+	<item>ISO 64/19°</item>
+	<item>ISO 100/21°</item>
+	<item>ISO 125/22°</item>
+	<item>ISO 160/23°</item>
+	<item>ISO 200/24°</item>
+	<item>ISO 320/26°</item>
+	<item>ISO 400/27°</item>
+	<item>ISO 640/29°</item>
+	<item>ISO 800/30°</item>
+	<item>ISO 1000/31°</item>
+	<item>ISO 1600/33°</item>
+	<item>ISO 3200/36°</item>
+</string-array>
+<string-array name="settyp">
+	<item>Farbnegativ (I: CN)</item>
+	<item>Farbdia (I: CR)</item>
+	<item>Schwarzweiß-Negativ (I: SW)</item>
+	<item>Schwarzweiß-Dia (I: SWR)</item>
+	<item>Farbdia/Kunstlicht (I: CT)</item>
+</string-array>
+<string-array name="setnm">
+	<item>Keiner</item>
+	<item>NL +1</item>
+	<item>NL +2</item>
+	<item>NL +3</item>
+	<item>NL +4</item>
+	<item>NL +5</item>
+	<item>ZR 10</item>
+	<item>ZR 20</item>
+	<item>ZR 30</item>
+	<item>Balgen</item>
+</string-array>
+<string-array name="setfil">
+	<item>Keiner</item>
+	<item>Gelb</item>
+	<item>Orange</item>
+	<item>Rot</item>
+	<item>Gelbgrün</item>
+	<item>Grün</item>
+	<item>Blau</item>
+	<item>KR</item>
+	<item>KB</item>
+	<item>UV</item>
+	<item>Pol</item>
+	<item>ND x2</item>
+	<item>ND x4</item>
+	<item>ND x6</item>
+	<item>Soft</item>
+</string-array>
+<string-array name="setbli">
+	<item>Kein Blitz</item>
+	<item>TTL</item>
+	<item>Auto</item>
+	<item>Multiblitz 2</item>
+	<item>Multiblitz 3</item>
+	<item>Manuell 1/1</item>
+	<item>Manuell 1/2</item>
+	<item>Manuell 1/4</item>
+	<item>Manuell 1/8</item>
+	<item>Manuell 1/16</item>
+</string-array>
+<string-array name="setson">
+	<item>Normal</item>
+	<item>Push 1</item>
+	<item>Push 2</item>
+	<item>Push 3</item>
+	<item>Pull 1</item>
+	<item>Pull 2</item>
+	<item>Cross</item>
+	<item>Lowcolor</item>
+</string-array>
+<string-array name="setfok">
+	<item>Auto</item>
+	<item>Unendlich</item>
+	<item>20 m</item>
+	<item>10 m</item>
+	<item>8 m</item>
+	<item>5 m</item>
+	<item>4 m</item>
+	<item>3 m</item>
+	<item>2 m</item>
+	<item>1,5 m</item>
+	<item>1 m</item>
+	<item>0,8 m</item>
+	<item>0,7 m</item>
+	<item>0,5 m</item>
+	<item>0,3 m</item>
+</string-array>
+<string-array name="setble">
+	<item>Auto</item>
+	<item>1</item>
+	<item>1,4</item>
+	<item>2</item>
+	<item>2,8</item>
+	<item>4</item>
+	<item>5,6</item>
+	<item>8</item>
+	<item>11</item>
+	<item>16</item>
+	<item>22</item>
+	<item>32</item>
+	<item>45</item>
+	<item>64</item>
+</string-array>
+<string-array name="setzei">
+<item>Auto</item>
+	<item>1/8000</item>
+	<item>1/4000</item>
+	<item>1/2000</item>
+	<item>1/1000</item>
+	<item>1/500</item>
+	<item>1/250</item>
+	<item>1/125</item>
+	<item>1/60</item>
+	<item>1/30</item>
+	<item>1/15</item>
+	<item>1/8</item>
+	<item>1/4</item>
+	<item>1/2</item>
+	<item>1s</item>
+	<item>2s</item>
+	<item>4s</item>
+	<item>8s</item>
+	<item>15s</item>
+</string-array>
+<string-array name="setmes">
+	<item>Licht</item>
+	<item>Mehrfeld</item>
+	<item>Integral</item>
+	<item>Spot</item>
+	<item>Multispot</item>
+</string-array>
+<string-array name="setplu">
+	<item>+5</item>
+	<item>+4</item>
+	<item>+3</item>
+	<item>+2,5</item>
+	<item>+2</item>
+	<item>+1,5</item>
+	<item>+1</item>
+	<item>+0,5</item>
+	<item>0</item>
+	<item>-0,5</item>
+	<item>-1</item>
+	<item>-1,5</item>
+	<item>-2</item>
+	<item>-2,5</item>
+	<item>-3</item>
+	<item>-4</item>
+	<item>-5</item>
+</string-array>
+<string-array name="setkor">
+	<item>+3</item>
+	<item>+2,5</item>
+	<item>+2</item>
+	<item>+1,5</item>
+	<item>+1</item>
+	<item>+0,5</item>
+	<item>0</item>
+	<item>-0,5</item>
+	<item>-1</item>
+	<item>-1,5</item>
+	<item>-2</item>
+	<item>-2,5</item>
+	<item>-3</item>
+</string-array>
+<string-array name="setmvf">
+	<item>Keiner</item>
+	<item>x16</item>
+	<item>x12</item>
+	<item>x8</item>
+	<item>x6</item>
+	<item>x4</item>
+	<item>x3</item>
+	<item>x2</item>
+	<item>x1.5</item>
+</string-array>
+<string-array name="setmvf2">
+	<item>Keiner</item>
+	<item>+4</item>
+	<item>+3,5</item>
+	<item>+3</item>
+	<item>+2,5</item>
+	<item>+2</item>
+	<item>+1,5</item>
+	<item>+1</item>
+	<item>+0,5</item>
+</string-array>
+<string-array name="setfvf">
+	<item>Keiner</item>
+	<item>x16</item>
+	<item>x12</item>
+	<item>x8</item>
+	<item>x6</item>
+	<item>x4</item>
+	<item>x3</item>
+	<item>x2</item>
+	<item>x1.5</item>
+</string-array>
+<string-array name="setfvf2">
+	<item>Keiner</item>
+	<item>+4</item>
+	<item>+3,5</item>
+	<item>+3</item>
+	<item>+2,5</item>
+	<item>+2</item>
+	<item>+1,5</item>
+	<item>+1</item>
+	<item>+0,5</item>
+</string-array>
+</resources>
