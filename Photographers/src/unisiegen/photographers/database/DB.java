@@ -299,7 +299,7 @@ public class DB {
 		
 		String[] setmvf2 = res.getStringArray(R.array.setmvf2);
 		if (setmvf2 != null) {
-			for (int i = 0; i < (setmvf.length); i++) {
+			for (int i = 0; i < (setmvf2.length); i++) {
 				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF2 + " Values (" + null + ",'" + setmvf2[i] + "','" + 1 + "','" + 0 + "');");
 			}	
 		}
