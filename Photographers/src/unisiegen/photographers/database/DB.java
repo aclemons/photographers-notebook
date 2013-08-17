@@ -314,7 +314,7 @@ public class DB {
 		String[] setfvf2 = res.getStringArray(R.array.setfvf2);
 		if (setfvf2 != null) {
 			for (int i = 0; i < (setfvf2.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values (" + null + ",'" + setfvf[i] + "','" + 1 + "','" + 0 + "');");
+				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values (" + null + ",'" + setfvf2[i] + "','" + 1 + "','" + 0 + "');");
 			}	
 		}
 				
