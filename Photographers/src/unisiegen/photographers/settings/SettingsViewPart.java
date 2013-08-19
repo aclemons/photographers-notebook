@@ -38,13 +38,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
  */
 public class SettingsViewPart {
 
-//	private Context context;
-//
-//	private String database;
-//	private String settingName;
-//	private EditSettingsActivity activity;
-//	private int position;
-
 	private LayoutInflater inflater;
 	private View view;
 	private TextView title;
@@ -59,15 +52,8 @@ public class SettingsViewPart {
 		return view;
 	}
 
-	public SettingsViewPart(final EditSettingsActivity activity,
-			final Context context, int titleID, int position,
+	public SettingsViewPart(final Context context, int titleID, int position,
 			final String database, final String settingName) {
-
-//		this.context = context;
-//		this.database = database;
-//		this.settingName = settingName;
-//		this.activity = activity;
-//		this.position = position;
 
 		inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -119,7 +105,7 @@ public class SettingsViewPart {
 								settingName, texti.getText().toString());
 
 						listAdapter.clear();
-						activity.readDB(); // TODO: Die zeile muss später
+//						activity.readDB(); // TODO: Die zeile muss später
 											// raus...
 						values = DB.getDB().getAllSettings(context, database,
 								settingName);
@@ -147,7 +133,7 @@ public class SettingsViewPart {
 						DB.getDB().deleteSetting(context, database,
 								settingName, texti.getText().toString());
 						listAdapter.clear();
-						activity.readDB(); // TODO: Die zeile muss später
+//						activity.readDB(); // TODO: Die zeile muss später
 											// raus...
 						values = DB.getDB().getAllSettings(context, database,
 								settingName);
@@ -217,7 +203,7 @@ public class SettingsViewPart {
 					DB.getDB().saveSetting(context, database, settingName,
 							newVal, 1);
 					listAdapter.clear();
-					activity.readDB(); // TODO: Die zeile muss später raus...
+//					activity.readDB(); // TODO: Die zeile muss später raus...
 					values = DB.getDB().getAllSettings(context, database,
 							settingName);
 					for (Setting s : values) {

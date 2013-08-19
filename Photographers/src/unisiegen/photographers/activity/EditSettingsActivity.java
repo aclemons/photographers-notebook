@@ -513,60 +513,60 @@ public class EditSettingsActivity extends Activity {
 				myView = createKameraView();
 				break;
 			case FOKUS_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.focus, 
+				myView = new SettingsViewPart(mContext, R.string.focus, 
 						FOKUS_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFOK).getView();
 				break;
 			case BLENDE_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.aperture, 
+				myView = new SettingsViewPart(mContext, R.string.aperture, 
 						BLENDE_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETBLE).getView();
 				break;
 			case ZEITE_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.exposure, 
+				myView = new SettingsViewPart(mContext, R.string.exposure, 
 						ZEITE_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETZEI).getView();
 				break;
 			case MESS_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.measurement, 
+				myView = new SettingsViewPart(mContext, R.string.measurement, 
 						MESS_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETMES).getView();
 				break;
 			case KORREKTUR_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.exposure_correction, 
+				myView = new SettingsViewPart(mContext, R.string.exposure_correction, 
 						KORREKTUR_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETKOR).getView();
 				break;
 			case MAKRO_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.focus, 
+				myView = new SettingsViewPart(mContext, R.string.focus, 
 						MAKRO_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETNM).getView();
 				break;
 			case MAKROVF_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.macro_vf, 
+				myView = new SettingsViewPart(mContext, R.string.macro_vf, 
 						MAKROVF_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETMVF).getView();
 				break;
 			case FILTER_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.filter, 
+				myView = new SettingsViewPart(mContext, R.string.filter, 
 						FILTER_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFIL).getView();
 				break;
 			case FILTERVF_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.filter_vf, 
+				myView = new SettingsViewPart(mContext, R.string.filter_vf, 
 						FILTERVF_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFVF).getView();
 				//TODO: Wahrscheinlich muss hier zwischen MY_DB_TABLE_SETFVF und MY_DB_TABLE_SETFVF2 ausgewählt werden!
 				break;
 			case FILMFORMAT_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.film_formats, 
+				myView = new SettingsViewPart(mContext, R.string.film_formats, 
 						FILMFORMAT_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFF).getView();
 				break;
 			case ASA_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.film_speed, 
+				myView = new SettingsViewPart(mContext, R.string.film_speed, 
 						ASA_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETEMP).getView();
 				break;
 			case BLITZ_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.flash, 
+				myView = new SettingsViewPart(mContext, R.string.flash, 
 						BLITZ_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETBLI).getView();
 				break;
 			case BLITZKORR_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.flash_correction, 
+				myView = new SettingsViewPart(mContext, R.string.flash_correction, 
 						BLITZKORR_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETKOR).getView();
 				break;
 			case SOND_POSITION:
-				myView = new SettingsViewPart(EditSettingsActivity.this, mContext, R.string.processing, 
+				myView = new SettingsViewPart(mContext, R.string.processing, 
 						SOND_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETSON).getView();
 				break;
 			}
