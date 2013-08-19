@@ -198,130 +198,38 @@ public class DB {
 		
 		Resources res = context.getResources();
 		
-		String[] setff = res.getStringArray(R.array.setff);
-		if (setff != null) {
-			for (int i = 0; i < (setff.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFF + " Values (" + null + ",'" + setff[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-		
-		String[] setemp = res.getStringArray(R.array.setemp);
-		if (setemp != null) {
-			for (int i = 0; i < (setemp.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETEMP + " Values (" + null + ",'" + setemp[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-		
-		String[] settyp = res.getStringArray(R.array.settyp);
-		if (settyp != null) {
-			for (int i = 0; i < (settyp.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETTYP + " Values (" + null + ",'" + settyp[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-
-		String[] setnm = res.getStringArray(R.array.setnm);
-		if (setnm != null) {
-			for (int i = 0; i < (setnm.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETNM + " Values (" + null + ",'" + setnm[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-		
-		String[] setfil = res.getStringArray(R.array.setfil);
-		if (setfil != null) {
-			for (int i = 0; i < (setfil.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFIL + " Values (" + null + ",'" + setfil[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-		
-		String[] setbli = res.getStringArray(R.array.setbli);
-		if (setbli != null) {
-			for (int i = 0; i < (setbli.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLI + " Values (" + null + ",'" + setbli[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-
-		String[] setson = res.getStringArray(R.array.setson);
-		if (setson != null) {
-			for (int i = 0; i < (setson.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETSON + " Values (" + null + ",'" + setson[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-		
-		String[] setfok = res.getStringArray(R.array.setfok);
-		if (setfok != null) {
-			for (int i = 0; i < (setfok.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFOK + " Values (" + null + ",'" + setfok[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-		
-		String[] setble = res.getStringArray(R.array.setble);
-		if (setble != null) {
-			for (int i = 0; i < (setble.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETBLE + " Values (" + null + ",'" + setble[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-
-		String[] setzei = res.getStringArray(R.array.setzei);
-		if (setzei != null) {
-			for (int i = 0; i < (setzei.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETZEI + " Values (" + null + ",'" + setzei[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-
-		String[] setmes = res.getStringArray(R.array.setmes);
-		if (setmes != null) {
-			for (int i = 0; i < (setmes.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMES + " Values (" + null + ",'" + setmes[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-
-		String[] setplu = res.getStringArray(R.array.setplu);
-		if (setplu != null) {
-			for (int i = 0; i < (setplu.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETPLU + " Values (" + null + ",'" + setplu[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-
-		String[] setkor = res.getStringArray(R.array.setkor);
-		if (setkor != null) {
-			for (int i = 0; i < (setkor.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETKOR + " Values (" + null + ",'" + setkor[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-		
-		
-		String[] setmvf = res.getStringArray(R.array.setmvf);
-		if (setmvf != null) {
-			for (int i = 0; i < (setmvf.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF + " Values (" + null + ",'" + setmvf[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-		
-		String[] setmvf2 = res.getStringArray(R.array.setmvf2);
-		if (setmvf2 != null) {
-			for (int i = 0; i < (setmvf2.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETMVF2 + " Values (" + null + ",'" + setmvf2[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-
-		String[] setfvf = res.getStringArray(R.array.setfvf);
-		if (setfvf != null) {
-			for (int i = 0; i < (setfvf.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF + " Values (" + null + ",'" + setfvf[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
-		
-		String[] setfvf2 = res.getStringArray(R.array.setfvf2);
-		if (setfvf2 != null) {
-			for (int i = 0; i < (setfvf2.length); i++) {
-				myDBSet.execSQL("INSERT INTO " + MY_DB_TABLE_SETFVF2 + " Values (" + null + ",'" + setfvf2[i] + "','" + 1 + "','" + 0 + "');");
-			}	
-		}
+		setDefaultSettings(myDBSet, res, R.array.setff, MY_DB_TABLE_SETFF);
+		setDefaultSettings(myDBSet, res, R.array.setemp, MY_DB_TABLE_SETEMP);
+		setDefaultSettings(myDBSet, res, R.array.settyp, MY_DB_TABLE_SETTYP);
+		setDefaultSettings(myDBSet, res, R.array.setnm, MY_DB_TABLE_SETNM);
+		setDefaultSettings(myDBSet, res, R.array.setfil, MY_DB_TABLE_SETFIL);
+		setDefaultSettings(myDBSet, res, R.array.setbli, MY_DB_TABLE_SETBLI);
+		setDefaultSettings(myDBSet, res, R.array.setson, MY_DB_TABLE_SETSON);
+		setDefaultSettings(myDBSet, res, R.array.setfok, MY_DB_TABLE_SETFOK);
+		setDefaultSettings(myDBSet, res, R.array.setble, MY_DB_TABLE_SETBLE);
+		setDefaultSettings(myDBSet, res, R.array.setzei, MY_DB_TABLE_SETZEI);
+		setDefaultSettings(myDBSet, res, R.array.setmes, MY_DB_TABLE_SETMES);
+		setDefaultSettings(myDBSet, res, R.array.setplu, MY_DB_TABLE_SETPLU);
+		setDefaultSettings(myDBSet, res, R.array.setkor, MY_DB_TABLE_SETKOR);
+		setDefaultSettings(myDBSet, res, R.array.setff, MY_DB_TABLE_SETFF);
+		setDefaultSettings(myDBSet, res, R.array.setmvf, MY_DB_TABLE_SETMVF);
+		setDefaultSettings(myDBSet, res, R.array.setmvf2, MY_DB_TABLE_SETMVF2);
+		setDefaultSettings(myDBSet, res, R.array.setfvf, MY_DB_TABLE_SETFVF);
+		setDefaultSettings(myDBSet, res, R.array.setfvf2, MY_DB_TABLE_SETFVF2);
 				
 		setDefaultVal(context, MY_DB_SET, MY_DB_TABLE_SETKOR, "0");
 		setDefaultVal(context, MY_DB_SET, MY_DB_TABLE_SETPLU, "0");
 		
 		myDBSet.close();
+	}
+
+	private void setDefaultSettings(SQLiteDatabase database, Resources res, int stringArrayName, String tableName) {
+		String[] valueArray = res.getStringArray(stringArrayName);
+		if (valueArray != null) {
+			for (String value : valueArray) {
+				database.execSQL("INSERT INTO " + tableName + " Values (" + null + ",'" + value + "','" + 1 + "','" + 0 + "');");
+			}	
+		}
 	}
 
 	public void createOrRebuildNummernTable(Context mContext) {
