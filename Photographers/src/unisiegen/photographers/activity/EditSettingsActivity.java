@@ -117,16 +117,6 @@ public class EditSettingsActivity extends Activity {
 	private ViewPager viewPager;
 	private TitlePageIndicator settingsPageIndicator;
 
-	Button addKate7, addKate6, addKate1, addKatespec, addKate, addKate3;
-
-	EditText Kat7, Kat6, Kat1, Katspec, Kat3, Kat, katText0, katText1,
-			katText2, katText3, katText4, katText5, katText6, katText7,
-			katText8, katText9, katText10;
-
-	ListView myList7, myList3, myList1, myListspec, myList,
-			myListView0, myListView1, myListView2, myListView3, myListView4,
-			myListView5, myListView6, myListView7, myListView8, myListView9,
-			myListView10;
 
 	HashMap<String, Integer> checkNM, checkFil, checkBli, checkFok, checkBle,
 			checkZei, checkMes, checkPlu, checkMakroVF, checkFilterVF,
@@ -137,10 +127,6 @@ public class EditSettingsActivity extends Activity {
 			valuesNM, valuesFil, valuesBli, aplanetsspec, valuesCam, valuesFF,
 			valuesBW;
 
-	ArrayAdapter<Setting> listAdapte10, listAdapte9, listAdapter7,
-			listAdapter6, listAdapter1, listAdapter, listAdapterspec,
-			listAdapte1, listAdapte2, listAdapte3, listAdapte4, listAdapte5,
-			listAdapte6, listAdapte7, listAdapte8, listAdapte0;
 
 	/*
 	 * Datenbank Variablen
@@ -581,13 +567,13 @@ public class EditSettingsActivity extends Activity {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 			TextView freecell = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor = (TableLayout) view.findViewById(R.id.tablor);
-			myList = (ListView) view.findViewById(android.R.id.list);
-			addKate = (Button) view.findViewById(R.id.addkamera);
-			Kat = (EditText) view.findViewById(R.id.kameramodell);
+			final ListView myList = (ListView) view.findViewById(android.R.id.list);
+			final Button addKate = (Button) view.findViewById(R.id.addkamera);
+			final EditText Kat = (EditText) view.findViewById(R.id.kameramodell);
 			freecell.setText(getString(R.string.camera_models));
 			tablor.setBackgroundResource(R.drawable.shaperedtable);
 			tablor.setPadding(4, 0, -2, 0);
-			listAdapter = new CamArrayAdapter(mContext, valuesCam, 0);
+			final ArrayAdapter<Setting> listAdapter = new CamArrayAdapter(mContext, valuesCam, 0);
 			myList.setAdapter(listAdapter);
 						
 			myList.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -633,18 +619,18 @@ public class EditSettingsActivity extends Activity {
 									.findViewById(R.id.freecell);
 							TableLayout tablorspec = (TableLayout) layoutOwn2
 									.findViewById(R.id.tablor);
-							myListspec = (ListView) layoutOwn2
+							final ListView myListspec = (ListView) layoutOwn2
 									.findViewById(android.R.id.list);
-							addKatespec = (Button) layoutOwn2
+							final Button addKatespec = (Button) layoutOwn2
 									.findViewById(R.id.addkamera);
-							Katspec = (EditText) layoutOwn2
+							final EditText Katspec = (EditText) layoutOwn2
 									.findViewById(R.id.kameramodell);
 							freecellspec
 									.setText(getString(R.string.choose_lens));
 							tablorspec
 									.setBackgroundResource(R.drawable.shaperedtable);
 							tablorspec.setPadding(2, 2, 2, 2);
-							listAdapterspec = new SettingsArrayAdapterSpec(
+							final ArrayAdapter<Setting> listAdapterspec = new SettingsArrayAdapterSpec(
 									mContext, aplanetsspec, BRENNWEITE_POSITION, textis
 											.getText().toString());
 							myListspec.setAdapter(listAdapterspec);
@@ -851,17 +837,17 @@ public class EditSettingsActivity extends Activity {
 								.findViewById(R.id.freecell);
 						TableLayout tablorspec = (TableLayout) layoutOwn2
 								.findViewById(R.id.tablor);
-						myListspec = (ListView) layoutOwn2
+						final ListView myListspec = (ListView) layoutOwn2
 								.findViewById(android.R.id.list);
-						addKatespec = (Button) layoutOwn2
+						final Button addKatespec = (Button) layoutOwn2
 								.findViewById(R.id.addkamera);
-						Katspec = (EditText) layoutOwn2
+						final EditText Katspec = (EditText) layoutOwn2
 								.findViewById(R.id.kameramodell);
 						freecellspec.setText(getString(R.string.choose_lens));
 						tablorspec
 								.setBackgroundResource(R.drawable.shaperedtable);
 						tablorspec.setPadding(2, 2, 2, 2);
-						listAdapterspec = new SettingsArrayAdapterSpec(
+						final ArrayAdapter<Setting> listAdapterspec = new SettingsArrayAdapterSpec(
 								mContext, aplanetsspec, BRENNWEITE_POSITION, Kat.getText()
 										.toString());
 						myListspec.setAdapter(listAdapterspec);
