@@ -105,8 +105,6 @@ public class SettingsViewPart {
 								settingName, texti.getText().toString());
 
 						listAdapter.clear();
-//						activity.readDB(); // TODO: Die zeile muss später
-											// raus...
 						values = DB.getDB().getAllSettings(context, database,
 								settingName);
 						for (Setting s : values) {

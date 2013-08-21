@@ -21,7 +21,6 @@ package unisiegen.photographers.activity;
  */
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Setting;
@@ -118,16 +117,6 @@ public class EditSettingsActivity extends Activity {
 	private TitlePageIndicator settingsPageIndicator;
 
 
-	HashMap<String, Integer> checkNM, checkFil, checkBli, checkFok, checkBle,
-			checkZei, checkMes, checkPlu, checkMakroVF, checkFilterVF,
-			checkKor, checkCam, checkFF, checkEmp, checkBW, checkSon;
-
-	ArrayList<Setting> valuesEmp, valuesSon, valuesBle, valuesZei, valuesMes,
-			valuesPlu, valuesMakroVF, valuesFilterVF, valuesKor, valuesFok,
-			valuesNM, valuesFil, valuesBli, aplanetsspec, valuesCam, valuesFF,
-			valuesBW;
-
-
 	/*
 	 * Datenbank Variablen
 	 */
@@ -145,7 +134,6 @@ public class EditSettingsActivity extends Activity {
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
 
-		readDB();
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
 
 		SettingsPager settingsAdapter = new SettingsPager(this);
@@ -157,7 +145,7 @@ public class EditSettingsActivity extends Activity {
 			ViewGroup view = (ViewGroup) getWindow().getDecorView();
 			view.post(new Runnable() {
 				public void run() {
-					popupmenue();
+					openTutorial();
 					SharedPreferences.Editor editor = settings.edit();
 					editor.putInt("FIRSTSTART", 2);
 					editor.commit();
@@ -168,7 +156,7 @@ public class EditSettingsActivity extends Activity {
 			ViewGroup view1 = (ViewGroup) getWindow().getDecorView();
 			view1.post(new Runnable() {
 				public void run() {
-					popupmenue();
+					openTutorial();
 					SharedPreferences.Editor editor = settings.edit();
 					editor.putInt("FIRSTSTART", 5);
 					editor.commit();
@@ -185,7 +173,7 @@ public class EditSettingsActivity extends Activity {
 	/*
 	 * Tutorial
 	 */
-	public void popupmenue() {
+	public void openTutorial() {
 		
 		final String[] tutorialContent = getResources().getStringArray(R.array.strings_tutorial_3);
 		
@@ -279,116 +267,6 @@ public class EditSettingsActivity extends Activity {
 		return camList;
 	}
 
-	public void readDB() {
-
-		checkNM = new HashMap<String, Integer>();
-		checkFil = new HashMap<String, Integer>();
-		checkBli = new HashMap<String, Integer>();
-		checkFok = new HashMap<String, Integer>();
-		checkBle = new HashMap<String, Integer>();
-		checkZei = new HashMap<String, Integer>();
-		checkMes = new HashMap<String, Integer>();
-		checkPlu = new HashMap<String, Integer>();
-		checkMakroVF = new HashMap<String, Integer>();
-		checkFilterVF = new HashMap<String, Integer>();
-		checkKor = new HashMap<String, Integer>();
-		checkCam = new HashMap<String, Integer>();
-		checkFF = new HashMap<String, Integer>();
-		checkEmp = new HashMap<String, Integer>();
-		checkBW = new HashMap<String, Integer>();
-		checkSon = new HashMap<String, Integer>();
-
-		valuesCam = new ArrayList<Setting>();
-		aplanetsspec = new ArrayList<Setting>();
-		valuesFF = new ArrayList<Setting>();
-		valuesBW = new ArrayList<Setting>();
-		valuesSon = new ArrayList<Setting>();
-		valuesEmp = new ArrayList<Setting>();
-		valuesNM = new ArrayList<Setting>();
-		valuesFil = new ArrayList<Setting>();
-		valuesBli = new ArrayList<Setting>();
-		valuesFok = new ArrayList<Setting>();
-		valuesBle = new ArrayList<Setting>();
-		valuesZei = new ArrayList<Setting>();
-		valuesMes = new ArrayList<Setting>();
-		valuesPlu = new ArrayList<Setting>();
-		valuesMakroVF = new ArrayList<Setting>();
-		valuesFilterVF = new ArrayList<Setting>();
-		valuesKor = new ArrayList<Setting>();
-
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-
-		setupSetting(DB.MY_DB_TABLE_SETNM, checkNM, valuesNM);
-		setupSetting(DB.MY_DB_TABLE_SETFIL, checkFil, valuesFil);
-		setupSetting(DB.MY_DB_TABLE_SETBLI, checkBli, valuesBli);
-		setupSetting(DB.MY_DB_TABLE_SETFOK, checkFok, valuesFok);
-		setupSetting(DB.MY_DB_TABLE_SETBLE, checkBle, valuesBle);
-		setupSetting(DB.MY_DB_TABLE_SETZEI, checkZei, valuesZei);
-		setupSetting(DB.MY_DB_TABLE_SETMES, checkMes, valuesMes);
-		setupSetting(DB.MY_DB_TABLE_SETPLU, checkPlu, valuesPlu);
-
-		String tableMakroVF = DB.MY_DB_TABLE_SETMVF;
-		String tableFilterVF = DB.MY_DB_TABLE_SETFVF;
-
-		if (settings.getString("Verlaengerung", getString(R.string.factor))
-				.equals(getString(R.string.factor))) {
-
-			// werte sind schon ok
-
-		} else if (settings.getString("Verlaengerung",
-				getString(R.string.factor)).equals(
-				getString(R.string.aperture_adjusting))) {
-
-			tableMakroVF = DB.MY_DB_TABLE_SETMVF2;
-			tableFilterVF = DB.MY_DB_TABLE_SETFVF2;
-		}
-
-		setupSetting(tableMakroVF, checkMakroVF, valuesMakroVF);
-		setupSetting(tableFilterVF, checkFilterVF, valuesFilterVF);
-		setupSetting(DB.MY_DB_TABLE_SETKOR, checkKor, valuesKor);
-		setupSetting(DB.MY_DB_TABLE_SETCAM, checkCam, valuesCam);
-
-		// TODO: Diese &§/($&§( Settings Klasse in das Modell packen und sauber
-		// coden.
-		// TODO: Settings Klasse als RÜckgabewert der DB bei Setting Anfragen
-		// nutzen.
-		Cursor cspec = myDB.rawQuery("SELECT name,value, def FROM " + DB.MY_DB_TABLE_SETBW, null);
-		if (cspec != null) {
-			if (cspec.moveToFirst()) {
-				do {
-					aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, cspec.getString(cspec.getColumnIndex("name")), cspec.getInt(cspec.getColumnIndex("value")), cspec.getInt(cspec.getColumnIndex("def"))));
-				} while (cspec.moveToNext());
-			}
-		}
-		cspec.close();
-
-		setupSetting(DB.MY_DB_TABLE_SETFF, checkFF, valuesFF);
-		setupSetting(DB.MY_DB_TABLE_SETEMP, checkEmp, valuesEmp);
-		setupSetting(DB.MY_DB_TABLE_SETBW, checkBW, valuesBW);
-		setupSetting(DB.MY_DB_TABLE_SETSON, checkSon, valuesSon);
-
-		myDB.close();
-	}
-
-	private void setupSetting(String table, HashMap<String, Integer> check,
-			ArrayList<Setting> values) {
-
-		SQLiteDatabase db = mContext.openOrCreateDatabase(MY_DB_NAME,
-				Context.MODE_PRIVATE, null);
-		Cursor c = db.rawQuery("SELECT name, value, def FROM " + table, null);
-		if (c != null) {
-			if (c.moveToFirst()) {
-				do {
-					check.put(c.getString(c.getColumnIndex("name")),
-							c.getInt(c.getColumnIndex("def")));
-					values.add(new Setting(table, c.getString(c.getColumnIndex("name")), c.getInt(c.getColumnIndex("value")), c.getInt(c.getColumnIndex("def"))));
-				} while (c.moveToNext());
-			}
-		}
-		c.close();
-		db.close();
-	}
 
 	private void deletefromDB(String TableName, String Name) {
 
@@ -573,6 +451,7 @@ public class EditSettingsActivity extends Activity {
 			freecell.setText(getString(R.string.camera_models));
 			tablor.setBackgroundResource(R.drawable.shaperedtable);
 			tablor.setPadding(4, 0, -2, 0);
+			final ArrayList<Setting> valuesCam = DB.getDB().getAllSettings(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM);
 			final ArrayAdapter<Setting> listAdapter = new CamArrayAdapter(mContext, valuesCam, 0);
 			myList.setAdapter(listAdapter);
 						
@@ -630,6 +509,7 @@ public class EditSettingsActivity extends Activity {
 							tablorspec
 									.setBackgroundResource(R.drawable.shaperedtable);
 							tablorspec.setPadding(2, 2, 2, 2);
+							final ArrayList<Setting> aplanetsspec = DB.getDB().getAllSettings(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW);
 							final ArrayAdapter<Setting> listAdapterspec = new SettingsArrayAdapterSpec(
 									mContext, aplanetsspec, BRENNWEITE_POSITION, textis
 											.getText().toString());
@@ -665,11 +545,14 @@ public class EditSettingsActivity extends Activity {
 																			DB.MY_DB_TABLE_SETBW,
 																			tec.getText()
 																					.toString());
-																	aplanetsspec
-																			.remove(arg2);
-																	listAdapterspec
-																			.notifyDataSetChanged();
-																	readDB();
+																	aplanetsspec.remove(arg2);
+																	
+																	listAdapterspec.clear();
+																	ArrayList<Setting> values = DB.getDB().getAllSettings(mContext, MY_DB_NAME,
+																			DB.MY_DB_TABLE_SETBW);
+																	for (Setting s : values) {
+																		listAdapterspec.add(s);
+																	}																	
 																	viewPager = (ViewPager) findViewById(R.id.viewPager);
 																	SettingsPager adapter = new SettingsPager(
 																			mContext);
@@ -847,6 +730,7 @@ public class EditSettingsActivity extends Activity {
 						tablorspec
 								.setBackgroundResource(R.drawable.shaperedtable);
 						tablorspec.setPadding(2, 2, 2, 2);
+						final ArrayList<Setting> aplanetsspec = DB.getDB().getAllSettings(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW);
 						final ArrayAdapter<Setting> listAdapterspec = new SettingsArrayAdapterSpec(
 								mContext, aplanetsspec, BRENNWEITE_POSITION, Kat.getText()
 										.toString());
@@ -882,11 +766,14 @@ public class EditSettingsActivity extends Activity {
 																		DB.MY_DB_TABLE_SETBW,
 																		tec.getText()
 																				.toString());
-																aplanetsspec
-																		.remove(arg2);
-																listAdapterspec
-																		.notifyDataSetChanged();
-																readDB();
+																
+																aplanetsspec.clear();
+																ArrayList<Setting> values = DB.getDB().getAllSettings(mContext, MY_DB_NAME,
+																		DB.MY_DB_TABLE_SETBW);
+																for (Setting s : values) {
+																	aplanetsspec.add(s);
+																}
+																
 																viewPager = (ViewPager) findViewById(R.id.viewPager);
 																SettingsPager adapter = new SettingsPager(
 																		mContext);
@@ -1374,7 +1261,7 @@ public class EditSettingsActivity extends Activity {
 									Context.MODE_PRIVATE, null);
 							myDB.insert(DB.MY_DB_TABLE_SETCAMBW, null, args);
 							myDB.close();
-							readDB();
+//							readDB();
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 							SettingsPager adapter = new SettingsPager(mContext);
 							viewPager.setAdapter(adapter);
@@ -1389,7 +1276,7 @@ public class EditSettingsActivity extends Activity {
 									"cam = '" + camera + "' AND bw = '"
 											+ planet.getValue() + "'", null);
 							myDB.close();
-							readDB();
+//							readDB();
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 
 							SettingsPager adapter = new SettingsPager(mContext);
@@ -1440,9 +1327,6 @@ public class EditSettingsActivity extends Activity {
 
 	}
 
-	public Object onRetainNonConfigurationInstance() {
-		return valuesCam;
-	}
 
 	public void setSetButtonColor(Button button1, Button button2,
 			Button button3, Button button4) {
@@ -1579,7 +1463,7 @@ public class EditSettingsActivity extends Activity {
 						editor11.putString("SettingsTable", DB.MY_DB_SET);
 						editor11.commit();
 						MY_DB_NAME = DB.MY_DB_SET;
-						readDB();
+//						readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
@@ -1589,7 +1473,7 @@ public class EditSettingsActivity extends Activity {
 						editor11.putString("SettingsTable", DB.MY_DB_SET1);
 						editor11.commit();
 						MY_DB_NAME = DB.MY_DB_SET1;
-						readDB();
+//						readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
@@ -1599,7 +1483,7 @@ public class EditSettingsActivity extends Activity {
 						editor11.putString("SettingsTable", DB.MY_DB_SET2);
 						editor11.commit();
 						MY_DB_NAME = DB.MY_DB_SET2;
-						readDB();
+//						readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
@@ -1609,7 +1493,7 @@ public class EditSettingsActivity extends Activity {
 						editor11.putString("SettingsTable", DB.MY_DB_SET3);
 						editor11.commit();
 						MY_DB_NAME = DB.MY_DB_SET3;
-						readDB();
+//						readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
@@ -2015,7 +1899,7 @@ public class EditSettingsActivity extends Activity {
 			editor.putString("SettingsTable", thisset);
 			editor.commit();
 			MY_DB_NAME = thisset;
-			readDB();
+//			readDB();
 
 			return null;
 		}
@@ -2043,7 +1927,7 @@ public class EditSettingsActivity extends Activity {
 			editor.putString("SettingsTable", DB.MY_DB_SET);
 			editor.commit();
 			MY_DB_NAME = DB.MY_DB_SET;
-			readDB();
+//			readDB();
 			viewPager = (ViewPager) findViewById(R.id.viewPager);
 			SettingsPager adapter = new SettingsPager(mContext);
 			viewPager.setAdapter(adapter);
