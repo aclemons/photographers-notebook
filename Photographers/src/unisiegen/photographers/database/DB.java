@@ -494,7 +494,7 @@ public class DB {
 	}
 	
 	
-	public boolean saveSetting(Context mContext, String database, String settingType, String name, int value){
+	public boolean addSetting(Context mContext, String database, String settingType, String name, int value){
 		
 		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
 		db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);

@@ -198,7 +198,7 @@ public class SettingsViewPart {
 							Toast.LENGTH_SHORT).show();
 				} else {
 
-					DB.getDB().saveSetting(context, database, settingName, newVal, 1);
+					DB.getDB().addSetting(context, database, settingName, newVal, 1);
 					listAdapter.clear();
 					values = DB.getDB().getAllSettings(context, database,
 							settingName);

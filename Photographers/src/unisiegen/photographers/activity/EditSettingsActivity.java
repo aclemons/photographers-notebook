@@ -538,7 +538,7 @@ public class EditSettingsActivity extends Activity {
 														Toast.LENGTH_SHORT)
 														.show();
 											} else {
-												DB.getDB().saveSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);
+												DB.getDB().addSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);
 												String camera = listAdapter.getItem(arg2).getValue().toString();
 												String lens = Katspec.getText().toString();
 												DB.getDB().addLensToCamera(mContext, MY_DB_NAME, camera, lens);
@@ -629,7 +629,7 @@ public class EditSettingsActivity extends Activity {
 								getString(R.string.empty_or_existing_entry),
 								Toast.LENGTH_SHORT).show();
 					} else {
-						DB.getDB().saveSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM, Kat.getText().toString(), 1);
+						DB.getDB().addSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM, Kat.getText().toString(), 1);
 						valuesCam.add(new Setting(DB.MY_DB_TABLE_SETCAM, Kat.getText().toString(), 1, 0));
 						listAdapter.notifyDataSetChanged();
 
@@ -743,7 +743,7 @@ public class EditSettingsActivity extends Activity {
 													getString(R.string.empty_or_existing_entry),
 													Toast.LENGTH_SHORT).show();
 										} else {
-											DB.getDB().saveSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);
+											DB.getDB().addSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);
 											String camera = valuesCam.get(valuesCam.size()-1).getValue().toString();
 											String lens = Katspec.getText().toString();
 											DB.getDB().addLensToCamera(mContext, MY_DB_NAME, camera, lens);
