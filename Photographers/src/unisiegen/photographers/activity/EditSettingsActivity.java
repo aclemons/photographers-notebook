@@ -436,7 +436,7 @@ public class EditSettingsActivity extends Activity {
 			tablor.setBackgroundResource(R.drawable.shaperedtable);
 			tablor.setPadding(4, 0, -2, 0);
 			final ArrayList<Setting> valuesCam = DB.getDB().getAllSettings(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM);
-			final ArrayAdapter<Setting> listAdapter = new CamArrayAdapter(mContext, valuesCam, 0);
+			final ArrayAdapter<Setting> listAdapter = new CamArrayAdapter(mContext, valuesCam);
 			myList.setAdapter(listAdapter);
 						
 			myList.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -1110,12 +1110,9 @@ public class EditSettingsActivity extends Activity {
 	private class CamArrayAdapter extends ArrayAdapter<Setting> {
 
 		private LayoutInflater inflater;
-		int nummer = 0;
 
-		public CamArrayAdapter(Context context, ArrayList<Setting> planetList,
-				int number) {
+		public CamArrayAdapter(Context context, ArrayList<Setting> planetList) {
 			super(context, R.layout.list_itemcam, R.id.listItemText, planetList);
-			nummer = number;
 			inflater = LayoutInflater.from(context);
 		}
 
@@ -1182,10 +1179,8 @@ public class EditSettingsActivity extends Activity {
 					if (cb.isChecked() == true) {
 						value = 1;
 					}
-
-					if (nummer == 0) {
-						editfromDB(DB.MY_DB_TABLE_SETCAM, planet.getValue(), value);
-					}
+			
+					editfromDB(DB.MY_DB_TABLE_SETCAM, planet.getValue(), value);
 				}
 			});
 
