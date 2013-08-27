@@ -198,10 +198,8 @@ public class SettingsViewPart {
 							Toast.LENGTH_SHORT).show();
 				} else {
 
-					DB.getDB().saveSetting(context, database, settingName,
-							newVal, 1);
+					DB.getDB().saveSetting(context, database, settingName, newVal, 1);
 					listAdapter.clear();
-//					activity.readDB(); // TODO: Die zeile muss später raus...
 					values = DB.getDB().getAllSettings(context, database,
 							settingName);
 					for (Setting s : values) {

@@ -62,8 +62,7 @@ public class SettingsArrayAdapter extends ArrayAdapter<Setting> {
 						value = 1;
 					}
 					
-					// Database übergeben als Parameter ist nicht besonders geschickt an der Stelle...
-					DB.getDB().saveSetting(getContext(), database, planet.getType(), planet.getValue(), value);
+					DB.getDB().updateSetting(getContext(), database, planet.getType(), planet.getValue(), value);
 				}
 			});
 		}

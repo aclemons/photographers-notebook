@@ -504,6 +504,16 @@ public class DB {
 		
 		return true;
 	}
+
+	
+	public void updateSetting(Context mContext, String database, String settingType, String name, int value){
+		
+		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		
+		db.execSQL("UPDATE " + settingType + " SET value = '" + value + "' WHERE name = '" + name + "'");
+		db.close();
+	}
 	
 	
 	public boolean addLensToCamera(Context mContext, String database, String camera, String lens){
@@ -516,6 +526,7 @@ public class DB {
 		return true;
 	}
 
+	
 	/**
 	 * This will retrieve a List of ALL settings, with additional data for
 	 * each particular value, if it is enabled and should be shown in the UI.
