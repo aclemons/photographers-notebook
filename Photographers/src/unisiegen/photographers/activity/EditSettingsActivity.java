@@ -225,35 +225,7 @@ public class EditSettingsActivity extends Activity {
 		});
 		pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 	}
-
-
-	// Set ausw�hlen
-	private void makedefaultDB(String TableName, String Name) {
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-		try {
-			myDB.execSQL("UPDATE " + TableName + " SET def = '" + 0 + "'");
-			myDB.execSQL("UPDATE " + TableName + " SET def = '" + 1
-					+ "' WHERE name = '" + Name + "'");
-			myDB.close();
-		} catch (Exception e) {
-			Log.v("Check", "Fehler beim Standartsetzen : " + e);
-			myDB.close();
-		}
-	}
-
-	void editfromDB(String TableName, String Name, int value) {
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-		try {
-			myDB.execSQL("UPDATE " + TableName + " SET value = '" + value
-					+ "' WHERE name = '" + Name + "'");
-			myDB.close();
-		} catch (Exception e) {
-			Log.v("Check", "Fehler Delete : " + e);
-			myDB.close();
-		}
-	}
+	
 
 	/*
 	 * Hilfsklassen f�r Custom-ListViews und SlideViews
@@ -569,7 +541,7 @@ public class EditSettingsActivity extends Activity {
 							TextView texti = (TextView) ((LinearLayout) lins
 									.getChildAt(0)).getChildAt(0);
 
-							makedefaultDB(DB.MY_DB_TABLE_SETCAM, texti
+							DB.getDB().setDefaultVal(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM, texti
 									.getText().toString());
 
 							myList.setAdapter(listAdapter);
