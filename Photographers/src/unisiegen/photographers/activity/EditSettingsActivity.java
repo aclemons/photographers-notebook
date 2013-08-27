@@ -227,14 +227,6 @@ public class EditSettingsActivity extends Activity {
 	}
 
 	
-	public void writeDB(String TableName, String Name, int Value) {
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-		myDB.execSQL("INSERT INTO " + TableName + " Values (" + null + ",'"
-				+ "" + Name + "" + "','" + Value + "','" + 0 + "');");
-		myDB.close();
-	}
-	
 	private void writeCamBW(String CamName, String BWName) {
 		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
 				null);
@@ -615,7 +607,7 @@ public class EditSettingsActivity extends Activity {
 														Toast.LENGTH_SHORT)
 														.show();
 											} else {
-												writeDB(DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);	
+												DB.getDB().saveSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);
 												writeCamBW(listAdapter.getItem(arg2).getValue().toString(), Katspec.getText().toString()); // We need to write to DB.MY_DB_TABLE_SETCAMBW to set the lens to be selected on the current cam by default.
 												aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1, 0));
 												Katspec.setText("");
@@ -703,8 +695,7 @@ public class EditSettingsActivity extends Activity {
 								getString(R.string.empty_or_existing_entry),
 								Toast.LENGTH_SHORT).show();
 					} else {
-						writeDB(DB.MY_DB_TABLE_SETCAM,
-								Kat.getText().toString(), 1);
+						DB.getDB().saveSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM, Kat.getText().toString(), 1);
 						valuesCam.add(new Setting(DB.MY_DB_TABLE_SETCAM, Kat.getText().toString(), 1, 0));
 						listAdapter.notifyDataSetChanged();
 
@@ -828,9 +819,7 @@ public class EditSettingsActivity extends Activity {
 													getString(R.string.empty_or_existing_entry),
 													Toast.LENGTH_SHORT).show();
 										} else {
-											writeDB(DB.MY_DB_TABLE_SETBW,
-													Katspec.getText()
-															.toString(), 1);
+											DB.getDB().saveSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);
 											writeCamBW(valuesCam.get(valuesCam.size()-1).getValue().toString(), Katspec.getText().toString()); // We need to write to DB.MY_DB_TABLE_SETCAMBW to set the lens to be selected on the current cam by default.
 											aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, 
 													Katspec.getText()
