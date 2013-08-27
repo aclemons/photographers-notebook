@@ -477,6 +477,23 @@ public class DB {
 		return true;
 	}
 	
+	// TODO: Verbindung zum Löschen von einzelnen Objektiven prüfen!
+	public void deleteLens(Context mContext, String database, String lens) {
+		
+		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		
+		try {
+			db.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETCAMBW + " WHERE bw = '" + lens + "'");
+			db.close();
+		} catch (Exception e) {
+			Log.v("Check", "Fehler Delete : " + e);
+			db.close();
+		}
+		
+		deleteSetting(mContext, database, DB.MY_DB_TABLE_SETBW, lens);
+	}
+	
+	
 	public boolean saveSetting(Context mContext, String database, String settingType, String name, int value){
 		
 		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);

@@ -227,34 +227,6 @@ public class EditSettingsActivity extends Activity {
 	}
 
 
-	private void deletefromDB(String TableName, String Name) {
-
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-		try {
-			myDB.execSQL("DELETE FROM " + TableName + " WHERE name = '" + Name
-					+ "'");
-			myDB.close();
-		} catch (Exception e) {
-			Log.v("Check", "Fehler Delete : " + e);
-			myDB.close();
-		}
-	}
-
-	// Brennweiten
-	private void deletefromDB(String TableName, String Name, String Bw) {
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-		try {
-			myDB.execSQL("DELETE FROM " + TableName + " WHERE bw = '" + Bw
-					+ "'");
-			myDB.close();
-		} catch (Exception e) {
-			Log.v("Check", "Fehler Delete : " + e);
-			myDB.close();
-		}
-	}
-
 	// Set ausw�hlen
 	private void makedefaultDB(String TableName, String Name) {
 		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
@@ -494,16 +466,8 @@ public class EditSettingsActivity extends Activity {
 																	LinearLayout test = (LinearLayout) arg1;
 																	TextView tec = (TextView) test
 																			.getChildAt(0);
-																	deletefromDB(
-																			DB.MY_DB_TABLE_SETCAMBW,
-																			tec.getText()
-																					.toString(),
-																			tec.getText()
-																					.toString());
-																	deletefromDB(
-																			DB.MY_DB_TABLE_SETBW,
-																			tec.getText()
-																					.toString());
+																	
+																	DB.getDB().deleteLens(mContext, MY_DB_NAME, tec.getText().toString());																	
 																	aplanetsspec.remove(arg2);
 																	
 																	listAdapterspec.clear();
@@ -620,9 +584,9 @@ public class EditSettingsActivity extends Activity {
 						public void onClick(View v) {
 							LinearLayout lins = (LinearLayout) arg1;
 							TextView texti = (TextView) ((LinearLayout) lins
-									.getChildAt(0)).getChildAt(0);
-							deletefromDB(DB.MY_DB_TABLE_SETCAM, texti.getText()
-									.toString());
+									.getChildAt(0)).getChildAt(0);							
+							DB.getDB().deleteSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM, texti.getText().toString());
+							
 							valuesCam.remove(arg2);
 							listAdapter.notifyDataSetChanged();
 							pw.dismiss();
@@ -717,17 +681,7 @@ public class EditSettingsActivity extends Activity {
 																LinearLayout test = (LinearLayout) arg1;
 																TextView tec = (TextView) test
 																		.getChildAt(0);
-																deletefromDB(
-																		DB.MY_DB_TABLE_SETCAMBW,
-																		tec.getText()
-																				.toString(),
-																		tec.getText()
-																				.toString());
-																deletefromDB(
-																		DB.MY_DB_TABLE_SETBW,
-																		tec.getText()
-																				.toString());
-																
+																DB.getDB().deleteLens(mContext, MY_DB_NAME, tec.getText().toString());																
 																aplanetsspec.clear();
 																ArrayList<Setting> values = DB.getDB().getAllSettings(mContext, MY_DB_NAME,
 																		DB.MY_DB_TABLE_SETBW);
