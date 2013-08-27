@@ -488,9 +488,21 @@ public class DB {
 		} catch (Exception e) {
 			Log.v("Check", "Fehler Delete : " + e);
 			db.close();
-		}
+		}		
+	}
+	
+	
+	public void deleteLensFromCamera(Context mContext, String database, String lens, String camera) {
 		
-		deleteSetting(mContext, database, DB.MY_DB_TABLE_SETBW, lens);
+		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		
+		try {
+			db.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETCAMBW + " WHERE bw = '" + lens + "' AND cam = '" + camera + "'");
+			db.close();
+		} catch (Exception e) {
+			Log.v("Check", "Fehler Delete : " + e);
+			db.close();
+		}		
 	}
 	
 	

@@ -461,12 +461,8 @@ public class EditSettingsActivity extends Activity {
 																	TextView tec = (TextView) test
 																			.getChildAt(0);
 
-																	DB.getDB()
-																			.deleteLens(
-																					mContext,
-																					MY_DB_NAME,
-																					tec.getText()
-																							.toString());
+																	DB.getDB().deleteLens(mContext, MY_DB_NAME, tec.getText().toString());
+																	DB.getDB().deleteSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, tec.getText().toString());
 																	aplanetsspec
 																			.remove(arg2);
 
@@ -711,12 +707,9 @@ public class EditSettingsActivity extends Activity {
 																LinearLayout test = (LinearLayout) arg1;
 																TextView tec = (TextView) test
 																		.getChildAt(0);
-																DB.getDB()
-																		.deleteLens(
-																				mContext,
-																				MY_DB_NAME,
-																				tec.getText()
-																						.toString());
+																DB.getDB().deleteLens(mContext, MY_DB_NAME, tec.getText().toString());																
+																DB.getDB().deleteSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, tec.getText().toString());
+																
 																aplanetsspec
 																		.clear();
 																ArrayList<Setting> values = DB
@@ -1213,14 +1206,7 @@ public class EditSettingsActivity extends Activity {
 
 						if (cb.isChecked() == true) {
 
-							ContentValues args = new ContentValues();
-							args.put("cam", camera);
-							args.put("bw", planet.getValue());
-							myDB = mContext.openOrCreateDatabase(MY_DB_NAME,
-									Context.MODE_PRIVATE, null);
-							myDB.insert(DB.MY_DB_TABLE_SETCAMBW, null, args);
-							myDB.close();
-							// readDB();
+							DB.getDB().addLensToCamera(mContext, MY_DB_NAME, camera, planet.getValue().toString());
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 							SettingsPager adapter = new SettingsPager(mContext);
 							viewPager.setAdapter(adapter);
@@ -1229,12 +1215,7 @@ public class EditSettingsActivity extends Activity {
 							viewPager.setCurrentItem(1, false);
 
 						} else {
-							myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
-							myDB.delete(DB.MY_DB_TABLE_SETCAMBW,
-									"cam = '" + camera + "' AND bw = '"
-											+ planet.getValue() + "'", null);
-							myDB.close();
-							// readDB();
+							DB.getDB().deleteLensFromCamera(mContext, MY_DB_NAME, planet.getValue().toString(), camera);
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 
 							SettingsPager adapter = new SettingsPager(mContext);
