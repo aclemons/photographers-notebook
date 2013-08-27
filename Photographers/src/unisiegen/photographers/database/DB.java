@@ -216,11 +216,11 @@ public class DB {
 		setDefaultSettings(myDBSet, res, R.array.setmvf2, MY_DB_TABLE_SETMVF2);
 		setDefaultSettings(myDBSet, res, R.array.setfvf, MY_DB_TABLE_SETFVF);
 		setDefaultSettings(myDBSet, res, R.array.setfvf2, MY_DB_TABLE_SETFVF2);
-				
-		setDefaultVal(context, MY_DB_SET, MY_DB_TABLE_SETKOR, "0");
-		setDefaultVal(context, MY_DB_SET, MY_DB_TABLE_SETPLU, "0");
 		
 		myDBSet.close();
+		
+		setDefaultVal(context, MY_DB_SET, MY_DB_TABLE_SETKOR, "0");
+		setDefaultVal(context, MY_DB_SET, MY_DB_TABLE_SETPLU, "0");
 	}
 
 	private void setDefaultSettings(SQLiteDatabase database, Resources res, int stringArrayName, String tableName) {
