@@ -226,31 +226,6 @@ public class EditSettingsActivity extends Activity {
 		pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 	}
 
-	
-	/*
-	 * Zuordnung der Brennweiten/Objektive zu den Cameras
-	 */
-	private ArrayList<String> getListCAMBW(String Cam) {
-		ArrayList<String> camList = new ArrayList<String>();
-
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-		Cursor camBWCursor = myDB.rawQuery("SELECT cam,bw FROM "
-				+ DB.MY_DB_TABLE_SETCAMBW + " WHERE cam = '" + Cam + "'", null);
-		if (camBWCursor != null) {
-			if (camBWCursor.moveToFirst()) {
-				do {
-					camList.add(camBWCursor.getString(camBWCursor
-							.getColumnIndex("bw")));
-				} while (camBWCursor.moveToNext());
-			}
-		}
-		myDB.close();
-		camBWCursor.close();
-		stopManagingCursor(camBWCursor);
-		return camList;
-	}
-
 
 	private void deletefromDB(String TableName, String Name) {
 
@@ -1277,7 +1252,7 @@ public class EditSettingsActivity extends Activity {
 			}
 			checkBox.setTag(planet);
 
-			ArrayList<String> brennweiten = getListCAMBW(camera);
+			ArrayList<String> brennweiten = DB.getDB().getLensesForCamera(mContext, MY_DB_NAME, camera);
 			if (brennweiten.contains(planet.getValue())) {
 				checkBox.setChecked(true);
 			} else {

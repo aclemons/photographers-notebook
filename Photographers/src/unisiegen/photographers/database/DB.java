@@ -545,6 +545,8 @@ public class DB {
 		
 		return true;
 	}
+	
+	
 
 	/**
 	 * 
@@ -638,6 +640,7 @@ public class DB {
 
 		return values;
 	}
+	
 
 	public void updatePicture(Context mContext, Film film, Bild bild) {
 
