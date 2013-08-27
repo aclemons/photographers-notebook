@@ -487,6 +487,17 @@ public class DB {
 		
 		return true;
 	}
+	
+	
+	public boolean addLensToCamera(Context mContext, String database, String camera, String lens){
+		
+		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);		
+		db.execSQL("INSERT INTO " + DB.MY_DB_TABLE_SETCAMBW + " Values (" + null + ",'" + "" + camera + "" + "','" + lens + "');");
+		db.close();
+		
+		return true;
+	}
 
 	/**
 	 * This will retrieve a List of ALL settings, with additional data for

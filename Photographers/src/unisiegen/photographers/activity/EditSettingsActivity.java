@@ -227,14 +227,6 @@ public class EditSettingsActivity extends Activity {
 	}
 
 	
-	private void writeCamBW(String CamName, String BWName) {
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-		myDB.execSQL("INSERT INTO " + DB.MY_DB_TABLE_SETCAMBW + " Values (" + null + ",'"
-				+ "" + CamName + "" + "','" + BWName + "');");
-		myDB.close();
-	}
-	
 	/*
 	 * Zuordnung der Brennweiten/Objektive zu den Cameras
 	 */
@@ -608,7 +600,10 @@ public class EditSettingsActivity extends Activity {
 														.show();
 											} else {
 												DB.getDB().saveSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);
-												writeCamBW(listAdapter.getItem(arg2).getValue().toString(), Katspec.getText().toString()); // We need to write to DB.MY_DB_TABLE_SETCAMBW to set the lens to be selected on the current cam by default.
+												String camera = listAdapter.getItem(arg2).getValue().toString();
+												String lens = Katspec.getText().toString();
+												DB.getDB().addLensToCamera(mContext, MY_DB_NAME, camera, lens);
+												
 												aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1, 0));
 												Katspec.setText("");
 												listAdapterspec.notifyDataSetChanged();
@@ -820,7 +815,10 @@ public class EditSettingsActivity extends Activity {
 													Toast.LENGTH_SHORT).show();
 										} else {
 											DB.getDB().saveSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);
-											writeCamBW(valuesCam.get(valuesCam.size()-1).getValue().toString(), Katspec.getText().toString()); // We need to write to DB.MY_DB_TABLE_SETCAMBW to set the lens to be selected on the current cam by default.
+											String camera = valuesCam.get(valuesCam.size()-1).getValue().toString();
+											String lens = Katspec.getText().toString();
+											DB.getDB().addLensToCamera(mContext, MY_DB_NAME, camera, lens);
+											
 											aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, 
 													Katspec.getText()
 															.toString(), 1, 0));
