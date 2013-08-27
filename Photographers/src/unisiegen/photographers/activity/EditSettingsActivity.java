@@ -82,7 +82,6 @@ import com.viewpagerindicator.TitleProvider;
 
 public class EditSettingsActivity extends Activity {
 
-	
 	public static final int ALLGEMEIN_POSITION = 0;
 	public static final int KAMERA_POSITION = 1;
 	public static final int FOKUS_POSITION = 2;
@@ -99,10 +98,11 @@ public class EditSettingsActivity extends Activity {
 	public static final int BLITZ_POSITION = 13;
 	public static final int BLITZKORR_POSITION = 14;
 	public static final int SOND_POSITION = 15;
-	
-	public static final int BRENNWEITE_POSITION = 1337; // is not shown as view, but as a subview of camera
-	
-	
+
+	public static final int BRENNWEITE_POSITION = 1337; // is not shown as view,
+														// but as a subview of
+														// camera
+
 	/*
 	 * Sonstige Variablen
 	 */
@@ -115,7 +115,6 @@ public class EditSettingsActivity extends Activity {
 	Context mContext;
 	private ViewPager viewPager;
 	private TitlePageIndicator settingsPageIndicator;
-
 
 	/*
 	 * Datenbank Variablen
@@ -174,16 +173,19 @@ public class EditSettingsActivity extends Activity {
 	 * Tutorial
 	 */
 	public void openTutorial() {
-		
-		final String[] tutorialContent = getResources().getStringArray(R.array.strings_tutorial_3);
-		
-		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-		final View layoutOwn1 = inflater.inflate(R.layout.popup,(ViewGroup) findViewById(R.id.widget), false);
+
+		final String[] tutorialContent = getResources().getStringArray(
+				R.array.strings_tutorial_3);
+
+		LayoutInflater inflater = (LayoutInflater) mContext
+				.getSystemService(LAYOUT_INFLATER_SERVICE);
+		final View layoutOwn1 = inflater.inflate(R.layout.popup,
+				(ViewGroup) findViewById(R.id.widget), false);
 
 		pw = new PopupWindow(layoutOwn1);
 		pw.setFocusable(true);
-		pw.setHeight(pw.getMaxAvailableHeight(layoutOwn1)/2);
-		pw.setWidth(pw.getMaxAvailableHeight(layoutOwn1)/2);
+		pw.setHeight(pw.getMaxAvailableHeight(layoutOwn1) / 2);
+		pw.setWidth(pw.getMaxAvailableHeight(layoutOwn1) / 2);
 		pw.setAnimationStyle(7);
 		pw.setBackgroundDrawable(new BitmapDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);
@@ -225,7 +227,6 @@ public class EditSettingsActivity extends Activity {
 		});
 		pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 	}
-	
 
 	/*
 	 * Hilfsklassen f�r Custom-ListViews und SlideViews
@@ -239,16 +240,17 @@ public class EditSettingsActivity extends Activity {
 
 		private String[] pageTitles = null;
 		private LayoutInflater inflater = getLayoutInflater();
-		
+
 		@Override
 		public int getItemPosition(Object object) {
-			//TODO: Do something useful
+			// TODO: Do something useful
 			return POSITION_NONE;
 		}
 
 		public SettingsPager(Context context) {
 			super();
-			pageTitles = getResources().getStringArray(R.array.settings_slide_contents);
+			pageTitles = getResources().getStringArray(
+					R.array.settings_slide_contents);
 		}
 
 		@Override
@@ -266,7 +268,6 @@ public class EditSettingsActivity extends Activity {
 			return pageTitles.length;
 		}
 
-
 		@Override
 		public Object instantiateItem(View view, int position) {
 
@@ -280,61 +281,76 @@ public class EditSettingsActivity extends Activity {
 				myView = createKameraView();
 				break;
 			case FOKUS_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.focus, 
-						FOKUS_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFOK).getView();
+				myView = new SettingsViewPart(mContext, R.string.focus,
+						FOKUS_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFOK)
+						.getView();
 				break;
 			case BLENDE_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.aperture, 
-						BLENDE_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETBLE).getView();
+				myView = new SettingsViewPart(mContext, R.string.aperture,
+						BLENDE_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETBLE)
+						.getView();
 				break;
 			case ZEITE_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.exposure, 
-						ZEITE_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETZEI).getView();
+				myView = new SettingsViewPart(mContext, R.string.exposure,
+						ZEITE_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETZEI)
+						.getView();
 				break;
 			case MESS_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.measurement, 
-						MESS_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETMES).getView();
+				myView = new SettingsViewPart(mContext, R.string.measurement,
+						MESS_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETMES)
+						.getView();
 				break;
 			case KORREKTUR_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.exposure_correction, 
-						KORREKTUR_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETKOR).getView();
+				myView = new SettingsViewPart(mContext,
+						R.string.exposure_correction, KORREKTUR_POSITION,
+						MY_DB_NAME, DB.MY_DB_TABLE_SETKOR).getView();
 				break;
 			case MAKRO_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.focus, 
-						MAKRO_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETNM).getView();
+				myView = new SettingsViewPart(mContext, R.string.focus,
+						MAKRO_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETNM)
+						.getView();
 				break;
 			case MAKROVF_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.macro_vf, 
-						MAKROVF_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETMVF).getView();
+				myView = new SettingsViewPart(mContext, R.string.macro_vf,
+						MAKROVF_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETMVF)
+						.getView();
 				break;
 			case FILTER_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.filter, 
-						FILTER_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFIL).getView();
+				myView = new SettingsViewPart(mContext, R.string.filter,
+						FILTER_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFIL)
+						.getView();
 				break;
 			case FILTERVF_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.filter_vf, 
-						FILTERVF_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFVF).getView();
-				//TODO: Wahrscheinlich muss hier zwischen MY_DB_TABLE_SETFVF und MY_DB_TABLE_SETFVF2 ausgewählt werden!
+				myView = new SettingsViewPart(mContext, R.string.filter_vf,
+						FILTERVF_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFVF)
+						.getView();
+				// TODO: Wahrscheinlich muss hier zwischen MY_DB_TABLE_SETFVF
+				// und MY_DB_TABLE_SETFVF2 ausgewählt werden!
 				break;
 			case FILMFORMAT_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.film_formats, 
-						FILMFORMAT_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFF).getView();
+				myView = new SettingsViewPart(mContext, R.string.film_formats,
+						FILMFORMAT_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFF)
+						.getView();
 				break;
 			case ASA_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.film_speed, 
-						ASA_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETEMP).getView();
+				myView = new SettingsViewPart(mContext, R.string.film_speed,
+						ASA_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETEMP)
+						.getView();
 				break;
 			case BLITZ_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.flash, 
-						BLITZ_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETBLI).getView();
+				myView = new SettingsViewPart(mContext, R.string.flash,
+						BLITZ_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETBLI)
+						.getView();
 				break;
 			case BLITZKORR_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.flash_correction, 
-						BLITZKORR_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETKOR).getView();
+				myView = new SettingsViewPart(mContext,
+						R.string.flash_correction, BLITZKORR_POSITION,
+						MY_DB_NAME, DB.MY_DB_TABLE_SETKOR).getView();
 				break;
 			case SOND_POSITION:
-				myView = new SettingsViewPart(mContext, R.string.processing, 
-						SOND_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETSON).getView();
+				myView = new SettingsViewPart(mContext, R.string.processing,
+						SOND_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETSON)
+						.getView();
 				break;
 			}
 
@@ -343,25 +359,28 @@ public class EditSettingsActivity extends Activity {
 
 		}
 
-
 		private View createKameraView() {
 			View view = inflater.inflate(R.layout.settingsauswahl, null, false);
 			TextView freecell = (TextView) view.findViewById(R.id.freecell);
 			TableLayout tablor = (TableLayout) view.findViewById(R.id.tablor);
-			final ListView myList = (ListView) view.findViewById(android.R.id.list);
+			final ListView myList = (ListView) view
+					.findViewById(android.R.id.list);
 			final Button addKate = (Button) view.findViewById(R.id.addkamera);
-			final EditText Kat = (EditText) view.findViewById(R.id.kameramodell);
+			final EditText Kat = (EditText) view
+					.findViewById(R.id.kameramodell);
 			freecell.setText(getString(R.string.camera_models));
 			tablor.setBackgroundResource(R.drawable.shaperedtable);
 			tablor.setPadding(4, 0, -2, 0);
-			final ArrayList<Setting> valuesCam = DB.getDB().getAllSettings(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM);
-			final ArrayAdapter<Setting> listAdapter = new CamArrayAdapter(mContext, valuesCam);
+			final ArrayList<Setting> valuesCam = DB.getDB().getAllSettings(
+					mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM);
+			final ArrayAdapter<Setting> listAdapter = new CamArrayAdapter(
+					mContext, valuesCam);
 			myList.setAdapter(listAdapter);
-						
+
 			myList.setOnItemLongClickListener(new OnItemLongClickListener() {
 				@Override
 				public boolean onItemLongClick(AdapterView<?> arg0,
-						final View arg1, final int arg2, long arg3) {					
+						final View arg1, final int arg2, long arg3) {
 					Display display = ((WindowManager) mContext
 							.getSystemService(Context.WINDOW_SERVICE))
 							.getDefaultDisplay();
@@ -412,10 +431,13 @@ public class EditSettingsActivity extends Activity {
 							tablorspec
 									.setBackgroundResource(R.drawable.shaperedtable);
 							tablorspec.setPadding(2, 2, 2, 2);
-							final ArrayList<Setting> aplanetsspec = DB.getDB().getAllSettings(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW);
+							final ArrayList<Setting> aplanetsspec = DB.getDB()
+									.getAllSettings(mContext, MY_DB_NAME,
+											DB.MY_DB_TABLE_SETBW);
 							final ArrayAdapter<Setting> listAdapterspec = new SettingsArrayAdapterSpec(
-									mContext, aplanetsspec, BRENNWEITE_POSITION, textis
-											.getText().toString());
+									mContext, aplanetsspec,
+									BRENNWEITE_POSITION, textis.getText()
+											.toString());
 							myListspec.setAdapter(listAdapterspec);
 							myListspec
 									.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -438,16 +460,28 @@ public class EditSettingsActivity extends Activity {
 																	LinearLayout test = (LinearLayout) arg1;
 																	TextView tec = (TextView) test
 																			.getChildAt(0);
-																	
-																	DB.getDB().deleteLens(mContext, MY_DB_NAME, tec.getText().toString());																	
-																	aplanetsspec.remove(arg2);
-																	
-																	listAdapterspec.clear();
-																	ArrayList<Setting> values = DB.getDB().getAllSettings(mContext, MY_DB_NAME,
-																			DB.MY_DB_TABLE_SETBW);
+
+																	DB.getDB()
+																			.deleteLens(
+																					mContext,
+																					MY_DB_NAME,
+																					tec.getText()
+																							.toString());
+																	aplanetsspec
+																			.remove(arg2);
+
+																	listAdapterspec
+																			.clear();
+																	ArrayList<Setting> values = DB
+																			.getDB()
+																			.getAllSettings(
+																					mContext,
+																					MY_DB_NAME,
+																					DB.MY_DB_TABLE_SETBW);
 																	for (Setting s : values) {
-																		listAdapterspec.add(s);
-																	}																	
+																		listAdapterspec
+																				.add(s);
+																	}
 																	viewPager = (ViewPager) findViewById(R.id.viewPager);
 																	SettingsPager adapter = new SettingsPager(
 																			mContext);
@@ -510,15 +544,31 @@ public class EditSettingsActivity extends Activity {
 														Toast.LENGTH_SHORT)
 														.show();
 											} else {
-												DB.getDB().addSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);
-												String camera = listAdapter.getItem(arg2).getValue().toString();
-												String lens = Katspec.getText().toString();
-												DB.getDB().addLensToCamera(mContext, MY_DB_NAME, camera, lens);
-												
-												aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1, 0));
+												DB.getDB().addSetting(
+														mContext,
+														MY_DB_NAME,
+														DB.MY_DB_TABLE_SETBW,
+														Katspec.getText()
+																.toString(), 1);
+												String camera = listAdapter
+														.getItem(arg2)
+														.getValue().toString();
+												String lens = Katspec.getText()
+														.toString();
+												DB.getDB().addLensToCamera(
+														mContext, MY_DB_NAME,
+														camera, lens);
+
+												aplanetsspec.add(new Setting(
+														DB.MY_DB_TABLE_SETBW,
+														Katspec.getText()
+																.toString(), 1,
+														0));
 												Katspec.setText("");
-												listAdapterspec.notifyDataSetChanged();
-												listAdapter.notifyDataSetChanged();
+												listAdapterspec
+														.notifyDataSetChanged();
+												listAdapter
+														.notifyDataSetChanged();
 											}
 										}
 									});
@@ -541,8 +591,9 @@ public class EditSettingsActivity extends Activity {
 							TextView texti = (TextView) ((LinearLayout) lins
 									.getChildAt(0)).getChildAt(0);
 
-							DB.getDB().setDefaultVal(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM, texti
-									.getText().toString());
+							DB.getDB().setDefaultVal(mContext, MY_DB_NAME,
+									DB.MY_DB_TABLE_SETCAM,
+									texti.getText().toString());
 
 							myList.setAdapter(listAdapter);
 							Toast.makeText(mContext,
@@ -556,9 +607,11 @@ public class EditSettingsActivity extends Activity {
 						public void onClick(View v) {
 							LinearLayout lins = (LinearLayout) arg1;
 							TextView texti = (TextView) ((LinearLayout) lins
-									.getChildAt(0)).getChildAt(0);							
-							DB.getDB().deleteSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM, texti.getText().toString());
-							
+									.getChildAt(0)).getChildAt(0);
+							DB.getDB().deleteSetting(mContext, MY_DB_NAME,
+									DB.MY_DB_TABLE_SETCAM,
+									texti.getText().toString());
+
 							valuesCam.remove(arg2);
 							listAdapter.notifyDataSetChanged();
 							pw.dismiss();
@@ -601,8 +654,11 @@ public class EditSettingsActivity extends Activity {
 								getString(R.string.empty_or_existing_entry),
 								Toast.LENGTH_SHORT).show();
 					} else {
-						DB.getDB().addSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM, Kat.getText().toString(), 1);
-						valuesCam.add(new Setting(DB.MY_DB_TABLE_SETCAM, Kat.getText().toString(), 1, 0));
+						DB.getDB().addSetting(mContext, MY_DB_NAME,
+								DB.MY_DB_TABLE_SETCAM,
+								Kat.getText().toString(), 1);
+						valuesCam.add(new Setting(DB.MY_DB_TABLE_SETCAM, Kat
+								.getText().toString(), 1, 0));
 						listAdapter.notifyDataSetChanged();
 
 						// BW F�NGT AN
@@ -627,10 +683,12 @@ public class EditSettingsActivity extends Activity {
 						tablorspec
 								.setBackgroundResource(R.drawable.shaperedtable);
 						tablorspec.setPadding(2, 2, 2, 2);
-						final ArrayList<Setting> aplanetsspec = DB.getDB().getAllSettings(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW);
+						final ArrayList<Setting> aplanetsspec = DB.getDB()
+								.getAllSettings(mContext, MY_DB_NAME,
+										DB.MY_DB_TABLE_SETBW);
 						final ArrayAdapter<Setting> listAdapterspec = new SettingsArrayAdapterSpec(
-								mContext, aplanetsspec, BRENNWEITE_POSITION, Kat.getText()
-										.toString());
+								mContext, aplanetsspec, BRENNWEITE_POSITION,
+								Kat.getText().toString());
 						myListspec.setAdapter(listAdapterspec);
 						myListspec
 								.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -653,14 +711,25 @@ public class EditSettingsActivity extends Activity {
 																LinearLayout test = (LinearLayout) arg1;
 																TextView tec = (TextView) test
 																		.getChildAt(0);
-																DB.getDB().deleteLens(mContext, MY_DB_NAME, tec.getText().toString());																
-																aplanetsspec.clear();
-																ArrayList<Setting> values = DB.getDB().getAllSettings(mContext, MY_DB_NAME,
-																		DB.MY_DB_TABLE_SETBW);
+																DB.getDB()
+																		.deleteLens(
+																				mContext,
+																				MY_DB_NAME,
+																				tec.getText()
+																						.toString());
+																aplanetsspec
+																		.clear();
+																ArrayList<Setting> values = DB
+																		.getDB()
+																		.getAllSettings(
+																				mContext,
+																				MY_DB_NAME,
+																				DB.MY_DB_TABLE_SETBW);
 																for (Setting s : values) {
-																	aplanetsspec.add(s);
+																	aplanetsspec
+																			.add(s);
 																}
-																
+
 																viewPager = (ViewPager) findViewById(R.id.viewPager);
 																SettingsPager adapter = new SettingsPager(
 																		mContext);
@@ -715,12 +784,23 @@ public class EditSettingsActivity extends Activity {
 													getString(R.string.empty_or_existing_entry),
 													Toast.LENGTH_SHORT).show();
 										} else {
-											DB.getDB().addSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, Katspec.getText().toString(), 1);
-											String camera = valuesCam.get(valuesCam.size()-1).getValue().toString();
-											String lens = Katspec.getText().toString();
-											DB.getDB().addLensToCamera(mContext, MY_DB_NAME, camera, lens);
-											
-											aplanetsspec.add(new Setting(DB.MY_DB_TABLE_SETBW, 
+											DB.getDB().addSetting(
+													mContext,
+													MY_DB_NAME,
+													DB.MY_DB_TABLE_SETBW,
+													Katspec.getText()
+															.toString(), 1);
+											String camera = valuesCam
+													.get(valuesCam.size() - 1)
+													.getValue().toString();
+											String lens = Katspec.getText()
+													.toString();
+											DB.getDB().addLensToCamera(
+													mContext, MY_DB_NAME,
+													camera, lens);
+
+											aplanetsspec.add(new Setting(
+													DB.MY_DB_TABLE_SETBW,
 													Katspec.getText()
 															.toString(), 1, 0));
 											Katspec.setText("");
@@ -798,18 +878,21 @@ public class EditSettingsActivity extends Activity {
 			geotag.setTextOn(getString(R.string.on));
 			geotag.setGravity(Gravity.LEFT);
 			geotag.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(getApplicationContext(), getString(R.string.experimental), Toast.LENGTH_LONG).show(); // Display info message about experimental feature.
-					
+					Toast.makeText(getApplicationContext(),
+							getString(R.string.experimental), Toast.LENGTH_LONG)
+							.show(); // Display info message about experimental
+										// feature.
+
 				}
 			});
 			geotag.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView,
 						boolean isChecked) {
-					    if (!geotag.getText().toString()
+					if (!geotag.getText().toString()
 							.equals(getString(R.string.on))) {
 						if (geotag.isChecked()) {
 							editors.putString("geoTag", "ja");
@@ -1041,35 +1124,26 @@ public class EditSettingsActivity extends Activity {
 			grid.setEnabled(false);
 			grid.clearFocus();
 
-			myDB = mContext.openOrCreateDatabase(MY_DB_NAME,
-					Context.MODE_PRIVATE, null);
-			int kontrolle = 0;
-			Cursor camBWCursor = myDB.rawQuery(
-					"SELECT cam,bw FROM " + DB.MY_DB_TABLE_SETCAMBW
-							+ " WHERE cam = '" + planet.getValue() + "'", null);
-			if (camBWCursor != null) {
-				if (camBWCursor.moveToFirst()) {
-					do {
-						if ((kontrolle % 3) == 0 || kontrolle == 0) {
-							grid2 = null;
-							grid2 = (LinearLayout) inflater.inflate(
-									R.layout.objektivegrid, grid, false);
-							grid.addView(grid2);
-						}
-						testtext = (TextView) inflater.inflate(
-								R.layout.objektive, grid2, false);
-						testtext.setText(camBWCursor.getString(camBWCursor
-								.getColumnIndex("bw")));
-						grid2.addView(testtext);
-						kontrolle++;
-					} while (camBWCursor.moveToNext());
-				}
-			} else {
+			int lineBreakControl = 0;
+			
+			ArrayList<String> values = DB.getDB().getLensesForCamera(mContext, MY_DB_NAME, planet.getValue().toString());
+			if(values.size() == 0){
 				grid.setVisibility(LinearLayout.GONE);
 			}
-			myDB.close();
-			camBWCursor.close();
-			stopManagingCursor(camBWCursor);
+			for(String value : values){
+			
+				if ((lineBreakControl % 3) == 0 || lineBreakControl == 0) {
+					grid2 = null;
+					grid2 = (LinearLayout) inflater.inflate(R.layout.objektivegrid, grid, false);
+					grid.addView(grid2);
+				}
+				testtext = (TextView) inflater.inflate(R.layout.objektive, grid2, false);
+				testtext.setText(value);
+				grid2.addView(testtext);
+				lineBreakControl++;
+				
+			}
+			
 			checkBox.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 					CheckBox cb = (CheckBox) v;
@@ -1080,8 +1154,9 @@ public class EditSettingsActivity extends Activity {
 					if (cb.isChecked() == true) {
 						value = 1;
 					}
-			
-					DB.getDB().updateSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM, planet.getValue(), value);
+
+					DB.getDB().updateSetting(mContext, MY_DB_NAME,
+							DB.MY_DB_TABLE_SETCAM, planet.getValue(), value);
 				}
 			});
 
@@ -1110,7 +1185,8 @@ public class EditSettingsActivity extends Activity {
 		private LayoutInflater inflater;
 		String camera;
 
-		public SettingsArrayAdapterSpec(Context context, ArrayList<Setting> planetList, int number, String cam) {
+		public SettingsArrayAdapterSpec(Context context,
+				ArrayList<Setting> planetList, int number, String cam) {
 			super(context, R.layout.list_item, R.id.listItemText, planetList);
 			camera = cam;
 			inflater = LayoutInflater.from(context);
@@ -1144,7 +1220,7 @@ public class EditSettingsActivity extends Activity {
 									Context.MODE_PRIVATE, null);
 							myDB.insert(DB.MY_DB_TABLE_SETCAMBW, null, args);
 							myDB.close();
-//							readDB();
+							// readDB();
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 							SettingsPager adapter = new SettingsPager(mContext);
 							viewPager.setAdapter(adapter);
@@ -1153,13 +1229,12 @@ public class EditSettingsActivity extends Activity {
 							viewPager.setCurrentItem(1, false);
 
 						} else {
-							myDB = mContext.openOrCreateDatabase(MY_DB_NAME,
-									Context.MODE_PRIVATE, null);
+							myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE, null);
 							myDB.delete(DB.MY_DB_TABLE_SETCAMBW,
 									"cam = '" + camera + "' AND bw = '"
 											+ planet.getValue() + "'", null);
 							myDB.close();
-//							readDB();
+							// readDB();
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 
 							SettingsPager adapter = new SettingsPager(mContext);
@@ -1178,7 +1253,8 @@ public class EditSettingsActivity extends Activity {
 			}
 			checkBox.setTag(planet);
 
-			ArrayList<String> brennweiten = DB.getDB().getLensesForCamera(mContext, MY_DB_NAME, camera);
+			ArrayList<String> brennweiten = DB.getDB().getLensesForCamera(
+					mContext, MY_DB_NAME, camera);
 			if (brennweiten.contains(planet.getValue())) {
 				checkBox.setChecked(true);
 			} else {
@@ -1209,7 +1285,6 @@ public class EditSettingsActivity extends Activity {
 		}
 
 	}
-
 
 	public void setSetButtonColor(Button button1, Button button2,
 			Button button3, Button button4) {
@@ -1346,7 +1421,7 @@ public class EditSettingsActivity extends Activity {
 						editor11.putString("SettingsTable", DB.MY_DB_SET);
 						editor11.commit();
 						MY_DB_NAME = DB.MY_DB_SET;
-//						readDB();
+						// readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
@@ -1356,7 +1431,7 @@ public class EditSettingsActivity extends Activity {
 						editor11.putString("SettingsTable", DB.MY_DB_SET1);
 						editor11.commit();
 						MY_DB_NAME = DB.MY_DB_SET1;
-//						readDB();
+						// readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
@@ -1366,7 +1441,7 @@ public class EditSettingsActivity extends Activity {
 						editor11.putString("SettingsTable", DB.MY_DB_SET2);
 						editor11.commit();
 						MY_DB_NAME = DB.MY_DB_SET2;
-//						readDB();
+						// readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
@@ -1376,7 +1451,7 @@ public class EditSettingsActivity extends Activity {
 						editor11.putString("SettingsTable", DB.MY_DB_SET3);
 						editor11.commit();
 						MY_DB_NAME = DB.MY_DB_SET3;
-//						readDB();
+						// readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
@@ -1565,18 +1640,23 @@ public class EditSettingsActivity extends Activity {
 			pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
 			return true;
 		} else if (item.getItemId() == R.id.opt_about_this_app) {
-				AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-				alertDialog.setTitle(getString(R.string.about_this_app));
-		    	alertDialog.setMessage(Html.fromHtml(getString(R.string.info))); 
-		    	alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {  
-		    	      public void onClick(DialogInterface dialog, int which) {  
-		    	        return;  
-		    	    } });
-		    	alertDialog.show();
-		    	TextView message = (TextView) alertDialog.findViewById(android.R.id.message);
-		    	message.setTextColor(Color.WHITE); // Workaround to prevent dialogue text to change color when touched.
-		    	Linkify.addLinks(message, Linkify.WEB_URLS);
-		    	return true;
+			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+			alertDialog.setTitle(getString(R.string.about_this_app));
+			alertDialog.setMessage(Html.fromHtml(getString(R.string.info)));
+			alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							return;
+						}
+					});
+			alertDialog.show();
+			TextView message = (TextView) alertDialog
+					.findViewById(android.R.id.message);
+			message.setTextColor(Color.WHITE); // Workaround to prevent dialogue
+												// text to change color when
+												// touched.
+			Linkify.addLinks(message, Linkify.WEB_URLS);
+			return true;
 		} else {
 			return super.onOptionsItemSelected(item);
 		}
@@ -1782,7 +1862,7 @@ public class EditSettingsActivity extends Activity {
 			editor.putString("SettingsTable", thisset);
 			editor.commit();
 			MY_DB_NAME = thisset;
-//			readDB();
+			// readDB();
 
 			return null;
 		}
@@ -1810,7 +1890,7 @@ public class EditSettingsActivity extends Activity {
 			editor.putString("SettingsTable", DB.MY_DB_SET);
 			editor.commit();
 			MY_DB_NAME = DB.MY_DB_SET;
-//			readDB();
+			// readDB();
 			viewPager = (ViewPager) findViewById(R.id.viewPager);
 			SettingsPager adapter = new SettingsPager(mContext);
 			viewPager.setAdapter(adapter);
@@ -1825,13 +1905,13 @@ public class EditSettingsActivity extends Activity {
 
 				DB.getDB().createOrRebuildSettingsTable(mContext);
 
-				SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER,
-						Context.MODE_PRIVATE, null);
+				SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
+						DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
 				myDBNummer.execSQL("DELETE FROM " + DB.MY_DB_TABLE_NUMMER);
 				myDBNummer.close();
 
-				SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
-						Context.MODE_PRIVATE, null);
+				SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(
+						DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
 				myDBFilm.execSQL("DELETE FROM " + DB.MY_DB_FILM_TABLE);
 				myDBFilm.close();
 
