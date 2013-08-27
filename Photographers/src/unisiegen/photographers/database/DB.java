@@ -477,7 +477,7 @@ public class DB {
 		return true;
 	}
 	
-	// TODO: Verbindung zum Löschen von einzelnen Objektiven prüfen!
+
 	public void deleteLens(Context mContext, String database, String lens) {
 		
 		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);

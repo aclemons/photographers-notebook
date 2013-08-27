@@ -1109,7 +1109,7 @@ public class EditSettingsActivity extends Activity {
 						value = 1;
 					}
 			
-					editfromDB(DB.MY_DB_TABLE_SETCAM, planet.getValue(), value);
+					DB.getDB().saveSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM, planet.getValue(), value);
 				}
 			});
 
