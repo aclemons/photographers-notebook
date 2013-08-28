@@ -31,12 +31,13 @@
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
+
 			    <TextView
-				    android:id="@+id/filmtitle"
-				    android:layout_width="fill_parent"
-				    android:layout_height="wrap_content"
-				    android:text="Neuen Film erstellen"
-				    >
+			        android:id="@+id/filmtitle"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:text="@string/create_new_film" >
+
 				</TextView>
 				<TextView
 	    android:id="@+id/freecell"
@@ -80,7 +81,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_button"
-            android:text="Neuer Film" />
+            android:text="@string/new_film" />
 					   
       </LinearLayout>
    
@@ -123,12 +124,13 @@
         android:orientation="horizontal"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
+
     <TextView
-				    android:id="@+id/filmtitle"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:text="Film Auswahl"
-				    >
+        android:id="@+id/filmtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/film_selection" >
+
 				</TextView>
 				
         <TextView

@@ -1,3 +1,19 @@
+/* Copyright (C) 2012 Nico Castelli, Christopher Maiworm 
+ * Copyright (C) 2012 Sebastian Draxler, Alexander Boden, Christian Woehrl (Committers)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *        
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package unisiegen.photographers.activity;
 
 /**
@@ -7,72 +23,50 @@ package unisiegen.photographers.activity;
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
-
-import android.app.Activity;
+import unisiegen.photographers.model.Bild;
+import unisiegen.photographers.model.Film;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class NewFilmActivity extends Activity {
+public class NewFilmActivity extends PhotographersNotebookActivity {
 
 	/*
 	 * Sonstige Variablen
 	 */
 	SharedPreferences settings;
 	Context mContext;
-	private static final String[] puContent = new String[] {
-			"Hier k\u00F6nnen Sie einen Filmtitel ausw\u00E4hlen oder ihn automatisch festlegen lassen.",
-			"Die zuvor ausgew\u00E4hlten Kameras und Filmeinstellungen sind hier selektierbar.",
-			"Hier w\u00E4hlen Sie die zuvor angelegten Kameras und Filmeinstellungen aus.",
-			"Auch hier k\u00F6nnen Sie diese durch Tippen auf die Men\u00FC-Taste \u00E4ndern.",
-			"Wenn Sie die Auswahl getroffen haben, tippen Sie bitte auf Film beginnen." };
+
 	int design = 0;
-	int camdef = 0;
-	int ffdef = 0;
-	int ssdef = 0;
-	int emdef = 0;
-	int tydef = 0;
 	Integer contentIndex = 0;
 	byte[] pic, nopic;
 	boolean mPreviewRunning = false;
-
-	/*
-	 * Spinner Variablen
-	 */
-	ArrayList<String> listCamera, listFF, listSS, listSSS, listEM, listTY;
-	ArrayAdapter<String> adapterCamera, adapterFF, adapterSS, adapterSSS,
-			adapterEM, adapterTY;
-	HashMap<String, Integer> defCheck0, defCheck1, defCheck2, defCheck3;
 
 	/*
 	 * Interface Variablen
@@ -80,28 +74,12 @@ public class NewFilmActivity extends Activity {
 	TextView tv1, tv2, weiter, close, newFilm, vorschau, cancel;
 	EditText filmnotiz;
 	PopupWindow pw;
-	Spinner spinnerCamera, spinnerFF, spinnerSS, spinnerSSS, spinnerEM,
-			spinnerTY;
+	Spinner spinnerCamera, spinnerFF, spinnerSS, spinnerSSS, spinnerEM, spinnerTY;
 	ToggleButton titleButton;
 	EditText titleText;
 	Camera mCamera;
 
-	/*
-	 * Datenbank-Variablen
-	 */
-	SQLiteDatabase myDBSet = null;
-	SQLiteDatabase myDB = null;
-	SQLiteDatabase myDBFilm = null;
-	SQLiteDatabase myDBNummer = null;
 	static String MY_DB_NAME;
-	static String MY_DB_NUMMER = "Nummern";
-	static String MY_DB_FILM = "Filme";
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreate(android.os.Bundle) LifeCycle-Methoden
-	 */
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -120,7 +98,7 @@ public class NewFilmActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent myIntent = new Intent(getApplicationContext(),
-						PreviewDemo.class);
+						TakePreviewPictureActivity.class);
 				startActivityForResult(myIntent, 0);
 
 			}
@@ -133,31 +111,63 @@ public class NewFilmActivity extends Activity {
 				try {
 					SharedPreferences.Editor editor = settings.edit();
 					editor.putString("Title", titleText.getText().toString());
-					editor.putString("FilmNotiz", filmnotiz.getText()
-							.toString());
-					editor.putString("Datum", android.text.format.DateFormat
-							.format("dd.MM.yyyy", new java.util.Date())
-							.toString());
-					editor.putString("Kamera", spinnerCamera.getSelectedItem()
-							.toString());
-					editor.putString("Filmformat", spinnerFF.getSelectedItem()
-							.toString());
-					editor.putString("Empfindlichkeit", spinnerEM
-							.getSelectedItem().toString());
-					editor.putString("Filmtyp", spinnerTY.getSelectedItem()
-							.toString());
-					editor.putString("Sonder1", spinnerSS.getSelectedItem()
-							.toString());
-					editor.putString("Sonder2", spinnerSSS.getSelectedItem()
-							.toString());
+					editor.putString("FilmNotiz", filmnotiz.getText().toString());
+					editor.putString("Datum", android.text.format.DateFormat.format("dd.MM.yyyy", new java.util.Date()).toString());
+					editor.putString("Kamera", spinnerCamera.getSelectedItem().toString());
+					editor.putString("Filmformat", spinnerFF.getSelectedItem().toString());
+					editor.putString("Empfindlichkeit", spinnerEM.getSelectedItem().toString());
+					editor.putString("Filmtyp", spinnerTY.getSelectedItem().toString());
+					editor.putString("Sonder1", spinnerSS.getSelectedItem().toString());
+					editor.putString("Sonder2", spinnerSSS.getSelectedItem().toString());
 					editor.putInt("BildNummerToBegin", 1);
 					editor.putBoolean("EditMode", false);
 					editor.commit();
+					
+					Film f = new Film();
+					f.Titel = titleText.getText().toString();
+					f.Filmnotiz = filmnotiz.getText().toString();
+					f.Datum = android.text.format.DateFormat.format("dd.MM.yyyy", new java.util.Date()).toString();
+					f.Kamera = spinnerCamera.getSelectedItem().toString();
+					f.Filmformat = spinnerFF.getSelectedItem().toString();
+					f.Empfindlichkeit = spinnerEM.getSelectedItem().toString();
+					f.Filmtyp = spinnerTY.getSelectedItem().toString();
+					f.Sonderentwicklung1 = spinnerSS.getSelectedItem().toString();
+					f.Sonderentwicklung2 = spinnerSSS.getSelectedItem().toString();
+					
+					Bild b = new Bild();
+					b.Bildnummer = "Bild 0";
+					b.Notiz = "Dummy-Bild fŸr die Filmdaten";
+					b.Belichtungskorrektur = "";
+					b.Blende = "";
+					b.Blitz = "";
+					b.Blitzkorrektur = "";
+					b.Filter = "";
+					b.FilterVF = "";
+					b.Fokus = "";
+					b.GeoTag = "0' , '0"; // Wenn das Format hier nicht stimmt, kracht es wegen dem Splitting des Strings in ein Array in der DB Klasse.
+					b.KameraNotiz = "";
+					b.Makro = "";
+					b.MakroVF = "";
+					b.Messmethode = "";
+					b.Objektiv  = "";
+					b.Zeit = "";
+					
+					Calendar cal = Calendar.getInstance();
+					SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+					
+					b.Zeitstempel = sdf.format(cal.getTime());					
+					
+					byte[] thumbnail;
+					
+					// TODO: Check einbauen der prŸft ob ein Film mit gleichem Titel schon in der Datenbank ist!
+					
 					Log.v("Check", "Check if Bild vorhanden : " + (pic == null));
 					Intent myIntent = new Intent(getApplicationContext(),
-							SlideNewPic.class);
+							NewPictureActivity.class);
+										
 					if (pic != null) {
 						myIntent.putExtra("image", pic);
+						thumbnail = pic;
 					} else {
 						Bitmap bm = BitmapFactory.decodeResource(
 								getApplicationContext().getResources(),
@@ -166,12 +176,19 @@ public class NewFilmActivity extends Activity {
 						bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
 						nopic = baos.toByteArray();
 						myIntent.putExtra("image", nopic);
+						thumbnail = nopic;
 					}
+					
+					String encodedImage = Base64.encodeToString(thumbnail, Base64.DEFAULT);
+					DB.getDB().addPictureCreateNummer(mContext, f, b, 0, encodedImage); 
+					
 					finish();
 					startActivityForResult(myIntent, 1);
 				} catch (Exception e) {
 					Toast.makeText(getApplicationContext(),
-							"Fehlerhafte Eingabe!", Toast.LENGTH_SHORT).show();
+							getString(R.string.input_error), Toast.LENGTH_SHORT)
+							.show();
+					e.printStackTrace();
 				}
 			}
 		});
@@ -183,11 +200,7 @@ public class NewFilmActivity extends Activity {
 		super.onResume();
 		contentIndex = 0;
 		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
-		defCheck0 = new HashMap<String, Integer>();
-		defCheck1 = new HashMap<String, Integer>();
-		defCheck2 = new HashMap<String, Integer>();
-		defCheck3 = new HashMap<String, Integer>();
-		readDB();
+		
 		titleText = (EditText) findViewById(R.id.texttitle);
 		titleButton = (ToggleButton) findViewById(R.id.toggletitle);
 		titleButton.setOnClickListener(new OnClickListener() {
@@ -195,38 +208,18 @@ public class NewFilmActivity extends Activity {
 			public void onClick(View v) {
 				Date dt = new Date();
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-				titleText.setText(df.format(dt) + " Film");
+				titleText.setText(df.format(dt) + " "
+						+ getString(R.string.film));
 			}
 		});
-		spinnerCamera = (Spinner) findViewById(R.id.spinnerCamera);
-		spinnerFF = (Spinner) findViewById(R.id.spinnerFF);
-		spinnerSS = (Spinner) findViewById(R.id.spinnerSS);
-		spinnerSSS = (Spinner) findViewById(R.id.spinnerSSS);
-		spinnerEM = (Spinner) findViewById(R.id.spinnerEM);
-		spinnerTY = (Spinner) findViewById(R.id.spinnerTY);
-		adapterCamera = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listCamera);
-		adapterFF = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listFF);
-		adapterSS = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listSS);
-		adapterSSS = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listSSS);
-		adapterEM = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listEM);
-		adapterTY = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listTY);
-		spinnerCamera.setAdapter(adapterCamera);
-		spinnerFF.setAdapter(adapterFF);
-		spinnerSS.setAdapter(adapterSS);
-		spinnerSSS.setAdapter(adapterSSS);
-		spinnerEM.setAdapter(adapterEM);
-		spinnerTY.setAdapter(adapterTY);
-		spinnerCamera.setSelection(camdef);
-		spinnerFF.setSelection(ffdef);
-		spinnerSS.setSelection(ssdef);
-		spinnerEM.setSelection(emdef);
-		spinnerTY.setSelection(tydef);
+		
+		spinnerCamera = setupSpinner(R.id.spinnerCamera, DB.MY_DB_TABLE_SETCAM);				
+		spinnerFF = setupSpinner(R.id.spinnerFF, DB.MY_DB_TABLE_SETFF);
+		spinnerSS = setupSpinner(R.id.spinnerSS, DB.MY_DB_TABLE_SETSON);
+		spinnerSSS = setupSpinner(R.id.spinnerSSS, DB.MY_DB_TABLE_SETSON);
+		spinnerEM = setupSpinner(R.id.spinnerEM, DB.MY_DB_TABLE_SETEMP);
+		spinnerTY = setupSpinner(R.id.spinnerTY, DB.MY_DB_TABLE_SETTYP);
+		
 		if (settings.getInt("FIRSTSTART", 0) == 1) {
 			ViewGroup view = (ViewGroup) getWindow().getDecorView();
 			view.post(new Runnable() {
@@ -250,282 +243,24 @@ public class NewFilmActivity extends Activity {
 		}
 	}
 
-	/*
-	 * Datenbank Methoden
-	 */
-
-	private void onCreateDBAndDBTabled() {
-		myDB = mContext.openOrCreateDatabase(MY_DB_NAME, Context.MODE_PRIVATE,
-				null);
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETCAM
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETEMP
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBW
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETNM
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFIL
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBLI
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETSON
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETTYP
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFOK
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETBLE
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETZEI
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMES
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETPLU
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMAK
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMVF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFVF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETKOR
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETMVF2
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_TABLE_SETFVF2
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-
-	}
-
-	private void readDB() {
-		onCreateDBAndDBTabled();
-		listCamera = new ArrayList<String>();
-		listFF = new ArrayList<String>();
-		listSS = new ArrayList<String>();
-		listSSS = new ArrayList<String>();
-		listEM = new ArrayList<String>();
-		listTY = new ArrayList<String>();
-		int number = 0;
-		Cursor c = myDB.rawQuery("SELECT name,value FROM " + DB.MY_DB_TABLE_SETCAM
-				+ " WHERE value = '1'", null);
-		if (c != null) {
-			if (c.moveToFirst()) {
-				do {
-					if (c.getString(c.getColumnIndex("name")).equals(
-							settings.getString("KamDef", ""))) {
-						camdef = number;
-					}
-					listCamera.add(c.getString(c.getColumnIndex("name")));
-					number++;
-				} while (c.moveToNext());
-			} else {
-				listCamera.add("Keine Auswahl");
-			}
+	private Spinner setupSpinner(int uiID, String tableName) {
+		
+		ArrayList<String> values = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, tableName);
+		int defaultValue = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, tableName);		
+		if (values.size() == 0) {
+			values.add(getString(R.string.no_selection));
 		}
-		number = 0;
-		Cursor ca = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETFF + " WHERE value = '1'", null);
-		if (ca != null) {
-			if (ca.moveToFirst()) {
-				do {
-					if (ca.getInt(ca.getColumnIndex("def")) == 1) {
-						ffdef = number;
-					}
-					listFF.add(ca.getString(ca.getColumnIndex("name")));
-					number++;
-				} while (ca.moveToNext());
-			} else {
-				listFF.add("Keine Auswahl");
-			}
-		}
-		number = 0;
-		Cursor cf = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETSON + " WHERE value = '1'", null);
-		if (cf != null) {
-			listSSS.add(" ");
-			if (cf.moveToFirst()) {
-				do {
-					if (cf.getInt(cf.getColumnIndex("def")) == 1) {
-						ssdef = number;
-					}
-					listSS.add(cf.getString(cf.getColumnIndex("name")));
-					listSSS.add(cf.getString(cf.getColumnIndex("name")));
-					number++;
-				} while (cf.moveToNext());
-			} else {
-				listSS.add("Keine Auswahl");
-			}
-		}
-		number = 0;
-		Cursor cg = myDB.rawQuery("SELECT name,value,def FROM "
-				+ DB.MY_DB_TABLE_SETEMP + " WHERE value = '1'", null);
-		if (cg != null) {
-			if (cg.moveToFirst()) {
-				do {
-					if (cg.getInt(cg.getColumnIndex("def")) == 1) {
-						emdef = number;
-					}
-					listEM.add(cg.getString(cg.getColumnIndex("name")));
-					number++;
-				} while (cg.moveToNext());
-			} else {
-				listEM.add("Keine Auswahl");
-			}
-		}
-		number = 0;
-		Cursor ch = myDB.rawQuery("SELECT name,value FROM "
-				+ DB.MY_DB_TABLE_SETTYP + " WHERE value = '1'", null);
-		if (ch != null) {
-			if (ch.moveToFirst()) {
-				do {
-					listTY.add(ch.getString(ch.getColumnIndex("name")));
-					number++;
-				} while (ch.moveToNext());
-			}
-		}
-		number = 0;
-		myDB.close();
-		c.close();
-		ca.close();
-		cf.close();
-		cg.close();
-		ch.close();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu) Menï¿½
-	 * Methoden
-	 */
-
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu, menu);
-		return true;
-	}
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		if (item.getItemId() == R.id.opt_sett3) {
-			if (settings.getString("allinone", "ja").equals("nein")) {
-				LayoutInflater inflaterOwn = (LayoutInflater) mContext
-						.getSystemService(LAYOUT_INFLATER_SERVICE);
-				View layoutOwn = inflaterOwn.inflate(R.layout.popupoption,
-						(ViewGroup) findViewById(R.id.users), false);
-				final ImageButton setone = (ImageButton) layoutOwn
-						.findViewById(R.id.setone);
-				final ImageButton settwo = (ImageButton) layoutOwn
-						.findViewById(R.id.settwo);
-				final ImageButton setthree = (ImageButton) layoutOwn
-						.findViewById(R.id.setthree);
-				final ImageButton setfour = (ImageButton) layoutOwn
-						.findViewById(R.id.setfour);
-
-				setone.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsGen.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				settwo.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsCam.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				setthree.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsPic.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				setfour.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent myIntent3 = new Intent(getApplicationContext(),
-								SlideNewSettingsSon.class);
-						startActivityForResult(myIntent3, 0);
-						pw.dismiss();
-					}
-				});
-
-				pw = new PopupWindow(layoutOwn,
-						ViewGroup.LayoutParams.WRAP_CONTENT,
-						ViewGroup.LayoutParams.WRAP_CONTENT, true);
-				pw.setAnimationStyle(-1);
-				pw.setBackgroundDrawable(new BitmapDrawable());
-				pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
-			} else {
-				Intent myIntent3 = new Intent(getApplicationContext(),
-						SlideNewSettings.class);
-				startActivityForResult(myIntent3, 0);
-			}
-			return true;
-		} else if (item.getItemId() == R.id.opt_sett1) {
-			finish();
-			startActivity(new Intent(getApplicationContext(),
-					FilmAuswahlActivity.class));
-			return true;
+		
+		Spinner spinner = (Spinner) findViewById(uiID);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, values);
+		spinner.setAdapter(adapter);
+		if(defaultValue >= values.size()){
+			spinner.setSelection(0);
 		} else {
-			return super.onOptionsItemSelected(item);
+			spinner.setSelection(defaultValue);
 		}
+		
+		return spinner;
 	}
 
 	/*
@@ -547,11 +282,6 @@ public class NewFilmActivity extends Activity {
 			case 1277:
 				Bundle bundle = data.getExtras();
 				pic = (byte[]) bundle.get("image");
-				Log.v("Check",
-						"SAVE : "
-								+ BitmapFactory.decodeByteArray(pic, 0,
-										pic.length));
-
 				vorschau.setTextColor(0xFF00BB00);
 
 				break;
@@ -560,24 +290,27 @@ public class NewFilmActivity extends Activity {
 		}
 	}
 
-	/*
-	 * Hilfe Methode
-	 */
 
 	public void popupmenue() {
+		Resources res = getResources();
+		final String[] puContent = res
+				.getStringArray(R.array.strings_tutorial_2);
 		LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(LAYOUT_INFLATER_SERVICE);
-		View layoutOwn1 = inflater.inflate(R.layout.firstpopup,
+		View layoutOwn1 = inflater.inflate(R.layout.popup,
 				(ViewGroup) findViewById(R.id.widget), false);
 
-		pw = new PopupWindow(layoutOwn1, 500, 500, true);
+		pw = new PopupWindow(layoutOwn1);
+		pw.setFocusable(true);
+		pw.setHeight(pw.getMaxAvailableHeight(layoutOwn1)/2);
+		pw.setWidth(pw.getMaxAvailableHeight(layoutOwn1)/2);
 		pw.setAnimationStyle(7);
 		pw.setBackgroundDrawable(new BitmapDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);
 		tv1.setText(puContent[contentIndex]);
 		contentIndex++;
 
-		weiter = (Button) layoutOwn1.findViewById(R.id.widget41);
+		weiter = (Button) layoutOwn1.findViewById(R.id.button_popup);
 		weiter.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -586,7 +319,7 @@ public class NewFilmActivity extends Activity {
 				} else {
 					tv1.setText(puContent[contentIndex]);
 					contentIndex++;
-					if (contentIndex == 3) {
+					if (contentIndex == 4) {
 						openOptionsMenu();
 					}
 				}

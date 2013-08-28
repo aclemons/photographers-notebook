@@ -50,12 +50,13 @@
         android:layout_height="2dp"
         />
     
-    <Button android:id="@+id/snap" 
-            android:layout_width="fill_parent" 
-            android:layout_height="wrap_content" 
-            android:background="@drawable/custom_buttonklick"
-            android:text="Klick"
-            android:layout_alignParentBottom="true" /> 
+    <Button
+        android:id="@+id/snap"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/custom_buttonklick"
+        android:text="@string/click" />
     
     <View 
         android:layout_width="wrap_content"
@@ -70,13 +71,14 @@
     android:orientation="horizontal"
     android:layout_height="wrap_content">
     
-    <Button android:id="@+id/snaps" 
-            android:layout_width="fill_parent" 
-            android:layout_height="wrap_content" 
-            android:background="@drawable/custom_button"
-            android:layout_weight=".4" 
-            android:text="Speichern"
-            android:layout_alignParentBottom="true" /> 
+    <Button
+        android:id="@+id/snaps"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_weight=".4"
+        android:background="@drawable/custom_button"
+        android:text="@string/save" />
             
             <Button 
             android:layout_width="fill_parent" 
@@ -86,13 +88,14 @@
             android:text=""
             android:layout_alignParentBottom="true" />
             
-            <Button android:id="@+id/cancel" 
-            android:layout_width="fill_parent"
-            android:layout_weight=".4" 
-            android:background="@drawable/custom_button"
-            android:layout_height="wrap_content" 
-            android:text="Abbrechen"
-            android:layout_alignParentBottom="true" />
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_weight=".4"
+                android:background="@drawable/custom_button"
+                android:text="@string/cancel" />
             
     </LinearLayout>
     </LinearLayout>
