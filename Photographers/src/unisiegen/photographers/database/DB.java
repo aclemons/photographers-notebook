@@ -149,7 +149,6 @@ public class DB {
 		setDefaultSettings(myDBSet, res, R.array.setmes, MY_DB_TABLE_SETMES);
 		setDefaultSettings(myDBSet, res, R.array.setplu, MY_DB_TABLE_SETPLU);
 		setDefaultSettings(myDBSet, res, R.array.setkor, MY_DB_TABLE_SETKOR);
-		setDefaultSettings(myDBSet, res, R.array.setff, MY_DB_TABLE_SETFF);
 		setDefaultSettings(myDBSet, res, R.array.setmvf, MY_DB_TABLE_SETMVF);
 		setDefaultSettings(myDBSet, res, R.array.setmvf2, MY_DB_TABLE_SETMVF2);
 		setDefaultSettings(myDBSet, res, R.array.setfvf, MY_DB_TABLE_SETFVF);
