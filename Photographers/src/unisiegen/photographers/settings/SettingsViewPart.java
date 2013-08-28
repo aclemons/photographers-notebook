@@ -2,7 +2,6 @@ package unisiegen.photographers.settings;
 
 import java.util.ArrayList;
 
-import unisiegen.photographers.activity.EditSettingsActivity;
 import unisiegen.photographers.activity.R;
 import unisiegen.photographers.activity.SettingsArrayAdapter;
 import unisiegen.photographers.database.DB;
@@ -14,12 +13,13 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -28,7 +28,6 @@ import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemLongClickListener;
 
 /**
  * This is a hack... as I seem to be too stupid to subclass from View in a
@@ -53,7 +52,7 @@ public class SettingsViewPart {
 	}
 
 	public SettingsViewPart(final Context context, int titleID, int position,
-			final String database, final String settingName) {
+			final String settingName) {
 
 		inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -71,9 +70,10 @@ public class SettingsViewPart {
 		layout.setBackgroundResource(R.drawable.shaperedtable);
 
 		// Fill with Data
-		//TODO: Daten holen sollte eigentlich der SettingsArrayAdapter machen, denke ich...
-		values = DB.getDB().getAllSettings(context, database, settingName);
-		listAdapter = new SettingsArrayAdapter(context, database, values, position);
+		// TODO: Daten holen sollte eigentlich der SettingsArrayAdapter machen,
+		// denke ich...
+		values = DB.getDB().getAllSettings(context, settingName);
+		listAdapter = new SettingsArrayAdapter(context, values, position);
 		list.setAdapter(listAdapter);
 
 		layout.setPadding(4, 0, -2, 0);
@@ -101,12 +101,12 @@ public class SettingsViewPart {
 						LinearLayout lins = (LinearLayout) arg1;
 						TextView texti = (TextView) lins.getChildAt(0);
 
-						DB.getDB().setDefaultVal(context, database,
-								settingName, texti.getText().toString());
+						DB.getDB().setDefaultVal(context, settingName,
+								texti.getText().toString());
 
 						listAdapter.clear();
-						values = DB.getDB().getAllSettings(context, database,
-								settingName);
+						values = DB.getDB()
+								.getAllSettings(context, settingName);
 						for (Setting s : values) {
 							listAdapter.add(s);
 						}
@@ -128,13 +128,13 @@ public class SettingsViewPart {
 						LinearLayout lins = (LinearLayout) arg1;
 						TextView texti = (TextView) lins.getChildAt(0);
 
-						DB.getDB().deleteSetting(context, database,
-								settingName, texti.getText().toString());
+						DB.getDB().deleteSetting(context, settingName,
+								texti.getText().toString());
 						listAdapter.clear();
-//						activity.readDB(); // TODO: Die zeile muss später
-											// raus...
-						values = DB.getDB().getAllSettings(context, database,
-								settingName);
+						// activity.readDB(); // TODO: Die zeile muss später
+						// raus...
+						values = DB.getDB()
+								.getAllSettings(context, settingName);
 						for (Setting s : values) {
 							listAdapter.add(s);
 						}
@@ -198,10 +198,9 @@ public class SettingsViewPart {
 							Toast.LENGTH_SHORT).show();
 				} else {
 
-					DB.getDB().addSetting(context, database, settingName, newVal, 1);
+					DB.getDB().addSetting(context, settingName, newVal, 1);
 					listAdapter.clear();
-					values = DB.getDB().getAllSettings(context, database,
-							settingName);
+					values = DB.getDB().getAllSettings(context, settingName);
 					for (Setting s : values) {
 						listAdapter.add(s);
 					}

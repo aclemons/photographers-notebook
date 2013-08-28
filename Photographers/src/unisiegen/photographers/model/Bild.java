@@ -17,7 +17,7 @@
 package unisiegen.photographers.model;
 
 public class Bild {
-	
+
 	public String Bildnummer;
 	public String Objektiv;
 	public String Blende;
@@ -35,13 +35,13 @@ public class Bild {
 	public String GeoTag;
 	public String Notiz;
 	public String KameraNotiz;
-	
-	public Bild(String _bildnummer, String _objektiv, String _blende, String _zeit, 
-			 	      String _fokus, String _filter, String _makro, String _filterVF, 
-			 	      String _makroVF,String _messmethode, String _belichtungskorrektur, 
-			 	      String _blitz, String _blitzkorrektur, String _zeitstempel, String _geoTag, 
-			 	      String _notiz, String _kameraNotiz) 
-	{
+
+	public Bild(String _bildnummer, String _objektiv, String _blende,
+			String _zeit, String _fokus, String _filter, String _makro,
+			String _filterVF, String _makroVF, String _messmethode,
+			String _belichtungskorrektur, String _blitz,
+			String _blitzkorrektur, String _zeitstempel, String _geoTag,
+			String _notiz, String _kameraNotiz) {
 		Bildnummer = _bildnummer;
 		Objektiv = _objektiv;
 		Blende = _blende;
@@ -60,8 +60,8 @@ public class Bild {
 		Notiz = _notiz;
 		KameraNotiz = _kameraNotiz;
 	}
-	
-	public Bild(){
-		
+
+	public Bild() {
+
 	}
 }

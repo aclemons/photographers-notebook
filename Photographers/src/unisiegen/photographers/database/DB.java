@@ -24,9 +24,11 @@ import unisiegen.photographers.model.Film;
 import unisiegen.photographers.model.Setting;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
@@ -72,10 +74,10 @@ public class DB {
 	public final static String MY_DB_TABLE_SETTYP = "SettingsFilmTyp";
 
 	public final static ArrayList<String> tableNames = new ArrayList<String>();
-	
+
 	static {
 		tableNames.add(MY_DB_TABLE_SETCAM);
-		//tableNames.add(MY_DB_TABLE_SETCAMBW); anderes Layout...
+		// tableNames.add(MY_DB_TABLE_SETCAMBW); anderes Layout...
 		tableNames.add(MY_DB_TABLE_SETFF);
 		tableNames.add(MY_DB_TABLE_SETEMP);
 		tableNames.add(MY_DB_TABLE_SETBW);
@@ -94,9 +96,9 @@ public class DB {
 		tableNames.add(MY_DB_TABLE_SETMVF2);
 		tableNames.add(MY_DB_TABLE_SETFVF2);
 		tableNames.add(MY_DB_TABLE_SETKOR);
-		tableNames.add(MY_DB_TABLE_SETTYP);		
+		tableNames.add(MY_DB_TABLE_SETTYP);
 	}
-	
+
 	private DB() {
 	}
 
@@ -107,11 +109,28 @@ public class DB {
 		return instance;
 	}
 
-	public void createOrRebuildSettingsTable(Context context, String database) throws Exception {
+	private String getDBName(Context context) {
+
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		String dbName = prefs.getString("SettingsTable", DB.MY_DB_SET);
+
+		return dbName;
+	}
+
+	public void createOrRebuildSettingsTable(Context context) throws Exception {
+
+		String database = getDBName(context);
+		createOrRebuildSettingsTable(context, database);
+	}
+
+	public void createOrRebuildSettingsTable(Context context, String database)
+			throws Exception {
 
 		Log.v("DatabaseCreator", "rebuildSettings() was called...");
 
-		SQLiteDatabase myDBSet = context.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		SQLiteDatabase myDBSet = context.openOrCreateDatabase(database,
+				Context.MODE_PRIVATE, null);
 
 		myDBSet.beginTransaction();
 		// needs special care
@@ -119,23 +138,23 @@ public class DB {
 				+ MY_DB_TABLE_SETCAMBW
 				+ " (_id integer primary key autoincrement, cam varchar(100), bw varchar(100))"
 				+ ";");
-		
-		//all other tables are the same...
-		for(String tableName : tableNames){
+
+		// all other tables are the same...
+		for (String tableName : tableNames) {
 			StringBuffer buf = new StringBuffer();
 			buf.append("CREATE TABLE IF NOT EXISTS ");
 			buf.append(tableName);
 			buf.append(" (_id integer primary key autoincrement, name varchar(100), value integer, def integer);");
 			myDBSet.execSQL(buf.toString());
-			
+
 			buf = new StringBuffer();
 			buf.append("DELETE FROM ");
 			buf.append(tableName);
 			myDBSet.execSQL(buf.toString());
 		}
-		
-		Resources res = context.getResources();		
-		
+
+		Resources res = context.getResources();
+
 		setDefaultSettings(myDBSet, res, R.array.setff, MY_DB_TABLE_SETFF);
 		setDefaultSettings(myDBSet, res, R.array.setemp, MY_DB_TABLE_SETEMP);
 		setDefaultSettings(myDBSet, res, R.array.settyp, MY_DB_TABLE_SETTYP);
@@ -155,14 +174,15 @@ public class DB {
 		setDefaultSettings(myDBSet, res, R.array.setfvf2, MY_DB_TABLE_SETFVF2);
 		myDBSet.setTransactionSuccessful();
 		myDBSet.endTransaction();
-		
+
 		myDBSet.close();
-		
-		setDefaultVal(context, MY_DB_SET, MY_DB_TABLE_SETKOR, "0");
-		setDefaultVal(context, MY_DB_SET, MY_DB_TABLE_SETPLU, "0");
+
+		setDefaultVal(context, MY_DB_TABLE_SETKOR, "0");
+		setDefaultVal(context, MY_DB_TABLE_SETPLU, "0");
 	}
 
-	private void setDefaultSettings(SQLiteDatabase database, Resources res, int stringArrayName, String tableName) {
+	private void setDefaultSettings(SQLiteDatabase database, Resources res,
+			int stringArrayName, String tableName) {
 		String[] valueArray = res.getStringArray(stringArrayName);
 		if (valueArray != null) {
 			for (String value : valueArray) {
@@ -173,7 +193,7 @@ public class DB {
 				buf.append(value);
 				buf.append("','1', '0');");
 				database.execSQL(buf.toString());
-			}	
+			}
 		}
 	}
 
@@ -308,7 +328,7 @@ public class DB {
 										+ DB.MY_DB_FILM_TABLE
 										+ " WHERE filmtitle = '"
 										+ film.Titel
-										+ "'", null); 
+										+ "'", null);
 
 				if (c1 != null) {
 					if (c1.moveToFirst()) {
@@ -358,7 +378,8 @@ public class DB {
 		sql.append(" WHERE filmtitle = '");
 		sql.append(title);
 		if (bildNummer == null) {
-			sql.append("' AND picnummer != 'Bild 0';"); // Ignore the dummy pic "Bild 0" 
+			sql.append("' AND picnummer != 'Bild 0';"); // Ignore the dummy pic
+														// "Bild 0"
 		} else {
 			sql.append("' AND picnummer = '");
 			sql.append(bildNummer);
@@ -404,90 +425,95 @@ public class DB {
 
 		return bilder;
 	}
-	
-	public boolean deleteSetting(Context mContext, String database, String settingType, String value){
-		
-		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
-		
+
+	public boolean deleteSetting(Context context, String settingType,
+			String value) {
+
+		SQLiteDatabase db = context.openOrCreateDatabase(getDBName(context),
+				Context.MODE_PRIVATE, null);
+
 		try {
-			db.execSQL("DELETE FROM " + settingType + " WHERE name = '" + value + "'");
+			db.execSQL("DELETE FROM " + settingType + " WHERE name = '" + value
+					+ "'");
 			db.close();
-					
+
 		} catch (Exception e) {
 			db.close();
-			
+
 			return false;
 		}
-		
+
 		return true;
 	}
-	
 
-	public void deleteLens(Context mContext, String database, String lens) {
-		
-		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
-		
+	public void deleteLens(Context mContext, String lens) {
+
+		SQLiteDatabase db = mContext.openOrCreateDatabase(getDBName(mContext),
+				Context.MODE_PRIVATE, null);
+
 		try {
-			db.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETCAMBW + " WHERE bw = '" + lens + "'");
+			db.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETCAMBW
+					+ " WHERE bw = '" + lens + "'");
 			db.close();
 		} catch (Exception e) {
 			Log.v("Check", "Fehler Delete : " + e);
 			db.close();
-		}		
+		}
 	}
-	
-	
-	public void deleteLensFromCamera(Context mContext, String database, String lens, String camera) {
-		
-		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
-		
+
+	public void deleteLensFromCamera(Context mContext, String lens,
+			String camera) {
+
+		SQLiteDatabase db = mContext.openOrCreateDatabase(getDBName(mContext),
+				Context.MODE_PRIVATE, null);
+
 		try {
-			db.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETCAMBW + " WHERE bw = '" + lens + "' AND cam = '" + camera + "'");
+			db.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETCAMBW
+					+ " WHERE bw = '" + lens + "' AND cam = '" + camera + "'");
 			db.close();
 		} catch (Exception e) {
 			Log.v("Check", "Fehler Delete : " + e);
 			db.close();
-		}		
+		}
 	}
-	
-	
-	public boolean addSetting(Context mContext, String database, String settingType, String name, int value){
-		
-		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
-		db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+
+	public boolean addSetting(Context mContext, String settingType,
+			String name, int value) {
+
+		SQLiteDatabase db = mContext.openOrCreateDatabase(getDBName(mContext),
+				Context.MODE_PRIVATE, null);
 		db.execSQL("INSERT INTO " + settingType + " Values (" + null + ",'"
 				+ "" + name + "" + "','" + value + "','" + 0 + "');");
 		db.close();
-		
+
 		return true;
 	}
 
-	
-	public void updateSetting(Context mContext, String database, String settingType, String name, int value){
-		
-		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
-		db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
-		
-		db.execSQL("UPDATE " + settingType + " SET value = '" + value + "' WHERE name = '" + name + "'");
+	public void updateSetting(Context mContext, String settingType,
+			String name, int value) {
+
+		SQLiteDatabase db = mContext.openOrCreateDatabase(getDBName(mContext),
+				Context.MODE_PRIVATE, null);
+		db.execSQL("UPDATE " + settingType + " SET value = '" + value
+				+ "' WHERE name = '" + name + "'");
 		db.close();
 	}
-	
-	
-	public boolean addLensToCamera(Context mContext, String database, String camera, String lens){
-		
-		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
-		db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);		
-		db.execSQL("INSERT INTO " + DB.MY_DB_TABLE_SETCAMBW + " Values (" + null + ",'" + "" + camera + "" + "','" + lens + "');");
+
+	public boolean addLensToCamera(Context mContext, String camera, String lens) {
+
+		SQLiteDatabase db = mContext.openOrCreateDatabase(getDBName(mContext),
+				Context.MODE_PRIVATE, null);
+		db.execSQL("INSERT INTO " + DB.MY_DB_TABLE_SETCAMBW + " Values ("
+				+ null + ",'" + "" + camera + "" + "','" + lens + "');");
 		db.close();
-		
+
 		return true;
 	}
 
-	
 	/**
-	 * This will retrieve a List of ALL settings, with additional data for
-	 * each particular value, if it is enabled and should be shown in the UI.
-	 * This is used by the configuration dialog (EditSettings).
+	 * This will retrieve a List of ALL settings, with additional data for each
+	 * particular value, if it is enabled and should be shown in the UI. This is
+	 * used by the configuration dialog (EditSettings).
 	 * 
 	 * @param mContext
 	 * @param database
@@ -496,52 +522,57 @@ public class DB {
 	 *            a table (for a certain type of settings) in the db.
 	 * @return
 	 */
-	public ArrayList<Setting> getAllSettings(Context mContext, String database, String settingName) {
+	public ArrayList<Setting> getAllSettings(Context mContext,
+			String settingName) {
 
 		ArrayList<Setting> values = new ArrayList<Setting>();
-		
-		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
-		Cursor c = db.rawQuery("SELECT name, value, def FROM " + settingName, null);
+
+		SQLiteDatabase db = mContext.openOrCreateDatabase(getDBName(mContext),
+				Context.MODE_PRIVATE, null);
+		Cursor c = db.rawQuery("SELECT name, value, def FROM " + settingName,
+				null);
 		if (c != null) {
 			if (c.moveToFirst()) {
 				do {
-					values.add(new Setting(
-							settingName, c.getString(c.getColumnIndex("name")), 
-							c.getInt(c.getColumnIndex("value")), 
-							c.getInt(c.getColumnIndex("def")))
-					);
-					
+					values.add(new Setting(settingName, c.getString(c
+							.getColumnIndex("name")), c.getInt(c
+							.getColumnIndex("value")), c.getInt(c
+							.getColumnIndex("def"))));
+
 				} while (c.moveToNext());
 			}
 		}
 		c.close();
 		db.close();
-		
+
 		return values;
 	}
-	
-	public boolean setDefaultVal(Context mContext, String database, String settingName, String newDefault){
-		
-		SQLiteDatabase db = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
-		
+
+	public boolean setDefaultVal(Context mContext, String settingName,
+			String newDefault) {
+
+		SQLiteDatabase db = mContext.openOrCreateDatabase(getDBName(mContext),
+				Context.MODE_PRIVATE, null);
+
 		db.execSQL("UPDATE " + settingName + " SET def = '" + 0 + "'");
-		db.execSQL("UPDATE " + settingName + " SET def = '" + 1 + "' WHERE name = '" + newDefault + "'");
+		db.execSQL("UPDATE " + settingName + " SET def = '" + 1
+				+ "' WHERE name = '" + newDefault + "'");
 		db.close();
-		
+
 		return true;
 	}
-	
-	
 
 	/**
 	 * 
 	 * @return Returns a list of items, usable for various portions of the UI
 	 */
-	public ArrayList<String> getActivatedSettingsData(Context mContext, String database, String settingName) {
+	public ArrayList<String> getActivatedSettingsData(Context mContext,
+			String settingName) {
 
 		ArrayList<String> values = new ArrayList<String>();
 
-		SQLiteDatabase myDB = mContext.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
+		SQLiteDatabase myDB = mContext.openOrCreateDatabase(
+				getDBName(mContext), Context.MODE_PRIVATE, null);
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT name, value FROM ");
 		sql.append(settingName);
@@ -562,11 +593,10 @@ public class DB {
 		return values;
 	}
 
-	public int getDefaultSettingNumber(Context mContext, String database,
-			String settingName) {
+	public int getDefaultSettingNumber(Context mContext, String settingName) {
 
-		SQLiteDatabase myDB = mContext.openOrCreateDatabase(database,
-				Context.MODE_PRIVATE, null);
+		SQLiteDatabase myDB = mContext.openOrCreateDatabase(
+				getDBName(mContext), Context.MODE_PRIVATE, null);
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT name, value, def FROM ");
 		sql.append(settingName);
@@ -595,13 +625,11 @@ public class DB {
 		return 0;
 	}
 
-
-	public ArrayList<String> getLensesForCamera(Context mContext,
-			String dbName, String camera) {
+	public ArrayList<String> getLensesForCamera(Context mContext, String camera) {
 
 		ArrayList<String> values = new ArrayList<String>();
 
-		SQLiteDatabase db = mContext.openOrCreateDatabase(dbName,
+		SQLiteDatabase db = mContext.openOrCreateDatabase(getDBName(mContext),
 				Context.MODE_PRIVATE, null);
 
 		StringBuffer sql = new StringBuffer();
@@ -625,7 +653,6 @@ public class DB {
 
 		return values;
 	}
-	
 
 	public void updatePicture(Context mContext, Film film, Bild bild) {
 
@@ -757,7 +784,7 @@ public class DB {
 		sql.append("','");
 
 		String[] geotagParts = b.GeoTag.split("' , '");
-		
+
 		// lat
 		sql.append(geotagParts[0]);
 		sql.append("','");

@@ -32,7 +32,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
@@ -113,11 +112,6 @@ public class EditSettingsActivity extends Activity {
 	private ViewPager viewPager;
 	private TitlePageIndicator settingsPageIndicator;
 
-	/*
-	 * Datenbank Variablen
-	 */
-	private static String MY_DB_NAME;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -125,10 +119,7 @@ public class EditSettingsActivity extends Activity {
 		setContentView(R.layout.slidenewsettings);
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		MY_DB_NAME = settings.getString("SettingsTable", DB.MY_DB_SET);
-
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
-
 		SettingsPager settingsAdapter = new SettingsPager(this);
 		viewPager.setAdapter(settingsAdapter);
 		settingsPageIndicator = (TitlePageIndicator) findViewById(R.id.titles);
@@ -276,75 +267,61 @@ public class EditSettingsActivity extends Activity {
 				break;
 			case FOKUS_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.focus,
-						FOKUS_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFOK)
-						.getView();
+						FOKUS_POSITION, DB.MY_DB_TABLE_SETFOK).getView();
 				break;
 			case BLENDE_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.aperture,
-						BLENDE_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETBLE)
-						.getView();
+						BLENDE_POSITION, DB.MY_DB_TABLE_SETBLE).getView();
 				break;
 			case ZEITE_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.exposure,
-						ZEITE_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETZEI)
-						.getView();
+						ZEITE_POSITION, DB.MY_DB_TABLE_SETZEI).getView();
 				break;
 			case MESS_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.measurement,
-						MESS_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETMES)
-						.getView();
+						MESS_POSITION, DB.MY_DB_TABLE_SETMES).getView();
 				break;
 			case KORREKTUR_POSITION:
 				myView = new SettingsViewPart(mContext,
 						R.string.exposure_correction, KORREKTUR_POSITION,
-						MY_DB_NAME, DB.MY_DB_TABLE_SETKOR).getView();
+						DB.MY_DB_TABLE_SETKOR).getView();
 				break;
 			case MAKRO_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.focus,
-						MAKRO_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETNM)
-						.getView();
+						MAKRO_POSITION, DB.MY_DB_TABLE_SETNM).getView();
 				break;
 			case MAKROVF_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.macro_vf,
-						MAKROVF_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETMVF)
-						.getView();
+						MAKROVF_POSITION, DB.MY_DB_TABLE_SETMVF).getView();
 				break;
 			case FILTER_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.filter,
-						FILTER_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFIL)
-						.getView();
+						FILTER_POSITION, DB.MY_DB_TABLE_SETFIL).getView();
 				break;
 			case FILTERVF_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.filter_vf,
-						FILTERVF_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFVF)
-						.getView();
-				// TODO: Wahrscheinlich muss hier zwischen MY_DB_TABLE_SETFVF
-				// und MY_DB_TABLE_SETFVF2 ausgewählt werden!
+						FILTERVF_POSITION, DB.MY_DB_TABLE_SETFVF).getView();
 				break;
 			case FILMFORMAT_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.film_formats,
-						FILMFORMAT_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETFF)
-						.getView();
+						FILMFORMAT_POSITION, DB.MY_DB_TABLE_SETFF).getView();
 				break;
 			case ASA_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.film_speed,
-						ASA_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETEMP)
-						.getView();
+						ASA_POSITION, DB.MY_DB_TABLE_SETEMP).getView();
 				break;
 			case BLITZ_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.flash,
-						BLITZ_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETBLI)
-						.getView();
+						BLITZ_POSITION, DB.MY_DB_TABLE_SETBLI).getView();
 				break;
 			case BLITZKORR_POSITION:
 				myView = new SettingsViewPart(mContext,
 						R.string.flash_correction, BLITZKORR_POSITION,
-						MY_DB_NAME, DB.MY_DB_TABLE_SETKOR).getView();
+						DB.MY_DB_TABLE_SETKOR).getView();
 				break;
 			case SOND_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.processing,
-						SOND_POSITION, MY_DB_NAME, DB.MY_DB_TABLE_SETSON)
-						.getView();
+						SOND_POSITION, DB.MY_DB_TABLE_SETSON).getView();
 				break;
 			}
 
@@ -366,7 +343,7 @@ public class EditSettingsActivity extends Activity {
 			tablor.setBackgroundResource(R.drawable.shaperedtable);
 			tablor.setPadding(4, 0, -2, 0);
 			final ArrayList<Setting> valuesCam = DB.getDB().getAllSettings(
-					mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETCAM);
+					mContext, DB.MY_DB_TABLE_SETCAM);
 			final ArrayAdapter<Setting> listAdapter = new CamArrayAdapter(
 					mContext, valuesCam);
 			myList.setAdapter(listAdapter);
@@ -426,7 +403,7 @@ public class EditSettingsActivity extends Activity {
 									.setBackgroundResource(R.drawable.shaperedtable);
 							tablorspec.setPadding(2, 2, 2, 2);
 							final ArrayList<Setting> aplanetsspec = DB.getDB()
-									.getAllSettings(mContext, MY_DB_NAME,
+									.getAllSettings(mContext,
 											DB.MY_DB_TABLE_SETBW);
 							final ArrayAdapter<Setting> listAdapterspec = new SettingsArrayAdapterSpec(
 									mContext, aplanetsspec,
@@ -458,13 +435,11 @@ public class EditSettingsActivity extends Activity {
 																	DB.getDB()
 																			.deleteLens(
 																					mContext,
-																					MY_DB_NAME,
 																					tec.getText()
 																							.toString());
 																	DB.getDB()
 																			.deleteSetting(
 																					mContext,
-																					MY_DB_NAME,
 																					DB.MY_DB_TABLE_SETBW,
 																					tec.getText()
 																							.toString());
@@ -477,7 +452,6 @@ public class EditSettingsActivity extends Activity {
 																			.getDB()
 																			.getAllSettings(
 																					mContext,
-																					MY_DB_NAME,
 																					DB.MY_DB_TABLE_SETBW);
 																	for (Setting s : values) {
 																		listAdapterspec
@@ -547,7 +521,6 @@ public class EditSettingsActivity extends Activity {
 											} else {
 												DB.getDB().addSetting(
 														mContext,
-														MY_DB_NAME,
 														DB.MY_DB_TABLE_SETBW,
 														Katspec.getText()
 																.toString(), 1);
@@ -557,8 +530,7 @@ public class EditSettingsActivity extends Activity {
 												String lens = Katspec.getText()
 														.toString();
 												DB.getDB().addLensToCamera(
-														mContext, MY_DB_NAME,
-														camera, lens);
+														mContext, camera, lens);
 
 												aplanetsspec.add(new Setting(
 														DB.MY_DB_TABLE_SETBW,
@@ -592,7 +564,7 @@ public class EditSettingsActivity extends Activity {
 							TextView texti = (TextView) ((LinearLayout) lins
 									.getChildAt(0)).getChildAt(0);
 
-							DB.getDB().setDefaultVal(mContext, MY_DB_NAME,
+							DB.getDB().setDefaultVal(mContext,
 									DB.MY_DB_TABLE_SETCAM,
 									texti.getText().toString());
 
@@ -609,7 +581,7 @@ public class EditSettingsActivity extends Activity {
 							LinearLayout lins = (LinearLayout) arg1;
 							TextView texti = (TextView) ((LinearLayout) lins
 									.getChildAt(0)).getChildAt(0);
-							DB.getDB().deleteSetting(mContext, MY_DB_NAME,
+							DB.getDB().deleteSetting(mContext,
 									DB.MY_DB_TABLE_SETCAM,
 									texti.getText().toString());
 
@@ -655,8 +627,7 @@ public class EditSettingsActivity extends Activity {
 								getString(R.string.empty_or_existing_entry),
 								Toast.LENGTH_SHORT).show();
 					} else {
-						DB.getDB().addSetting(mContext, MY_DB_NAME,
-								DB.MY_DB_TABLE_SETCAM,
+						DB.getDB().addSetting(mContext, DB.MY_DB_TABLE_SETCAM,
 								Kat.getText().toString(), 1);
 						valuesCam.add(new Setting(DB.MY_DB_TABLE_SETCAM, Kat
 								.getText().toString(), 1, 0));
@@ -685,8 +656,7 @@ public class EditSettingsActivity extends Activity {
 								.setBackgroundResource(R.drawable.shaperedtable);
 						tablorspec.setPadding(2, 2, 2, 2);
 						final ArrayList<Setting> aplanetsspec = DB.getDB()
-								.getAllSettings(mContext, MY_DB_NAME,
-										DB.MY_DB_TABLE_SETBW);
+								.getAllSettings(mContext, DB.MY_DB_TABLE_SETBW);
 						final ArrayAdapter<Setting> listAdapterspec = new SettingsArrayAdapterSpec(
 								mContext, aplanetsspec, BRENNWEITE_POSITION,
 								Kat.getText().toString());
@@ -715,13 +685,11 @@ public class EditSettingsActivity extends Activity {
 																DB.getDB()
 																		.deleteLens(
 																				mContext,
-																				MY_DB_NAME,
 																				tec.getText()
 																						.toString());
 																DB.getDB()
 																		.deleteSetting(
 																				mContext,
-																				MY_DB_NAME,
 																				DB.MY_DB_TABLE_SETBW,
 																				tec.getText()
 																						.toString());
@@ -732,7 +700,6 @@ public class EditSettingsActivity extends Activity {
 																		.getDB()
 																		.getAllSettings(
 																				mContext,
-																				MY_DB_NAME,
 																				DB.MY_DB_TABLE_SETBW);
 																for (Setting s : values) {
 																	aplanetsspec
@@ -795,7 +762,6 @@ public class EditSettingsActivity extends Activity {
 										} else {
 											DB.getDB().addSetting(
 													mContext,
-													MY_DB_NAME,
 													DB.MY_DB_TABLE_SETBW,
 													Katspec.getText()
 															.toString(), 1);
@@ -805,8 +771,7 @@ public class EditSettingsActivity extends Activity {
 											String lens = Katspec.getText()
 													.toString();
 											DB.getDB().addLensToCamera(
-													mContext, MY_DB_NAME,
-													camera, lens);
+													mContext, camera, lens);
 
 											aplanetsspec.add(new Setting(
 													DB.MY_DB_TABLE_SETBW,
@@ -1136,7 +1101,7 @@ public class EditSettingsActivity extends Activity {
 			int lineBreakControl = 0;
 
 			ArrayList<String> values = DB.getDB().getLensesForCamera(mContext,
-					MY_DB_NAME, planet.getValue().toString());
+					planet.getValue().toString());
 			if (values.size() == 0) {
 				grid.setVisibility(LinearLayout.GONE);
 			}
@@ -1167,8 +1132,8 @@ public class EditSettingsActivity extends Activity {
 						value = 1;
 					}
 
-					DB.getDB().updateSetting(mContext, MY_DB_NAME,
-							DB.MY_DB_TABLE_SETCAM, planet.getValue(), value);
+					DB.getDB().updateSetting(mContext, DB.MY_DB_TABLE_SETCAM,
+							planet.getValue(), value);
 				}
 			});
 
@@ -1225,8 +1190,8 @@ public class EditSettingsActivity extends Activity {
 
 						if (cb.isChecked() == true) {
 
-							DB.getDB().addLensToCamera(mContext, MY_DB_NAME,
-									camera, planet.getValue().toString());
+							DB.getDB().addLensToCamera(mContext, camera,
+									planet.getValue().toString());
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 							SettingsPager adapter = new SettingsPager(mContext);
 							viewPager.setAdapter(adapter);
@@ -1236,8 +1201,7 @@ public class EditSettingsActivity extends Activity {
 
 						} else {
 							DB.getDB().deleteLensFromCamera(mContext,
-									MY_DB_NAME, planet.getValue().toString(),
-									camera);
+									planet.getValue().toString(), camera);
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 
 							SettingsPager adapter = new SettingsPager(mContext);
@@ -1257,7 +1221,7 @@ public class EditSettingsActivity extends Activity {
 			checkBox.setTag(planet);
 
 			ArrayList<String> brennweiten = DB.getDB().getLensesForCamera(
-					mContext, MY_DB_NAME, camera);
+					mContext, camera);
 			if (brennweiten.contains(planet.getValue())) {
 				checkBox.setChecked(true);
 			} else {
@@ -1363,19 +1327,15 @@ public class EditSettingsActivity extends Activity {
 					if (v == setfour) {
 						prefsEditor.putInt("LoadSet", 4);
 						prefsEditor.putString("SettingsTable", DB.MY_DB_SET3);
-						MY_DB_NAME = DB.MY_DB_SET3;
 					} else if (v == setthree) {
 						prefsEditor.putInt("LoadSet", 3);
 						prefsEditor.putString("SettingsTable", DB.MY_DB_SET2);
-						MY_DB_NAME = DB.MY_DB_SET2;
 					} else if (v == settwo) {
 						prefsEditor.putInt("LoadSet", 2);
 						prefsEditor.putString("SettingsTable", DB.MY_DB_SET1);
-						MY_DB_NAME = DB.MY_DB_SET1;
 					} else {
 						prefsEditor.putInt("LoadSet", 1);
 						prefsEditor.putString("SettingsTable", DB.MY_DB_SET);
-						MY_DB_NAME = DB.MY_DB_SET;
 					}
 
 					prefsEditor.commit();
@@ -1460,8 +1420,7 @@ public class EditSettingsActivity extends Activity {
 
 				SharedPreferences prefs = PreferenceManager
 						.getDefaultSharedPreferences(mContext);
-				MY_DB_NAME = prefs.getString("SettingsTable", DB.MY_DB_SET);
-				DB.getDB().createOrRebuildSettingsTable(mContext, MY_DB_NAME);
+				DB.getDB().createOrRebuildSettingsTable(mContext);
 
 				SharedPreferences.Editor editor = prefs.edit();
 				editor.putInt("FIRSTSTART", 1);

@@ -18,12 +18,11 @@ public class SettingsArrayAdapter extends ArrayAdapter<Setting> {
 
 	private LayoutInflater inflater;
 	int nummer = 0;
-	private String database;
 
-	public SettingsArrayAdapter(Context context, String database, List<Setting> planetList, int number) {
+	public SettingsArrayAdapter(Context context, List<Setting> planetList,
+			int number) {
 		super(context, R.layout.list_item, R.id.listItemText, planetList);
 		nummer = number;
-		this.database = database;
 		// Cache the LayoutInflate to avoid asking for a new one each time.
 		inflater = LayoutInflater.from(context);
 	}
@@ -42,8 +41,7 @@ public class SettingsArrayAdapter extends ArrayAdapter<Setting> {
 			convertView = inflater.inflate(R.layout.list_item, null);
 
 			// Find the child views.
-			textView = (TextView) convertView
-					.findViewById(R.id.listItemText);
+			textView = (TextView) convertView.findViewById(R.id.listItemText);
 			checkBox = (CheckBox) convertView.findViewById(R.id.check);
 
 			// Optimization: Tag the row with it's child views, so we don't
@@ -61,8 +59,9 @@ public class SettingsArrayAdapter extends ArrayAdapter<Setting> {
 					if (cb.isChecked() == true) {
 						value = 1;
 					}
-					
-					DB.getDB().updateSetting(getContext(), database, planet.getType(), planet.getValue(), value);
+
+					DB.getDB().updateSetting(getContext(), planet.getType(),
+							planet.getValue(), value);
 				}
 			});
 		}
@@ -70,7 +69,8 @@ public class SettingsArrayAdapter extends ArrayAdapter<Setting> {
 		else {
 			// Because we use a ViewHolder, we avoid having to call
 			// findViewById().
-			SettingsViewHolder viewHolder = (SettingsViewHolder) convertView.getTag();
+			SettingsViewHolder viewHolder = (SettingsViewHolder) convertView
+					.getTag();
 			checkBox = viewHolder.getCheckBox();
 			textView = viewHolder.getTextView();
 		}
@@ -86,8 +86,8 @@ public class SettingsArrayAdapter extends ArrayAdapter<Setting> {
 			checkBox.setChecked(false);
 		}
 		textView.setText(planet.getValue());
-		
-		if(planet.isDefaultValueB()){
+
+		if (planet.isDefaultValueB()) {
 			textView.setTextColor(0xFF0000AA);
 		} else {
 			textView.setTextColor(0xFF000000);
@@ -95,6 +95,5 @@ public class SettingsArrayAdapter extends ArrayAdapter<Setting> {
 
 		return convertView;
 	}
-	
 
 }

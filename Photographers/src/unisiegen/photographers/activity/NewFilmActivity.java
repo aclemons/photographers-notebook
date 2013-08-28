@@ -74,12 +74,11 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	TextView tv1, tv2, weiter, close, newFilm, vorschau, cancel;
 	EditText filmnotiz;
 	PopupWindow pw;
-	Spinner spinnerCamera, spinnerFF, spinnerSS, spinnerSSS, spinnerEM, spinnerTY;
+	Spinner spinnerCamera, spinnerFF, spinnerSS, spinnerSSS, spinnerEM,
+			spinnerTY;
 	ToggleButton titleButton;
 	EditText titleText;
 	Camera mCamera;
-
-	static String MY_DB_NAME;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -111,32 +110,44 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 				try {
 					SharedPreferences.Editor editor = settings.edit();
 					editor.putString("Title", titleText.getText().toString());
-					editor.putString("FilmNotiz", filmnotiz.getText().toString());
-					editor.putString("Datum", android.text.format.DateFormat.format("dd.MM.yyyy", new java.util.Date()).toString());
-					editor.putString("Kamera", spinnerCamera.getSelectedItem().toString());
-					editor.putString("Filmformat", spinnerFF.getSelectedItem().toString());
-					editor.putString("Empfindlichkeit", spinnerEM.getSelectedItem().toString());
-					editor.putString("Filmtyp", spinnerTY.getSelectedItem().toString());
-					editor.putString("Sonder1", spinnerSS.getSelectedItem().toString());
-					editor.putString("Sonder2", spinnerSSS.getSelectedItem().toString());
+					editor.putString("FilmNotiz", filmnotiz.getText()
+							.toString());
+					editor.putString("Datum", android.text.format.DateFormat
+							.format("dd.MM.yyyy", new java.util.Date())
+							.toString());
+					editor.putString("Kamera", spinnerCamera.getSelectedItem()
+							.toString());
+					editor.putString("Filmformat", spinnerFF.getSelectedItem()
+							.toString());
+					editor.putString("Empfindlichkeit", spinnerEM
+							.getSelectedItem().toString());
+					editor.putString("Filmtyp", spinnerTY.getSelectedItem()
+							.toString());
+					editor.putString("Sonder1", spinnerSS.getSelectedItem()
+							.toString());
+					editor.putString("Sonder2", spinnerSSS.getSelectedItem()
+							.toString());
 					editor.putInt("BildNummerToBegin", 1);
 					editor.putBoolean("EditMode", false);
 					editor.commit();
-					
+
 					Film f = new Film();
 					f.Titel = titleText.getText().toString();
 					f.Filmnotiz = filmnotiz.getText().toString();
-					f.Datum = android.text.format.DateFormat.format("dd.MM.yyyy", new java.util.Date()).toString();
+					f.Datum = android.text.format.DateFormat.format(
+							"dd.MM.yyyy", new java.util.Date()).toString();
 					f.Kamera = spinnerCamera.getSelectedItem().toString();
 					f.Filmformat = spinnerFF.getSelectedItem().toString();
 					f.Empfindlichkeit = spinnerEM.getSelectedItem().toString();
 					f.Filmtyp = spinnerTY.getSelectedItem().toString();
-					f.Sonderentwicklung1 = spinnerSS.getSelectedItem().toString();
-					f.Sonderentwicklung2 = spinnerSSS.getSelectedItem().toString();
-					
+					f.Sonderentwicklung1 = spinnerSS.getSelectedItem()
+							.toString();
+					f.Sonderentwicklung2 = spinnerSSS.getSelectedItem()
+							.toString();
+
 					Bild b = new Bild();
 					b.Bildnummer = "Bild 0";
-					b.Notiz = "Dummy-Bild fŸr die Filmdaten";
+					b.Notiz = "Dummy-Bild fï¿½r die Filmdaten";
 					b.Belichtungskorrektur = "";
 					b.Blende = "";
 					b.Blitz = "";
@@ -144,27 +155,31 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 					b.Filter = "";
 					b.FilterVF = "";
 					b.Fokus = "";
-					b.GeoTag = "0' , '0"; // Wenn das Format hier nicht stimmt, kracht es wegen dem Splitting des Strings in ein Array in der DB Klasse.
+					b.GeoTag = "0' , '0"; // Wenn das Format hier nicht stimmt,
+											// kracht es wegen dem Splitting des
+											// Strings in ein Array in der DB
+											// Klasse.
 					b.KameraNotiz = "";
 					b.Makro = "";
 					b.MakroVF = "";
 					b.Messmethode = "";
-					b.Objektiv  = "";
+					b.Objektiv = "";
 					b.Zeit = "";
-					
+
 					Calendar cal = Calendar.getInstance();
 					SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-					
-					b.Zeitstempel = sdf.format(cal.getTime());					
-					
+
+					b.Zeitstempel = sdf.format(cal.getTime());
+
 					byte[] thumbnail;
-					
-					// TODO: Check einbauen der prŸft ob ein Film mit gleichem Titel schon in der Datenbank ist!
-					
+
+					// TODO: Check einbauen der prï¿½ft ob ein Film mit gleichem
+					// Titel schon in der Datenbank ist!
+
 					Log.v("Check", "Check if Bild vorhanden : " + (pic == null));
 					Intent myIntent = new Intent(getApplicationContext(),
 							NewPictureActivity.class);
-										
+
 					if (pic != null) {
 						myIntent.putExtra("image", pic);
 						thumbnail = pic;
@@ -178,10 +193,12 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 						myIntent.putExtra("image", nopic);
 						thumbnail = nopic;
 					}
-					
-					String encodedImage = Base64.encodeToString(thumbnail, Base64.DEFAULT);
-					DB.getDB().addPictureCreateNummer(mContext, f, b, 0, encodedImage); 
-					
+
+					String encodedImage = Base64.encodeToString(thumbnail,
+							Base64.DEFAULT);
+					DB.getDB().addPictureCreateNummer(mContext, f, b, 0,
+							encodedImage);
+
 					finish();
 					startActivityForResult(myIntent, 1);
 				} catch (Exception e) {
@@ -199,8 +216,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	protected void onResume() {
 		super.onResume();
 		contentIndex = 0;
-		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
-		
+
 		titleText = (EditText) findViewById(R.id.texttitle);
 		titleButton = (ToggleButton) findViewById(R.id.toggletitle);
 		titleButton.setOnClickListener(new OnClickListener() {
@@ -212,14 +228,14 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 						+ getString(R.string.film));
 			}
 		});
-		
-		spinnerCamera = setupSpinner(R.id.spinnerCamera, DB.MY_DB_TABLE_SETCAM);				
+
+		spinnerCamera = setupSpinner(R.id.spinnerCamera, DB.MY_DB_TABLE_SETCAM);
 		spinnerFF = setupSpinner(R.id.spinnerFF, DB.MY_DB_TABLE_SETFF);
 		spinnerSS = setupSpinner(R.id.spinnerSS, DB.MY_DB_TABLE_SETSON);
 		spinnerSSS = setupSpinner(R.id.spinnerSSS, DB.MY_DB_TABLE_SETSON);
 		spinnerEM = setupSpinner(R.id.spinnerEM, DB.MY_DB_TABLE_SETEMP);
 		spinnerTY = setupSpinner(R.id.spinnerTY, DB.MY_DB_TABLE_SETTYP);
-		
+
 		if (settings.getInt("FIRSTSTART", 0) == 1) {
 			ViewGroup view = (ViewGroup) getWindow().getDecorView();
 			view.post(new Runnable() {
@@ -244,22 +260,25 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	}
 
 	private Spinner setupSpinner(int uiID, String tableName) {
-		
-		ArrayList<String> values = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, tableName);
-		int defaultValue = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, tableName);		
+
+		ArrayList<String> values = DB.getDB().getActivatedSettingsData(
+				mContext, tableName);
+		int defaultValue = DB.getDB().getDefaultSettingNumber(mContext,
+				tableName);
 		if (values.size() == 0) {
 			values.add(getString(R.string.no_selection));
 		}
-		
+
 		Spinner spinner = (Spinner) findViewById(uiID);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, values);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, values);
 		spinner.setAdapter(adapter);
-		if(defaultValue >= values.size()){
+		if (defaultValue >= values.size()) {
 			spinner.setSelection(0);
 		} else {
 			spinner.setSelection(defaultValue);
 		}
-		
+
 		return spinner;
 	}
 
@@ -290,7 +309,6 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 		}
 	}
 
-
 	public void popupmenue() {
 		Resources res = getResources();
 		final String[] puContent = res
@@ -302,8 +320,8 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 
 		pw = new PopupWindow(layoutOwn1);
 		pw.setFocusable(true);
-		pw.setHeight(pw.getMaxAvailableHeight(layoutOwn1)/2);
-		pw.setWidth(pw.getMaxAvailableHeight(layoutOwn1)/2);
+		pw.setHeight(pw.getMaxAvailableHeight(layoutOwn1) / 2);
+		pw.setWidth(pw.getMaxAvailableHeight(layoutOwn1) / 2);
 		pw.setAnimationStyle(7);
 		pw.setBackgroundDrawable(new BitmapDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);

@@ -17,36 +17,38 @@
 package unisiegen.photographers.model;
 
 public class Setting {
-	
+
 	// corresponds with the database table
 	private String type;
-	
+
 	// The value (of a certain type), as displayed in the UI
 	private String value;
-	
-	// true if selected in settings dialog = should be displayed as possible value in the UI.
+
+	// true if selected in settings dialog = should be displayed as possible
+	// value in the UI.
 	private boolean shouldBeDisplayed = false;
-	
+
 	// true, if this specific value is mark as the default value
 	private boolean defaultValue = false;
 
-	public Setting(String type, String value, int shouldBeDisplayed, int defaultValue) {
+	public Setting(String type, String value, int shouldBeDisplayed,
+			int defaultValue) {
 		this.type = type;
 		this.value = value;
-		
+
 		if (shouldBeDisplayed == 1) {
 			this.shouldBeDisplayed = true;
 		} else
 			this.shouldBeDisplayed = false;
-		
+
 		if (defaultValue == 1) {
 			this.defaultValue = true;
 		} else
 			this.defaultValue = false;
-		
+
 	}
-	
-	public String getType(){
+
+	public String getType() {
 		return type;
 	}
 
@@ -67,11 +69,11 @@ public class Setting {
 		} else
 			return 0;
 	}
-	
-	public boolean isDefaultValueB(){
+
+	public boolean isDefaultValueB() {
 		return defaultValue;
 	}
-	
+
 	public void setDisplay(boolean checked) {
 		this.shouldBeDisplayed = checked;
 	}

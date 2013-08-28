@@ -83,7 +83,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	 */
 	HashMap<String, Integer> blende, filtervf, objektiv, zeit, fokus, filter,
 			makro, mess, belichtung, makrovf, blitz, blitzkorr;
-	
+
 	Spinner spinner_blende, spinner_filter_vf, spinner_objektiv, spinner_zeit,
 			spinner_fokus, spinner_filter, spinner_makro, spinner_messmethode,
 			spinner_belichtungs_korrektur, spinner_makro_vf, spinner_blitz,
@@ -100,9 +100,6 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	ViewPager viewPager;
 	TitlePageIndicator mIndicator;
 
-	static String MY_DB_NAME;
-
-
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -116,11 +113,10 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
 		if (settings.getString("geoTag", "nein").equals("ja")) {
 			getLocation();
 		}
-		
+
 		// Check if user wants to edit a certain picture, if yes update UI
 		// accordingly.
 		Bundle bundle = getIntent().getExtras();
@@ -135,7 +131,6 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		}
 	}
 
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -143,7 +138,6 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		setContentView(R.layout.slidenewfilm);
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
 
 		Resources res = getResources();
 		CONTENT = res.getStringArray(R.array.pic_slide_contents);
@@ -460,7 +454,6 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		DB.getDB().updatePicture(mContext, f, b);
 	}
 
-
 	/*
 	 * HilfsKlassen f�r SlideView etc.
 	 */
@@ -468,40 +461,48 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		mIndicator.setFooterColor(footerColor);
 	}
 
-	private class PictureSettingsPager extends PagerAdapter implements TitleProvider {
+	private class PictureSettingsPager extends PagerAdapter implements
+			TitleProvider {
 
 		private ArrayList<View> views;
-		
+
 		private Spinner setupSpecialSpinnerLenses(View view) {
-			ArrayList<String> lenses = DB.getDB().getLensesForCamera(mContext, MY_DB_NAME, settings.getString("Kamera", ""));		
+			ArrayList<String> lenses = DB.getDB().getLensesForCamera(mContext,
+					settings.getString("Kamera", ""));
 			if (lenses.size() == 0) {
 				lenses.add(getString(R.string.no_selection));
-			}		
-			spinner_objektiv = (Spinner) view.findViewById(R.id.spinner_brennweite);
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, lenses);
+			}
+			spinner_objektiv = (Spinner) view
+					.findViewById(R.id.spinner_brennweite);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
+					android.R.layout.simple_spinner_item, lenses);
 			spinner_objektiv.setAdapter(adapter);
-			
+
 			return spinner_objektiv;
 		}
-		
+
 		private Spinner setupSpecialSpinnerApertures(View view) {
 			// setup the special spinner for apertures
 			// Get default aperture values from Database. Add additional values
-			// ad-hoc: 1/2 or 1/3 stop values are added manually, not from database!
-			int defaultAperture = DB.getDB().getDefaultSettingNumber(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBLE);
-			ArrayList<String> apertures = DB.getDB().getActivatedSettingsData(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBLE);
+			// ad-hoc: 1/2 or 1/3 stop values are added manually, not from
+			// database!
+			int defaultAperture = DB.getDB().getDefaultSettingNumber(mContext,
+					DB.MY_DB_TABLE_SETBLE);
+			ArrayList<String> apertures = DB.getDB().getActivatedSettingsData(
+					mContext, DB.MY_DB_TABLE_SETBLE);
 			ArrayList<String> finalApertures = new ArrayList<String>();
 			if (apertures.size() == 0) {
 				finalApertures.add(getString(R.string.no_selection));
-			} else {			
+			} else {
 				for (String aperture : apertures) {
 					if (aperture.equals("Auto")) {
 						finalApertures.add(aperture);
 					} else {
-						if (settings.getString("blendenstufe", "1/1").equals("1/1")) {
+						if (settings.getString("blendenstufe", "1/1").equals(
+								"1/1")) {
 							finalApertures.add(aperture);
-						} else if (settings.getString("blendenstufe", "1/1").equals(
-								"1/2")) {
+						} else if (settings.getString("blendenstufe", "1/1")
+								.equals("1/2")) {
 							finalApertures.add(aperture);
 							finalApertures.add(aperture + " + 1/2");
 						} else {
@@ -513,23 +514,27 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 				}
 			}
 			spinner_blende = (Spinner) view.findViewById(R.id.spinner_blende);
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, finalApertures);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
+					android.R.layout.simple_spinner_item, finalApertures);
 			spinner_blende.setAdapter(adapter);
 			spinner_blende.setSelection(defaultAperture);
-			
+
 			return spinner_blende;
 		}
-		
-		Spinner setupSpinner(View view, int uiID, String dbName, String tableName) {
 
-			ArrayList<String> values = DB.getDB().getActivatedSettingsData(mContext, dbName, tableName);
-			int defaultValue = DB.getDB().getDefaultSettingNumber(mContext, dbName, tableName);
+		Spinner setupSpinner(View view, int uiID, String tableName) {
+
+			ArrayList<String> values = DB.getDB().getActivatedSettingsData(
+					mContext, tableName);
+			int defaultValue = DB.getDB().getDefaultSettingNumber(mContext,
+					tableName);
 			if (values.size() == 0) {
 				values.add(getString(R.string.no_selection));
 			}
 
 			Spinner spinner = (Spinner) view.findViewById(uiID);
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, values);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
+					android.R.layout.simple_spinner_item, values);
 			spinner.setAdapter(adapter);
 			if (defaultValue >= values.size()) {
 				spinner.setSelection(0);
@@ -548,32 +553,47 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			// shared listener for all spinners.
 			OnItemSelectedListener listener = new OnItemSelectedListener() {
 				@Override
-				public void onItemSelected(AdapterView<?> view, View arg1, int arg2, long arg3) {
-					
-					if(view == spinner_objektiv){
-						editors.putString("Objektiv", spinner_objektiv.getSelectedItem().toString());
-					} else if(view == spinner_blende){
-						editors.putString("blende", spinner_blende.getSelectedItem().toString());
-					} else if(view == spinner_zeit){
-						editors.putString("zeit", spinner_zeit.getSelectedItem().toString());
-					} else if(view == spinner_fokus){
-						editors.putString("fokus", spinner_fokus.getSelectedItem().toString());
-					} else if(view == spinner_filter){
-						editors.putString("filter", spinner_filter.getSelectedItem().toString());
-					} else if(view == spinner_makro){
-						editors.putString("makro", spinner_makro.getSelectedItem().toString());
-					} else if(view == spinner_messmethode){
-						editors.putString("messmethode", spinner_messmethode.getSelectedItem().toString());
-					} else if(view == spinner_filter_vf){
-						editors.putString("FilterVF", spinner_filter_vf.getSelectedItem().toString());
-					} else if(view == spinner_belichtungs_korrektur){
-						editors.putString("belichtungs_korrektur", spinner_belichtungs_korrektur.getSelectedItem().toString());
-					} else if(view == spinner_makro_vf){
-						editors.putString("makro_vf", spinner_makro_vf.getSelectedItem().toString());
-					} else if(view == spinner_blitz){
-						editors.putString("blitz", spinner_blitz.getSelectedItem().toString());
-					} else if(view == spinner_blitz_korrektur){
-						editors.putString("blitz_korrektur",spinner_blitz_korrektur.getSelectedItem().toString());	
+				public void onItemSelected(AdapterView<?> view, View arg1,
+						int arg2, long arg3) {
+
+					if (view == spinner_objektiv) {
+						editors.putString("Objektiv", spinner_objektiv
+								.getSelectedItem().toString());
+					} else if (view == spinner_blende) {
+						editors.putString("blende", spinner_blende
+								.getSelectedItem().toString());
+					} else if (view == spinner_zeit) {
+						editors.putString("zeit", spinner_zeit
+								.getSelectedItem().toString());
+					} else if (view == spinner_fokus) {
+						editors.putString("fokus", spinner_fokus
+								.getSelectedItem().toString());
+					} else if (view == spinner_filter) {
+						editors.putString("filter", spinner_filter
+								.getSelectedItem().toString());
+					} else if (view == spinner_makro) {
+						editors.putString("makro", spinner_makro
+								.getSelectedItem().toString());
+					} else if (view == spinner_messmethode) {
+						editors.putString("messmethode", spinner_messmethode
+								.getSelectedItem().toString());
+					} else if (view == spinner_filter_vf) {
+						editors.putString("FilterVF", spinner_filter_vf
+								.getSelectedItem().toString());
+					} else if (view == spinner_belichtungs_korrektur) {
+						editors.putString("belichtungs_korrektur",
+								spinner_belichtungs_korrektur.getSelectedItem()
+										.toString());
+					} else if (view == spinner_makro_vf) {
+						editors.putString("makro_vf", spinner_makro_vf
+								.getSelectedItem().toString());
+					} else if (view == spinner_blitz) {
+						editors.putString("blitz", spinner_blitz
+								.getSelectedItem().toString());
+					} else if (view == spinner_blitz_korrektur) {
+						editors.putString("blitz_korrektur",
+								spinner_blitz_korrektur.getSelectedItem()
+										.toString());
 					}
 					editors.commit();
 				}
@@ -582,62 +602,72 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 				public void onNothingSelected(AdapterView<?> arg0) {
 				}
 			};
-			
-			
+
 			// Allgemein
 			// ---------------------------------------------------------------------------
 			View firstPage = inflater.inflate(R.layout.pictab1, null, false);
-			
-			spinner_objektiv = setupSpecialSpinnerLenses(firstPage);			
+
+			spinner_objektiv = setupSpecialSpinnerLenses(firstPage);
 			spinner_blende = setupSpecialSpinnerApertures(firstPage);
-			spinner_zeit = setupSpinner(firstPage, R.id.spinner_zeit, MY_DB_NAME, DB.MY_DB_TABLE_SETZEI);
-			spinner_fokus = setupSpinner(firstPage, R.id.spinner_fokus, MY_DB_NAME, DB.MY_DB_TABLE_SETFOK);
-			spinner_filter = setupSpinner(firstPage, R.id.spinner_filter, MY_DB_NAME, DB.MY_DB_TABLE_SETFIL);
-			spinner_makro = setupSpinner(firstPage, R.id.spinner_makro, MY_DB_NAME, DB.MY_DB_TABLE_SETNM);
-			
-			spinner_objektiv.setOnItemSelectedListener(listener);			
+			spinner_zeit = setupSpinner(firstPage, R.id.spinner_zeit,
+					DB.MY_DB_TABLE_SETZEI);
+			spinner_fokus = setupSpinner(firstPage, R.id.spinner_fokus,
+					DB.MY_DB_TABLE_SETFOK);
+			spinner_filter = setupSpinner(firstPage, R.id.spinner_filter,
+					DB.MY_DB_TABLE_SETFIL);
+			spinner_makro = setupSpinner(firstPage, R.id.spinner_makro,
+					DB.MY_DB_TABLE_SETNM);
+
+			spinner_objektiv.setOnItemSelectedListener(listener);
 			spinner_blende.setOnItemSelectedListener(listener);
 			spinner_zeit.setOnItemSelectedListener(listener);
 			spinner_fokus.setOnItemSelectedListener(listener);
-			spinner_filter.setOnItemSelectedListener(listener);						
+			spinner_filter.setOnItemSelectedListener(listener);
 			spinner_makro.setOnItemSelectedListener(listener);
-							
+
 			views.add(firstPage);
 
-			
 			// 2nd page
 			View secondPage = inflater.inflate(R.layout.pictab2, null, false);
 			String filterVFTable = DB.MY_DB_TABLE_SETFVF;
 			String makroVFTable = DB.MY_DB_TABLE_SETMVF;
-			if (settings.getString("Verlaengerung", "Faktor (*)").equals("Faktor (*)")) {
+			if (settings.getString("Verlaengerung", "Faktor (*)").equals(
+					"Faktor (*)")) {
 				// values are already correct....
-			} else if (settings.getString("Verlaengerung", "Faktor (*)").equals("Blendenzugaben (+)")) {
+			} else if (settings.getString("Verlaengerung", "Faktor (*)")
+					.equals("Blendenzugaben (+)")) {
 				filterVFTable = DB.MY_DB_TABLE_SETFVF2;
 				makroVFTable = DB.MY_DB_TABLE_SETMVF2;
 			}
-			
-			spinner_messmethode = setupSpinner(secondPage, R.id.spinner_messmethode, MY_DB_NAME, DB.MY_DB_TABLE_SETMES);			
-			spinner_filter_vf = setupSpinner(secondPage, R.id.spinner_filter_vf, MY_DB_NAME, filterVFTable);
-			spinner_belichtungs_korrektur = setupSpinner(secondPage, R.id.spinner_belichtungs_korrektur, MY_DB_NAME, DB.MY_DB_TABLE_SETPLU);
-			spinner_makro_vf = setupSpinner(secondPage, R.id.spinner_makro_vf, MY_DB_NAME, makroVFTable);
-			spinner_blitz = setupSpinner(secondPage, R.id.spinner_blitz, MY_DB_NAME, DB.MY_DB_TABLE_SETBLI);
-			spinner_blitz_korrektur = setupSpinner(secondPage, R.id.spinner_blitz_korrektur, MY_DB_NAME, DB.MY_DB_TABLE_SETKOR);
-			
+
+			spinner_messmethode = setupSpinner(secondPage,
+					R.id.spinner_messmethode, DB.MY_DB_TABLE_SETMES);
+			spinner_filter_vf = setupSpinner(secondPage,
+					R.id.spinner_filter_vf, filterVFTable);
+			spinner_belichtungs_korrektur = setupSpinner(secondPage,
+					R.id.spinner_belichtungs_korrektur, DB.MY_DB_TABLE_SETPLU);
+			spinner_makro_vf = setupSpinner(secondPage, R.id.spinner_makro_vf,
+					makroVFTable);
+			spinner_blitz = setupSpinner(secondPage, R.id.spinner_blitz,
+					DB.MY_DB_TABLE_SETBLI);
+			spinner_blitz_korrektur = setupSpinner(secondPage,
+					R.id.spinner_blitz_korrektur, DB.MY_DB_TABLE_SETKOR);
+
 			spinner_messmethode.setOnItemSelectedListener(listener);
 			spinner_filter_vf.setOnItemSelectedListener(listener);
 			spinner_belichtungs_korrektur.setOnItemSelectedListener(listener);
 			spinner_makro_vf.setOnItemSelectedListener(listener);
-			spinner_blitz.setOnItemSelectedListener(listener);			
+			spinner_blitz.setOnItemSelectedListener(listener);
 			spinner_blitz_korrektur.setOnItemSelectedListener(listener);
-			
+
 			views.add(secondPage);
 
-			
 			// 3rd Page
 			View thirdPage = inflater.inflate(R.layout.pictab3, null, false);
 
 			edit_notizen = (EditText) thirdPage.findViewById(R.id.edit_notizen);
-			edit_kamera_notizen = (EditText) thirdPage.findViewById(R.id.edit_kamera_notizen);
+			edit_kamera_notizen = (EditText) thirdPage
+					.findViewById(R.id.edit_kamera_notizen);
 
 			views.add(thirdPage);
 		}
@@ -693,12 +723,10 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			if (viewPager.getCurrentItem() == 2)
 				setFooterColor(0xFF000000);
 
-			return NewPictureActivity.CONTENT[position % NewPictureActivity.CONTENT.length];
+			return NewPictureActivity.CONTENT[position
+					% NewPictureActivity.CONTENT.length];
 		}
 
 	}
 
 }
-
-
-

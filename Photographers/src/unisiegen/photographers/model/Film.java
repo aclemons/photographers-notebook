@@ -23,7 +23,7 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 public class Film {
-	
+
 	public String Titel;
 	public String Kamera;
 	public String Filmnotiz;
@@ -36,16 +36,17 @@ public class Film {
 	public Bitmap icon;
 	public String iconData;
 	public String Pics;
-	
-	public ArrayList<Bild> Bilder;	
-	
+
+	public ArrayList<Bild> Bilder;
+
 	public Film() {
 	}
-	
+
 	public void setIcon(String iconData) {
 		this.iconData = iconData;
-		byte [] imageData = Base64.decode(iconData, Base64.DEFAULT);
-		this.icon = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+		byte[] imageData = Base64.decode(iconData, Base64.DEFAULT);
+		this.icon = BitmapFactory.decodeByteArray(imageData, 0,
+				imageData.length);
 	}
-	
+
 }

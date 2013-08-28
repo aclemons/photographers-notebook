@@ -71,13 +71,6 @@ import com.thoughtworks.xstream.XStream;
 
 public class FilmSelectionActivity extends PhotographersNotebookActivity {
 
-	/**
-	 * This variable saves the name of the current set for your gear. If this is
-	 * changed, a different database is used to store your gear... Sets may be
-	 * broken at the moment. TODO: Test
-	 */
-	static String MY_DB_NAME;
-
 	/*
 	 * User-Interface Elemente
 	 */
@@ -100,7 +93,6 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		ImageView image = (ImageView) findViewById(R.id.image);
 		myList = (ListView) findViewById(android.R.id.list);
 		TextView pics = (TextView) findViewById(R.id.picanzahl);
 		contentIndex = 0;
@@ -369,8 +361,8 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 
 		pw = new PopupWindow(layoutOwn1);
 		pw.setFocusable(true);
-		pw.setHeight(pw.getMaxAvailableHeight(layoutOwn1)/2);
-		pw.setWidth(pw.getMaxAvailableHeight(layoutOwn1)/2);
+		pw.setHeight(pw.getMaxAvailableHeight(layoutOwn1) / 2);
+		pw.setWidth(pw.getMaxAvailableHeight(layoutOwn1) / 2);
 		pw.setAnimationStyle(7);
 		pw.setBackgroundDrawable(new BitmapDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);
@@ -432,29 +424,34 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putString("SettingsTable", DB.MY_DB_SET);
 			editor.commit();
-			MY_DB_NAME = DB.MY_DB_SET;
 		}
 
 		protected Boolean doInBackground(final String... args) {
 			try {
 				long t0 = System.currentTimeMillis();
 				DB.getDB().createOrRebuildSettingsTable(mContext, DB.MY_DB_SET);
-				DB.getDB().createOrRebuildSettingsTable(mContext, DB.MY_DB_SET1);
-				DB.getDB().createOrRebuildSettingsTable(mContext, DB.MY_DB_SET2);
-				DB.getDB().createOrRebuildSettingsTable(mContext, DB.MY_DB_SET3);
+				DB.getDB()
+						.createOrRebuildSettingsTable(mContext, DB.MY_DB_SET1);
+				DB.getDB()
+						.createOrRebuildSettingsTable(mContext, DB.MY_DB_SET2);
+				DB.getDB()
+						.createOrRebuildSettingsTable(mContext, DB.MY_DB_SET3);
 				long t1 = System.currentTimeMillis();
 				DB.getDB().createOrRebuildNummernTable(mContext);
 				long t2 = System.currentTimeMillis();
-				DB.getDB().createOrRebuildFilmTable(mContext);				
+				DB.getDB().createOrRebuildFilmTable(mContext);
 				long t3 = System.currentTimeMillis();
-				
-				double setCreation = (double)t1 - (double)t0;				
-				double nummernCreation = (double)t2 - (double)t1;				
-				double filmCreation = (double)t3 - (double)t2;
-				Log.v("dbcreation", "Time used for Set creation: " + setCreation + "ms.");
-				Log.v("dbcreation", "Time used for Set creation: " + filmCreation + "ms.");
-				Log.v("dbcreation", "Time used for Set creation: " + nummernCreation + "ms.");
-				
+
+				double setCreation = (double) t1 - (double) t0;
+				double nummernCreation = (double) t2 - (double) t1;
+				double filmCreation = (double) t3 - (double) t2;
+				Log.v("dbcreation", "Time used for Set creation: "
+						+ setCreation + "ms.");
+				Log.v("dbcreation", "Time used for Set creation: "
+						+ filmCreation + "ms.");
+				Log.v("dbcreation", "Time used for Set creation: "
+						+ nummernCreation + "ms.");
+
 			} catch (Exception e) {
 				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
 			}

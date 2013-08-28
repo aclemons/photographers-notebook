@@ -31,8 +31,8 @@ public class PicturesArrayAdapter extends ArrayAdapter<Bild> {
 
 	private LayoutInflater inflater;
 
-	public PicturesArrayAdapter(Context context,
-			ArrayList<Bild> planetList, int number) {
+	public PicturesArrayAdapter(Context context, ArrayList<Bild> planetList,
+			int number) {
 		super(context, R.layout.film_item, R.id.listItemText, planetList);
 		inflater = LayoutInflater.from(context);
 	}
