@@ -109,7 +109,6 @@ public class EditSettingsActivity extends Activity {
 	private Button weiter, close;
 	SharedPreferences settings;
 	private PopupWindow pw;
-	private int setButtonClicked = 1;
 	Context mContext;
 	private ViewPager viewPager;
 	private TitlePageIndicator settingsPageIndicator;
@@ -119,8 +118,6 @@ public class EditSettingsActivity extends Activity {
 	 */
 	private static String MY_DB_NAME;
 
-	SQLiteDatabase myDB = null;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -128,7 +125,7 @@ public class EditSettingsActivity extends Activity {
 		setContentView(R.layout.slidenewsettings);
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		MY_DB_NAME = settings.getString("SettingsTable", "Foto");
+		MY_DB_NAME = settings.getString("SettingsTable", DB.MY_DB_SET);
 
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
 
@@ -1292,12 +1289,14 @@ public class EditSettingsActivity extends Activity {
 
 	}
 
-	public void setSetButtonColors(Button [] buttons){ 
-		
-		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		int selected = settings.getInt("LoadSet", 1) - 1;
-		for(int i = 0; i < buttons.length; i++){
-			if(i == selected){
+	public void setSetButtonColors(Button[] buttons) {
+
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(mContext);
+		int selected = prefs.getInt("LoadSet", 1) - 1;
+
+		for (int i = 0; i < buttons.length; i++) {
+			if (i == selected) {
 				buttons[i].setTextColor(0xff00cc00);
 			} else {
 				buttons[i].setTextColor(0xff000000);
@@ -1336,109 +1335,54 @@ public class EditSettingsActivity extends Activity {
 			alert.show();
 			return true;
 		} else if (item.getItemId() == R.id.opt_loadSetOfSettings) {
-			LayoutInflater inflaterOwn1 = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-			View layoutOwn1 = inflaterOwn1.inflate(R.layout.popupmenu, (ViewGroup) findViewById(R.id.users), false);
-			final SharedPreferences.Editor editor11 = settings.edit();
-			final Button loadButton = (Button) layoutOwn1.findViewById(R.id.setbutton);
-			final View setview1 = (View) layoutOwn1.findViewById(R.id.setview);
-			final Button setone1 = (Button) layoutOwn1.findViewById(R.id.setone);
-			final Button settwo1 = (Button) layoutOwn1.findViewById(R.id.settwo);
-			final Button setthree1 = (Button) layoutOwn1.findViewById(R.id.setthree);
-			final Button setfour1 = (Button) layoutOwn1.findViewById(R.id.setfour);
-			loadButton.setText(getString(R.string.load));
-			setSetButtonColors(new Button [] {setone1, settwo1, setthree1, setfour1});
-			setone1.setText(settings.getString("SetButtonOne",
+			LayoutInflater inflaterOwn1 = (LayoutInflater) mContext
+					.getSystemService(LAYOUT_INFLATER_SERVICE);
+			View layoutOwn1 = inflaterOwn1.inflate(R.layout.popupmenu,
+					(ViewGroup) findViewById(R.id.users), false);
+			final SharedPreferences.Editor prefsEditor = settings.edit();
+			final Button setone = (Button) layoutOwn1.findViewById(R.id.setone);
+			final Button settwo = (Button) layoutOwn1.findViewById(R.id.settwo);
+			final Button setthree = (Button) layoutOwn1
+					.findViewById(R.id.setthree);
+			final Button setfour = (Button) layoutOwn1
+					.findViewById(R.id.setfour);
+			setSetButtonColors(new Button[] { setone, settwo, setthree, setfour });
+			setone.setText(settings.getString("SetButtonOne",
 					getString(R.string.set_default)));
-			settwo1.setText(settings.getString("SetButtonTwo",
+			settwo.setText(settings.getString("SetButtonTwo",
 					getString(R.string.set_two)));
-			setthree1.setText(settings.getString("SetButtonThree",
+			setthree.setText(settings.getString("SetButtonThree",
 					getString(R.string.set_three)));
-			setfour1.setText(settings.getString("SetButtonFour",
+			setfour.setText(settings.getString("SetButtonFour",
 					getString(R.string.set_four)));
-			setone1.setOnClickListener(new OnClickListener() {
+
+			OnClickListener loadSetListener = new OnClickListener() {
+
 				@Override
 				public void onClick(View v) {
-					loadButton.setVisibility(Button.VISIBLE);
-					setview1.setVisibility(View.VISIBLE);
-					setButtonClicked = 1;
-					setSetButtonColors(new Button [] {setone1, settwo1, setthree1, setfour1});
-					setone1.setTextColor(0xaa000000);
-
-				}
-			});
-			settwo1.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					loadButton.setVisibility(Button.VISIBLE);
-					setview1.setVisibility(View.VISIBLE);
-					setButtonClicked = 2;
-					setSetButtonColors(new Button [] {setone1, settwo1, setthree1, setfour1});
-					settwo1.setTextColor(0xaa000000);
-
-				}
-			});
-			setthree1.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					loadButton.setVisibility(Button.VISIBLE);
-					setview1.setVisibility(View.VISIBLE);
-					setButtonClicked = 3;
-					setSetButtonColors(new Button [] {setone1, settwo1, setthree1, setfour1});
-					setthree1.setTextColor(0xaa000000);
-
-				}
-			});
-			setfour1.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					loadButton.setVisibility(Button.VISIBLE);
-					setview1.setVisibility(View.VISIBLE);
-					setButtonClicked = 4;
-					setSetButtonColors(new Button [] {setone1, settwo1, setthree1, setfour1});
-					setfour1.setTextColor(0xaa000000);
-
-				}
-			});
-			loadButton.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if (setButtonClicked == 1) {
-						editor11.putInt("LoadSet", 1);
-						editor11.putString("SettingsTable", DB.MY_DB_SET);
-						editor11.commit();
-						MY_DB_NAME = DB.MY_DB_SET;
-						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
-						SettingsPager adapter111 = new SettingsPager(mContext);
-						viewPager111.setAdapter(adapter111);
-
-					} else if (setButtonClicked == 2) {
-						editor11.putInt("LoadSet", 2);
-						editor11.putString("SettingsTable", DB.MY_DB_SET1);
-						editor11.commit();
-						MY_DB_NAME = DB.MY_DB_SET1;
-						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
-						SettingsPager adapter111 = new SettingsPager(mContext);
-						viewPager111.setAdapter(adapter111);
-
-					} else if (setButtonClicked == 3) {
-						editor11.putInt("LoadSet", 3);
-						editor11.putString("SettingsTable", DB.MY_DB_SET2);
-						editor11.commit();
-						MY_DB_NAME = DB.MY_DB_SET2;
-						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
-						SettingsPager adapter111 = new SettingsPager(mContext);
-						viewPager111.setAdapter(adapter111);
-
-					} else if (setButtonClicked == 4) {
-						editor11.putInt("LoadSet", 4);
-						editor11.putString("SettingsTable", DB.MY_DB_SET3);
-						editor11.commit();
+					if (v == setfour) {
+						prefsEditor.putInt("LoadSet", 4);
+						prefsEditor.putString("SettingsTable", DB.MY_DB_SET3);
 						MY_DB_NAME = DB.MY_DB_SET3;
-						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
-						SettingsPager adapter111 = new SettingsPager(mContext);
-						viewPager111.setAdapter(adapter111);
-
+					} else if (v == setthree) {
+						prefsEditor.putInt("LoadSet", 3);
+						prefsEditor.putString("SettingsTable", DB.MY_DB_SET2);
+						MY_DB_NAME = DB.MY_DB_SET2;
+					} else if (v == settwo) {
+						prefsEditor.putInt("LoadSet", 2);
+						prefsEditor.putString("SettingsTable", DB.MY_DB_SET1);
+						MY_DB_NAME = DB.MY_DB_SET1;
+					} else {
+						prefsEditor.putInt("LoadSet", 1);
+						prefsEditor.putString("SettingsTable", DB.MY_DB_SET);
+						MY_DB_NAME = DB.MY_DB_SET;
 					}
+
+					prefsEditor.commit();
+					ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
+					SettingsPager adapter111 = new SettingsPager(mContext);
+					viewPager111.setAdapter(adapter111);
+
 					pw.dismiss();
 					settingsPageIndicator.setCurrentItem(0);
 					viewPager.setCurrentItem(0, false);
@@ -1446,7 +1390,13 @@ public class EditSettingsActivity extends Activity {
 							getString(R.string.set_loaded), Toast.LENGTH_SHORT)
 							.show();
 				}
-			});
+			};
+
+			setone.setOnClickListener(loadSetListener);
+			settwo.setOnClickListener(loadSetListener);
+			setthree.setOnClickListener(loadSetListener);
+			setfour.setOnClickListener(loadSetListener);
+
 			pw = new PopupWindow(layoutOwn1,
 					ViewGroup.LayoutParams.WRAP_CONTENT,
 					ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -1510,7 +1460,7 @@ public class EditSettingsActivity extends Activity {
 
 				SharedPreferences prefs = PreferenceManager
 						.getDefaultSharedPreferences(mContext);
-				MY_DB_NAME = prefs.getString("SettingsTable", "Foto");
+				MY_DB_NAME = prefs.getString("SettingsTable", DB.MY_DB_SET);
 				DB.getDB().createOrRebuildSettingsTable(mContext, MY_DB_NAME);
 
 				SharedPreferences.Editor editor = prefs.edit();
