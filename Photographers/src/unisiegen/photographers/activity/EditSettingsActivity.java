@@ -1292,29 +1292,16 @@ public class EditSettingsActivity extends Activity {
 
 	}
 
-	public void setSetButtonColor(Button button1, Button button2,
-			Button button3, Button button4) {
+	public void setSetButtonColors(Button [] buttons){ 
+		
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		if (settings.getInt("LoadSet", 1) == 1) {
-			button1.setTextColor(0xff00cc00);
-			button2.setTextColor(0xff000000);
-			button3.setTextColor(0xff000000);
-			button4.setTextColor(0xff000000);
-		} else if (settings.getInt("LoadSet", 1) == 2) {
-			button1.setTextColor(0xff000000);
-			button2.setTextColor(0xff00cc00);
-			button3.setTextColor(0xff000000);
-			button4.setTextColor(0xff000000);
-		} else if (settings.getInt("LoadSet", 1) == 3) {
-			button1.setTextColor(0xff000000);
-			button2.setTextColor(0xff000000);
-			button3.setTextColor(0xff00cc00);
-			button4.setTextColor(0xff000000);
-		} else if (settings.getInt("LoadSet", 1) == 4) {
-			button1.setTextColor(0xff000000);
-			button2.setTextColor(0xff000000);
-			button3.setTextColor(0xff000000);
-			button4.setTextColor(0xff00cc00);
+		int selected = settings.getInt("LoadSet", 1) - 1;
+		for(int i = 0; i < buttons.length; i++){
+			if(i == selected){
+				buttons[i].setTextColor(0xff00cc00);
+			} else {
+				buttons[i].setTextColor(0xff000000);
+			}
 		}
 	}
 
@@ -1349,24 +1336,17 @@ public class EditSettingsActivity extends Activity {
 			alert.show();
 			return true;
 		} else if (item.getItemId() == R.id.opt_loadSetOfSettings) {
-			LayoutInflater inflaterOwn1 = (LayoutInflater) mContext
-					.getSystemService(LAYOUT_INFLATER_SERVICE);
-			View layoutOwn1 = inflaterOwn1.inflate(R.layout.popupmenu,
-					(ViewGroup) findViewById(R.id.users), false);
+			LayoutInflater inflaterOwn1 = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+			View layoutOwn1 = inflaterOwn1.inflate(R.layout.popupmenu, (ViewGroup) findViewById(R.id.users), false);
 			final SharedPreferences.Editor editor11 = settings.edit();
-			final Button setsave1 = (Button) layoutOwn1
-					.findViewById(R.id.setbutton);
+			final Button loadButton = (Button) layoutOwn1.findViewById(R.id.setbutton);
 			final View setview1 = (View) layoutOwn1.findViewById(R.id.setview);
-			final Button setone1 = (Button) layoutOwn1
-					.findViewById(R.id.setone);
-			final Button settwo1 = (Button) layoutOwn1
-					.findViewById(R.id.settwo);
-			final Button setthree1 = (Button) layoutOwn1
-					.findViewById(R.id.setthree);
-			final Button setfour1 = (Button) layoutOwn1
-					.findViewById(R.id.setfour);
-			setsave1.setText(getString(R.string.load));
-			setSetButtonColor(setone1, settwo1, setthree1, setfour1);
+			final Button setone1 = (Button) layoutOwn1.findViewById(R.id.setone);
+			final Button settwo1 = (Button) layoutOwn1.findViewById(R.id.settwo);
+			final Button setthree1 = (Button) layoutOwn1.findViewById(R.id.setthree);
+			final Button setfour1 = (Button) layoutOwn1.findViewById(R.id.setfour);
+			loadButton.setText(getString(R.string.load));
+			setSetButtonColors(new Button [] {setone1, settwo1, setthree1, setfour1});
 			setone1.setText(settings.getString("SetButtonOne",
 					getString(R.string.set_default)));
 			settwo1.setText(settings.getString("SetButtonTwo",
@@ -1378,10 +1358,10 @@ public class EditSettingsActivity extends Activity {
 			setone1.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					setsave1.setVisibility(Button.VISIBLE);
+					loadButton.setVisibility(Button.VISIBLE);
 					setview1.setVisibility(View.VISIBLE);
 					setButtonClicked = 1;
-					setSetButtonColor(setone1, settwo1, setthree1, setfour1);
+					setSetButtonColors(new Button [] {setone1, settwo1, setthree1, setfour1});
 					setone1.setTextColor(0xaa000000);
 
 				}
@@ -1389,10 +1369,10 @@ public class EditSettingsActivity extends Activity {
 			settwo1.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					setsave1.setVisibility(Button.VISIBLE);
+					loadButton.setVisibility(Button.VISIBLE);
 					setview1.setVisibility(View.VISIBLE);
 					setButtonClicked = 2;
-					setSetButtonColor(setone1, settwo1, setthree1, setfour1);
+					setSetButtonColors(new Button [] {setone1, settwo1, setthree1, setfour1});
 					settwo1.setTextColor(0xaa000000);
 
 				}
@@ -1400,10 +1380,10 @@ public class EditSettingsActivity extends Activity {
 			setthree1.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					setsave1.setVisibility(Button.VISIBLE);
+					loadButton.setVisibility(Button.VISIBLE);
 					setview1.setVisibility(View.VISIBLE);
 					setButtonClicked = 3;
-					setSetButtonColor(setone1, settwo1, setthree1, setfour1);
+					setSetButtonColors(new Button [] {setone1, settwo1, setthree1, setfour1});
 					setthree1.setTextColor(0xaa000000);
 
 				}
@@ -1411,15 +1391,15 @@ public class EditSettingsActivity extends Activity {
 			setfour1.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					setsave1.setVisibility(Button.VISIBLE);
+					loadButton.setVisibility(Button.VISIBLE);
 					setview1.setVisibility(View.VISIBLE);
 					setButtonClicked = 4;
-					setSetButtonColor(setone1, settwo1, setthree1, setfour1);
+					setSetButtonColors(new Button [] {setone1, settwo1, setthree1, setfour1});
 					setfour1.setTextColor(0xaa000000);
 
 				}
 			});
-			setsave1.setOnClickListener(new OnClickListener() {
+			loadButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					if (setButtonClicked == 1) {
