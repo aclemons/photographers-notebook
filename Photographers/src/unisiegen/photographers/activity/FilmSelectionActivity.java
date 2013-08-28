@@ -120,14 +120,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		for (Film film : filme) {
 			gesamtPics = gesamtPics + film.Bilder.size();
 		}
-// 		Does not work anymore as we now allow to create empty films.
-//		if (gesamtPics == 0) {
-//			myList.setVisibility(ListView.GONE);
-//			image.setVisibility(ImageView.VISIBLE);
-//		} else {
-//			myList.setVisibility(ListView.VISIBLE);
-//			image.setVisibility(ImageView.GONE);
-//		}
+
 		pics.setText(gesamtPics + " " + getString(R.string.pictures));
 		ArrayAdapter<Film> adapter = new FilmsArrayAdapter(mContext, filme, 1);
 		myList.setOnItemClickListener(notlongClickListener);
@@ -444,10 +437,24 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 
 		protected Boolean doInBackground(final String... args) {
 			try {
-				DB.getDB().createOrRebuildSettingsTable(mContext);
+				long t0 = System.currentTimeMillis();
+				DB.getDB().createOrRebuildSettingsTable(mContext, DB.MY_DB_SET);
+				DB.getDB().createOrRebuildSettingsTable(mContext, DB.MY_DB_SET1);
+				DB.getDB().createOrRebuildSettingsTable(mContext, DB.MY_DB_SET2);
+				DB.getDB().createOrRebuildSettingsTable(mContext, DB.MY_DB_SET3);
+				long t1 = System.currentTimeMillis();
 				DB.getDB().createOrRebuildNummernTable(mContext);
-				DB.getDB().createOrRebuildFilmTable(mContext);
-
+				long t2 = System.currentTimeMillis();
+				DB.getDB().createOrRebuildFilmTable(mContext);				
+				long t3 = System.currentTimeMillis();
+				
+				double setCreation = (double)t1 - (double)t0;				
+				double nummernCreation = (double)t2 - (double)t1;				
+				double filmCreation = (double)t3 - (double)t2;
+				Log.v("dbcreation", "Time used for Set creation: " + setCreation + "ms.");
+				Log.v("dbcreation", "Time used for Set creation: " + filmCreation + "ms.");
+				Log.v("dbcreation", "Time used for Set creation: " + nummernCreation + "ms.");
+				
 			} catch (Exception e) {
 				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
 			}

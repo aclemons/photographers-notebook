@@ -71,6 +71,32 @@ public class DB {
 	public final static String MY_DB_TABLE_SETKOR = "SettingsBlitzKorr";
 	public final static String MY_DB_TABLE_SETTYP = "SettingsFilmTyp";
 
+	public final static ArrayList<String> tableNames = new ArrayList<String>();
+	
+	static {
+		tableNames.add(MY_DB_TABLE_SETCAM);
+		//tableNames.add(MY_DB_TABLE_SETCAMBW); anderes Layout...
+		tableNames.add(MY_DB_TABLE_SETFF);
+		tableNames.add(MY_DB_TABLE_SETEMP);
+		tableNames.add(MY_DB_TABLE_SETBW);
+		tableNames.add(MY_DB_TABLE_SETNM);
+		tableNames.add(MY_DB_TABLE_SETFIL);
+		tableNames.add(MY_DB_TABLE_SETBLI);
+		tableNames.add(MY_DB_TABLE_SETSON);
+		tableNames.add(MY_DB_TABLE_SETFOK);
+		tableNames.add(MY_DB_TABLE_SETBLE);
+		tableNames.add(MY_DB_TABLE_SETZEI);
+		tableNames.add(MY_DB_TABLE_SETMES);
+		tableNames.add(MY_DB_TABLE_SETPLU);
+		tableNames.add(MY_DB_TABLE_SETMAK);
+		tableNames.add(MY_DB_TABLE_SETMVF);
+		tableNames.add(MY_DB_TABLE_SETFVF);
+		tableNames.add(MY_DB_TABLE_SETMVF2);
+		tableNames.add(MY_DB_TABLE_SETFVF2);
+		tableNames.add(MY_DB_TABLE_SETKOR);
+		tableNames.add(MY_DB_TABLE_SETTYP);		
+	}
+	
 	private DB() {
 	}
 
@@ -81,122 +107,34 @@ public class DB {
 		return instance;
 	}
 
-	public void createOrRebuildSettingsTable(Context context) throws Exception {
+	public void createOrRebuildSettingsTable(Context context, String database) throws Exception {
 
 		Log.v("DatabaseCreator", "rebuildSettings() was called...");
 
-		SQLiteDatabase myDBSet = context.openOrCreateDatabase(MY_DB_SET,
-				Context.MODE_PRIVATE, null);
+		SQLiteDatabase myDBSet = context.openOrCreateDatabase(database, Context.MODE_PRIVATE, null);
 
+		myDBSet.beginTransaction();
+		// needs special care
 		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
 				+ MY_DB_TABLE_SETCAMBW
 				+ " (_id integer primary key autoincrement, cam varchar(100), bw varchar(100))"
 				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETCAM
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETEMP
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETBW
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETNM
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFIL
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETBLI
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETSON
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETTYP
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFOK
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETBLE
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETZEI
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETMES
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETPLU
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETMAK
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETMVF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFVF
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETKOR
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETMVF2
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETFVF2
-				+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-				+ ";");
-
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETTYP);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETCAM);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETFIL);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETEMP);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETNM);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETSON);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETBLI);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETBW);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETFF);
-
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETFOK);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETBLE);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETZEI);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETMES);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETPLU);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETMAK);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETMVF);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETFVF);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETMVF2);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETFVF2);
-		myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETKOR);
 		
-		Resources res = context.getResources();
+		//all other tables are the same...
+		for(String tableName : tableNames){
+			StringBuffer buf = new StringBuffer();
+			buf.append("CREATE TABLE IF NOT EXISTS ");
+			buf.append(tableName);
+			buf.append(" (_id integer primary key autoincrement, name varchar(100), value integer, def integer);");
+			myDBSet.execSQL(buf.toString());
+			
+			buf = new StringBuffer();
+			buf.append("DELETE FROM ");
+			buf.append(tableName);
+			myDBSet.execSQL(buf.toString());
+		}
+		
+		Resources res = context.getResources();		
 		
 		setDefaultSettings(myDBSet, res, R.array.setff, MY_DB_TABLE_SETFF);
 		setDefaultSettings(myDBSet, res, R.array.setemp, MY_DB_TABLE_SETEMP);
@@ -216,6 +154,8 @@ public class DB {
 		setDefaultSettings(myDBSet, res, R.array.setmvf2, MY_DB_TABLE_SETMVF2);
 		setDefaultSettings(myDBSet, res, R.array.setfvf, MY_DB_TABLE_SETFVF);
 		setDefaultSettings(myDBSet, res, R.array.setfvf2, MY_DB_TABLE_SETFVF2);
+		myDBSet.setTransactionSuccessful();
+		myDBSet.endTransaction();
 		
 		myDBSet.close();
 		
@@ -227,7 +167,13 @@ public class DB {
 		String[] valueArray = res.getStringArray(stringArrayName);
 		if (valueArray != null) {
 			for (String value : valueArray) {
-				database.execSQL("INSERT INTO " + tableName + " Values (" + null + ",'" + value + "','" + 1 + "','" + 0 + "');");
+				StringBuffer buf = new StringBuffer();
+				buf.append("INSERT INTO ");
+				buf.append(tableName);
+				buf.append(" Values (null,'");
+				buf.append(value);
+				buf.append("','1', '0');");
+				database.execSQL(buf.toString());
 			}	
 		}
 	}

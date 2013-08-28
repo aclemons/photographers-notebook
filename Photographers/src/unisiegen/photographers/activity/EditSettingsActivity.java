@@ -29,11 +29,9 @@ import unisiegen.photographers.settings.SettingsViewPart;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -122,7 +120,6 @@ public class EditSettingsActivity extends Activity {
 	private static String MY_DB_NAME;
 
 	SQLiteDatabase myDB = null;
-	SQLiteDatabase myDBSet = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -461,8 +458,19 @@ public class EditSettingsActivity extends Activity {
 																	TextView tec = (TextView) test
 																			.getChildAt(0);
 
-																	DB.getDB().deleteLens(mContext, MY_DB_NAME, tec.getText().toString());
-																	DB.getDB().deleteSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, tec.getText().toString());
+																	DB.getDB()
+																			.deleteLens(
+																					mContext,
+																					MY_DB_NAME,
+																					tec.getText()
+																							.toString());
+																	DB.getDB()
+																			.deleteSetting(
+																					mContext,
+																					MY_DB_NAME,
+																					DB.MY_DB_TABLE_SETBW,
+																					tec.getText()
+																							.toString());
 																	aplanetsspec
 																			.remove(arg2);
 
@@ -707,9 +715,20 @@ public class EditSettingsActivity extends Activity {
 																LinearLayout test = (LinearLayout) arg1;
 																TextView tec = (TextView) test
 																		.getChildAt(0);
-																DB.getDB().deleteLens(mContext, MY_DB_NAME, tec.getText().toString());																
-																DB.getDB().deleteSetting(mContext, MY_DB_NAME, DB.MY_DB_TABLE_SETBW, tec.getText().toString());
-																
+																DB.getDB()
+																		.deleteLens(
+																				mContext,
+																				MY_DB_NAME,
+																				tec.getText()
+																						.toString());
+																DB.getDB()
+																		.deleteSetting(
+																				mContext,
+																				MY_DB_NAME,
+																				DB.MY_DB_TABLE_SETBW,
+																				tec.getText()
+																						.toString());
+
 																aplanetsspec
 																		.clear();
 																ArrayList<Setting> values = DB
@@ -1118,25 +1137,28 @@ public class EditSettingsActivity extends Activity {
 			grid.clearFocus();
 
 			int lineBreakControl = 0;
-			
-			ArrayList<String> values = DB.getDB().getLensesForCamera(mContext, MY_DB_NAME, planet.getValue().toString());
-			if(values.size() == 0){
+
+			ArrayList<String> values = DB.getDB().getLensesForCamera(mContext,
+					MY_DB_NAME, planet.getValue().toString());
+			if (values.size() == 0) {
 				grid.setVisibility(LinearLayout.GONE);
 			}
-			for(String value : values){
-			
+			for (String value : values) {
+
 				if ((lineBreakControl % 3) == 0 || lineBreakControl == 0) {
 					grid2 = null;
-					grid2 = (LinearLayout) inflater.inflate(R.layout.objektivegrid, grid, false);
+					grid2 = (LinearLayout) inflater.inflate(
+							R.layout.objektivegrid, grid, false);
 					grid.addView(grid2);
 				}
-				testtext = (TextView) inflater.inflate(R.layout.objektive, grid2, false);
+				testtext = (TextView) inflater.inflate(R.layout.objektive,
+						grid2, false);
 				testtext.setText(value);
 				grid2.addView(testtext);
 				lineBreakControl++;
-				
+
 			}
-			
+
 			checkBox.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 					CheckBox cb = (CheckBox) v;
@@ -1206,7 +1228,8 @@ public class EditSettingsActivity extends Activity {
 
 						if (cb.isChecked() == true) {
 
-							DB.getDB().addLensToCamera(mContext, MY_DB_NAME, camera, planet.getValue().toString());
+							DB.getDB().addLensToCamera(mContext, MY_DB_NAME,
+									camera, planet.getValue().toString());
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 							SettingsPager adapter = new SettingsPager(mContext);
 							viewPager.setAdapter(adapter);
@@ -1215,7 +1238,9 @@ public class EditSettingsActivity extends Activity {
 							viewPager.setCurrentItem(1, false);
 
 						} else {
-							DB.getDB().deleteLensFromCamera(mContext, MY_DB_NAME, planet.getValue().toString(), camera);
+							DB.getDB().deleteLensFromCamera(mContext,
+									MY_DB_NAME, planet.getValue().toString(),
+									camera);
 							viewPager = (ViewPager) findViewById(R.id.viewPager);
 
 							SettingsPager adapter = new SettingsPager(mContext);
@@ -1310,7 +1335,7 @@ public class EditSettingsActivity extends Activity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int which) {
-									new resetSettings().execute();
+									new ResetSettings().execute();
 								}
 							})
 					.setNegativeButton("Nein",
@@ -1402,7 +1427,6 @@ public class EditSettingsActivity extends Activity {
 						editor11.putString("SettingsTable", DB.MY_DB_SET);
 						editor11.commit();
 						MY_DB_NAME = DB.MY_DB_SET;
-						// readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
@@ -1412,7 +1436,6 @@ public class EditSettingsActivity extends Activity {
 						editor11.putString("SettingsTable", DB.MY_DB_SET1);
 						editor11.commit();
 						MY_DB_NAME = DB.MY_DB_SET1;
-						// readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
@@ -1422,7 +1445,6 @@ public class EditSettingsActivity extends Activity {
 						editor11.putString("SettingsTable", DB.MY_DB_SET2);
 						editor11.commit();
 						MY_DB_NAME = DB.MY_DB_SET2;
-						// readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
@@ -1432,7 +1454,6 @@ public class EditSettingsActivity extends Activity {
 						editor11.putString("SettingsTable", DB.MY_DB_SET3);
 						editor11.commit();
 						MY_DB_NAME = DB.MY_DB_SET3;
-						// readDB();
 						ViewPager viewPager111 = (ViewPager) findViewById(R.id.viewPager);
 						SettingsPager adapter111 = new SettingsPager(mContext);
 						viewPager111.setAdapter(adapter111);
@@ -1452,173 +1473,6 @@ public class EditSettingsActivity extends Activity {
 			pw.setAnimationStyle(-1);
 			pw.setBackgroundDrawable(new BitmapDrawable());
 			pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
-			return true;
-		} else if (item.getItemId() == R.id.opt_createNewSetOfSettings) {
-			LayoutInflater inflaterOwn = (LayoutInflater) mContext
-					.getSystemService(LAYOUT_INFLATER_SERVICE);
-			View layoutOwn = inflaterOwn.inflate(R.layout.popupmenu,
-					(ViewGroup) findViewById(R.id.users), false);
-			final SharedPreferences.Editor editor1 = settings.edit();
-			final EditText setedit = (EditText) layoutOwn
-					.findViewById(R.id.setedit);
-			final Button setsave = (Button) layoutOwn
-					.findViewById(R.id.setbutton);
-			final View setview = (View) layoutOwn.findViewById(R.id.setview);
-			final Button setone = (Button) layoutOwn.findViewById(R.id.setone);
-			final Button settwo = (Button) layoutOwn.findViewById(R.id.settwo);
-			final Button setthree = (Button) layoutOwn
-					.findViewById(R.id.setthree);
-			final Button setfour = (Button) layoutOwn
-					.findViewById(R.id.setfour);
-			setSetButtonColor(setone, settwo, setthree, setfour);
-			setone.setText(settings.getString("SetButtonOne",
-					getString(R.string.set_default)));
-			settwo.setText(settings.getString("SetButtonTwo",
-					getString(R.string.set_two)));
-			setthree.setText(settings.getString("SetButtonThree",
-					getString(R.string.set_three)));
-			setfour.setText(settings.getString("SetButtonFour",
-					getString(R.string.set_four)));
-			setone.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if (settings.getInt("LoadSet", 1) != 1) {
-						setsave.setVisibility(Button.VISIBLE);
-						setedit.setVisibility(EditText.VISIBLE);
-						setview.setVisibility(View.VISIBLE);
-						setButtonClicked = 1;
-						setSetButtonColor(setone, settwo, setthree, setfour);
-						setone.setTextColor(0xaa000000);
-					} else {
-						Toast.makeText(getApplicationContext(),
-								getString(R.string.set_not_saved),
-								Toast.LENGTH_SHORT).show();
-					}
-				}
-			});
-			settwo.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if (settings.getInt("LoadSet", 1) != 2) {
-						setsave.setVisibility(Button.VISIBLE);
-						setedit.setVisibility(EditText.VISIBLE);
-						setview.setVisibility(View.VISIBLE);
-						setButtonClicked = 2;
-						setSetButtonColor(setone, settwo, setthree, setfour);
-						settwo.setTextColor(0xaa000000);
-					} else {
-						Toast.makeText(getApplicationContext(),
-								getString(R.string.set_not_saved),
-								Toast.LENGTH_SHORT).show();
-					}
-				}
-			});
-			setthree.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if (settings.getInt("LoadSet", 1) != 3) {
-						setsave.setVisibility(Button.VISIBLE);
-						setedit.setVisibility(EditText.VISIBLE);
-						setview.setVisibility(View.VISIBLE);
-						setButtonClicked = 3;
-						setSetButtonColor(setone, settwo, setthree, setfour);
-						setthree.setTextColor(0xaa000000);
-					} else {
-						Toast.makeText(getApplicationContext(),
-								getString(R.string.set_not_saved),
-								Toast.LENGTH_SHORT).show();
-					}
-				}
-			});
-			setfour.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if (settings.getInt("LoadSet", 1) != 4) {
-						setsave.setVisibility(Button.VISIBLE);
-						setedit.setVisibility(EditText.VISIBLE);
-						setview.setVisibility(View.VISIBLE);
-						setButtonClicked = 4;
-						setSetButtonColor(setone, settwo, setthree, setfour);
-						setfour.setTextColor(0xaa000000);
-					} else {
-						Toast.makeText(getApplicationContext(),
-								getString(R.string.set_not_saved),
-								Toast.LENGTH_SHORT).show();
-					}
-				}
-			});
-			setsave.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if (setedit.getText().toString().length() == 0
-							|| setedit.getText().toString().trim().length() == 0) {
-						Toast.makeText(getApplicationContext(),
-								getString(R.string.empty_name_not_allowed),
-								Toast.LENGTH_SHORT).show();
-					} else {
-						if (setButtonClicked == 1) {
-							editor1.putInt("LoadSet", 1);
-							editor1.putString("SetButtonOne", setedit.getText()
-									.toString());
-							editor1.commit();
-							setone.setText(setedit.getText().toString());
-							setone.setTextColor(0xff00cc00);
-							setedit.setText("");
-							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-							imm.hideSoftInputFromWindow(
-									setedit.getApplicationWindowToken(), 0);
-							new makeSet(DB.MY_DB_SET).execute();
-
-						} else if (setButtonClicked == 2) {
-							editor1.putInt("LoadSet", 2);
-							editor1.putString("SetButtonTwo", setedit.getText()
-									.toString());
-							editor1.commit();
-							settwo.setText(setedit.getText().toString());
-							settwo.setTextColor(0xff00cc00);
-							setedit.setText("");
-							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-							imm.hideSoftInputFromWindow(
-									setedit.getApplicationWindowToken(), 0);
-							new makeSet(DB.MY_DB_SET1).execute();
-
-						} else if (setButtonClicked == 3) {
-							editor1.putInt("LoadSet", 3);
-							editor1.putString("SetButtonThree", setedit
-									.getText().toString());
-							editor1.commit();
-							setthree.setText(setedit.getText().toString());
-							setthree.setTextColor(0xff00cc00);
-							setedit.setText("");
-							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-							imm.hideSoftInputFromWindow(
-									setedit.getApplicationWindowToken(), 0);
-							new makeSet(DB.MY_DB_SET2).execute();
-
-						} else if (setButtonClicked == 4) {
-							editor1.putInt("LoadSet", 4);
-							editor1.putString("SetButtonFour", setedit
-									.getText().toString());
-							editor1.commit();
-							setfour.setText(setedit.getText().toString());
-							setfour.setTextColor(0xff00cc00);
-							setedit.setText("");
-							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-							imm.hideSoftInputFromWindow(
-									setedit.getApplicationWindowToken(), 0);
-							new makeSet(DB.MY_DB_SET3).execute();
-
-						}
-						pw.dismiss();
-					}
-				}
-			});
-			pw = new PopupWindow(layoutOwn,
-					ViewGroup.LayoutParams.WRAP_CONTENT,
-					ViewGroup.LayoutParams.WRAP_CONTENT, true);
-			pw.setAnimationStyle(-1);
-			pw.setBackgroundDrawable(new BitmapDrawable());
-			pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
 			return true;
 		} else if (item.getItemId() == R.id.opt_about_this_app) {
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -1643,217 +1497,11 @@ public class EditSettingsActivity extends Activity {
 		}
 	}
 
-	public class makeSet extends AsyncTask<String, Void, Boolean> {
-
-		private ProgressDialog dialog;
-		String thisset;
-
-		public makeSet(String set) {
-			dialog = new ProgressDialog(mContext);
-			thisset = set;
-		}
-
-		protected void onPreExecute() {
-			this.dialog.setMessage(getString(R.string.save_set));
-			this.dialog.show();
-		}
-
-		@Override
-		protected void onPostExecute(final Boolean success) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
-			}
-			ViewPager viewPager1 = (ViewPager) findViewById(R.id.viewPager);
-			SettingsPager adapter1 = new SettingsPager(mContext);
-			viewPager1.setAdapter(adapter1);
-			settingsPageIndicator.setCurrentItem(0);
-			viewPager.setCurrentItem(0, false);
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.set_saved), Toast.LENGTH_SHORT).show();
-
-		}
-
-		protected Boolean doInBackground(final String... args) {
-			// try {
-			myDBSet = mContext.openOrCreateDatabase(thisset,
-					Context.MODE_PRIVATE, null);
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETCAMBW
-					+ " (_id integer primary key autoincrement, cam varchar(100), bw varchar(100))"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETCAM
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETFF
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETEMP
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETBW
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETNM
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETFIL
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETBLI
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETSON
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETTYP
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETFOK
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETBLE
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETZEI
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETMES
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETPLU
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETMAK
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETMVF
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETFVF
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETKOR
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETMVF2
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-			myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ DB.MY_DB_TABLE_SETFVF2
-					+ " (_id integer primary key autoincrement, name varchar(100), value integer, def integer)"
-					+ ";");
-
-			ArrayList<String> TableNames = new ArrayList<String>();
-			TableNames.add("SettingsCamera");
-			TableNames.add("SettingsFilmFormat");
-			TableNames.add("SettingsFilmEmpf");
-			TableNames.add("SettingsBrennweite");
-			TableNames.add("SettingsNahzubehor");
-			TableNames.add("SettingsFilter");
-			TableNames.add("SettingsBlitz");
-			TableNames.add("SettingsSonder");
-			TableNames.add("SettingsFokus");
-			TableNames.add("SettingsBlende");
-			TableNames.add("SettingsZeit");
-			TableNames.add("SettingsMessung");
-			TableNames.add("SettingsPlusMinus");
-			TableNames.add("SettingsMakro");
-			TableNames.add("SettingsMakroVF");
-			TableNames.add("SettingsFilterVF");
-			TableNames.add("SettingsMakroVF2");
-			TableNames.add("SettingsFilterVF2");
-			TableNames.add("SettingsBlitzKorr");
-			TableNames.add("SettingsFilmTyp");
-
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETTYP);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETCAM);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETCAMBW);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETFIL);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETEMP);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETNM);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETSON);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETBLI);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETBW);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETFF);
-
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETFOK);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETBLE);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETZEI);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETMES);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETPLU);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETMAK);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETMVF);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETFVF);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETMVF2);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETFVF2);
-			myDBSet.execSQL("DELETE FROM " + DB.MY_DB_TABLE_SETKOR);
-
-			myDB = mContext.openOrCreateDatabase(MY_DB_NAME,
-					Context.MODE_PRIVATE, null);
-
-			// TODO SD: Careful with this bit, as it is actually quite smart. If
-			// the user creates a new Set, this bit of code will not just create
-			// a new database with the default values, but it will copy the
-			// users existing database of camera gear.
-			for (int xy = 0; xy < TableNames.size(); xy++) {
-				Cursor c = myDB.rawQuery("SELECT name,value,def FROM "
-						+ TableNames.get(xy), null);
-				if (c != null) {
-					if (c.moveToFirst()) {
-						do {
-							ContentValues initialValues = new ContentValues();
-							initialValues.clear();
-							initialValues.put("name",
-									c.getString(c.getColumnIndex("name")));
-							initialValues.put("value",
-									c.getInt(c.getColumnIndex("value")));
-							initialValues.put("def",
-									c.getInt(c.getColumnIndex("def")));
-							myDBSet.insert(TableNames.get(xy), null,
-									initialValues);
-						} while (c.moveToNext());
-					}
-				}
-				c.close();
-				stopManagingCursor(c);
-			}
-			myDB.close();
-			myDBSet.close();
-
-			SharedPreferences.Editor editor = settings.edit();
-			editor.putString("SettingsTable", thisset);
-			editor.commit();
-			MY_DB_NAME = thisset;
-			// readDB();
-
-			return null;
-		}
-	}
-
-	public class resetSettings extends AsyncTask<String, Void, Boolean> {
+	public class ResetSettings extends AsyncTask<String, Void, Boolean> {
 
 		private ProgressDialog dialog;
 
-		public resetSettings() {
+		public ResetSettings() {
 			dialog = new ProgressDialog(mContext);
 		}
 
@@ -1867,11 +1515,7 @@ public class EditSettingsActivity extends Activity {
 			if (dialog.isShowing()) {
 				dialog.dismiss();
 			}
-			SharedPreferences.Editor editor = settings.edit();
-			editor.putString("SettingsTable", DB.MY_DB_SET);
-			editor.commit();
-			MY_DB_NAME = DB.MY_DB_SET;
-			// readDB();
+
 			viewPager = (ViewPager) findViewById(R.id.viewPager);
 			SettingsPager adapter = new SettingsPager(mContext);
 			viewPager.setAdapter(adapter);
@@ -1884,27 +1528,14 @@ public class EditSettingsActivity extends Activity {
 		protected Boolean doInBackground(final String... args) {
 			try {
 
-				DB.getDB().createOrRebuildSettingsTable(mContext);
-
-				SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
-						DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
-				myDBNummer.execSQL("DELETE FROM " + DB.MY_DB_TABLE_NUMMER);
-				myDBNummer.close();
-
-				SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(
-						DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
-				myDBFilm.execSQL("DELETE FROM " + DB.MY_DB_FILM_TABLE);
-				myDBFilm.close();
-
-				settings = PreferenceManager
+				SharedPreferences prefs = PreferenceManager
 						.getDefaultSharedPreferences(mContext);
-				SharedPreferences.Editor editor = settings.edit();
-				editor.clear();
-				editor.commit();
+				MY_DB_NAME = prefs.getString("SettingsTable", "Foto");
+				DB.getDB().createOrRebuildSettingsTable(mContext, MY_DB_NAME);
 
-				SharedPreferences.Editor editor1 = settings.edit();
-				editor1.putInt("FIRSTSTART", 1);
-				editor1.commit();
+				SharedPreferences.Editor editor = prefs.edit();
+				editor.putInt("FIRSTSTART", 1);
+				editor.commit();
 
 			} catch (Exception e) {
 				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
