@@ -79,6 +79,10 @@ import com.viewpagerindicator.TitleProvider;
 
 public class EditSettingsActivity extends Activity {
 
+	private static final String SETTINGS_TABLE = "SettingsTable";
+	private static final String LOAD_SET = "LoadSet";
+	private static final String FIRSTSTART = "FIRSTSTART";
+	
 	public static final int ALLGEMEIN_POSITION = 0;
 	public static final int KAMERA_POSITION = 1;
 	public static final int FOKUS_POSITION = 2;
@@ -125,24 +129,24 @@ public class EditSettingsActivity extends Activity {
 		settingsPageIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 		settingsPageIndicator.setViewPager(viewPager);
 
-		if (settings.getInt("FIRSTSTART", 0) == 1) {
+		if (settings.getInt(FIRSTSTART, 0) == 1) {
 			ViewGroup view = (ViewGroup) getWindow().getDecorView();
 			view.post(new Runnable() {
 				public void run() {
 					openTutorial();
 					SharedPreferences.Editor editor = settings.edit();
-					editor.putInt("FIRSTSTART", 2);
+					editor.putInt(FIRSTSTART, 2);
 					editor.commit();
 				}
 			});
 
-		} else if (settings.getInt("FIRSTSTART", 0) == 3) {
+		} else if (settings.getInt(FIRSTSTART, 0) == 3) {
 			ViewGroup view1 = (ViewGroup) getWindow().getDecorView();
 			view1.post(new Runnable() {
 				public void run() {
 					openTutorial();
 					SharedPreferences.Editor editor = settings.edit();
-					editor.putInt("FIRSTSTART", 5);
+					editor.putInt(FIRSTSTART, 5);
 					editor.commit();
 				}
 			});
@@ -223,6 +227,7 @@ public class EditSettingsActivity extends Activity {
 
 	private class SettingsPager extends PagerAdapter implements TitleProvider {
 
+		private static final String GEO_TAG = "geoTag";
 		private String[] pageTitles = null;
 		private LayoutInflater inflater = getLayoutInflater();
 
@@ -841,7 +846,7 @@ public class EditSettingsActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					SharedPreferences.Editor editor = settings.edit();
-					editor.putInt("FIRSTSTART", 1);
+					editor.putInt(FIRSTSTART, 1);
 					editor.commit();
 				}
 			});
@@ -869,25 +874,25 @@ public class EditSettingsActivity extends Activity {
 					if (!geotag.getText().toString()
 							.equals(getString(R.string.on))) {
 						if (geotag.isChecked()) {
-							editors.putString("geoTag", "ja");
+							editors.putString(GEO_TAG, "ja");
 							editors.commit();
 						} else {
-							editors.putString("geoTag", "nein");
+							editors.putString(GEO_TAG, "nein");
 							editors.commit();
 						}
 					} else {
 						if (geotag.isChecked()) {
-							editors.putString("geoTag", "ja");
+							editors.putString(GEO_TAG, "ja");
 							editors.commit();
 						} else {
-							editors.putString("geoTag", "nein");
+							editors.putString(GEO_TAG, "nein");
 							editors.commit();
 						}
 					}
 				}
 			});
 
-			if (settings.getString("geoTag", "nein") == "nein") {
+			if (settings.getString(GEO_TAG, "nein") == "nein") {
 				geotag.setChecked(false);
 				Log.v("Check", "geoTag auf false");
 			} else {
@@ -1257,7 +1262,7 @@ public class EditSettingsActivity extends Activity {
 
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(mContext);
-		int selected = prefs.getInt("LoadSet", 1) - 1;
+		int selected = prefs.getInt(LOAD_SET, 1) - 1;
 
 		for (int i = 0; i < buttons.length; i++) {
 			if (i == selected) {
@@ -1325,17 +1330,17 @@ public class EditSettingsActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					if (v == setfour) {
-						prefsEditor.putInt("LoadSet", 4);
-						prefsEditor.putString("SettingsTable", DB.MY_DB_SET3);
+						prefsEditor.putInt(LOAD_SET, 4);
+						prefsEditor.putString(SETTINGS_TABLE, DB.MY_DB_SET3);
 					} else if (v == setthree) {
-						prefsEditor.putInt("LoadSet", 3);
-						prefsEditor.putString("SettingsTable", DB.MY_DB_SET2);
+						prefsEditor.putInt(LOAD_SET, 3);
+						prefsEditor.putString(SETTINGS_TABLE, DB.MY_DB_SET2);
 					} else if (v == settwo) {
-						prefsEditor.putInt("LoadSet", 2);
-						prefsEditor.putString("SettingsTable", DB.MY_DB_SET1);
+						prefsEditor.putInt(LOAD_SET, 2);
+						prefsEditor.putString(SETTINGS_TABLE, DB.MY_DB_SET1);
 					} else {
-						prefsEditor.putInt("LoadSet", 1);
-						prefsEditor.putString("SettingsTable", DB.MY_DB_SET);
+						prefsEditor.putInt(LOAD_SET, 1);
+						prefsEditor.putString(SETTINGS_TABLE, DB.MY_DB_SET);
 					}
 
 					prefsEditor.commit();
@@ -1423,7 +1428,7 @@ public class EditSettingsActivity extends Activity {
 				DB.getDB().createOrRebuildSettingsTable(mContext);
 
 				SharedPreferences.Editor editor = prefs.edit();
-				editor.putInt("FIRSTSTART", 1);
+				editor.putInt(FIRSTSTART, 1);
 				editor.commit();
 
 			} catch (Exception e) {

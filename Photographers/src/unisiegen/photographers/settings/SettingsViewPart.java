@@ -3,7 +3,6 @@ package unisiegen.photographers.settings;
 import java.util.ArrayList;
 
 import unisiegen.photographers.activity.R;
-import unisiegen.photographers.activity.SettingsArrayAdapter;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Setting;
 import android.content.Context;

@@ -1,10 +1,12 @@
-package unisiegen.photographers.activity;
+package unisiegen.photographers.settings;
 
 import java.util.List;
 
+import unisiegen.photographers.activity.R;
+import unisiegen.photographers.activity.R.id;
+import unisiegen.photographers.activity.R.layout;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Setting;
-import unisiegen.photographers.settings.SettingsViewHolder;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
