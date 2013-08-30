@@ -14,6 +14,7 @@
 	<string name="export">Bereite Daten für Export vor...</string>
 	<string name="save_set">Set speichern...</string>
 	<string name="reset">Reset auf Defaultwerte...</string>
+	<string name="reset_warning">Möchten Sie wirklich alle Einstellungen zurücksetzen? Alle selbst vorgenommenen Änderungen gehen dabei verloren.</string>
 	<string name="set_saved">Set wurde erfolgreich erstellt und und kann nun bearbeitet werden!</string>
 	<string name="create_new_film">Neuen Film erstellen</string>
 	<string name="new_film">Neuer Film</string>

@@ -1284,16 +1284,16 @@ public class EditSettingsActivity extends Activity {
 		if (item.getItemId() == R.id.opt_settingsToFactoryDefaults) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 			builder.setMessage(
-					"M\u00F6chten Sie wirklich alle Einstellungen zur\u00FCcksetzen ?")
+					getString(R.string.reset_warning))
 					.setCancelable(false)
-					.setPositiveButton("Ja",
+					.setPositiveButton(getString(R.string.yes),
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int which) {
 									new ResetSettings().execute();
 								}
 							})
-					.setNegativeButton("Nein",
+					.setNegativeButton(getString(R.string.no),
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int which) {
