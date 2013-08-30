@@ -1373,7 +1373,7 @@ public class EditSettingsActivity extends Activity {
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.about_this_app));
 			alertDialog.setMessage(Html.fromHtml(getString(R.string.info)));
-			alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
+			alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.ok),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							return;

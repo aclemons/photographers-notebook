@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Photographers</string>
     <string name="question_delete">Wollen Sie den Eintrag wirklich löschen?</string>
+	<string name="ok">OK</string>
 	<string name="yes">Ja</string>
 	<string name="deleted">Eintrag gelöscht</string>
 	<string name="entry_saved">Eintrag erstellt</string>
