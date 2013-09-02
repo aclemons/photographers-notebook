@@ -83,7 +83,7 @@
 	<string name="set_two">Set-Zwei</string>
 	<string name="set_three">Set-Drei</string>
 	<string name="set_four">Set-Vier</string>
-	<string name="set_loaded">Ausrüstungs-Set wurde erfolgreich geladen.</string>
+	<string name="set_loaded">Ausrüstungs-Set wurde geändert.</string>
 	<string name="set_not_saved">Das geladene Ausrüstungs-Set kann nicht überschrieben werden.</string>
 	<string name="empty_name_not_allowed">Leerer Name ist nicht erlaubt.</string>
 	<string name="choose_lens">Wählen Sie die Objektive für die Kamera aus.</string>
@@ -106,9 +106,9 @@
         <item>Hier können Sie ihre Einstellungen personalisieren.</item>
         <item>Bestimmen Sie, welche Einstellungen später in den Auswahl-Bildschirmen vorhanden sein sollen.</item>
         <item>Sie können neue Einträge hinzufügen oder bestehende Beiträge nach langem Antippen bearbeiten.</item>
-        <item>Im Menü können Sie ihr Ausrüstungs-Set zurücksetzen oder ein neues Ausrüstungs-Set erstellen, um es mit bestimmten Einstellungen zu konfigurieren.</item>
+        <item>Im Menü können Sie verschiedene Ausrüstungs-Sets wählen und entsprechend Ihrer Ausrüstung konfigurieren.</item>
         <item>Einige Daten sind bereits vorhanden und vorausgewählt. Sie müssen nur noch eine Kamera hinzufügen und Objektive zuordnen.</item>
-        <item>Sie haben außerdem die Möglichkeit, Ihre Ausrüstungs-Sets zu speichern und später wieder zu laden.</item>
+        <item>Alle Änderungen werden automatisch in das aktuelle Ausrüstungs-Set gespeichert.</item>
     </string-array>    
     <string-array name="pic_slide_contents">
         <item>Optionen I/II</item>
@@ -134,8 +134,8 @@
 		<item>Sonderentwicklung</item>
 	</string-array>
 	<string name="create_new_set">Neues Ausrüstungs-Set erstellen</string>
-	<string name="load_existing_set">Anderes Ausrüstungs-Set laden</string>
-	<string name="restore_default_settings">Ausrüstungs-Set zurücksetzen</string>
+	<string name="load_existing_set">Anderes Ausrüstungs-Set auswählen</string>
+	<string name="restore_default_settings">Aktuelles Ausrüstungs-Set zurücksetzen</string>
 	<string name="settings">Einstellungen</string>
 	<string name="back_to_start">Zurück zur Filmauswahl</string>
 	<string name="about_this_app">Über diese App</string>
