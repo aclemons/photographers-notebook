@@ -13,10 +13,10 @@
 	<string name="continue_film">Film fortsetzen</string>
 	<string name="firststart">Ersten Start vorbereiten...</string>
 	<string name="export">Bereite Daten für Export vor...</string>
-	<string name="save_set">Set speichern...</string>
-	<string name="reset">Reset auf Defaultwerte...</string>
-	<string name="reset_warning">Möchten Sie wirklich alle Einstellungen zurücksetzen? Alle selbst vorgenommenen Änderungen gehen dabei verloren.</string>
-	<string name="set_saved">Set wurde erfolgreich erstellt und und kann nun bearbeitet werden!</string>
+	<string name="save_set">Ausrüstungs-Set speichern...</string>
+	<string name="reset">Ausrüstungs-Set wird auf Defaultwerte zurückgesetzt...</string>
+	<string name="reset_warning">Möchten Sie das aktive Ausrüstungs-Set wirklich zurücksetzen? Alle selbst vorgenommenen Änderungen gehen dabei verloren.</string>
+	<string name="set_saved">Das Ausrüstungs-Set wurde erfolgreich erstellt und und kann nun bearbeitet werden!</string>
 	<string name="create_new_film">Neuen Film erstellen</string>
 	<string name="new_film">Neuer Film</string>
 	<string name="film_selection">Filmauswahl</string>
@@ -83,8 +83,8 @@
 	<string name="set_two">Set-Zwei</string>
 	<string name="set_three">Set-Drei</string>
 	<string name="set_four">Set-Vier</string>
-	<string name="set_loaded">Set wurde erfolgreich geladen.</string>
-	<string name="set_not_saved">Das geladene Set kann nicht überschrieben werden.</string>
+	<string name="set_loaded">Ausrüstungs-Set wurde erfolgreich geladen.</string>
+	<string name="set_not_saved">Das geladene Ausrüstungs-Set kann nicht überschrieben werden.</string>
 	<string name="empty_name_not_allowed">Leerer Name ist nicht erlaubt.</string>
 	<string name="choose_lens">Wählen Sie die Objektive für die Kamera aus.</string>
 	<string name="empty_or_existing_entry">Das Textfeld ist leer oder das Objekt existiert bereits!</string>
@@ -106,9 +106,9 @@
         <item>Hier können Sie ihre Einstellungen personalisieren.</item>
         <item>Bestimmen Sie, welche Einstellungen später in den Auswahl-Bildschirmen vorhanden sein sollen.</item>
         <item>Sie können neue Einträge hinzufügen oder bestehende Beiträge nach langem Antippen bearbeiten.</item>
-        <item>Im Menü können Sie die Einstellungen zurücksetzen oder ein neues Einstellunges-Set erstellen, um es mit bestimmten Einstellungen zu konfigurieren.</item>
+        <item>Im Menü können Sie ihr Ausrüstungs-Set zurücksetzen oder ein neues Ausrüstungs-Set erstellen, um es mit bestimmten Einstellungen zu konfigurieren.</item>
         <item>Einige Daten sind bereits vorhanden und vorausgewählt. Sie müssen nur noch eine Kamera hinzufügen und Objektive zuordnen.</item>
-        <item>Sie haben außerdem die Möglichkeit, mehrere Einstellungssets zu speichern und später wieder zu laden.</item>
+        <item>Sie haben außerdem die Möglichkeit, Ihre Ausrüstungs-Sets zu speichern und später wieder zu laden.</item>
     </string-array>    
     <string-array name="pic_slide_contents">
         <item>Optionen I/II</item>
@@ -133,9 +133,9 @@
 		<item>Blitz-Korr</item>
 		<item>Sonderentwicklung</item>
 	</string-array>
-	<string name="create_new_set">Neues Set erstellen</string>
-	<string name="load_existing_set">Bestehendes Set laden</string>
-	<string name="restore_default_settings">Werkseinstellungen</string>
+	<string name="create_new_set">Neues Ausrüstungs-Set erstellen</string>
+	<string name="load_existing_set">Anderes Ausrüstungs-Set laden</string>
+	<string name="restore_default_settings">Ausrüstungs-Set zurücksetzen</string>
 	<string name="settings">Einstellungen</string>
 	<string name="back_to_start">Zurück zur Filmauswahl</string>
 	<string name="about_this_app">Über diese App</string>
