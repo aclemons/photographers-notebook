@@ -48,5 +48,16 @@ public class Film {
 		this.icon = BitmapFactory.decodeByteArray(imageData, 0,
 				imageData.length);
 	}
+	
+	public String toString() {
+		StringBuilder sr = new StringBuilder();
+		sr.append(Titel);
+		sr.append(" ");
+		sr.append(Kamera);
+		sr.append(" ");
+		if(Filmnotiz != null && Filmnotiz.length() > 0)
+			sr.append(Filmnotiz);
+		return sr.toString();
+	}
 
 }

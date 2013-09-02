@@ -64,4 +64,17 @@ public class Bild {
 	public Bild() {
 
 	}
+	
+	public String toString() {
+		StringBuilder sr = new StringBuilder();
+		sr.append(Bildnummer);
+		sr.append(" ");
+		sr.append(Objektiv);
+		sr.append(" ");
+		sr.append(Blende);
+		sr.append(" ");
+		sr.append(Zeit);
+		return sr.toString();
+	}
+	
 }
