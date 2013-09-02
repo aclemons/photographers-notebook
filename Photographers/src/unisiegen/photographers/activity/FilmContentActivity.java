@@ -375,12 +375,12 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 	};
 
 	/*
-	 * Pageadapter f�r das hin- und herwischen zwischen den Bildenr. W�hlt man
-	 * ein Bild aus, wird ein "Popup" ge�ffnet in der alle Informationen zu dem
-	 * Bild vorhanden sind in dieser Ansicht l�sst sich dann auch zwischen den
-	 * Bildern hin- und herwechseln. Es wird einfach eine ArrayList<Views>
-	 * gef�llt. Quasi fertige Views in eine Liste, die beim Wischen
-	 * durchgegangen wird.
+	 * Pageadapter f�r das hin- und herwischen zwischen den Bildenr. W�hlt
+	 * man ein Bild aus, wird ein "Popup" ge�ffnet in der alle Informationen
+	 * zu dem Bild vorhanden sind in dieser Ansicht l�sst sich dann auch
+	 * zwischen den Bildern hin- und herwechseln. Es wird einfach eine
+	 * ArrayList<Views> gef�llt. Quasi fertige Views in eine Liste, die beim
+	 * Wischen durchgegangen wird.
 	 */
 	private class MyPagerAdapter extends PagerAdapter implements TitleProvider {
 

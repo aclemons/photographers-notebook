@@ -286,10 +286,10 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	 * (non-Javadoc)
 	 * 
 	 * @see android.app.Activity#onActivityResult(int, int,
-	 * android.content.Intent) Bild �bergabe (Wenn man ein Vorschau bild macht,
-	 * geschieht dies in einer neuen Popup Activity, ist dies fertig �bergibt
-	 * diese Activity als R�ckgabe Wert das Bild, welches zusammen mit den
-	 * anderen Details zum Film gespeichert wird.
+	 * android.content.Intent) Bild �bergabe (Wenn man ein Vorschau bild
+	 * macht, geschieht dies in einer neuen Popup Activity, ist dies fertig
+	 * �bergibt diese Activity als R�ckgabe Wert das Bild, welches zusammen
+	 * mit den anderen Details zum Film gespeichert wird.
 	 */
 
 	@Override
