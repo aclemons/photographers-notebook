@@ -3,8 +3,6 @@ package unisiegen.photographers.settings;
 import java.util.List;
 
 import unisiegen.photographers.activity.R;
-import unisiegen.photographers.activity.R.id;
-import unisiegen.photographers.activity.R.layout;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Setting;
 import android.content.Context;
@@ -19,12 +17,9 @@ import android.widget.TextView;
 public class SettingsArrayAdapter extends ArrayAdapter<Setting> {
 
 	private LayoutInflater inflater;
-	int nummer = 0;
 
-	public SettingsArrayAdapter(Context context, List<Setting> planetList,
-			int number) {
-		super(context, R.layout.list_item, R.id.listItemText, planetList);
-		nummer = number;
+	public SettingsArrayAdapter(Context context, List<Setting> settings) {
+		super(context, R.layout.list_item, R.id.listItemText, settings);
 		// Cache the LayoutInflate to avoid asking for a new one each time.
 		inflater = LayoutInflater.from(context);
 	}

@@ -82,7 +82,7 @@ public class EditSettingsActivity extends Activity {
 	private static final String SETTINGS_TABLE = "SettingsTable";
 	private static final String LOAD_SET = "LoadSet";
 	private static final String FIRSTSTART = "FIRSTSTART";
-	
+
 	public static final int ALLGEMEIN_POSITION = 0;
 	public static final int KAMERA_POSITION = 1;
 	public static final int FOKUS_POSITION = 2;
@@ -272,61 +272,61 @@ public class EditSettingsActivity extends Activity {
 				break;
 			case FOKUS_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.focus,
-						FOKUS_POSITION, DB.MY_DB_TABLE_SETFOK).getView();
+						DB.MY_DB_TABLE_SETFOK).getView();
 				break;
 			case BLENDE_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.aperture,
-						BLENDE_POSITION, DB.MY_DB_TABLE_SETBLE).getView();
+						DB.MY_DB_TABLE_SETBLE).getView();
 				break;
 			case ZEITE_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.exposure,
-						ZEITE_POSITION, DB.MY_DB_TABLE_SETZEI).getView();
+						DB.MY_DB_TABLE_SETZEI).getView();
 				break;
 			case MESS_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.measurement,
-						MESS_POSITION, DB.MY_DB_TABLE_SETMES).getView();
+						DB.MY_DB_TABLE_SETMES).getView();
 				break;
 			case KORREKTUR_POSITION:
 				myView = new SettingsViewPart(mContext,
-						R.string.exposure_correction, KORREKTUR_POSITION,
-						DB.MY_DB_TABLE_SETKOR).getView();
+						R.string.exposure_correction, DB.MY_DB_TABLE_SETKOR)
+						.getView();
 				break;
 			case MAKRO_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.focus,
-						MAKRO_POSITION, DB.MY_DB_TABLE_SETNM).getView();
+						DB.MY_DB_TABLE_SETNM).getView();
 				break;
 			case MAKROVF_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.macro_vf,
-						MAKROVF_POSITION, DB.MY_DB_TABLE_SETMVF).getView();
+						DB.MY_DB_TABLE_SETMVF).getView();
 				break;
 			case FILTER_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.filter,
-						FILTER_POSITION, DB.MY_DB_TABLE_SETFIL).getView();
+						DB.MY_DB_TABLE_SETFIL).getView();
 				break;
 			case FILTERVF_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.filter_vf,
-						FILTERVF_POSITION, DB.MY_DB_TABLE_SETFVF).getView();
+						DB.MY_DB_TABLE_SETFVF).getView();
 				break;
 			case FILMFORMAT_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.film_formats,
-						FILMFORMAT_POSITION, DB.MY_DB_TABLE_SETFF).getView();
+						DB.MY_DB_TABLE_SETFF).getView();
 				break;
 			case ASA_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.film_speed,
-						ASA_POSITION, DB.MY_DB_TABLE_SETEMP).getView();
+						DB.MY_DB_TABLE_SETEMP).getView();
 				break;
 			case BLITZ_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.flash,
-						BLITZ_POSITION, DB.MY_DB_TABLE_SETBLI).getView();
+						DB.MY_DB_TABLE_SETBLI).getView();
 				break;
 			case BLITZKORR_POSITION:
 				myView = new SettingsViewPart(mContext,
-						R.string.flash_correction, BLITZKORR_POSITION,
-						DB.MY_DB_TABLE_SETKOR).getView();
+						R.string.flash_correction, DB.MY_DB_TABLE_SETKOR)
+						.getView();
 				break;
 			case SOND_POSITION:
 				myView = new SettingsViewPart(mContext, R.string.processing,
-						SOND_POSITION, DB.MY_DB_TABLE_SETSON).getView();
+						DB.MY_DB_TABLE_SETSON).getView();
 				break;
 			}
 
@@ -1283,8 +1283,7 @@ public class EditSettingsActivity extends Activity {
 
 		if (item.getItemId() == R.id.opt_settingsToFactoryDefaults) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-			builder.setMessage(
-					getString(R.string.reset_warning))
+			builder.setMessage(getString(R.string.reset_warning))
 					.setCancelable(false)
 					.setPositiveButton(getString(R.string.yes),
 							new DialogInterface.OnClickListener() {
@@ -1373,7 +1372,8 @@ public class EditSettingsActivity extends Activity {
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(getString(R.string.about_this_app));
 			alertDialog.setMessage(Html.fromHtml(getString(R.string.info)));
-			alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.ok),
+			alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+					getString(R.string.ok),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							return;

@@ -50,7 +50,7 @@ public class SettingsViewPart {
 		return view;
 	}
 
-	public SettingsViewPart(final Context context, int titleID, int position,
+	public SettingsViewPart(final Context context, int titleID,
 			final String settingName) {
 
 		inflater = (LayoutInflater) context
@@ -68,11 +68,8 @@ public class SettingsViewPart {
 
 		layout.setBackgroundResource(R.drawable.shaperedtable);
 
-		// Fill with Data
-		// TODO: Daten holen sollte eigentlich der SettingsArrayAdapter machen,
-		// denke ich...
 		values = DB.getDB().getAllSettings(context, settingName);
-		listAdapter = new SettingsArrayAdapter(context, values, position);
+		listAdapter = new SettingsArrayAdapter(context, values);
 		list.setAdapter(listAdapter);
 
 		layout.setPadding(4, 0, -2, 0);
