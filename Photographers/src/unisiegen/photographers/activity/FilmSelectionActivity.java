@@ -97,13 +97,16 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		TextView pics = (TextView) findViewById(R.id.picanzahl);
 		contentIndex = 0;
 
-		if (settings.getInt("FIRSTSTART", 0) == 1) {
+		if (settings.getInt("FIRSTSTART", 0) == 0) {
 			ViewGroup view = (ViewGroup) getWindow().getDecorView();
 			view.post(new Runnable() {
 				public void run() {
 					popupmenue();
 				}
 			});
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putInt("FIRSTSTART", 1);
+			editor.commit();	
 		}
 
 		int gesamtPics = 0;
@@ -126,12 +129,8 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		setContentView(R.layout.filmauswahl);
 		mContext = this;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-		if (settings.getInt("FIRSTSTART", 0) == 0) {
-
+		if (settings.getInt("FIRSTSTART", 99) == 99 ) { // Only do this on the very first start, when FIRSTSTART is not yet set.
 			new ResetSettingsTask().execute();
-			SharedPreferences.Editor editor = settings.edit();
-			editor.putInt("FIRSTSTART", 1);
-			editor.commit();
 		}
 		Button newFilm = (Button) findViewById(R.id.newFilm);
 		newFilm.setOnClickListener(new OnClickListener() {

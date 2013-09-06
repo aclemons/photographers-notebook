@@ -846,7 +846,7 @@ public class EditSettingsActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					SharedPreferences.Editor editor = settings.edit();
-					editor.putInt(FIRSTSTART, 1);
+					editor.putInt(FIRSTSTART, 0);
 					editor.commit();
 				}
 			});
@@ -1423,13 +1423,7 @@ public class EditSettingsActivity extends Activity {
 		protected Boolean doInBackground(final String... args) {
 			try {
 
-				SharedPreferences prefs = PreferenceManager
-						.getDefaultSharedPreferences(mContext);
 				DB.getDB().createOrRebuildSettingsTable(mContext);
-
-				SharedPreferences.Editor editor = prefs.edit();
-				editor.putInt(FIRSTSTART, 1);
-				editor.commit();
 
 			} catch (Exception e) {
 				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
