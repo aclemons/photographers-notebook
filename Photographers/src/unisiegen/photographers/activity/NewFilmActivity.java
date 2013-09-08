@@ -109,11 +109,10 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 				Log.v("Foto", "showFilm");
 				
 				if (titleText.getText().toString().length() == 0) {
-					
 					Toast.makeText(getApplicationContext(), getString(R.string.empty_title), Toast.LENGTH_SHORT).show();
-					
+				} else if (DB.getDB().checkIfFilmTitleIsTaken(getApplicationContext(), titleText.getText().toString())) {
+					Toast.makeText(getApplicationContext(), getString(R.string.title_taken), Toast.LENGTH_LONG).show();
 				} else {
-				
 					try {
 						SharedPreferences.Editor editor = settings.edit();
 						editor.putString("Title", titleText.getText().toString());

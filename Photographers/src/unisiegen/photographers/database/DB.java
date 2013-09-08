@@ -296,7 +296,25 @@ public class DB {
 		myDBNummer.close();
 		myDBFilm.close();
 	}
-
+	
+	public boolean checkIfFilmTitleIsTaken(Context context, String newTitle) {
+		
+		boolean titleAlreadyTaken = false;
+		
+		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM,
+				Context.MODE_PRIVATE, null);
+		
+		Cursor c = myDBFilm.rawQuery("SELECT filmtitle FROM " + DB.MY_DB_FILM_TABLE + " WHERE filmtitle = '" + newTitle + "'", null);
+		
+		if (c.getCount() > 0) { 
+			titleAlreadyTaken = true;
+		}
+		
+		myDBFilm.close();
+		
+		return titleAlreadyTaken;
+	}
+	
 	public Film getFilm(Context context, String title) {
 
 		Film film = new Film();
