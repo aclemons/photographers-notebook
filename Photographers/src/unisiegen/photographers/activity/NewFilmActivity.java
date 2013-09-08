@@ -107,109 +107,119 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 			@Override
 			public void onClick(View v) {
 				Log.v("Foto", "showFilm");
-				try {
-					SharedPreferences.Editor editor = settings.edit();
-					editor.putString("Title", titleText.getText().toString());
-					editor.putString("FilmNotiz", filmnotiz.getText()
-							.toString());
-					editor.putString("Datum", android.text.format.DateFormat
-							.format("dd.MM.yyyy", new java.util.Date())
-							.toString());
-					editor.putString("Kamera", spinnerCamera.getSelectedItem()
-							.toString());
-					editor.putString("Filmformat", spinnerFF.getSelectedItem()
-							.toString());
-					editor.putString("Empfindlichkeit", spinnerEM
-							.getSelectedItem().toString());
-					editor.putString("Filmtyp", spinnerTY.getSelectedItem()
-							.toString());
-					editor.putString("Sonder1", spinnerSS.getSelectedItem()
-							.toString());
-					editor.putString("Sonder2", spinnerSSS.getSelectedItem()
-							.toString());
-					editor.putInt("BildNummerToBegin", 1);
-					editor.putBoolean("EditMode", false);
-					editor.commit();
-
-					Film f = new Film();
-					f.Titel = titleText.getText().toString();
-					f.Filmnotiz = filmnotiz.getText().toString();
-					f.Datum = android.text.format.DateFormat.format(
-							"dd.MM.yyyy", new java.util.Date()).toString();
-					f.Kamera = spinnerCamera.getSelectedItem().toString();
-					f.Filmformat = spinnerFF.getSelectedItem().toString();
-					f.Empfindlichkeit = spinnerEM.getSelectedItem().toString();
-					f.Filmtyp = spinnerTY.getSelectedItem().toString();
-					f.Sonderentwicklung1 = spinnerSS.getSelectedItem()
-							.toString();
-					f.Sonderentwicklung2 = spinnerSSS.getSelectedItem()
-							.toString();
-
-					Bild b = new Bild();
-					b.Bildnummer = "Bild 0";
-					b.Notiz = "Dummy-Bild f�r die Filmdaten";
-					b.Belichtungskorrektur = "";
-					b.Blende = "";
-					b.Blitz = "";
-					b.Blitzkorrektur = "";
-					b.Filter = "";
-					b.FilterVF = "";
-					b.Fokus = "";
-					b.GeoTag = "0' , '0"; // Wenn das Format hier nicht stimmt,
-											// kracht es wegen dem Splitting des
-											// Strings in ein Array in der DB
-											// Klasse.
-					b.KameraNotiz = "";
-					b.Makro = "";
-					b.MakroVF = "";
-					b.Messmethode = "";
-					b.Objektiv = "";
-					b.Zeit = "";
-
-					Calendar cal = Calendar.getInstance();
-					SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-
-					b.Zeitstempel = sdf.format(cal.getTime());
-
-					byte[] thumbnail;
-
-					// TODO: Check einbauen der pr�ft ob ein Film mit gleichem
-					// Titel schon in der Datenbank ist!
-
-					Log.v("Check", "Check if Bild vorhanden : " + (pic == null));
-					Intent myIntent = new Intent(getApplicationContext(),
-							NewPictureActivity.class);
-
-					if (pic != null) {
-						myIntent.putExtra("image", pic);
-						thumbnail = pic;
-					} else {
-						Bitmap bm = BitmapFactory.decodeResource(
-								getApplicationContext().getResources(),
-								R.drawable.nopic);
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
-						nopic = baos.toByteArray();
-						myIntent.putExtra("image", nopic);
-						thumbnail = nopic;
+				
+				if (titleText.getText().toString().length() == 0) {
+					
+					Toast.makeText(getApplicationContext(), getString(R.string.empty_title), Toast.LENGTH_SHORT).show();
+					
+				} else {
+				
+					try {
+						SharedPreferences.Editor editor = settings.edit();
+						editor.putString("Title", titleText.getText().toString());
+						editor.putString("FilmNotiz", filmnotiz.getText()
+								.toString());
+						editor.putString("Datum", android.text.format.DateFormat
+								.format("dd.MM.yyyy", new java.util.Date())
+								.toString());
+						editor.putString("Kamera", spinnerCamera.getSelectedItem()
+								.toString());
+						editor.putString("Filmformat", spinnerFF.getSelectedItem()
+								.toString());
+						editor.putString("Empfindlichkeit", spinnerEM
+								.getSelectedItem().toString());
+						editor.putString("Filmtyp", spinnerTY.getSelectedItem()
+								.toString());
+						editor.putString("Sonder1", spinnerSS.getSelectedItem()
+								.toString());
+						editor.putString("Sonder2", spinnerSSS.getSelectedItem()
+								.toString());
+						editor.putInt("BildNummerToBegin", 1);
+						editor.putBoolean("EditMode", false);
+						editor.commit();
+	
+						Film f = new Film();
+						f.Titel = titleText.getText().toString();
+						f.Filmnotiz = filmnotiz.getText().toString();
+						f.Datum = android.text.format.DateFormat.format(
+								"dd.MM.yyyy", new java.util.Date()).toString();
+						f.Kamera = spinnerCamera.getSelectedItem().toString();
+						f.Filmformat = spinnerFF.getSelectedItem().toString();
+						f.Empfindlichkeit = spinnerEM.getSelectedItem().toString();
+						f.Filmtyp = spinnerTY.getSelectedItem().toString();
+						f.Sonderentwicklung1 = spinnerSS.getSelectedItem()
+								.toString();
+						f.Sonderentwicklung2 = spinnerSSS.getSelectedItem()
+								.toString();
+	
+						Bild b = new Bild();
+						b.Bildnummer = "Bild 0";
+						b.Notiz = "Dummy-Bild f�r die Filmdaten";
+						b.Belichtungskorrektur = "";
+						b.Blende = "";
+						b.Blitz = "";
+						b.Blitzkorrektur = "";
+						b.Filter = "";
+						b.FilterVF = "";
+						b.Fokus = "";
+						b.GeoTag = "0' , '0"; // Wenn das Format hier nicht stimmt,
+												// kracht es wegen dem Splitting des
+												// Strings in ein Array in der DB
+												// Klasse.
+						b.KameraNotiz = "";
+						b.Makro = "";
+						b.MakroVF = "";
+						b.Messmethode = "";
+						b.Objektiv = "";
+						b.Zeit = "";
+	
+						Calendar cal = Calendar.getInstance();
+						SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+	
+						b.Zeitstempel = sdf.format(cal.getTime());
+	
+						byte[] thumbnail;
+	
+						// TODO: Check einbauen der pr�ft ob ein Film mit gleichem
+						// Titel schon in der Datenbank ist!
+	
+						Log.v("Check", "Check if Bild vorhanden : " + (pic == null));
+						Intent myIntent = new Intent(getApplicationContext(),
+								NewPictureActivity.class);
+	
+						if (pic != null) {
+							myIntent.putExtra("image", pic);
+							thumbnail = pic;
+						} else {
+							Bitmap bm = BitmapFactory.decodeResource(
+									getApplicationContext().getResources(),
+									R.drawable.nopic);
+							ByteArrayOutputStream baos = new ByteArrayOutputStream();
+							bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+							nopic = baos.toByteArray();
+							myIntent.putExtra("image", nopic);
+							thumbnail = nopic;
+						}
+	
+						String encodedImage = Base64.encodeToString(thumbnail,
+								Base64.DEFAULT);
+						DB.getDB().addPictureCreateNummer(mContext, f, b, 0,
+								encodedImage);
+	
+						finish();
+						startActivityForResult(myIntent, 1);
+					} catch (Exception e) {
+						Toast.makeText(getApplicationContext(),
+								getString(R.string.input_error), Toast.LENGTH_SHORT)
+								.show();
+						e.printStackTrace();
 					}
-
-					String encodedImage = Base64.encodeToString(thumbnail,
-							Base64.DEFAULT);
-					DB.getDB().addPictureCreateNummer(mContext, f, b, 0,
-							encodedImage);
-
-					finish();
-					startActivityForResult(myIntent, 1);
-				} catch (Exception e) {
-					Toast.makeText(getApplicationContext(),
-							getString(R.string.input_error), Toast.LENGTH_SHORT)
-							.show();
-					e.printStackTrace();
 				}
 			}
+			
 		});
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
+	
 	}
 
 	@Override
@@ -217,15 +227,16 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 		super.onResume();
 		contentIndex = 0;
 
-		titleText = (EditText) findViewById(R.id.texttitle);
+		titleText = (EditText) findViewById(R.id.texttitle);		
 		titleButton = (ToggleButton) findViewById(R.id.toggletitle);
 		titleButton.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				Date dt = new Date();
-				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-				titleText.setText(df.format(dt) + " "
-						+ getString(R.string.film));
+			public void onClick(View v) {			
+				if (titleButton.isChecked()) {
+					setAutomaticTitle();
+				} else {
+					titleText.setText("");
+				}
 			}
 		});
 
@@ -352,6 +363,13 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 			}
 		});
 		pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
+	}
+
+	private void setAutomaticTitle() {
+		Date dt = new Date();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		titleText.setText(df.format(dt) + " "
+				+ getString(R.string.film));
 	}
 
 }
