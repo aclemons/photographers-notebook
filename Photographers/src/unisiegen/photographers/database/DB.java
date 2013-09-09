@@ -310,6 +310,7 @@ public class DB {
 			titleAlreadyTaken = true;
 		}
 		
+		c.close();
 		myDBFilm.close();
 		
 		return titleAlreadyTaken;
