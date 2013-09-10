@@ -476,6 +476,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 					.findViewById(R.id.spinner_brennweite);
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
 					android.R.layout.simple_spinner_item, lenses);
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			spinner_objektiv.setAdapter(adapter);
 
 			return spinner_objektiv;
@@ -516,6 +517,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			spinner_blende = (Spinner) view.findViewById(R.id.spinner_blende);
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
 					android.R.layout.simple_spinner_item, finalApertures);
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			spinner_blende.setAdapter(adapter);
 			spinner_blende.setSelection(defaultAperture);
 
@@ -535,6 +537,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			Spinner spinner = (Spinner) view.findViewById(uiID);
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
 					android.R.layout.simple_spinner_item, values);
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			spinner.setAdapter(adapter);
 			if (defaultValue >= values.size()) {
 				spinner.setSelection(0);

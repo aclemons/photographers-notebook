@@ -282,6 +282,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 		Spinner spinner = (Spinner) findViewById(uiID);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, values);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
 		if (defaultValue >= values.size()) {
 			spinner.setSelection(0);
