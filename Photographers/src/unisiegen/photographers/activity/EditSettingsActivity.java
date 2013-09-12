@@ -79,6 +79,7 @@ import com.viewpagerindicator.TitleProvider;
 
 public class EditSettingsActivity extends Activity {
 
+	public static final String GEO_TAG = "geoTag";
 	private static final String SETTINGS_TABLE = "SettingsTable";
 	private static final String LOAD_SET = "LoadSet";
 	private static final String FIRSTSTART = "FIRSTSTART";
@@ -227,7 +228,6 @@ public class EditSettingsActivity extends Activity {
 
 	private class SettingsPager extends PagerAdapter implements TitleProvider {
 
-		private static final String GEO_TAG = "geoTag";
 		private String[] pageTitles = null;
 		private LayoutInflater inflater = getLayoutInflater();
 
@@ -856,39 +856,22 @@ public class EditSettingsActivity extends Activity {
 			geotag.setTextOff(getString(R.string.off));
 			geotag.setTextOn(getString(R.string.on));
 			geotag.setGravity(Gravity.LEFT);
-			geotag.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(getApplicationContext(),
-							getString(R.string.experimental), Toast.LENGTH_LONG)
-							.show(); // Display info message about experimental
-										// feature.
-
-				}
-			});
+			
 			geotag.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				@Override
-				public void onCheckedChanged(CompoundButton buttonView,
-						boolean isChecked) {
-					if (!geotag.getText().toString()
-							.equals(getString(R.string.on))) {
-						if (geotag.isChecked()) {
-							editors.putString(GEO_TAG, "ja");
-							editors.commit();
-						} else {
-							editors.putString(GEO_TAG, "nein");
-							editors.commit();
-						}
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			
+					Toast.makeText(getApplicationContext(),
+							getString(R.string.experimental), Toast.LENGTH_LONG)
+							.show();
+					
+					if (geotag.isChecked()) {
+						editors.putString(GEO_TAG, "ja");
+						editors.commit();
 					} else {
-						if (geotag.isChecked()) {
-							editors.putString(GEO_TAG, "ja");
-							editors.commit();
-						} else {
-							editors.putString(GEO_TAG, "nein");
-							editors.commit();
-						}
-					}
+						editors.putString(GEO_TAG, "nein");
+						editors.commit();
+					}					
 				}
 			});
 

@@ -113,7 +113,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (settings.getString("geoTag", "nein").equals("ja")) {
+		if (settings.getString(EditSettingsActivity.GEO_TAG, "nein").equals("ja")) {
 			getLocation();
 		}
 
