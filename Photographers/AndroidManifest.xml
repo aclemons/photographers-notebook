@@ -50,7 +50,7 @@
             	  android:label="Vorschau-Foto"
             	  android:screenOrientation="portrait"
             ></activity>
-        <activity android:name="EditFilmActivity"></activity>
+        <activity android:name=".EditFilmActivity" android:screenOrientation="portrait"></activity>
         
             
     </application>
