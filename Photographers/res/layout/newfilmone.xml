@@ -1,684 +1,727 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/maini"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:scrollbars="vertical" >
+    android:scrollbars="vertical"
+    tools:ignore="MissingPrefix" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-        android:id="@+id/maini"
-        android:orientation="vertical"
-        android:padding="5dp"
-	    android:layout_height="fill_parent" 
-	    android:layout_width="fill_parent">
-    
     <LinearLayout
-    	android:focusable="true" android:focusableInTouchMode="true"
-    	android:layout_width="0px" android:layout_height="0px"/>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:scrollbars="vertical"
-    android:layout_height="wrap_content"
-    android:id="@+id/tablor"
-    android:paddingLeft="4dp"
-    android:background="@drawable/shapetable">
-  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/table"
-    android:padding="8dp"
-    android:paddingTop="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingBottom="0dp"
-    android:background="@drawable/shapeintable">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/maini"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical"
-	    android:layout_height="fill_parent" 
-	    android:layout_width="fill_parent">
+        android:padding="5dp" >
 
-			    <TextView
-			        android:id="@+id/freecell"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:text="@string/general"
-			        android:textStyle="bold" >
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
 
-				</TextView>
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainio"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-
-					    <TextView
-					        android:id="@+id/freecell"
-					        android:layout_width="wrap_content"
-					        android:layout_height="wrap_content"
-					        android:gravity="right"
-					        android:paddingLeft="12dp"
-					        android:text="@string/title" >
-
-						</TextView>
-						</LinearLayout> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainiof"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-						<TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="fill_parent"
-							    android:visibility="invisible"
-							    android:layout_weight=".34"
-							    android:layout_height="wrap_content">
-						</TextView>
-				    	<EditText
-				                 android:id="@+id/texttitle"
-				             	 android:layout_weight=".1"
-				                 android:layout_width="fill_parent"
-				                 android:layout_height="wrap_content" />
-				    	
-						</LinearLayout>
-				    
-						    
-						    
-						    
-						    
-				</LinearLayout>  
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainio"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-
-					    <TextView
-					        android:id="@+id/freecell"
-					        android:layout_width="wrap_content"
-					        android:layout_height="wrap_content"
-					        android:gravity="right"
-					        android:paddingLeft="12dp"
-					        android:text="@string/auto_title" >
-
-						</TextView>
-						</LinearLayout> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainiof"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-						<TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="fill_parent"
-							    android:visibility="invisible"
-							    android:layout_weight=".34"
-							    android:layout_height="wrap_content">
-						</TextView>
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainiofs"
-					    android:layout_height="wrap_content" 
-					    android:layout_weight=".1"
-					    android:layout_width="fill_parent">
-
-				    	<ToggleButton
-				    	    android:id="@+id/toggletitle"
-				    	    android:layout_width="fill_parent"
-				    	    android:layout_height="wrap_content"
-				    	    android:layout_weight=".5"
-				    	    android:background="@drawable/custom_button"
-				    	    android:gravity="center_vertical|center_horizontal"
-				    	    android:textOff="@string/off"
-				    	    android:textOn="@string/on" />
-
-				    	<TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="fill_parent"
-							    android:visibility="invisible"
-							    android:layout_weight=".9"
-							    android:layout_height="wrap_content">
-						</TextView>
-
-				    	<Button
-				    	    android:id="@+id/vorschau"
-				    	    android:layout_width="fill_parent"
-				    	    android:layout_height="wrap_content"
-				    	    android:layout_weight=".5"
-				    	    android:background="@drawable/custom_button"
-				    	    android:gravity="center_horizontal|center_vertical"
-				    	    android:text="@string/preview_pic" />
-
-				    	</LinearLayout>
-				    </LinearLayout>
-				</LinearLayout>
-      </LinearLayout>
-   </TableLayout>    
-         
-</TableLayout>
-    
-    
-    <!-- first -->
-    <TextView
-	    android:id="@+id/freecell"
-	    android:layout_width="fill_parent"
-	    android:layout_height="20dp"
-	    android:text=" "
-	    >
-	</TextView>    
-    
-    
-    
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:scrollbars="vertical"
-    android:layout_height="wrap_content"
-    android:id="@+id/tablor"
-    android:paddingLeft="4dp"
-    android:background="@drawable/shaperedtable">
-  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/table"
-    android:padding="8dp"
-    android:paddingTop="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingBottom="0dp"
-    android:background="@drawable/shapeintable">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-        android:id="@+id/maini"
-        android:orientation="vertical"
-	    android:layout_height="fill_parent" 
-	    android:layout_width="fill_parent">
-
-			    <TextView
-			        android:id="@+id/freecell"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:text="@string/camera"
-			        android:textStyle="bold" >
-
-				</TextView>
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainio"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-
-					    <TextView
-					        android:id="@+id/freecell"
-					        android:layout_width="wrap_content"
-					        android:layout_height="wrap_content"
-					        android:gravity="right"
-					        android:paddingLeft="12dp"
-					        android:text="@string/camera" >
-
-						</TextView>
-						</LinearLayout> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainiof"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-						<TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="fill_parent"
-							    android:visibility="invisible"
-							    android:layout_weight=".34"
-							    android:layout_height="wrap_content">
-						</TextView>
-				    	<Spinner
-				                 android:id="@+id/spinnerCamera"
-				                 android:gravity="left"
-				                 android:layout_width="fill_parent"
-            					 android:background="@drawable/custom_button"
-				             	 android:layout_weight=".1"
-				                 android:layout_height="wrap_content" />
-				</LinearLayout>  
-				</LinearLayout>
-      </LinearLayout>
-   </TableLayout>    
-         
-</TableLayout>
-    
-    
-    <!-- Second -->
-    <TextView
-	    android:id="@+id/freecell"
-	    android:layout_width="fill_parent"
-	    android:layout_height="20dp"
-	    android:text=" "
-	    >
-	</TextView>
-    
-    
-    
-    
-    
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:scrollbars="vertical"
-    android:layout_height="wrap_content"
-    android:id="@+id/tablor"
-    android:paddingLeft="4dp"
-    android:background="@drawable/shapegreentable">
-  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/table"
-    android:padding="8dp"
-    android:paddingTop="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingBottom="0dp"
-    android:background="@drawable/shapeintable">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-        android:id="@+id/maini"
-        android:orientation="vertical"
-	    android:layout_height="fill_parent" 
-	    android:layout_width="fill_parent">
-
-				    <TextView
-				        android:id="@+id/freecell"
-				        android:layout_width="fill_parent"
-				        android:layout_height="wrap_content"
-				        android:text="@string/film"
-				        android:textStyle="bold" >
-
-					</TextView>
-					
-				        
-				        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainio"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-
-					    <TextView
-					        android:id="@+id/freecell"
-					        android:layout_width="wrap_content"
-					        android:layout_height="wrap_content"
-					        android:gravity="right"
-					        android:paddingLeft="12dp"
-					        android:text="@string/film_note" >
-
-						</TextView>
-						</LinearLayout> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainiof"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-						<TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="fill_parent"
-							    android:visibility="invisible"
-							    android:layout_weight=".34"
-							    android:layout_height="wrap_content">
-						</TextView>
-
-				    	<EditText
-				    	    android:id="@+id/filmnotiz"
-				    	    android:layout_width="fill_parent"
-				    	    android:layout_height="wrap_content"
-				    	    android:layout_weight=".1"
-				    	    android:background="@drawable/custom_button"
-				    	    android:gravity="left"
-				    	    android:hint="@string/note" />
-
-				</LinearLayout>
-				</LinearLayout>
-				        
-				        
-				        
-				        
-				        
-				        
-					<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainio"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-
-					    <TextView
-					        android:id="@+id/freecell"
-					        android:layout_width="wrap_content"
-					        android:layout_height="wrap_content"
-					        android:gravity="right"
-					        android:paddingLeft="12dp"
-					        android:text="@string/film_format" >
-
-						</TextView>
-						</LinearLayout> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainiof"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-						<TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="fill_parent"
-							    android:visibility="invisible"
-							    android:layout_weight=".34"
-							    android:layout_height="wrap_content">
-						</TextView>
-				    	<Spinner
-				                 android:id="@+id/spinnerFF"
-				                 android:gravity="left"
-				                 android:layout_width="fill_parent"
-            					 android:background="@drawable/custom_button"
-				             	 android:layout_weight=".1"
-				                 android:layout_height="wrap_content" />
-				</LinearLayout>
-				</LinearLayout>
-				
-					    
-					    
-					    
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainio"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-
-					    <TextView
-					        android:id="@+id/freecell"
-					        android:layout_width="wrap_content"
-					        android:layout_height="wrap_content"
-					        android:gravity="right"
-					        android:paddingLeft="12dp"
-					        android:text="@string/film_speed" >
-
-						</TextView>
-						</LinearLayout> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainiof"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-						<TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="fill_parent"
-							    android:visibility="invisible"
-							    android:layout_weight=".34"
-							    android:layout_height="wrap_content">
-						</TextView>
-				    	<Spinner
-				                 android:id="@+id/spinnerEM"
-            					 android:background="@drawable/custom_button"
-				                 android:gravity="left"
-				                 android:layout_width="fill_parent"
-				             	 android:layout_weight=".1"
-				                 android:layout_height="wrap_content" />
-				</LinearLayout>
-				</LinearLayout>
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainio"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-
-					    <TextView
-					        android:id="@+id/freecell"
-					        android:layout_width="wrap_content"
-					        android:layout_height="wrap_content"
-					        android:gravity="right"
-					        android:paddingLeft="12dp"
-					        android:text="@string/film_type" >
-
-						</TextView>
-						</LinearLayout> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainiof"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-						<TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="fill_parent"
-							    android:visibility="invisible"
-							    android:layout_weight=".34"
-							    android:layout_height="wrap_content">
-						</TextView>
-				    	<Spinner
-				                 android:id="@+id/spinnerTY"
-				                 android:gravity="left"
-            					 android:background="@drawable/custom_button"
-				                 android:layout_width="fill_parent"
-				             	 android:layout_weight=".1"
-				                 android:layout_height="wrap_content" />
-				</LinearLayout>  
-				</LinearLayout>
-      </LinearLayout>
-   </TableLayout>    
-         
-</TableLayout>    
-    
-    
-    
-     <!-- THIRD -->
-    <TextView
-	    android:id="@+id/freecell"
-	    android:layout_width="fill_parent"
-	    android:layout_height="20dp"
-	    android:text=" "
-	    >
-	</TextView>
-    
-    
-    
-    
-    
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:scrollbars="vertical"
-    android:layout_height="wrap_content"
-    android:id="@+id/tablor"
-    android:paddingLeft="4dp"
-    android:background="@drawable/shapebluetable">
-  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/table"
-    android:padding="8dp"
-    android:paddingTop="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingBottom="0dp"
-    android:background="@drawable/shapeintable">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-        android:id="@+id/maini"
-        android:orientation="vertical"
-	    android:layout_height="fill_parent" 
-	    android:layout_width="fill_parent">
-
-				    <TextView
-				        android:id="@+id/freecell"
-				        android:layout_width="fill_parent"
-				        android:layout_height="wrap_content"
-				        android:text="@string/misc"
-				        android:textStyle="bold" >
-
-					</TextView>
-					<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainio"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-
-					    <TextView
-					        android:id="@+id/freecell"
-					        android:layout_width="wrap_content"
-					        android:layout_height="wrap_content"
-					        android:gravity="right"
-					        android:paddingLeft="12dp"
-					        android:text="@string/processing" >
-
-						</TextView>
-						</LinearLayout> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainiof"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-						<TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="fill_parent"
-							    android:visibility="invisible"
-							    android:layout_weight=".34"
-							    android:layout_height="wrap_content">
-						</TextView>
-				    	<Spinner
-				                 android:id="@+id/spinnerSS"
-				                 android:gravity="left"
-            					 android:background="@drawable/custom_button"
-				                 android:layout_width="fill_parent"
-				             	 android:layout_weight=".1"
-				                 android:layout_height="wrap_content" />
-				</LinearLayout>
-				</LinearLayout>
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainio"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-
-					    <TextView
-					        android:id="@+id/freecell"
-					        android:layout_width="wrap_content"
-					        android:layout_height="wrap_content"
-					        android:gravity="right"
-					        android:paddingLeft="12dp"
-					        android:text="@string/processing" >
-
-						</TextView>
-						</LinearLayout> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainiof"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-						<TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="fill_parent"
-							    android:visibility="invisible"
-							    android:layout_weight=".34"
-							    android:layout_height="wrap_content">
-						</TextView>
-				    	<Spinner
-				                 android:id="@+id/spinnerSSS"
-				                 android:gravity="left"
-            					 android:background="@drawable/custom_button"
-				                 android:layout_width="fill_parent"
-				             	 android:layout_weight=".1"
-				                 android:layout_height="wrap_content" />
-				</LinearLayout>   
-				</LinearLayout>
-      </LinearLayout>
-   </TableLayout>    
-         
-</TableLayout>       
-    
-    
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/maini"
-				        android:orientation="horizontal"
-				        android:padding="10dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-  
-        <Button
-            android:id="@+id/newAll"
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tablor"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:background="@drawable/custom_button"
-            android:text="@string/start_film" />
-                 
-        <Button
-            android:id="@+id/cancelAll"
+            android:background="@drawable/shapetable"
+            android:paddingLeft="4dp"
+            android:scrollbars="vertical" >
+
+            <TableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/table"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/shapeintable"
+                android:padding="8dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:paddingTop="0dp" >
+
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/maini"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/freecell"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/general"
+                        android:textStyle="bold" >
+                    </TextView>
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/maini"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp" >
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:paddingLeft="12dp"
+                                android:text="@string/title" >
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainiof"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".34"
+                                android:visibility="invisible" >
+                            </TextView>
+
+                            <EditText
+                                android:id="@+id/texttitle"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".1" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/maini"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp" >
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:paddingLeft="12dp"
+                                android:text="@string/auto_title" >
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainiof"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".34"
+                                android:visibility="invisible" >
+                            </TextView>
+
+                            <LinearLayout
+                                xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/mainiofs"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".1" >
+
+                                <ToggleButton
+                                    android:id="@+id/toggletitle"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".5"
+                                    android:background="@drawable/custom_button"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:textOff="@string/off"
+                                    android:textOn="@string/on" />
+
+                                <TextView
+                                    android:id="@+id/freecell"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".9"
+                                    android:visibility="invisible" >
+                                </TextView>
+
+                                <Button
+                                    android:id="@+id/vorschau"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".5"
+                                    android:background="@drawable/custom_button"
+                                    android:gravity="center_horizontal|center_vertical"
+                                    android:text="@string/preview_pic" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </TableLayout>
+        </TableLayout>
+
+        <!-- first -->
+
+        <TextView
+            android:id="@+id/freecell"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:text=" " >
+        </TextView>
+
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tablor"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:background="@drawable/custom_button"
-            android:text="@string/cancel" />
-        
-     </LinearLayout>
-    
-    
-    
-    
-</LinearLayout>
+            android:background="@drawable/shaperedtable"
+            android:paddingLeft="4dp"
+            android:scrollbars="vertical" >
+
+            <TableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/table"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/shapeintable"
+                android:padding="8dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:paddingTop="0dp" >
+
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/maini"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/freecell"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/camera"
+                        android:textStyle="bold" >
+                    </TextView>
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/maini"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp" >
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:paddingLeft="12dp"
+                                android:text="@string/camera" >
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainiof"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".34"
+                                android:visibility="invisible" >
+                            </TextView>
+
+                            <Spinner
+                                android:id="@+id/spinnerCamera"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".1"
+                                android:background="@drawable/custom_button"
+                                android:gravity="left" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </TableLayout>
+        </TableLayout>
+
+        <!-- Second -->
+
+        <TextView
+            android:id="@+id/freecell"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:text=" " >
+        </TextView>
+
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tablor"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shapegreentable"
+            android:paddingLeft="4dp"
+            android:scrollbars="vertical" >
+
+            <TableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/table"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/shapeintable"
+                android:padding="8dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:paddingTop="0dp" >
+
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/maini"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/freecell"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/film"
+                        android:textStyle="bold" >
+                    </TextView>
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/maini"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp" >
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:paddingLeft="12dp"
+                                android:text="@string/film_note" >
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainiof"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".34"
+                                android:visibility="invisible" >
+                            </TextView>
+
+                            <EditText
+                                android:id="@+id/filmnotiz"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".1"
+                                android:background="@drawable/custom_button"
+                                android:gravity="left"
+                                android:hint="@string/note" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/maini"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp" >
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:paddingLeft="12dp"
+                                android:text="@string/film_format" >
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainiof"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".34"
+                                android:visibility="invisible" >
+                            </TextView>
+
+                            <Spinner
+                                android:id="@+id/spinnerFF"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".1"
+                                android:background="@drawable/custom_button"
+                                android:gravity="left" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/maini"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp" >
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:paddingLeft="12dp"
+                                android:text="@string/film_speed" >
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainiof"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".34"
+                                android:visibility="invisible" >
+                            </TextView>
+
+                            <Spinner
+                                android:id="@+id/spinnerEM"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".1"
+                                android:background="@drawable/custom_button"
+                                android:gravity="left" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/maini"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp" >
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:paddingLeft="12dp"
+                                android:text="@string/film_type" >
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainiof"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".34"
+                                android:visibility="invisible" >
+                            </TextView>
+
+                            <Spinner
+                                android:id="@+id/spinnerTY"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".1"
+                                android:background="@drawable/custom_button"
+                                android:gravity="left" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </TableLayout>
+        </TableLayout>
+
+        <!-- THIRD -->
+
+        <TextView
+            android:id="@+id/freecell"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:text=" " >
+        </TextView>
+
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tablor"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shapebluetable"
+            android:paddingLeft="4dp"
+            android:scrollbars="vertical" >
+
+            <TableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/table"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/shapeintable"
+                android:padding="8dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:paddingTop="0dp" >
+
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/maini"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/freecell"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/misc"
+                        android:textStyle="bold" >
+                    </TextView>
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/maini"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp" >
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:paddingLeft="12dp"
+                                android:text="@string/processing" >
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainiof"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".34"
+                                android:visibility="invisible" >
+                            </TextView>
+
+                            <Spinner
+                                android:id="@+id/spinnerSS"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".1"
+                                android:background="@drawable/custom_button"
+                                android:gravity="left" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/maini"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp" >
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:paddingLeft="12dp"
+                                android:text="@string/processing" >
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/mainiof"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight=".44"
+                            android:gravity="left" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".34"
+                                android:visibility="invisible" >
+                            </TextView>
+
+                            <Spinner
+                                android:id="@+id/spinnerSSS"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".1"
+                                android:background="@drawable/custom_button"
+                                android:gravity="left" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </TableLayout>
+        </TableLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/maini"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <Button
+                android:id="@+id/newAll"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:background="@drawable/custom_button"
+                android:text="@string/start_film" />
+
+            <Button
+                android:id="@+id/cancelAll"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:background="@drawable/custom_button"
+                android:text="@string/cancel" />
+        </LinearLayout>
+    </LinearLayout>
+
 </ScrollView>

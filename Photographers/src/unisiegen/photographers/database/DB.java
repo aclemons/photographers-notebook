@@ -869,4 +869,33 @@ public class DB {
 		myDBNummer.close();
 	}
 
+	public void updateFilmDetails(Context mContext, Film film) {
+		
+		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
+				Context.MODE_PRIVATE, null);
+		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmcamera = '" + film.Kamera
+				+ "' WHERE filmtitle = '" + film.Titel + "'");
+		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmnotiz = '" + film.Filmnotiz
+				+ "' WHERE filmtitle = '" + film.Titel + "'");
+		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmformat = '" + film.Filmformat
+				+ "' WHERE filmtitle = '" + film.Titel + "'");
+		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmempfindlichkeit = '" + film.Empfindlichkeit
+				+ "' WHERE filmtitle = '" + film.Titel + "'");
+		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmtyp = '" + film.Filmtyp
+				+ "' WHERE filmtitle = '" + film.Titel + "'");
+		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmsonder = '" + film.Sonderentwicklung1
+				+ "' WHERE filmtitle = '" + film.Titel + "'");
+		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmsonders = '" + film.Sonderentwicklung2
+				+ "' WHERE filmtitle = '" + film.Titel + "'");
+		myDBFilm.close();
+		
+		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER,
+				Context.MODE_PRIVATE, null);
+		myDBNummer.execSQL("UPDATE " + DB.MY_DB_TABLE_NUMMER + " SET camera = '" + film.Kamera
+				+ "' WHERE title = '" + film.Titel + "'");
+		
+		myDBNummer.close();
+			
+	}
+
 }

@@ -15,12 +15,9 @@
 
 package unisiegen.photographers.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import unisiegen.photographers.database.DB;
-import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
 import android.content.Context;
 import android.hardware.Camera;
@@ -34,7 +31,6 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class EditFilmActivity extends PhotographersNotebookActivity {
@@ -42,7 +38,6 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 	String filmTitle;
 	Film film;
 	Context mContext;
-	TextView tv1, tv2, weiter, close;
 	Button cancel, save, vorschau;
 	PopupWindow pw;
 	Spinner spinnerCamera, spinnerFF, spinnerSS, spinnerSSS, spinnerEM,
@@ -50,6 +45,7 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 	ToggleButton titleButton;
 	EditText titleText, filmnotiz;
 	Camera mCamera;
+	TextView tv;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -71,41 +67,35 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 		save.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+						
+				film.Filmnotiz = filmnotiz.getText().toString();
+				film.Kamera = spinnerCamera.getSelectedItem().toString();
+				film.Filmformat = spinnerFF.getSelectedItem().toString();
+				film.Empfindlichkeit = spinnerEM.getSelectedItem().toString();
+				film.Filmtyp = spinnerTY.getSelectedItem().toString();
+				film.Sonderentwicklung1 = spinnerSS.getSelectedItem()
+						.toString();
+				film.Sonderentwicklung2 = spinnerSSS.getSelectedItem()
+						.toString();
 				
-				if (titleText.getText().toString().length() == 0) {
-					Toast.makeText(getApplicationContext(), getString(R.string.empty_title), Toast.LENGTH_SHORT).show();
-				} else if (DB.getDB().checkIfFilmTitleIsTaken(getApplicationContext(), titleText.getText().toString())) {
-					Toast.makeText(getApplicationContext(), getString(R.string.title_taken), Toast.LENGTH_LONG).show();
-				} else {
-						
-						Film f = new Film();
-						f.Titel = titleText.getText().toString();
-						f.Filmnotiz = filmnotiz.getText().toString();
-						f.Datum = android.text.format.DateFormat.format(
-								"dd.MM.yyyy", new java.util.Date()).toString();
-						f.Kamera = spinnerCamera.getSelectedItem().toString();
-						f.Filmformat = spinnerFF.getSelectedItem().toString();
-						f.Empfindlichkeit = spinnerEM.getSelectedItem().toString();
-						f.Filmtyp = spinnerTY.getSelectedItem().toString();
-						f.Sonderentwicklung1 = spinnerSS.getSelectedItem()
-								.toString();
-						f.Sonderentwicklung2 = spinnerSSS.getSelectedItem()
-								.toString();
-						
-						finish();				
-				}
+				DB.getDB().updateFilmDetails(mContext, film);
+				
+				finish();				
 			}
 			
 		});
 		
 		titleText = (EditText) findViewById(R.id.texttitle);
-		titleText.setEnabled(false);
+		titleText.setEnabled(false); // Editing titles is not possible for now.
 		
 		titleButton = (ToggleButton) findViewById(R.id.toggletitle);
 		titleButton.setVisibility(ToggleButton.GONE);
 		
 		vorschau = (Button) findViewById(R.id.vorschau);
 		vorschau.setVisibility(Button.GONE);
+		
+		tv = (TextView) findViewById(R.id.freecell1);
+		tv.setVisibility(TextView.GONE); // TODO: Maybe add new layout for this activity, or merge activity with NewFilmActivity.
 			
 	}
 
@@ -113,8 +103,13 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 	protected void onResume() {
 		super.onResume();
 		
-		film = DB.getDB().getFilm(mContext, filmTitle);;
+		film = DB.getDB().getFilm(mContext, filmTitle);
 		
+		if (film == null) {
+			Log.e("ERROR", "Film not found in database, nothing to edit here ...");
+			finish();
+		}
+	
 		spinnerCamera = setupSpinner(R.id.spinnerCamera, DB.MY_DB_TABLE_SETCAM, film.Kamera);
 		spinnerFF = setupSpinner(R.id.spinnerFF, DB.MY_DB_TABLE_SETFF, film.Filmformat);
 		spinnerSS = setupSpinner(R.id.spinnerSS, DB.MY_DB_TABLE_SETSON, film.Sonderentwicklung1);
