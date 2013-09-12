@@ -13,6 +13,7 @@
 	<string name="start_film">Film beginnen</string>
 	<string name="delete_film">Film löschen</string>
 	<string name="continue_film">Film fortsetzen</string>
+	<string name="edit_film">Film bearbeiten</string>
 	<string name="firststart">Ersten Start vorbereiten...</string>
 	<string name="export">Bereite Daten für Export vor...</string>
 	<string name="save_set">Ausrüstungs-Set speichern...</string>
@@ -374,4 +375,5 @@
 		<item>+1</item>
 		<item>+0,5</item>
 	</string-array>
+		<string name="export_film">Film exportieren</string>
 </resources>
