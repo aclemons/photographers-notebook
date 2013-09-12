@@ -118,7 +118,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 
 		pics.setText(gesamtPics + " " + getString(R.string.pictures));
 		ArrayAdapter<Film> adapter = new FilmsArrayAdapter(mContext, filme, 1);
-		myList.setOnItemClickListener(notlongClickListener);
+		myList.setOnItemClickListener(clickListener);
 		myList.setOnItemLongClickListener(longClickListener);
 		myList.setAdapter(adapter);
 
@@ -299,9 +299,18 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 					.findViewById(R.id.exportbutton);
 			Button editButton = (Button) layoutOwn
 					.findViewById(R.id.editbutton);
-			deleteButton.setText(getString(R.string.delete_film));
-			editButton.setText(getString(R.string.continue_film));
-
+			Button editFilmButton = (Button) layoutOwn.findViewById(R.id.editFilmButton);
+			
+			editFilmButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(getApplicationContext(), EditFilmActivity.class);
+					i.putExtra("ID", ids.getText().toString());
+					startActivity(i);
+				}
+			});
+			
 			exportButton.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -329,7 +338,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		}
 	};
 
-	public OnItemClickListener notlongClickListener = new OnItemClickListener() {
+	public OnItemClickListener clickListener = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
