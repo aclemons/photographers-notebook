@@ -17,13 +17,47 @@
 package unisiegen.photographers.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.LocationManager;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class PhotographersNotebookActivity extends Activity {
 
+	private LocationManager locManager;
+	private DefaultLocationListener locListener;
+
+	protected void onResume() {
+		super.onResume();
+
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		if (settings.getString(EditSettingsActivity.GEO_TAG, "nein").equals(
+				"ja")) {
+			locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			locListener = new DefaultLocationListener();
+			locListener.setLast(locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+					20000, 5, locListener);
+		}
+	}
+
+	public void onPause() {
+		super.onPause();
+		if(locManager != null && locListener != null){
+			locManager.removeUpdates(locListener);
+		}
+	}
+
+	
+	protected DefaultLocationListener getLocListener(){
+		return locListener;
+	}
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu, menu);

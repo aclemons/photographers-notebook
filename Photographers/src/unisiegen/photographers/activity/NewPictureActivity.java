@@ -32,8 +32,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -68,12 +66,8 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 
 	SharedPreferences settings;
 	Context mContext;
-	LocationManager locManager;
-	LocationListener locationListener;
 
 	byte[] pics;
-	double piclong = 0;
-	double piclat = 0;
 	boolean bildtoedit;
 	int picturesNumber;
 	int edit = 1;
@@ -103,20 +97,11 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	@Override
 	public void onPause() {
 		super.onPause();
-		try {
-			locManager.removeUpdates(locationListener);
-		} catch (Exception e) {
-			Log.v("Check", "Es war kein GPS - Verf\u00FCgbar");
-		}
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (settings.getString(EditSettingsActivity.GEO_TAG, "nein").equals("ja")) {
-			getLocation();
-		}
-
 		// Check if user wants to edit a certain picture, if yes update UI
 		// accordingly.
 		Bundle bundle = getIntent().getExtras();
@@ -310,47 +295,6 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		}
 	}
 
-	/*
-	 * GPS Location f�r GeoTag der Bilder
-	 */
-	private void getLocation() {
-		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		String locationProvider = LocationManager.GPS_PROVIDER;
-
-		Location lastKnownLocation = locManager
-				.getLastKnownLocation(locationProvider);
-		if (lastKnownLocation != null) {
-			piclat = lastKnownLocation.getLatitude();
-			piclong = lastKnownLocation.getLongitude();
-		}
-
-		locationListener = new LocationListener() {
-			public void onLocationChanged(Location location) {
-				piclat = location.getLatitude();
-				piclong = location.getLongitude();
-			}
-
-			public void onProviderDisabled(String provider) {
-			}
-
-			public void onProviderEnabled(String provider) {
-			}
-
-			public void onStatusChanged(String provider, int status,
-					Bundle extras) {
-			}
-		};
-
-		locManager.requestLocationUpdates(locationProvider, 120000, 100,
-				locationListener);
-		if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-		} else {
-			Toast toast2 = Toast.makeText(this, getString(R.string.gps_off),
-					Toast.LENGTH_LONG);
-			toast2.show();
-		}
-	}
-
 	private void incrementSelectedPicture() {
 
 		nummerView.setText(getString(R.string.picture)
@@ -390,7 +334,13 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		// as a string, while the database stores two discinct values for
 		// longitude and latitude. While saving, we have to split these values,
 		// using the "' , '" String.
-		b.GeoTag = String.valueOf(piclong) + "' , '" + String.valueOf(piclat);
+		Location last = getLocListener().getLast();
+		if(last == null){
+			// no geo information
+			b.GeoTag = String.valueOf(0d) + "' , '" + String.valueOf(0d);
+		} else {
+			b.GeoTag = String.valueOf(last.getLongitude()) + "' , '" + String.valueOf(last.getLatitude()); 
+		}
 		b.Bildnummer = nummerView.getText().toString();
 		b.Zeitstempel = settings.getString("Uhrzeit", " ");
 
