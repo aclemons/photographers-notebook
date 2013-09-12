@@ -307,6 +307,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 				public void onClick(View v) {
 					Intent i = new Intent(getApplicationContext(), EditFilmActivity.class);
 					i.putExtra("ID", ids.getText().toString());
+					pw.dismiss();
 					startActivity(i);
 				}
 			});
