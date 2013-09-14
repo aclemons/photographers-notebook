@@ -21,6 +21,8 @@ package unisiegen.photographers.activity;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.helper.PicturesArrayAdapter;
@@ -197,6 +199,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		datum.setText(film.Datum);
 
 		bilderimfilm = film.Bilder.size();
+		
 		ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
 
 		byte[] data = Base64.decode(film.iconData, Base64.DEFAULT);
@@ -220,7 +223,9 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 
 		TextView filmsonders = (TextView) findViewById(R.id.filmsonders);
 		filmsonders.setText(film.Sonderentwicklung2);
-
+		
+		Collections.sort(film.Bilder);
+		
 		PicturesArrayAdapter adapter = new PicturesArrayAdapter(mContext,
 				film.Bilder, 1);
 		ListView myList = (ListView) findViewById(android.R.id.list);

@@ -15,7 +15,7 @@
 
 package unisiegen.photographers.model;
 
-public class Bild {
+public class Bild implements Comparable<Bild> {
 
 	public String Bildnummer;
 	public String Objektiv;
@@ -74,6 +74,11 @@ public class Bild {
 		sr.append(" ");
 		sr.append(Zeit);
 		return sr.toString();
+	}
+
+	@Override
+	public int compareTo(Bild bild) {
+		return this.Bildnummer.compareTo(bild.Bildnummer);
 	}
 
 }
