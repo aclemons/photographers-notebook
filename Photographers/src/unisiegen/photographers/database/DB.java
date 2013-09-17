@@ -252,7 +252,7 @@ public class DB {
 
 						if (c1 != null) {
 							if (c1.moveToFirst()) {
-								film.Filmnotiz = c1.getString(c1
+								film.Filmbezeichnung = c1.getString(c1
 										.getColumnIndex("filmnotiz"));
 								film.Filmformat = c1.getString(c1
 										.getColumnIndex("filmformat"));
@@ -350,7 +350,7 @@ public class DB {
 
 				if (c1 != null) {
 					if (c1.moveToFirst()) {
-						film.Filmnotiz = c1.getString(c1
+						film.Filmbezeichnung = c1.getString(c1
 								.getColumnIndex("filmnotiz"));
 						film.Filmformat = c1.getString(c1
 								.getColumnIndex("filmformat"));
@@ -810,7 +810,7 @@ public class DB {
 		sql.append(geotagParts[1]);
 		sql.append("','");
 
-		sql.append(f.Filmnotiz);
+		sql.append(f.Filmbezeichnung);
 		sql.append("','");
 		sql.append(b.Bildnummer);
 		sql.append("');");
@@ -875,7 +875,7 @@ public class DB {
 				Context.MODE_PRIVATE, null);
 		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmcamera = '" + film.Kamera
 				+ "' WHERE filmtitle = '" + film.Titel + "'");
-		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmnotiz = '" + film.Filmnotiz
+		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmnotiz = '" + film.Filmbezeichnung
 				+ "' WHERE filmtitle = '" + film.Titel + "'");
 		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmformat = '" + film.Filmformat
 				+ "' WHERE filmtitle = '" + film.Titel + "'");

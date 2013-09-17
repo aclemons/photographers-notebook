@@ -25,7 +25,7 @@ public class Film {
 
 	public String Titel;
 	public String Kamera;
-	public String Filmnotiz;
+	public String Filmbezeichnung;
 	public String Filmformat;
 	public String Empfindlichkeit;
 	public String Filmtyp;
@@ -54,8 +54,8 @@ public class Film {
 		sr.append(" ");
 		sr.append(Kamera);
 		sr.append(" ");
-		if (Filmnotiz != null && Filmnotiz.length() > 0)
-			sr.append(Filmnotiz);
+		if (Filmbezeichnung != null && Filmbezeichnung.length() > 0)
+			sr.append(Filmbezeichnung);
 		return sr.toString();
 	}
 

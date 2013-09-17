@@ -72,7 +72,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	 * Interface Variablen
 	 */
 	TextView tv1, tv2, weiter, close, newFilm, vorschau, cancel;
-	EditText filmnotiz;
+	EditText filmbezeichnung;
 	PopupWindow pw;
 	Spinner spinnerCamera, spinnerFF, spinnerSS, spinnerSSS, spinnerEM,
 			spinnerTY;
@@ -84,7 +84,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.newfilmone);
 		mContext = this;
-		filmnotiz = (EditText) findViewById(R.id.filmnotiz);
+		filmbezeichnung = (EditText) findViewById(R.id.filmnotiz);
 		cancel = (Button) findViewById(R.id.cancelAll);
 		cancel.setOnClickListener(new OnClickListener() {
 			@Override
@@ -116,7 +116,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 					try {
 						SharedPreferences.Editor editor = settings.edit();
 						editor.putString("Title", titleText.getText().toString());
-						editor.putString("FilmNotiz", filmnotiz.getText()
+						editor.putString("FilmBezeichnung", filmbezeichnung.getText()
 								.toString());
 						editor.putString("Datum", android.text.format.DateFormat
 								.format("dd.MM.yyyy", new java.util.Date())
@@ -139,7 +139,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	
 						Film f = new Film();
 						f.Titel = titleText.getText().toString();
-						f.Filmnotiz = filmnotiz.getText().toString();
+						f.Filmbezeichnung = filmbezeichnung.getText().toString();
 						f.Datum = android.text.format.DateFormat.format(
 								"dd.MM.yyyy", new java.util.Date()).toString();
 						f.Kamera = spinnerCamera.getSelectedItem().toString();

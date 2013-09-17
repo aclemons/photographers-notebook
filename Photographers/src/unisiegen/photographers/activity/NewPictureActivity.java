@@ -359,7 +359,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		film.Filmtyp = settings.getString("Filmtyp", " ");
 		film.Sonderentwicklung1 = settings.getString("Sonder1", " ");
 		film.Sonderentwicklung2 = settings.getString("Sonder2", " ");
-		film.Filmnotiz = settings.getString("FilmNotiz", " ");
+		film.Filmbezeichnung = settings.getString("FilmBezeichnung", " ");
 
 		return film;
 	}

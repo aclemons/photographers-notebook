@@ -43,7 +43,7 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 	Spinner spinnerCamera, spinnerFF, spinnerSS, spinnerSSS, spinnerEM,
 			spinnerTY;
 	ToggleButton titleButton;
-	EditText titleText, filmnotiz;
+	EditText titleText, filmbezeichnung;
 	Camera mCamera;
 	TextView tv;
 
@@ -52,7 +52,7 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 		setContentView(R.layout.newfilmone);
 		filmTitle = getIntent().getStringExtra("ID");
 		mContext = this;
-		filmnotiz = (EditText) findViewById(R.id.filmnotiz);
+		filmbezeichnung = (EditText) findViewById(R.id.filmnotiz);
 		
 		cancel = (Button) findViewById(R.id.cancelAll);
 		cancel.setOnClickListener(new OnClickListener() {
@@ -68,7 +68,7 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 			@Override
 			public void onClick(View v) {
 						
-				film.Filmnotiz = filmnotiz.getText().toString();
+				film.Filmbezeichnung = filmbezeichnung.getText().toString();
 				film.Kamera = spinnerCamera.getSelectedItem().toString();
 				film.Filmformat = spinnerFF.getSelectedItem().toString();
 				film.Empfindlichkeit = spinnerEM.getSelectedItem().toString();
@@ -118,7 +118,7 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 		spinnerTY = setupSpinner(R.id.spinnerTY, DB.MY_DB_TABLE_SETTYP, film.Filmtyp);
 		
 		titleText.setText(film.Titel);
-		filmnotiz.setText(film.Filmnotiz);
+		filmbezeichnung.setText(film.Filmbezeichnung);
 
 	}
 

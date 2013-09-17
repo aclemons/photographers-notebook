@@ -33,7 +33,7 @@
 	<string name="camera_model">Kameramodell</string>
 	<string name="camera_models">Kameramodelle</string>
 	<string name="date">Datum</string>
-	<string name="film_note">Filmnotiz</string>
+	<string name="film_note">Filmbezeichnung</string>
 	<string name="film_format">Filmformat</string>
 	<string name="film_formats">Filmformate</string>
 	<string name="film_speed">Empfindlichkeit</string>
