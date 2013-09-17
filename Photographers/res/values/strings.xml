@@ -3,6 +3,8 @@
     <string name="app_name">Photographers</string>
     <string name="question_delete">Wollen Sie den Eintrag wirklich löschen?</string>
     <string name="empty_title">Bitte geben Sie einen Film-Titel ein</string>
+    <string name="reset_tutorial">Tutorial zurücksetzen</string>
+    <string name="add">Hinzufügen</string>
     <string name="title_taken">Film-Titel bereits vergeben... bitte wählen Sie einen anderen Titel</string>
 	<string name="ok">OK</string>
 	<string name="yes">Ja</string>
@@ -34,6 +36,7 @@
 	<string name="camera_models">Kameramodelle</string>
 	<string name="date">Datum</string>
 	<string name="film_note">Filmbezeichnung</string>
+	<string name="film_note_short">Filmbez.</string>
 	<string name="film_format">Filmformat</string>
 	<string name="film_formats">Filmformate</string>
 	<string name="film_speed">Empfindlichkeit</string>

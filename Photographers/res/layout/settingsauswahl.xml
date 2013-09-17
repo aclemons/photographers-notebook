@@ -9,14 +9,14 @@
     <LinearLayout
     	android:focusable="true" android:focusableInTouchMode="true"
     	android:layout_width="0px" android:layout_height="0px"/>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout 
     android:layout_width="fill_parent"
     android:scrollbars="vertical"
     android:layout_height="wrap_content"
     android:id="@+id/tablor"
     android:paddingLeft="4dp"
     android:background="@drawable/shaperedtable">
-  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  <TableLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/table"
@@ -26,7 +26,7 @@
     android:paddingRight="0dp"
     android:paddingBottom="0dp"
     android:background="@drawable/shapeintable">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    <LinearLayout  
         android:id="@+id/maini"
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
@@ -39,7 +39,7 @@
 				    android:text="Kameramodelle :"
 				    >
 				</TextView>
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				<LinearLayout  
 				        android:id="@+id/maini"
 				        android:orientation="horizontal"
 				        android:paddingLeft="5dp"
@@ -51,16 +51,17 @@
 				             	 android:layout_weight=".17"
 				                 android:layout_width="fill_parent"
 				                 android:layout_height="wrap_content" />
+
 				    	<Button
-				                 android:id="@+id/addkamera"
-				                 android:layout_width="fill_parent"
-				                 android:layout_weight=".3"
-				                 android:layout_height="wrap_content"
-				                 android:text="Hinzufügen" />
+				    	    android:id="@+id/addkamera"
+				    	    android:layout_width="fill_parent"
+				    	    android:layout_height="wrap_content"
+				    	    android:layout_weight=".3"
+				    	    android:text="Hinzufügen" />
 				    
 				</LinearLayout>
 			        
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				<LinearLayout  
 				        android:id="@+id/maini"
 				        android:orientation="horizontal"
 				        android:paddingLeft="5dp"

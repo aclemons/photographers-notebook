@@ -9,14 +9,14 @@
     <LinearLayout
     	android:focusable="true" android:focusableInTouchMode="true"
     	android:layout_width="0px" android:layout_height="0px"/>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout 
     android:layout_width="fill_parent"
     android:scrollbars="vertical"
     android:layout_height="wrap_content"
     android:id="@+id/tablor"
     android:paddingLeft="4dp"
     android:background="@drawable/shapetable">
-  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  <TableLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/table"
@@ -26,13 +26,13 @@
     android:paddingRight="0dp"
     android:paddingBottom="0dp"
     android:background="@drawable/shapeintable">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    <LinearLayout  
         android:id="@+id/maini"
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
 	    
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        <LinearLayout  
         android:id="@+id/maini"
         android:orientation="horizontal"
 	    android:layout_height="fill_parent" 
@@ -44,7 +44,7 @@
 				    android:text="Film Nr. 122"
 				    >
 				</TextView>
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				<LinearLayout  
         android:id="@+id/maini"
         android:orientation="vertical"
         android:gravity="right"
@@ -65,13 +65,13 @@
 			        </LinearLayout>
 			        
 			        
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				<LinearLayout  
 				        android:id="@+id/mainis"
 				        android:orientation="horizontal"
 				        
 					    android:layout_height="wrap_content" 
 					    android:layout_width="fill_parent">
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				<LinearLayout  
 				        android:id="@+id/infoblock"
 				        android:orientation="vertical"
 				        android:paddingLeft="10dp"
@@ -82,14 +82,14 @@
 				 
 				<!-- HIER -->
 				    
-  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  <TableLayout 
     android:layout_width="fill_parent"
     android:scrollbars="vertical"
     android:layout_height="wrap_content"
     android:id="@+id/tablor"
     android:paddingLeft="4dp"
     android:background="@drawable/shaperedtable">
-  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  <TableLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/table"
@@ -99,12 +99,12 @@
     android:paddingRight="0dp"
     android:paddingBottom="0dp"
     android:background="@drawable/shapeintable">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    <LinearLayout  
         android:id="@+id/maini"
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				<LinearLayout  
 				        android:id="@+id/maini"
 				        android:orientation="horizontal"
 				        android:paddingLeft="5dp"
@@ -135,7 +135,7 @@
 						</TextView>
 				</LinearLayout>  
 				
-				    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				    <LinearLayout  
 				        android:id="@+id/maini"
 				        android:orientation="horizontal"
 				        android:paddingLeft="5dp"
@@ -183,20 +183,20 @@
     
     
     
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    <LinearLayout  
 				        android:id="@+id/infoblock1"
 				        android:orientation="horizontal"
 					    android:layout_height="wrap_content" 
 					    android:layout_width="fill_parent">
     
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout 
     android:layout_width="wrap_content"
     android:scrollbars="vertical"
     android:layout_height="wrap_content"
     android:id="@+id/tablor"
     android:paddingLeft="4dp"
     android:background="@drawable/shapegreentable">
-  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  <TableLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/table"
@@ -206,7 +206,7 @@
     android:paddingRight="0dp"
     android:paddingBottom="0dp"
     android:background="@drawable/shapeintable">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    <LinearLayout  
         android:id="@+id/maini"
         android:orientation="vertical"
 	    android:layout_height="wrap_content" 
@@ -215,7 +215,7 @@
         
         
         
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+        <LinearLayout  
 				        android:id="@+id/maini"
 				        android:orientation="horizontal"
 				        android:paddingLeft="5dp"
@@ -228,7 +228,7 @@
 					        android:layout_height="wrap_content"
 					        android:gravity="right"
 					        android:paddingRight="5dp"
-					        android:text="@string/film_note"
+					        android:text="@string/film_note_short"
 					        android:textSize="12dp" >
 
 						</TextView>
@@ -254,7 +254,7 @@
         
         
         
-					<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+					<LinearLayout  
 				        android:id="@+id/maini"
 				        android:orientation="horizontal"
 				        android:paddingLeft="5dp"
@@ -282,7 +282,7 @@
 							    android:text="   XYZ xyz">
 						</TextView>
 				</LinearLayout>
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				<LinearLayout  
 				        android:id="@+id/maini"
 				        android:orientation="horizontal"
 				        android:paddingLeft="5dp"
@@ -310,7 +310,7 @@
 						</TextView>
 				</LinearLayout>
 				
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				<LinearLayout  
 				        android:id="@+id/maini"
 				        android:orientation="horizontal"
 				        android:paddingLeft="5dp"
@@ -345,7 +345,7 @@
 </TableLayout>    
     
     
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    <LinearLayout  
 				        android:id="@+id/mainiss"
 				        android:orientation="horizontal"
 				        android:paddingLeft="2dp"
@@ -371,14 +371,14 @@
 	</TextView>
 
     
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout 
     android:layout_width="wrap_content"
     android:scrollbars="vertical"
     android:layout_height="wrap_content"
     android:id="@+id/infoblock2"
     android:paddingLeft="4dp"
     android:background="@drawable/shapebluetable">
-  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  <TableLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/table"
@@ -388,12 +388,12 @@
     android:paddingRight="0dp"
     android:paddingBottom="0dp"
     android:background="@drawable/shapeintable">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    <LinearLayout  
         android:id="@+id/maini"
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
-					<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+					<LinearLayout  
 				        android:id="@+id/maini"
 				        android:orientation="horizontal"
 				        android:paddingLeft="5dp"
@@ -420,7 +420,7 @@
 							    android:text="   XYZ xyz">
 						</TextView>
 				</LinearLayout>
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				<LinearLayout  
 				        android:id="@+id/maini"
 				        android:orientation="horizontal"
 				        android:paddingLeft="5dp"
@@ -495,7 +495,7 @@
 	
   
 	
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout 
     android:layout_width="fill_parent"
     android:scrollbars="vertical"
     android:layout_height="wrap_content"
@@ -503,7 +503,7 @@
     android:paddingLeft="4dp"
     android:paddingBottom="4dp"
     android:background="@drawable/shapetable">
-  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  <TableLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/tables"
