@@ -32,6 +32,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -334,12 +335,18 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		// as a string, while the database stores two discinct values for
 		// longitude and latitude. While saving, we have to split these values,
 		// using the "' , '" String.
-		Location last = getLocListener().getLast();
-		if(last == null){
-			// no geo information
+		DefaultLocationListener listener = getLocListener();
+		if(getLocListener() == null){
+			// no geo information / no listener
 			b.GeoTag = String.valueOf(0d) + "' , '" + String.valueOf(0d);
 		} else {
-			b.GeoTag = String.valueOf(last.getLongitude()) + "' , '" + String.valueOf(last.getLatitude()); 
+			Location last = listener.getLast();
+			if(last == null){
+				// no geo information / listener but no valid GPS position
+				b.GeoTag = String.valueOf(0d) + "' , '" + String.valueOf(0d);
+			} else {
+				b.GeoTag = String.valueOf(last.getLongitude()) + "' , '" + String.valueOf(last.getLatitude()); 
+			}
 		}
 		b.Bildnummer = nummerView.getText().toString();
 		b.Zeitstempel = settings.getString("Uhrzeit", " ");
