@@ -7,11 +7,11 @@
     android:stretchColumns="1"
     android:padding="3dp"
     android:background="@drawable/shape">
- <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <TableLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/user2"
-    android:paddingTop="25dp"
+    android:paddingTop="10dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingBottom="10dp"

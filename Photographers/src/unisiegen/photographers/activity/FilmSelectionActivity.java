@@ -328,13 +328,12 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 					pw.dismiss();
 				}
 			});
-			int width = display.getWidth();
-			int height = display.getHeight();
-			pw = new PopupWindow(layoutOwn, (int) (width / 1.6),
-					(int) (height / 2), true);
+			
+			pw = new PopupWindow(layoutOwn, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 			pw.setAnimationStyle(7);
 			pw.setBackgroundDrawable(new BitmapDrawable());
 			pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
+			
 			return true;
 		}
 	};
@@ -368,10 +367,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		View layoutOwn1 = inflater.inflate(R.layout.popup,
 				(ViewGroup) findViewById(R.id.widget), false);
 
-		pw = new PopupWindow(layoutOwn1);
-		pw.setFocusable(true);
-		pw.setHeight(pw.getMaxAvailableHeight(layoutOwn1) / 2);
-		pw.setWidth(pw.getMaxAvailableHeight(layoutOwn1) / 2);
+		pw = new PopupWindow(layoutOwn1, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 		pw.setAnimationStyle(7);
 		pw.setBackgroundDrawable(new BitmapDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);

@@ -172,10 +172,7 @@ public class EditSettingsActivity extends Activity {
 		final View layoutOwn1 = inflater.inflate(R.layout.popup,
 				(ViewGroup) findViewById(R.id.widget), false);
 
-		pw = new PopupWindow(layoutOwn1);
-		pw.setFocusable(true);
-		pw.setHeight(pw.getMaxAvailableHeight(layoutOwn1) / 2);
-		pw.setWidth(pw.getMaxAvailableHeight(layoutOwn1) / 2);
+		pw = new PopupWindow(layoutOwn1, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 		pw.setAnimationStyle(7);
 		pw.setBackgroundDrawable(new BitmapDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);
@@ -601,10 +598,9 @@ public class EditSettingsActivity extends Activity {
 							pw.dismiss();
 						}
 					});
-					int width = display.getWidth();
-					int height = display.getHeight();
-					pw = new PopupWindow(layoutOwn, (int) (width / 1.3),
-							(int) (height / 1.6), true);
+
+					pw = new PopupWindow(layoutOwn, ViewGroup.LayoutParams.WRAP_CONTENT,
+							ViewGroup.LayoutParams.WRAP_CONTENT, true);
 					pw.setAnimationStyle(7);
 					pw.setBackgroundDrawable(new BitmapDrawable());
 					pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);

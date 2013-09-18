@@ -330,10 +330,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 				}
 			});
 
-			int width = display.getWidth();
-			int height = display.getHeight();
-			pw = new PopupWindow(layoutOwn, (int) (width / 1.6),
-					(int) (height / 2.5), true);
+			pw = new PopupWindow(layoutOwn, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 			pw.setAnimationStyle(7);
 			pw.setBackgroundDrawable(new BitmapDrawable());
 			pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
