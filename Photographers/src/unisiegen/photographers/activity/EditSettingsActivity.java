@@ -172,9 +172,9 @@ public class EditSettingsActivity extends Activity {
 		final View layoutOwn1 = inflater.inflate(R.layout.popup,
 				(ViewGroup) findViewById(R.id.widget), false);
 
-		pw = new PopupWindow(layoutOwn1, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-		pw.setAnimationStyle(7);
-		pw.setBackgroundDrawable(new BitmapDrawable());
+		final PopupWindow tutorial = new PopupWindow(layoutOwn1, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+		tutorial.setAnimationStyle(7);
+		tutorial.setBackgroundDrawable(new BitmapDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);
 		tv1.setText(tutorialContent[contentIndex]);
 		contentIndex++;
@@ -184,22 +184,22 @@ public class EditSettingsActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (contentIndex == tutorialContent.length) {
-					pw.dismiss();
+					tutorial.dismiss();
 				} else {
 					tv1.setText(tutorialContent[contentIndex]);
 					contentIndex++;
 					if (contentIndex == 2) {
-						pw.dismiss();
+						tutorial.dismiss();
 						viewPager.setCurrentItem(4, true);
-						pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
+						tutorial.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 					}
 					if (contentIndex == 4) {
 						openOptionsMenu();
 					}
 					if (contentIndex == 5) {
-						pw.dismiss();
+						tutorial.dismiss();
 						viewPager.setCurrentItem(1, true);
-						pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
+						tutorial.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 					}
 				}
 			}
@@ -209,10 +209,10 @@ public class EditSettingsActivity extends Activity {
 		close.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				pw.dismiss();
+				tutorial.dismiss();
 			}
 		});
-		pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
+		tutorial.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 	}
 
 	/*
