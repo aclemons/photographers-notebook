@@ -44,7 +44,7 @@
 	<string name="processing">Sonderentwicklung</string>
 	<string name="general">Allgemein</string>
 	<string name="camera">Kamera</string>
-	<string name="geotag">Geotag</string>
+	<string name="geotag">Geotag (Experimentell)</string>
 	<string name="timestamp">Zeitstempel</string>
 	<string name="lens">Objektiv</string>
 	<string name="aperture">Blende</string>

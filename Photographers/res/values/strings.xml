@@ -44,7 +44,7 @@
 	<string name="processing">Special processing</string>
 	<string name="general">General</string>
 	<string name="camera">Camera</string>
-	<string name="geotag">Geotag</string>
+	<string name="geotag">Geotag (experimental)</string>
 	<string name="timestamp">Time stamp</string>
 	<string name="lens">Lens</string>
 	<string name="aperture">Aperture value</string>

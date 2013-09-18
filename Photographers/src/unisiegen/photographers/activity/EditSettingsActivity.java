@@ -860,10 +860,6 @@ public class EditSettingsActivity extends Activity {
 			geotag.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-			
-					Toast.makeText(getApplicationContext(),
-							getString(R.string.experimental), Toast.LENGTH_LONG)
-							.show();
 					
 					if (geotag.isChecked()) {
 						editors.putString(GEO_TAG, "ja");
