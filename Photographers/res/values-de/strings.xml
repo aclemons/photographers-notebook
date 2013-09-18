@@ -5,7 +5,7 @@
     <string name="empty_title">Bitte geben Sie einen Film-Titel ein</string>
     <string name="reset_tutorial">Tutorial zurücksetzen</string>
     <string name="add">Hinzufügen</string>
-    <string name="title_taken">Film-Titel bereits vergeben... bitte wählen Sie einen anderen Titel</string>
+    <string name="title_taken">Film-Titel bereits vergeben ... bitte wählen Sie einen anderen Titel</string>
 	<string name="ok">OK</string>
 	<string name="yes">Ja</string>
 	<string name="deleted">Eintrag gelöscht</string>
@@ -16,10 +16,10 @@
 	<string name="delete_film">Film löschen</string>
 	<string name="continue_film">Film fortsetzen</string>
 	<string name="edit_film">Film bearbeiten</string>
-	<string name="firststart">Ersten Start vorbereiten...</string>
-	<string name="export">Bereite Daten für Export vor...</string>
-	<string name="save_set">Ausrüstungs-Set speichern...</string>
-	<string name="reset">Ausrüstungs-Set wird auf Defaultwerte zurückgesetzt...</string>
+	<string name="firststart">Ersten Start vorbereiten ...</string>
+	<string name="export">Bereite Daten für Export vor ...</string>
+	<string name="save_set">Ausrüstungs-Set speichern ...</string>
+	<string name="reset">Ausrüstungs-Set wird auf Default-Werte zurückgesetzt ...</string>
 	<string name="reset_warning">Möchten Sie das aktive Ausrüstungs-Set wirklich zurücksetzen? Alle selbst vorgenommenen Änderungen gehen dabei verloren.</string>
 	<string name="set_saved">Das Ausrüstungs-Set wurde erfolgreich erstellt und kann nun bearbeitet werden!</string>
 	<string name="create_new_film">Neuen Film erstellen</string>
@@ -51,11 +51,11 @@
 	<string name="exposure">Zeit</string>
 	<string name="focus">Fokus</string>
 	<string name="filter">Filter</string>
-	<string name="filter_vf">Filter-VF</string>
+	<string name="filter_vf">Filter-Kompensation</string>
 	<string name="macro">Makro</string>
 	<string name="measurement">Messmethode</string>
 	<string name="exposure_correction">Belichtungskorrektur</string>
-	<string name="macro_vf">Makro-VF</string>
+	<string name="macro_vf">Makro-Kompensation</string>
 	<string name="flash">Blitz</string>
 	<string name="flash_correction">Blitzkorrektur</string>
 	<string name="misc">Sonstiges</string>
@@ -86,9 +86,9 @@
 	<string name="one_two">1/2</string>
 	<string name="one_three">1/3</string>
 	<string name="set_default">Standard</string>
-	<string name="set_two">Set-Zwei</string>
-	<string name="set_three">Set-Drei</string>
-	<string name="set_four">Set-Vier</string>
+	<string name="set_two">Set Zwei</string>
+	<string name="set_three">Set Drei</string>
+	<string name="set_four">Set Vier</string>
 	<string name="set_loaded">Ausrüstungs-Set wurde geändert.</string>
 	<string name="set_not_saved">Das geladene Ausrüstungs-Set kann nicht überschrieben werden.</string>
 	<string name="empty_name_not_allowed">Leerer Name ist nicht erlaubt.</string>
@@ -97,7 +97,7 @@
 	<string-array name="strings_tutorial_1">
 	    <item>Herzlich Willkommen im Photographers Notebook!</item>
         <item>Zur Einführung zeigen wir Ihnen die wichtigsten Funktionen der App.</item>
-        <item>Wenn Sie auf den "Menü"-Button tippen, können Sie die Einstellungen zu dieser App finden und Ihre Fotoausrüstung eingeben.</item>
+        <item>Wenn Sie auf den "Menü"-Button tippen, finden Sie die Einstellungen zu dieser App und können Ihre Fotoausrüstung eingeben.</item>
     	<item>Sind alle Einstellungen vorgenommen, starten Sie Ihren ersten Film, indem Sie den Button "Neuer Film" antippen.</item>
    		<item>Später können Sie den Film auf dieser Seite wieder aufrufen und bei Bedarf fortführen.</item>
 	</string-array>
@@ -108,8 +108,8 @@
    		<item>Wenn Sie die Auswahl getroffen haben, tippen Sie bitte auf "Film beginnen".</item>
     </string-array>
     <string-array name="strings_tutorial_3">
-        <item>Hier können Sie ihre Einstellungen personalisieren und ihre Fotoausrüstung eingeben.</item>
-        <item>Die hier gewählten Voreinstellungen sind später in den Auswahlfeldern für Film- und Fotometadaten selektierbar.</item>
+        <item>Hier können Sie Ihre Einstellungen personalisieren und Ihre Fotoausrüstung eingeben.</item>
+        <item>Die hier gewählten Voreinstellungen sind später in den Auswahlfeldern für Film- und Foto-Metadaten selektierbar.</item>
         <item>Sie können neue Einträge hinzufügen oder bestehende Beiträge durch langes Antippen bearbeiten.</item>
         <item>Im Menü können Sie zudem verschiedene Ausrüstungs-Sets wählen und entsprechend Ihrer Ausrüstung konfigurieren.</item>
         <item>Einige Daten sind bereits vorhanden und vorausgewählt. Sie müssen nur noch eine Kamera hinzufügen und Objektive zuordnen.</item>
@@ -129,9 +129,9 @@
 		<item>Messmethode</item>
 		<item>Belichtung +/-</item>
 		<item>Makro</item>
-		<item>Makro-VF</item>
+		<item>Makro-Kompensation</item>
 		<item>Filter</item>
-		<item>Filter-VF</item>
+		<item>Filter-Kompensation</item>
 		<item>Filmformate</item>
 		<item>Empfindlichkeit</item>
 		<item>Blitz</item>
@@ -146,15 +146,15 @@
 	<string name="about_this_app">Über diese App</string>
 	<string name="info">&lt;p>Photographers Notebook wurde im Rahmen einer studentischen Projektarbeit am Lehrstuhl 
 	    für Wirtschaftsinformatik und neue Medien an der Universität Siegen entwickelt. Die aktuelle Version ist 
-	    noch im Beta Stadium und wird nur sehr unregelmäßig gepflegt und weiterentwickelt.&lt;/p>
+	    noch im Beta-Stadium und wird nur sehr unregelmäßig gepflegt und weiterentwickelt.&lt;/p>
 	    &lt;p>&lt;a href="https://bitbucket.org/sdraxler/photographers-notebook">https://bitbucket.org/sdraxler/photographers-notebook&lt;/a>&lt;/p>
 	    &lt;p>Copyright (C) 2012 Nico Castelli, Christopher Maiworm &lt;br>&lt;/br>
- 		Copyright (C) 2012 Sebastian Draxler, Alexander Boden, Christian Woehrl (Committers)&lt;br>&lt;/br>
+ 		Copyright (C) 2012 Sebastian Draxler, Alexander Boden, Christian Wöhrl (Committers)&lt;br>&lt;/br>
  		Lizenziert unter der Apache 2.0 Lizenz&lt;/p>    
  	</string>
  	<string name="experimental">Das Hinzufügen von Geotags ist derzeit experimentell.</string>
  	<string name="restart_required">Änderungen werden teilweise erst nach einem Neustart der App aktiv.</string>
- 	<string name="correction_type">Verlängerungsfaktor</string>
+ 	<string name="correction_type">Belichtungskompensation</string>
  	<string name="aperture_type">Blendenstufen</string>
  	<string name="reset_tutorial">Tutorial zurücksetzen</string>
 	<string-array name="setff">
