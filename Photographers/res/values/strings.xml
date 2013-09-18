@@ -149,6 +149,7 @@
 	    a beta version and is maintained and developed further only at irregular intervals.&lt;/p>
 	    &lt;p>&lt;a href="https://bitbucket.org/sdraxler/photographers-notebook">https://bitbucket.org/sdraxler/photographers-notebook&lt;/a>&lt;/p>
 	    &lt;p>Copyright (C) 2012 Nico Castelli, Christopher Maiworm &lt;br>&lt;/br>
+	    Copyright (C) 2012 Sebastian Draxler, Alexander Boden, Christian Wöhrl (Committers)&lt;br>&lt;/br>
 	    Licensed under Apache 2.0&lt;/p></string>
  	<string name="experimental">Adding geotags is still in an experimental stage.</string>
  	<string name="restart_required">Some of the changes will become active only after restarting the app.</string>
