@@ -87,9 +87,6 @@ public class SettingsViewPart {
 
 		values = DB.getDB().getAllSettings(context, settingName);
 		
-		// Uncomment next line to test SettingsComparator!
-		// Collections.sort(values, new SettingsComparator(settingName));
-		
 		listAdapter = new SettingsArrayAdapter(context, values);
 		list.setAdapter(listAdapter);
 

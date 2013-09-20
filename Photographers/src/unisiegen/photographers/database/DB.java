@@ -16,8 +16,10 @@
 package unisiegen.photographers.database;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import unisiegen.photographers.activity.R;
+import unisiegen.photographers.helper.SettingsComparator;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
 import unisiegen.photographers.model.Setting;
@@ -562,7 +564,9 @@ public class DB {
 		}
 		c.close();
 		db.close();
-
+		
+		Collections.sort(values, new SettingsComparator(settingName));
+		
 		return values;
 	}
 
@@ -587,7 +591,7 @@ public class DB {
 	public ArrayList<String> getActivatedSettingsData(Context mContext,
 			String settingName) {
 
-		ArrayList<String> values = new ArrayList<String>();
+		ArrayList<Setting> values = new ArrayList<Setting>();
 
 		SQLiteDatabase myDB = mContext.openOrCreateDatabase(
 				getDBName(mContext), Context.MODE_PRIVATE, null);
@@ -600,15 +604,25 @@ public class DB {
 		if (c != null) {
 			if (c.moveToFirst()) {
 				do {
-					values.add(c.getString(c.getColumnIndex("name")));
+					values.add(new Setting(null, c.getString(c.getColumnIndex("name")), 0, 0));
 
 				} while (c.moveToNext());
 			}
 		}
 		c.close();
 		myDB.close();
-
-		return values;
+		
+		Collections.sort(values, new SettingsComparator(settingName));
+		
+		// We need a List of Strings here, so we have to convert ... 
+		
+		ArrayList<String> namesOnly = new ArrayList<String>();
+		
+		for (Setting s : values) {
+			namesOnly.add(s.getValue());
+		}
+		
+		return namesOnly;
 	}
 
 	public int getDefaultSettingNumber(Context mContext, String settingName) {
