@@ -157,7 +157,7 @@ public class SettingsViewPart {
 						}
 
 						Toast.makeText(context,
-								context.getString(R.string.entry_saved),
+								context.getString(R.string.deleted),
 								Toast.LENGTH_SHORT).show();
 
 						Object o = v.getTag();
