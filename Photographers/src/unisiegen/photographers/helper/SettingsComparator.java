@@ -9,7 +9,7 @@ import unisiegen.photographers.model.Setting;
 public class SettingsComparator implements Comparator<Setting> {
 	
 	String settingsName;
-	String[] alwaysOnTop = { "Auto", "Unendlich" , "Normal", "Keiner" }; // TODO: English version!
+	String[] alwaysOnTop = { "Auto", "Unendlich", "Normal", "Keiner" }; // TODO: English version!
 	
 	public SettingsComparator(String settingsName) {
 		this.settingsName = settingsName;
@@ -50,8 +50,8 @@ public class SettingsComparator implements Comparator<Setting> {
 		int returnValue = 0;
 		boolean specialSettingFound = false;
 		
-		String firstSetting = lhs.getValue();
-		String secondSetting = rhs.getValue();
+		String firstSetting = lhs.getValue().trim();
+		String secondSetting = rhs.getValue().trim();
 		
 		// Always display certain Strings on Top
 		for (String s : alwaysOnTop) {
@@ -65,15 +65,15 @@ public class SettingsComparator implements Comparator<Setting> {
 		
 		// BLENDE
 		if (settingsName.equals(DB.MY_DB_TABLE_SETBLE) && !specialSettingFound) {
-			firstSetting = firstSetting.replace(",", ".");
-			secondSetting = secondSetting.replace(",", ".");
+			firstSetting = firstSetting.replace(",", ".").trim();
+			secondSetting = secondSetting.replace(",", ".").trim();
 			returnValue = compareStringsAsFloats(firstSetting, secondSetting);
 		}
 		
 		// PLUSMINUS
 		if (settingsName.equals(DB.MY_DB_TABLE_SETPLU) && !specialSettingFound) {
-			firstSetting = firstSetting.replace(",", ".").replace("+", "");
-			secondSetting = secondSetting.replace(",", ".").replace("+", "");
+			firstSetting = firstSetting.replace(",", ".").replace("+", "").trim();
+			secondSetting = secondSetting.replace(",", ".").replace("+", "").trim();
 			returnValue = -compareStringsAsFloats(firstSetting, secondSetting);
 		}
 		
@@ -124,6 +124,20 @@ public class SettingsComparator implements Comparator<Setting> {
 			secondSetting = secondSetting.replace(",", ".").replace("x", "").trim();
 			returnValue = compareStringsAsFloats(firstSetting, secondSetting);
 		}
+		
+		//MAKRO-VF2
+		if (settingsName.equals(DB.MY_DB_TABLE_SETMVF2) && !specialSettingFound) {
+			firstSetting = firstSetting.replace(",", ".").replace("+", "");
+			secondSetting = secondSetting.replace(",", ".").replace("+", "");
+			returnValue = -compareStringsAsFloats(firstSetting, secondSetting);
+		}
+		
+		//FILTER-VF2
+		if (settingsName.equals(DB.MY_DB_TABLE_SETFVF2) && !specialSettingFound) {
+			firstSetting = firstSetting.replace(",", ".").replace("+", "");
+			secondSetting = secondSetting.replace(",", ".").replace("+", "");
+			returnValue = -compareStringsAsFloats(firstSetting, secondSetting);
+		}		
 		
 		//FILM EMPFINDLICHKEIT
 		if (settingsName.equals(DB.MY_DB_TABLE_SETEMP) && !specialSettingFound) {
