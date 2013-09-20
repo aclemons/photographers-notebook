@@ -9,7 +9,7 @@ import unisiegen.photographers.model.Setting;
 public class SettingsComparator implements Comparator<Setting> {
 	
 	String settingsName;
-	String[] alwaysOnTop = { "Auto", "Unendlich", "Normal", "Keiner" }; // TODO: English version!
+	String[] alwaysOnTop = { "Auto", "Unendlich", "Infinity", "Normal", "Keiner" , "None" }; 
 	
 	public SettingsComparator(String settingsName) {
 		this.settingsName = settingsName;
@@ -77,10 +77,10 @@ public class SettingsComparator implements Comparator<Setting> {
 			returnValue = -compareStringsAsFloats(firstSetting, secondSetting);
 		}
 		
-		// BLITZKORR
+		// BLITZKORR (identisch zu PLUSMINUS)
 		if (settingsName.equals(DB.MY_DB_TABLE_SETKOR) && !specialSettingFound) {
-			firstSetting = firstSetting.replace(",", ".").replace("+", "");
-			secondSetting = secondSetting.replace(",", ".").replace("+", "");
+			firstSetting = firstSetting.replace(",", ".").replace("+", "").trim();
+			secondSetting = secondSetting.replace(",", ".").replace("+", "").trim();
 			returnValue = -compareStringsAsFloats(firstSetting, secondSetting);
 		}
 		
@@ -97,13 +97,13 @@ public class SettingsComparator implements Comparator<Setting> {
 			secondSetting = secondSetting.replace(",", ".").replace("s", "").trim();
 			
 			if (firstSetting.contains("/")) {
-				String nenner1 = firstSetting.substring(firstSetting.indexOf("/") + 1 , firstSetting.length());
+				String nenner1 = firstSetting.substring(firstSetting.indexOf("/") + 1 , firstSetting.length()).trim();
 				Float float1 = 1 / stringToFloat(nenner1);
 				firstSetting = float1.toString();
 			}
 			
 			if (secondSetting.contains("/")) {
-				String nenner2 = secondSetting.substring(secondSetting.indexOf("/") + 1 , secondSetting.length());
+				String nenner2 = secondSetting.substring(secondSetting.indexOf("/") + 1 , secondSetting.length()).trim();
 				Float float2 = 1 / stringToFloat(nenner2);
 				secondSetting = float2.toString();
 			}
@@ -118,7 +118,7 @@ public class SettingsComparator implements Comparator<Setting> {
 			returnValue = compareStringsAsFloats(firstSetting, secondSetting);
 		}
 		
-		//FILTER-VF
+		//FILTER-VF (identisch zu MAKRO-FV)
 		if (settingsName.equals(DB.MY_DB_TABLE_SETFVF) && !specialSettingFound) {
 			firstSetting = firstSetting.replace(",", ".").replace("x", "").trim();
 			secondSetting = secondSetting.replace(",", ".").replace("x", "").trim();
@@ -127,15 +127,15 @@ public class SettingsComparator implements Comparator<Setting> {
 		
 		//MAKRO-VF2
 		if (settingsName.equals(DB.MY_DB_TABLE_SETMVF2) && !specialSettingFound) {
-			firstSetting = firstSetting.replace(",", ".").replace("+", "");
-			secondSetting = secondSetting.replace(",", ".").replace("+", "");
+			firstSetting = firstSetting.replace(",", ".").replace("+", "").trim();
+			secondSetting = secondSetting.replace(",", ".").replace("+", "").trim();
 			returnValue = -compareStringsAsFloats(firstSetting, secondSetting);
 		}
 		
-		//FILTER-VF2
+		//FILTER-VF2 (identisch zu MAKRO-VF2)
 		if (settingsName.equals(DB.MY_DB_TABLE_SETFVF2) && !specialSettingFound) {
-			firstSetting = firstSetting.replace(",", ".").replace("+", "");
-			secondSetting = secondSetting.replace(",", ".").replace("+", "");
+			firstSetting = firstSetting.replace(",", ".").replace("+", "").trim();
+			secondSetting = secondSetting.replace(",", ".").replace("+", "").trim();
 			returnValue = -compareStringsAsFloats(firstSetting, secondSetting);
 		}		
 		
@@ -145,11 +145,11 @@ public class SettingsComparator implements Comparator<Setting> {
 			secondSetting = secondSetting.replace("ISO", "").trim();
 			
 			if (firstSetting.contains("/")) {
-				firstSetting = firstSetting.substring(0, firstSetting.indexOf("/"));
+				firstSetting = firstSetting.substring(0, firstSetting.indexOf("/")).trim();
 			}
 			
 			if (secondSetting.contains("/")) {
-				secondSetting = secondSetting.substring(0, secondSetting.indexOf("/"));
+				secondSetting = secondSetting.substring(0, secondSetting.indexOf("/")).trim();
 			}			
 
 			returnValue = compareStringsAsFloats(firstSetting, secondSetting);
