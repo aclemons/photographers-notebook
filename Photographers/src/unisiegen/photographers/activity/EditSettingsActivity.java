@@ -285,7 +285,7 @@ public class EditSettingsActivity extends Activity {
 				break;
 			case KORREKTUR_POSITION:
 				myView = new SettingsViewPart(mContext,
-						R.string.exposure_correction, DB.MY_DB_TABLE_SETKOR)
+						R.string.exposure_correction, DB.MY_DB_TABLE_SETPLU)
 						.getView();
 				break;
 			case MAKRO_POSITION:
