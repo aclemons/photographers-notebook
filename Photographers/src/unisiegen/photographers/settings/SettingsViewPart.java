@@ -16,9 +16,11 @@
 package unisiegen.photographers.settings;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import unisiegen.photographers.activity.R;
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.helper.SettingsComparator;
 import unisiegen.photographers.model.Setting;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
@@ -84,6 +86,10 @@ public class SettingsViewPart {
 		layout.setBackgroundResource(R.drawable.shaperedtable);
 
 		values = DB.getDB().getAllSettings(context, settingName);
+		
+		// Uncomment next line to test SettingsComparator!
+		// Collections.sort(values, new SettingsComparator(settingName));
+		
 		listAdapter = new SettingsArrayAdapter(context, values);
 		list.setAdapter(listAdapter);
 
