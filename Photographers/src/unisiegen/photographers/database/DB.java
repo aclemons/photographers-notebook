@@ -78,7 +78,6 @@ public class DB {
 
 	static {
 		tableNames.add(MY_DB_TABLE_SETCAM);
-		// tableNames.add(MY_DB_TABLE_SETCAMBW); anderes Layout...
 		tableNames.add(MY_DB_TABLE_SETFF);
 		tableNames.add(MY_DB_TABLE_SETEMP);
 		tableNames.add(MY_DB_TABLE_SETBW);
