@@ -7,7 +7,7 @@
 	<TableLayout android:layout_width="fill_parent"
 		android:scrollbars="vertical" android:layout_height="fill_parent"
 		android:id="@+id/tablor" android:paddingLeft="4dp"
-		android:paddingBottom="4dp" android:background="@drawable/shapetable">
+		android:paddingBottom="4dp" >
 
 		<TableLayout android:id="@+id/table" android:layout_width="fill_parent"
 			android:layout_height="fill_parent" android:padding="8dp"
@@ -52,7 +52,7 @@
 							<TableLayout android:layout_width="fill_parent"
 								android:scrollbars="vertical" android:layout_height="wrap_content"
 								android:id="@+id/tablor" android:paddingLeft="4dp"
-								android:background="@drawable/shapetable">
+								>
 
 								<TableLayout android:id="@+id/table"
 									android:layout_width="fill_parent" android:layout_height="fill_parent"
