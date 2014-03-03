@@ -8,11 +8,10 @@
     android:padding="3dp"
     android:stretchColumns="1" >
 
-    <TableLayout 
+    <TableLayout
         android:id="@+id/user2"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/shapein"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -22,7 +21,6 @@
             android:id="@+id/editbutton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
             android:text="@string/continue_film" />
 
         <View
@@ -34,7 +32,6 @@
             android:id="@+id/editFilmButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
             android:text="@string/edit_film" />
 
         <View
@@ -46,7 +43,6 @@
             android:id="@+id/exportbutton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
             android:text="@string/export_film" />
 
         <View
@@ -58,7 +54,6 @@
             android:id="@+id/deletebutton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
             android:text="@string/delete_film" />
 
         <View
@@ -70,7 +65,6 @@
             android:id="@+id/cancelbutton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
             android:text="@string/cancel" />
     </TableLayout>
 

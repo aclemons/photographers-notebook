@@ -26,7 +26,6 @@
             android:id="@+id/tablor"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shapetable"
             android:paddingLeft="4dp"
             android:scrollbars="vertical" >
 
@@ -35,7 +34,6 @@
                 android:id="@+id/table"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/shapeintable"
                 android:padding="8dp"
                 android:paddingBottom="0dp"
                 android:paddingLeft="0dp"
@@ -161,7 +159,6 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight=".5"
-                                    android:background="@drawable/custom_button"
                                     android:gravity="center_vertical|center_horizontal"
                                     android:textOff="@string/off"
                                     android:textOn="@string/on" />
@@ -179,7 +176,6 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight=".5"
-                                    android:background="@drawable/custom_button"
                                     android:gravity="center_horizontal|center_vertical"
                                     android:text="@string/preview_pic" />
                             </LinearLayout>
@@ -203,7 +199,7 @@
             android:id="@+id/tablor"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shaperedtable"
+            android:background="@color/transparent"
             android:paddingLeft="4dp"
             android:scrollbars="vertical" >
 
@@ -212,7 +208,6 @@
                 android:id="@+id/table"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/shapeintable"
                 android:padding="8dp"
                 android:paddingBottom="0dp"
                 android:paddingLeft="0dp"
@@ -281,7 +276,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left" />
                         </LinearLayout>
                     </LinearLayout>
@@ -303,7 +297,6 @@
             android:id="@+id/tablor"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shapegreentable"
             android:paddingLeft="4dp"
             android:scrollbars="vertical" >
 
@@ -312,7 +305,6 @@
                 android:id="@+id/table"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/shapeintable"
                 android:padding="8dp"
                 android:paddingBottom="0dp"
                 android:paddingLeft="0dp"
@@ -381,7 +373,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left"
                                 android:hint="@string/note" />
                         </LinearLayout>
@@ -434,7 +425,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left" />
                         </LinearLayout>
                     </LinearLayout>
@@ -486,7 +476,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left" />
                         </LinearLayout>
                     </LinearLayout>
@@ -538,7 +527,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left" />
                         </LinearLayout>
                     </LinearLayout>
@@ -560,7 +548,6 @@
             android:id="@+id/tablor"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shapebluetable"
             android:paddingLeft="4dp"
             android:scrollbars="vertical" >
 
@@ -569,7 +556,6 @@
                 android:id="@+id/table"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/shapeintable"
                 android:padding="8dp"
                 android:paddingBottom="0dp"
                 android:paddingLeft="0dp"
@@ -638,7 +624,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left" />
                         </LinearLayout>
                     </LinearLayout>
@@ -690,7 +675,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left" />
                         </LinearLayout>
                     </LinearLayout>
@@ -711,7 +695,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
-                android:background="@drawable/custom_button"
                 android:text="@string/start_film" />
 
             <Button
@@ -719,7 +702,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
-                android:background="@drawable/custom_button"
                 android:text="@string/cancel" />
         </LinearLayout>
     </LinearLayout>
