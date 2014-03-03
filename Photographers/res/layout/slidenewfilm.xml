@@ -22,8 +22,8 @@
     
     
     
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/unisiegen.photographers.activity"
+<LinearLayout 
+    
     android:orientation="vertical" android:layout_width="fill_parent"
     android:padding="4dp"
     android:layout_height="wrap_content">    
@@ -31,7 +31,7 @@
     
     
         <TableLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        
         android:id="@+id/tablor"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -40,11 +40,10 @@
         android:scrollbars="vertical" >
 
         <TableLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+            
             android:id="@+id/table"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/shapeintable"
             android:padding="8dp"
             android:paddingBottom="0dp"
             android:paddingLeft="0dp"
@@ -53,18 +52,18 @@
 
             
             
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+            <LinearLayout  
         android:id="@+id/maini"
         android:orientation="vertical"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				<LinearLayout  
 				        android:id="@+id/maini"
 				        android:orientation="vertical"
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent"> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+						<LinearLayout  
 				        android:id="@+id/mainiof"
 				        android:gravity="left"
 					    android:layout_height="fill_parent" 
@@ -84,7 +83,6 @@
 				    	    android:layout_height="wrap_content"
 				    	    android:layout_gravity="bottom"
 				    	    android:layout_weight=".1"
-				    	    android:background="@drawable/custom_button"
 				    	    android:text="@string/take_picture" />
 				    	
 						</LinearLayout>
@@ -95,14 +93,14 @@
 						    
 				</LinearLayout>
 				
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+				<LinearLayout  
 				        android:id="@+id/maini"
 				        android:orientation="vertical"
 				        android:paddingLeft="5dp"
 					    android:layout_height="fill_parent" 
 					    android:layout_width="fill_parent">
 						
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+					    <LinearLayout  
 				        android:id="@+id/mainio"
 				        android:gravity="left"
 					    android:layout_height="fill_parent" 
@@ -114,7 +112,7 @@
 							    android:layout_height="14dp">
 						</View>
 						</LinearLayout> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+						<LinearLayout  
 				        android:id="@+id/mainiof"
 				        android:gravity="left"
 					    android:layout_height="fill_parent" 
@@ -134,14 +132,11 @@
 				                 android:layout_width="fill_parent"
 				                 android:layout_height="wrap_content" >
 				                 
-				    	    
-
                     <Button
                         android:id="@+id/button_minus"
                         android:layout_width="fill_parent"
-                        android:layout_weight=".1"
                         android:layout_height="wrap_content"
-            			android:background="@drawable/custom_button"
+                        android:layout_weight=".1"
                         android:text="     -     " />
 
                     <Button
@@ -170,10 +165,9 @@
                     <Button
                         android:id="@+id/button_plus"
                         android:layout_width="fill_parent"
-                        android:layout_weight=".1"
                         android:layout_height="wrap_content"
-            			android:background="@drawable/custom_button"
-                        android:text="     +     "/>
+                        android:layout_weight=".1"
+                        android:text="     +     " />
 				    	    
 				    	    </LinearLayout>
 				    	

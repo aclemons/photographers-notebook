@@ -13,27 +13,23 @@
         android:focusableInTouchMode="true" />
 
     <TableLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        
         android:id="@+id/tablor"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shapebluetable"
         android:paddingLeft="4dp"
         android:scrollbars="vertical" >
 
         <TableLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+            
             android:id="@+id/table"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/shapeintable"
             android:padding="8dp"
             android:paddingBottom="0dp"
             android:paddingLeft="0dp"
             android:paddingRight="0dp"
             android:paddingTop="0dp" >
-
-            
 
             <TextView
                 android:id="@+id/text_notizen"

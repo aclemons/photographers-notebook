@@ -9,23 +9,24 @@
     <LinearLayout
     	android:focusable="true" android:focusableInTouchMode="true"
     	android:layout_width="0px" android:layout_height="0px"/>
-<TableLayout 
-    android:layout_width="fill_parent"
-    android:scrollbars="vertical"
-    android:layout_height="wrap_content"
+
+<TableLayout
     android:id="@+id/tablor"
-    android:paddingLeft="4dp"
-    android:background="@drawable/shaperedtable">
-  <TableLayout 
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/table"
-    android:padding="8dp"
-    android:paddingTop="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingBottom="0dp"
-    android:background="@drawable/shapeintable">
+    android:layout_height="wrap_content"
+    android:paddingLeft="4dp"
+    android:scrollbars="vertical" >
+
+  <TableLayout
+      android:id="@+id/table"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:padding="8dp"
+      android:paddingBottom="0dp"
+      android:paddingLeft="0dp"
+      android:paddingRight="0dp"
+      android:paddingTop="0dp" >
+
     <LinearLayout  
         android:id="@+id/maini"
         android:orientation="vertical"
