@@ -34,6 +34,7 @@ import unisiegen.photographers.database.DB;
 import unisiegen.photographers.helper.FilmsViewHolder;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -50,6 +51,9 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -69,7 +73,7 @@ import android.widget.Toast;
 
 import com.thoughtworks.xstream.XStream;
 
-public class FilmSelectionActivity extends PhotographersNotebookActivity {
+public class FilmSelectionActivity extends Activity {
 
 	/*
 	 * User-Interface Elemente
@@ -403,7 +407,30 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 
 		pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.startmenu, menu);
+		return true;
+	}
 
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		if(item.getItemId() == R.id.action_newfilm){
+			Intent newFilm = new Intent(getApplicationContext(), NewFilmActivity.class);
+			startActivityForResult(newFilm, 0);
+			return true;
+			
+		} else if (item.getItemId() == R.id.opt_openSettings) {
+			Intent openSettings = new Intent(getApplicationContext(),
+					EditSettingsActivity.class);
+			startActivityForResult(openSettings, 0);
+			return true;
+		} else {
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
 	public void exportFilm(String FilmID) {
 		new FilmExportTask(FilmID).execute();
 
