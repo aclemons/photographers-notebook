@@ -265,11 +265,10 @@ public class FilmSelectionActivity extends Activity {
 		@Override
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 				int arg2, long arg3) {
-			// 4 child 2 kind
-			LinearLayout lin = (LinearLayout) arg1;
-			LinearLayout lins = (LinearLayout) lin.getChildAt(1);
-			final TextView ids = (TextView) ((LinearLayout) lins.getChildAt(2))
-					.getChildAt(0);
+
+			LinearLayout layout = (LinearLayout) arg1;
+			final TextView id = (TextView) layout.findViewById(R.id.filmtitle);
+			
 
 			Display display = ((WindowManager) mContext
 					.getSystemService(Context.WINDOW_SERVICE))
@@ -293,7 +292,7 @@ public class FilmSelectionActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					Intent i = new Intent(getApplicationContext(), EditFilmActivity.class);
-					i.putExtra("ID", ids.getText().toString());
+					i.putExtra("ID", id.getText().toString());
 					pw.dismiss();
 					startActivity(i);
 				}
@@ -303,12 +302,12 @@ public class FilmSelectionActivity extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					exportFilm(ids.getText().toString());
+					exportFilm(id.getText().toString());
 					pw.dismiss();
 				}
 			});
-			deleteButton.setOnClickListener(new DeleteFilmDialogAction(ids));
-			editButton.setOnClickListener(new EditFilmDialogAction(ids));
+			deleteButton.setOnClickListener(new DeleteFilmDialogAction(id));
+			editButton.setOnClickListener(new EditFilmDialogAction(id));
 			cancelButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -329,13 +328,13 @@ public class FilmSelectionActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			LinearLayout lin = (LinearLayout) arg1;
-			LinearLayout lins = (LinearLayout) lin.getChildAt(1);
-			TextView ids = (TextView) ((LinearLayout) lins.getChildAt(2))
-					.getChildAt(0);
+			
+			LinearLayout layout = (LinearLayout) arg1;
+			TextView id = (TextView) layout.findViewById(R.id.filmtitle);
+			
 			Intent myIntent = new Intent(getApplicationContext(),
 					FilmContentActivity.class);
-			myIntent.putExtra("ID", ids.getText().toString());
+			myIntent.putExtra("ID", id.getText().toString());
 			startActivityForResult(myIntent, 0);
 		}
 	};
