@@ -342,7 +342,7 @@ public class EditSettingsActivity extends Activity {
 			final EditText Kat = (EditText) view
 					.findViewById(R.id.kameramodell);
 			freecell.setText(getString(R.string.camera_models));
-			tablor.setBackgroundResource(R.drawable.shaperedtable);
+			//tablor.setBackgroundResource(R.drawable.shaperedtable);
 			tablor.setPadding(4, 0, -2, 0);
 			final ArrayList<Setting> valuesCam = DB.getDB().getAllSettings(
 					mContext, DB.MY_DB_TABLE_SETCAM);
@@ -402,7 +402,7 @@ public class EditSettingsActivity extends Activity {
 							freecellspec
 									.setText(getString(R.string.choose_lens));
 							tablorspec
-									.setBackgroundResource(R.drawable.shaperedtable);
+									.setBackgroundColor(Color.WHITE);
 							tablorspec.setPadding(2, 2, 2, 2);
 							final ArrayList<Setting> aplanetsspec = DB.getDB()
 									.getAllSettings(mContext,
@@ -654,7 +654,7 @@ public class EditSettingsActivity extends Activity {
 								.findViewById(R.id.kameramodell);
 						freecellspec.setText(getString(R.string.choose_lens));
 						tablorspec
-								.setBackgroundResource(R.drawable.shaperedtable);
+								.setBackgroundColor(Color.WHITE);
 						tablorspec.setPadding(2, 2, 2, 2);
 						final ArrayList<Setting> aplanetsspec = DB.getDB()
 								.getAllSettings(mContext, DB.MY_DB_TABLE_SETBW);
