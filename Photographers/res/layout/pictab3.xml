@@ -6,62 +6,70 @@
     android:orientation="vertical"
     android:padding="5dp" >
 
-    <LinearLayout
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <TableLayout
-        
-        android:id="@+id/tablor"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
-        android:scrollbars="vertical" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        <TableLayout
-            
-            android:id="@+id/table"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:padding="8dp"
-            android:paddingBottom="0dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:paddingTop="0dp" >
-
-            <TextView
-                android:id="@+id/text_notizen"
-                android:layout_width="wrap_content"
+            <TableLayout
+                android:id="@+id/tablor"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/note" android:layout_gravity="right" android:layout_marginLeft="12dp" android:layout_marginTop="5dp"/>
+                android:paddingLeft="4dp"
+                android:scrollbars="vertical" >
 
-            <EditText
-                android:id="@+id/edit_notizen"
-                android:layout_width="wrap_content"
-                android:layout_height="120px"
-                android:gravity="top"
-                android:textSize="18sp" android:layout_marginLeft="12dp">
+                <TableLayout
+                    android:id="@+id/table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="8dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:paddingTop="0dp" >
 
-                <requestFocus />
-            </EditText>
+                    <TextView
+                        android:id="@+id/text_notizen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/note" />
 
-            <TextView
-                android:id="@+id/text_kamera_notizen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/camera_note" android:layout_marginLeft="12dp" android:layout_marginTop="5dp"/>
+                    <EditText
+                        android:id="@+id/edit_notizen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120px"
+                        android:layout_marginLeft="12dp"
+                        android:gravity="top"
+                        android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/edit_kamera_notizen"
-                android:layout_width="wrap_content"
-                android:layout_height="120px"
-                android:gravity="top"
-                android:textSize="18sp" android:layout_marginLeft="12dp"/>
-        </TableLayout>
+                    <TextView
+                        android:id="@+id/text_kamera_notizen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/camera_note" />
 
-    </TableLayout>
+                    <EditText
+                        android:id="@+id/edit_kamera_notizen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120px"
+                        android:layout_marginLeft="12dp"
+                        android:gravity="top"
+                        android:textSize="18sp" />
+                </TableLayout>
+            </TableLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>
