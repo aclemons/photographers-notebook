@@ -94,7 +94,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 	protected void onResume() {
 		super.onResume();
 		myList = (ListView) findViewById(android.R.id.list);
-		TextView pics = (TextView) findViewById(R.id.picanzahl);
+//		TextView pics = (TextView) findViewById(R.id.picanzahl);
 		contentIndex = 0;
 
 		if (settings.getInt("FIRSTSTART", 0) == 0) {
@@ -116,7 +116,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			gesamtPics = gesamtPics + film.Bilder.size();
 		}
 
-		pics.setText(gesamtPics + " " + getString(R.string.pictures));
+//		pics.setText(gesamtPics + " " + getString(R.string.pictures));
 		ArrayAdapter<Film> adapter = new FilmsArrayAdapter(mContext, filme, 1);
 		myList.setOnItemClickListener(clickListener);
 		myList.setOnItemLongClickListener(longClickListener);
@@ -132,15 +132,18 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		if (settings.getInt("FIRSTSTART", 99) == 99 ) { // Only do this on the very first start, when FIRSTSTART is not yet set.
 			new ResetSettingsTask().execute();
 		}
-		Button newFilm = (Button) findViewById(R.id.newFilm);
-		newFilm.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent myIntent = new Intent(getApplicationContext(),
-						NewFilmActivity.class);
-				startActivityForResult(myIntent, 0);
-			}
-		});
+		
+		// Verschieben in Action Bar Action...
+		
+//		Button newFilm = (Button) findViewById(R.id.newFilm);
+//		newFilm.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Intent myIntent = new Intent(getApplicationContext(),
+//						NewFilmActivity.class);
+//				startActivityForResult(myIntent, 0);
+//			}
+//		});
 	}
 
 	private final class EditFilmDialogAction implements OnClickListener {

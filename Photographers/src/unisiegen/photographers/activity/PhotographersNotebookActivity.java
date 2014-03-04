@@ -66,10 +66,16 @@ public class PhotographersNotebookActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		if (item.getItemId() == R.id.opt_openSettings) {
-			Intent myIntent3 = new Intent(getApplicationContext(),
+		if(item.getItemId() == R.id.action_newfilm){
+			
+			Intent newFilm = new Intent(getApplicationContext(), NewFilmActivity.class);
+			startActivityForResult(newFilm, 0);
+			return true;
+			
+		} else if (item.getItemId() == R.id.opt_openSettings) {
+			Intent openSettings = new Intent(getApplicationContext(),
 					EditSettingsActivity.class);
-			startActivityForResult(myIntent3, 0);
+			startActivityForResult(openSettings, 0);
 			return true;
 		} else if (item.getItemId() == R.id.opt_backToMenu) {
 			finish();

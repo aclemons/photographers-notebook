@@ -10,168 +10,55 @@
     	android:focusable="true" android:focusableInTouchMode="true"
     	android:layout_width="0px" android:layout_height="0px"/>
 
-<TableLayout
-    android:id="@+id/tablor"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="4dp"
-    android:scrollbars="vertical" >
-
-  <TableLayout
-      android:id="@+id/table"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
-      android:padding="8dp"
-      android:paddingBottom="0dp"
-      android:paddingLeft="0dp"
-      android:paddingRight="0dp"
-      android:paddingTop="0dp" >
-
-    <LinearLayout 
-        android:id="@+id/maini"
-        android:orientation="vertical"
-	    android:layout_height="fill_parent" 
-	    android:layout_width="fill_parent">
-
-			    <TextView
-			        android:id="@+id/filmtitle"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:text="@string/create_new_film" >
-
-				</TextView>
-				<TextView
-	    android:id="@+id/freecell"
-	    android:layout_width="fill_parent"
-	    android:layout_height="8dp"
-	    android:text=" "
-	    >
-	</TextView>
-				<LinearLayout  
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="50dp"
-					    android:layout_height="wrap_content" 
-					    android:layout_width="fill_parent">
-					    
-				    
-				 
-				<!-- HIER -->
-				    
-	
-
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-
-    <LinearLayout 
-        android:id="@+id/maini"
-        android:orientation="vertical"
-	    android:layout_height="fill_parent" 
-	    android:layout_width="fill_parent">
-
-        <Button
-            android:id="@+id/newFilm"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/new_film" />
-					   
-      </LinearLayout>
-   
-		</LinearLayout> 		    
-				    
-      </LinearLayout>
-   </TableLayout>    
-         
-</TableLayout>
-
-        <!-- THIRD -->
-    <TextView
-	    android:id="@+id/freecell"
-	    android:layout_width="fill_parent"
-	    android:layout_height="10dp"
-	    android:text=" "
-	    >
-	</TextView>
-	
-<TableLayout
-    android:id="@+id/tablors"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="4dp"
-    android:paddingLeft="4dp"
-    android:scrollbars="vertical" >
-
-  <TableLayout
-      android:id="@+id/tables"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
-      android:padding="8dp"
-      android:paddingBottom="0dp"
-      android:paddingLeft="0dp"
-      android:paddingRight="0dp"
-      android:paddingTop="0dp" >
-
-    <LinearLayout 
-        android:id="@+id/mainsi"
-        android:orientation="horizontal"
-	    android:layout_height="fill_parent" 
-	    android:layout_width="fill_parent">
-
-    <TextView
-        android:id="@+id/filmtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/film_selection" >
-
-				</TextView>
-				
-        <TextView
-				    android:id="@+id/picanzahl"
-				    android:gravity="right"
-				    android:textStyle="bold|italic"
-				    android:layout_width="match_parent"
-				    android:layout_height="wrap_content"
-				    android:text="Bilder : 0"
-				    >
-				</TextView>
-        </LinearLayout>
-        
-        
-				<TextView
-	    android:id="@+id/freecell"
-	    android:layout_width="fill_parent"
-	    android:layout_height="8dp"
-	    android:text=" "
-	    >
-	</TextView>
-
-    <ListView
-        android:id="@android:id/list"
+    <TableLayout
+        android:id="@+id/tablors"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:cacheColorHint="#00000000"
-        android:drawSelectorOnTop="false"
-        android:visibility="visible" />
-    
-    <ImageView
-        android:id="@+id/image"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/nofilms" />
-    
-     
-    
-       </TableLayout>    
-         
-</TableLayout> 
+        android:paddingBottom="4dp"
+        android:paddingLeft="4dp"
+        android:scrollbars="vertical" >
+
+        <TableLayout
+            android:id="@+id/tables"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="8dp"
+            android:paddingBottom="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="0dp" >
+
+            <LinearLayout
+                android:id="@+id/mainsi"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" >
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/freecell"
+                android:layout_width="fill_parent"
+                android:layout_height="8dp"
+                android:text=" " />
+
+            <ListView
+                android:id="@android:id/list"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:drawSelectorOnTop="false"
+                android:visibility="visible" >
+            </ListView>
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/nofilms"
+                android:visibility="gone" />
+        </TableLayout>
+    </TableLayout>
+
+        <!-- THIRD --> 
    
 </LinearLayout>

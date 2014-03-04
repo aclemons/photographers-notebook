@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:id="@+id/opt_openSettings" android:title="@string/settings"
-  android:icon="@android:drawable/ic_menu_manage"/>
-  <item android:id="@+id/opt_backToMenu" android:title="@string/back_to_start"
-  android:icon="@android:drawable/ic_menu_set_as"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:id="@+id/action_newfilm" android:orderInCategory="100" android:showAsAction="always" android:icon="@drawable/ic_action_new" android:title="@string/start_film" /><item
+        android:id="@+id/opt_openSettings"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/settings"/>
+    <item
+        android:id="@+id/opt_backToMenu"
+        android:icon="@android:drawable/ic_menu_set_as"
+        android:title="@string/back_to_start"/>
+
 </menu>
