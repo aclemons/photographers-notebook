@@ -192,11 +192,19 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 							thumbnail = pic;
 						} else {
 							// Get a random bitmap...							
-							int random = ((int)(Math.random() * 10) % 4);
-							int [] pics = new int [] { R.drawable.fuji_pro160,
+							int [] pics = new int [] { 
+									R.drawable.agfa_recisa,
+									R.drawable.agfa_vista,
+									R.drawable.fuji_pro160,
 									R.drawable.fuji_provia100,
+									R.drawable.fuji_superia800,
+									R.drawable.fuji_velvia50,
+									R.drawable.fuji_velvia100f,
 									R.drawable.kodachrome64,
-									R.drawable.kodak_e100 };
+									R.drawable.kodak_e100,
+									R.drawable.kodak_farbwelt
+							};
+							int random = ((int)(Math.random() * 10) % pics.length);
 							int selected = pics[random];
 							
 							Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), selected);
