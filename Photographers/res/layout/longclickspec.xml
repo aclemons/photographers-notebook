@@ -29,7 +29,8 @@
           android:id="@+id/deletebutton"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
-          android:text="     Löschen     " />
+          android:text="     Löschen     "
+          android:textSize="14sp" />
 
       <View 
           android:layout_width="match_parent"
@@ -41,13 +42,15 @@
           android:id="@+id/editbutton"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
-          android:text="     Editieren     " />
+          android:text="     Editieren     "
+          android:textSize="14sp" />
 
       <Button
           android:id="@+id/specbutton"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
-          android:text="     Objektive bearbeiten     " />
+          android:text="     Objektive bearbeiten     "
+          android:textSize="14sp" />
 
       <View 
           android:layout_width="match_parent"
@@ -59,7 +62,8 @@
           android:id="@+id/cancelbutton"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
-          android:text="     Cancel     " />
+          android:text="     Cancel     "
+          android:textSize="14sp" />
     
 </LinearLayout>
 </TableLayout>
