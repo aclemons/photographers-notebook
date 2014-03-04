@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import unisiegen.photographers.activity.R.drawable;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
@@ -190,9 +191,15 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 							myIntent.putExtra("image", pic);
 							thumbnail = pic;
 						} else {
-							Bitmap bm = BitmapFactory.decodeResource(
-									getApplicationContext().getResources(),
-									R.drawable.nopic);
+							// Get a random bitmap...							
+							int random = ((int)(Math.random() * 10) % 4);
+							int [] pics = new int [] { R.drawable.fuji_pro160,
+									R.drawable.fuji_provia100,
+									R.drawable.kodachrome64,
+									R.drawable.kodak_e100 };
+							int selected = pics[random];
+							
+							Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), selected);
 							ByteArrayOutputStream baos = new ByteArrayOutputStream();
 							bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
 							nopic = baos.toByteArray();
