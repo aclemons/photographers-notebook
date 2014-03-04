@@ -14,7 +14,8 @@
      android:paddingBottom="10dp"
      android:paddingLeft="10dp"
      android:paddingRight="10dp"
-     android:paddingTop="15dp" >
+     android:paddingTop="15dp" 
+     android:background="@drawable/shapein">
     
 <LinearLayout
     android:layout_width="fill_parent"
