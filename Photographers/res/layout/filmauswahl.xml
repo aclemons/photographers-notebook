@@ -5,59 +5,22 @@
         android:padding="5dp"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
-    
-    <LinearLayout
-    	android:focusable="true" android:focusableInTouchMode="true"
-    	android:layout_width="0px" android:layout_height="0px"/>
 
-    <TableLayout
-        android:id="@+id/tablors"
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:paddingLeft="4dp"
-        android:scrollbars="vertical" >
+        android:cacheColorHint="#00000000"
+        android:drawSelectorOnTop="false"
+        android:visibility="visible" >
+    </ListView>
 
-        <TableLayout
-            android:id="@+id/tables"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:padding="8dp"
-            android:paddingBottom="0dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:paddingTop="0dp" >
-
-            <LinearLayout
-                android:id="@+id/mainsi"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="horizontal" >
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/freecell"
-                android:layout_width="fill_parent"
-                android:layout_height="8dp"
-                android:text=" " />
-
-            <ListView
-                android:id="@android:id/list"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:cacheColorHint="#00000000"
-                android:drawSelectorOnTop="false"
-                android:visibility="visible" >
-            </ListView>
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/nofilms"
-                android:visibility="gone" />
-        </TableLayout>
-    </TableLayout>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/nofilms"
+        android:visibility="gone" />
 
         <!-- THIRD --> 
    

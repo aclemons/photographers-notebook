@@ -98,7 +98,6 @@ public class FilmSelectionActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		myList = (ListView) findViewById(android.R.id.list);
-//		TextView pics = (TextView) findViewById(R.id.picanzahl);
 		contentIndex = 0;
 
 		if (settings.getInt("FIRSTSTART", 0) == 0) {
@@ -113,14 +112,7 @@ public class FilmSelectionActivity extends Activity {
 			editor.commit();	
 		}
 
-		int gesamtPics = 0;
 		ArrayList<Film> filme = DB.getDB().getFilme(mContext);
-
-		for (Film film : filme) {
-			gesamtPics = gesamtPics + film.Bilder.size();
-		}
-
-//		pics.setText(gesamtPics + " " + getString(R.string.pictures));
 		ArrayAdapter<Film> adapter = new FilmsArrayAdapter(mContext, filme, 1);
 		myList.setOnItemClickListener(clickListener);
 		myList.setOnItemLongClickListener(longClickListener);
@@ -135,19 +127,7 @@ public class FilmSelectionActivity extends Activity {
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		if (settings.getInt("FIRSTSTART", 99) == 99 ) { // Only do this on the very first start, when FIRSTSTART is not yet set.
 			new ResetSettingsTask().execute();
-		}
-		
-		// Verschieben in Action Bar Action...
-		
-//		Button newFilm = (Button) findViewById(R.id.newFilm);
-//		newFilm.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				Intent myIntent = new Intent(getApplicationContext(),
-//						NewFilmActivity.class);
-//				startActivityForResult(myIntent, 0);
-//			}
-//		});
+		}		
 	}
 
 	private final class EditFilmDialogAction implements OnClickListener {
@@ -236,7 +216,7 @@ public class FilmSelectionActivity extends Activity {
 
 		public FilmsArrayAdapter(Context context, ArrayList<Film> planetList,
 				int number) {
-			super(context, R.layout.sqltablecell, R.id.filmtitle, planetList);
+			super(context, R.layout.film_table_cell, R.id.filmtitle, planetList);
 			inflater = LayoutInflater.from(context);
 		}
 
@@ -249,7 +229,7 @@ public class FilmSelectionActivity extends Activity {
 			TextView textViewPics;
 			ImageView imageViewBild;
 			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.sqltablecell, null);
+				convertView = inflater.inflate(R.layout.film_table_cell, null);
 				textView = (TextView) convertView.findViewById(R.id.filmtitle);
 				textViewDate = (TextView) convertView.findViewById(R.id.date);
 				textViewCam = (TextView) convertView.findViewById(R.id.cam);
@@ -261,11 +241,11 @@ public class FilmSelectionActivity extends Activity {
 			} else {
 				FilmsViewHolder viewHolder = (FilmsViewHolder) convertView
 						.getTag();
-				textViewDate = viewHolder.getTextViewTime();
-				textView = viewHolder.getTextViewName();
-				textViewCam = viewHolder.getTextViewCam();
-				textViewPics = viewHolder.getTextViewPics();
-				imageViewBild = viewHolder.getBildView();
+				 textViewDate = viewHolder.getTextViewTime();
+				 textView = viewHolder.getTextViewName();
+				 textViewCam = viewHolder.getTextViewCam();
+				 textViewPics = viewHolder.getTextViewPics();
+				 imageViewBild = viewHolder.getBildView();
 			}
 			textViewDate.setText(planet.Datum);
 			textView.setText(planet.Titel);
