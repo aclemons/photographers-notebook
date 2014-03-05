@@ -1356,7 +1356,7 @@ public class EditSettingsActivity extends Activity {
 			alertDialog.show();
 			TextView message = (TextView) alertDialog
 					.findViewById(android.R.id.message);
-			message.setTextColor(Color.WHITE); // Workaround to prevent dialogue
+			message.setTextColor(Color.BLACK); // Workaround to prevent dialogue
 												// text to change color when
 												// touched.
 			Linkify.addLinks(message, Linkify.WEB_URLS);
