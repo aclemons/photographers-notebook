@@ -98,6 +98,7 @@ public class FilmSelectionActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		myList = (ListView) findViewById(android.R.id.list);
+		ImageView backgroundimage = (ImageView) findViewById(R.id.image); 
 		contentIndex = 0;
 
 		if (settings.getInt("FIRSTSTART", 0) == 0) {
@@ -113,6 +114,16 @@ public class FilmSelectionActivity extends Activity {
 		}
 
 		ArrayList<Film> filme = DB.getDB().getFilme(mContext);
+		
+		if (filme.isEmpty()) {
+			backgroundimage.setVisibility(View.VISIBLE);
+		} else {
+			backgroundimage.setVisibility(View.INVISIBLE);
+		}
+		
+		
+		
+		
 		ArrayAdapter<Film> adapter = new FilmsArrayAdapter(mContext, filme, 1);
 		myList.setOnItemClickListener(clickListener);
 		myList.setOnItemLongClickListener(longClickListener);
