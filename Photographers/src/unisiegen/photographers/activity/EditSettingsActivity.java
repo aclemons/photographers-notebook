@@ -851,7 +851,6 @@ public class EditSettingsActivity extends Activity {
 					.findViewById(R.id.geotag);
 			geotag.setTextOff(getString(R.string.off));
 			geotag.setTextOn(getString(R.string.on));
-			geotag.setGravity(Gravity.LEFT);
 			
 			geotag.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				@Override

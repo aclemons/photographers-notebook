@@ -5,308 +5,279 @@
         android:padding="5dp"
 	    android:layout_height="fill_parent" 
 	    android:layout_width="fill_parent">
-    
-    <LinearLayout
-    	android:focusable="true" android:focusableInTouchMode="true"
-    	android:layout_width="0px" android:layout_height="0px"/>
-<TableLayout 
-    android:layout_width="fill_parent"
-    android:scrollbars="vertical"
-    android:layout_height="wrap_content"
-    android:id="@+id/tablor"
-    android:paddingLeft="4dp"
-    >
 
-  <TableLayout
-      android:id="@+id/table"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
-      android:padding="8dp"
-      android:paddingBottom="0dp"
-      android:paddingLeft="0dp"
-      android:paddingRight="0dp"
-      android:paddingTop="0dp" >
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <LinearLayout  
-        android:id="@+id/maini"
-        android:orientation="vertical"
-	    android:layout_height="fill_parent" 
-	    android:layout_width="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-			    <TextView
-			        android:id="@+id/freecell"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:text="@string/general"
-			        android:textStyle="bold" >
+            <TableLayout
+                android:id="@+id/tablor"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:scrollbars="vertical" >
 
-				</TextView>
+                <TableLayout
+                    android:id="@+id/table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="8dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:paddingTop="0dp" >
 
-			    <TextView
-			        android:id="@+id/textView1"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/restart_required" />
+                    <LinearLayout
+                        android:id="@+id/maini"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical" >
 
-				<TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:visibility="invisible"
-				    android:layout_height="wrap_content"
-				    android:text="GeoTag :"
-				    >
-				</TextView>
-				<LinearLayout  
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
+                        <TextView
+                            android:id="@+id/freecell"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/general"
+                            android:textStyle="bold" />
 
-				<TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:layout_height="wrap_content"
-				    android:text="@string/geotag" >
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/restart_required" />
 
-				</TextView>   
-				<LinearLayout  
-				        android:id="@+id/maini"
-				        android:gravity="right"
-				        android:orientation="horizontal"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    
-				<TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:visibility="invisible"
-				    android:layout_weight=".7"
-				    android:layout_height="wrap_content"
-				    android:text="GeoTag :"
-				    >
-				</TextView> 
+                        <TextView
+                            android:id="@+id/freecell"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="GeoTag :"
+                            android:visibility="invisible" />
 
-				<ToggleButton
-				    android:id="@+id/geotag"
-				    android:layout_width="fill_parent"
-				    android:layout_height="wrap_content"
-				    android:layout_weight=".3"
-				    android:gravity="right"
-				    android:text="Allgemein :"
-				    android:textSize="14sp" >
+                        <LinearLayout
+                            android:id="@+id/maini"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp" >
 
-				</ToggleButton>
-				    </LinearLayout>
-				</LinearLayout>
-			        
-			        
-			        
-				<LinearLayout  
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/geotag" />
 
-				<TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:layout_height="wrap_content"
-				    android:text="@string/timestamp" >
+                            <LinearLayout
+                                android:id="@+id/maini"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:gravity="right"
+                                android:orientation="horizontal" >
 
-				</TextView>   
-				<LinearLayout  
-				        android:id="@+id/maini"
-				        android:gravity="right"
-				        android:orientation="horizontal"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    
-				<TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:visibility="invisible"
-				    android:layout_weight=".7"
-				    android:layout_height="wrap_content"
-				    android:text="GeoTag :"
-				    >
-				</TextView> 
-				<Spinner
-				    android:id="@+id/zeitstempel"
-				    android:gravity="right"
-				    android:layout_width="fill_parent"
-				    android:layout_weight=".3"
-				    android:layout_height="wrap_content"
-				    android:text="Allgemein :"
-				    >
-				</Spinner>
-				    </LinearLayout>
-				</LinearLayout>    
-				    
-				    
-				
-				    
-				    
-				<LinearLayout  
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
+                                <TextView
+                                    android:id="@+id/freecell"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".7"
+                                    android:text="GeoTag :"
+                                    android:visibility="invisible" />
 
-				<TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:layout_height="wrap_content"
-				    android:text="@string/correction_type" >
+                                <ToggleButton
+                                    android:id="@+id/geotag"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".3"
+                                    android:gravity="center_horizontal|center_vertical"
+                                    android:text="Allgemein :"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </LinearLayout>
 
-				</TextView>   
-				<LinearLayout  
-				        android:id="@+id/maini"
-				        android:gravity="right"
-				        android:orientation="horizontal"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    
-				<TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:visibility="invisible"
-				    android:layout_weight=".7"
-				    android:layout_height="wrap_content"
-				    android:text="GeoTag :"
-				    >
-				</TextView> 
-				<Spinner
-				    android:id="@+id/verlang"
-				    android:gravity="right"
-				    android:layout_width="fill_parent"
-				    android:layout_weight=".3"
-				    android:layout_height="wrap_content"
-				    android:text="Allgemein :"
-				    >
-				</Spinner>
-				    </LinearLayout>
-				</LinearLayout>
-				    
-				    
-				    
-				    
-				    
-				    
-				    
-				    <LinearLayout  
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
+                        <LinearLayout
+                            android:id="@+id/maini"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp" >
 
-				<TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:layout_height="wrap_content"
-				    android:text="@string/aperture_type" >
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/timestamp" />
 
-				</TextView>   
-				<LinearLayout  
-				        android:id="@+id/maini"
-				        android:gravity="right"
-				        android:orientation="horizontal"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    
-				<TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:visibility="invisible"
-				    android:layout_weight=".7"
-				    android:layout_height="wrap_content"
-				    android:text="GeoTag :"
-				    >
-				</TextView> 
-				<Spinner
-				    android:id="@+id/blenden"
-				    android:gravity="right"
-				    android:layout_width="fill_parent"
-				    android:layout_weight=".3"
-				    android:layout_height="wrap_content"
-				    android:text="Allgemein :"
-				    >
-				</Spinner>
-				    </LinearLayout>
-				</LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/maini"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:gravity="right"
+                                android:orientation="horizontal" >
 
-				    <LinearLayout
-				        
-				        android:id="@+id/LinearLayout01"
-				        android:layout_width="fill_parent"
-				        android:layout_height="fill_parent"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp" >
+                                <TextView
+                                    android:id="@+id/freecell"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".7"
+                                    android:text="GeoTag :"
+                                    android:visibility="invisible" />
 
-				        <TextView
-				            android:id="@+id/TextView01"
-				            android:layout_width="fill_parent"
-				            android:layout_height="wrap_content"
-				            android:text="@string/reset_tutorial" />
+                                <Spinner
+                                    android:id="@+id/zeitstempel"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".3"
+                                    android:gravity="right"
+                                    android:text="Allgemein :" />
+                            </LinearLayout>
+                        </LinearLayout>
 
-				        <LinearLayout
-				            
-				            android:id="@+id/LinearLayout01"
-				            android:layout_width="fill_parent"
-				            android:layout_height="fill_parent"
-				            android:gravity="right"
-				            android:orientation="horizontal" >
+                        <LinearLayout
+                            android:id="@+id/maini"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp" >
 
-				            <TextView
-				                android:id="@+id/TextView01"
-				                android:layout_width="fill_parent"
-				                android:layout_height="wrap_content"
-				                android:layout_weight=".7"
-				                android:text="GeoTag :"
-				                android:visibility="invisible" />
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/correction_type" />
 
-				            <Button
-				                android:id="@+id/ButtonTutorialBack"
-				                android:layout_width="fill_parent"
-				                android:layout_height="wrap_content"
-				                android:layout_weight=".3"
-				                android:gravity="center"
-				                android:text="@string/reset_tutorial"
-				                android:textSize="14sp" />
+                            <LinearLayout
+                                android:id="@+id/maini"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:gravity="right"
+                                android:orientation="horizontal" >
 
-				        </LinearLayout>
-				    </LinearLayout>
-				        
-				        <LinearLayout  
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">				
-				<LinearLayout  
-				        android:id="@+id/maini"
-				        android:gravity="right"
-				        android:orientation="horizontal"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-					    
-				<TextView
-				    android:id="@+id/freecell"
-				    android:layout_width="fill_parent"
-				    android:visibility="invisible"
-				    android:layout_weight=".7"
-				    android:layout_height="wrap_content"
-				    android:text="GeoTag :"
-				    >
-				</TextView> 
-				    </LinearLayout>
-				</LinearLayout>
-			        
-      </LinearLayout>
-   </TableLayout>    
-         
-</TableLayout>
+                                <TextView
+                                    android:id="@+id/freecell"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".7"
+                                    android:text="GeoTag :"
+                                    android:visibility="invisible" />
+
+                                <Spinner
+                                    android:id="@+id/verlang"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".3"
+                                    android:gravity="right"
+                                    android:text="Allgemein :" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/maini"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp" >
+
+                            <TextView
+                                android:id="@+id/freecell"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/aperture_type" />
+
+                            <LinearLayout
+                                android:id="@+id/maini"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:gravity="right"
+                                android:orientation="horizontal" >
+
+                                <TextView
+                                    android:id="@+id/freecell"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".7"
+                                    android:text="GeoTag :"
+                                    android:visibility="invisible" />
+
+                                <Spinner
+                                    android:id="@+id/blenden"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".3"
+                                    android:gravity="right"
+                                    android:text="Allgemein :" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/LinearLayout01"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp" >
+
+                            <TextView
+                                android:id="@+id/TextView01"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/reset_tutorial" />
+
+                            <LinearLayout
+                                android:id="@+id/LinearLayout01"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:gravity="right"
+                                android:orientation="horizontal" >
+
+                                <TextView
+                                    android:id="@+id/TextView01"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".7"
+                                    android:text="GeoTag :"
+                                    android:visibility="invisible" />
+
+                                <Button
+                                    android:id="@+id/ButtonTutorialBack"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".3"
+                                    android:gravity="center"
+                                    android:text="@string/reset_tutorial"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/maini"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp" >
+
+                            <LinearLayout
+                                android:id="@+id/maini"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:gravity="right"
+                                android:orientation="horizontal" >
+
+                                <TextView
+                                    android:id="@+id/freecell"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".7"
+                                    android:text="GeoTag :"
+                                    android:visibility="invisible" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableLayout>
+            </TableLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
