@@ -552,6 +552,7 @@ public class EditSettingsActivity extends Activity {
 							PopupWindow popUp = new PopupWindow(layoutOwn2,
 									(int) (width2 / 1.05),
 									(int) (height2 / 1.05), true);
+							popUp.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 							popUp.setAnimationStyle(7);
 							popUp.setBackgroundDrawable(new BitmapDrawable());
 							pw.dismiss();
@@ -805,6 +806,7 @@ public class EditSettingsActivity extends Activity {
 						PopupWindow popUp = new PopupWindow(layoutOwn2,
 								(int) (width2 / 1.05), (int) (height2 / 1.05),
 								true);
+						popUp.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 						popUp.setAnimationStyle(7);
 						popUp.setBackgroundDrawable(new BitmapDrawable());
 						popUp.showAtLocation(layoutOwn2, Gravity.CENTER, 0, 0);
