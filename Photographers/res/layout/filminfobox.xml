@@ -89,9 +89,6 @@
 											<LinearLayout android:id="@+id/mainiof"
 												android:gravity="left" android:layout_height="fill_parent"
 												android:layout_weight=".44" android:layout_width="fill_parent">
-												<TextView android:id="@+id/freecell"
-													android:layout_width="fill_parent" android:visibility="invisible"
-													android:layout_weight=".34" android:layout_height="wrap_content" />
 
 												<Spinner android:id="@+id/spinnerCamera"
 													android:gravity="left" android:visibility="gone"
@@ -125,9 +122,6 @@
 												android:id="@+id/mainiof" android:gravity="left"
 												android:layout_height="fill_parent" android:layout_weight=".44"
 												android:layout_width="fill_parent">
-												<TextView android:id="@+id/freecell"
-													android:layout_width="fill_parent" android:visibility="invisible"
-													android:layout_weight=".34" android:layout_height="wrap_content" />
 
 												<Spinner android:id="@+id/spinnerCamera"
 													android:gravity="left" android:visibility="gone"
@@ -149,9 +143,6 @@
 
 
 							<!-- Second -->
-							<TextView android:id="@+id/freecell"
-								android:layout_width="fill_parent" android:layout_height="5dp"
-								android:text=" " />
 
 
 
@@ -220,9 +211,6 @@
 													android:id="@+id/mainiof" android:gravity="left"
 													android:layout_height="fill_parent" android:layout_weight=".44"
 													android:layout_width="fill_parent">
-													<TextView android:id="@+id/freecell"
-														android:layout_width="fill_parent" android:visibility="invisible"
-														android:layout_weight=".34" android:layout_height="wrap_content" />
 
 													<Spinner android:id="@+id/editobjektiv"
 														android:gravity="left" android:visibility="gone"
@@ -279,9 +267,6 @@
 													android:id="@+id/mainiof" android:gravity="left"
 													android:layout_height="fill_parent" android:layout_weight=".44"
 													android:layout_width="fill_parent">
-													<TextView android:id="@+id/freecell"
-														android:layout_width="fill_parent" android:visibility="invisible"
-														android:layout_weight=".34" android:layout_height="wrap_content" />
 
 													<Spinner android:id="@+id/editblende"
 														android:gravity="left" android:visibility="gone"
@@ -317,9 +302,6 @@
 													android:id="@+id/mainiof" android:gravity="left"
 													android:layout_height="fill_parent" android:layout_weight=".44"
 													android:layout_width="fill_parent">
-													<TextView android:id="@+id/freecell"
-														android:layout_width="fill_parent" android:visibility="invisible"
-														android:layout_weight=".34" android:layout_height="wrap_content" />
 
 													<Spinner android:id="@+id/editzeit"
 														android:gravity="left" android:visibility="gone"
@@ -356,9 +338,6 @@
 													android:id="@+id/mainiof" android:gravity="left"
 													android:layout_height="fill_parent" android:layout_weight=".44"
 													android:layout_width="fill_parent">
-													<TextView android:id="@+id/freecell"
-														android:layout_width="fill_parent" android:visibility="invisible"
-														android:layout_weight=".34" android:layout_height="wrap_content" />
 
 													<Spinner android:id="@+id/editfokus"
 														android:gravity="left" android:visibility="gone"
@@ -403,9 +382,6 @@
 													android:id="@+id/mainiof" android:gravity="left"
 													android:layout_height="fill_parent" android:layout_weight=".44"
 													android:layout_width="fill_parent">
-													<TextView android:id="@+id/freecell"
-														android:layout_width="fill_parent" android:visibility="invisible"
-														android:layout_weight=".34" android:layout_height="wrap_content" />
 
 													<Spinner android:id="@+id/editfilter"
 														android:gravity="left" android:visibility="gone"
@@ -454,9 +430,6 @@
 													android:id="@+id/mainiof" android:gravity="left"
 													android:layout_height="fill_parent" android:layout_weight=".44"
 													android:layout_width="fill_parent">
-													<TextView android:id="@+id/freecell"
-														android:layout_width="fill_parent" android:visibility="invisible"
-														android:layout_weight=".34" android:layout_height="wrap_content" />
 
 													<Spinner android:id="@+id/editfiltervf"
 														android:gravity="left" android:visibility="gone"
@@ -489,9 +462,6 @@
 													android:id="@+id/mainiof" android:gravity="left"
 													android:layout_height="fill_parent" android:layout_weight=".44"
 													android:layout_width="fill_parent">
-													<TextView android:id="@+id/freecell"
-														android:layout_width="fill_parent" android:visibility="invisible"
-														android:layout_weight=".34" android:layout_height="wrap_content" />
 
 													<Spinner android:id="@+id/editmakro"
 														android:gravity="left" android:visibility="gone"
@@ -524,9 +494,6 @@
 													android:id="@+id/mainiof" android:gravity="left"
 													android:layout_height="fill_parent" android:layout_weight=".44"
 													android:layout_width="fill_parent">
-													<TextView android:id="@+id/freecell"
-														android:layout_width="fill_parent" android:visibility="invisible"
-														android:layout_weight=".34" android:layout_height="wrap_content" />
 
 													<Spinner android:id="@+id/editmessung"
 														android:gravity="left" android:visibility="gone"
@@ -561,9 +528,6 @@
 													android:id="@+id/mainiof" android:gravity="left"
 													android:layout_height="fill_parent" android:layout_weight=".44"
 													android:layout_width="fill_parent">
-													<TextView android:id="@+id/freecell"
-														android:layout_width="fill_parent" android:visibility="invisible"
-														android:layout_weight=".34" android:layout_height="wrap_content" />
 
 													<Spinner android:id="@+id/editbelichtung"
 														android:gravity="left" android:visibility="gone"
@@ -596,9 +560,6 @@
 													android:id="@+id/mainiof" android:gravity="left"
 													android:layout_height="fill_parent" android:layout_weight=".44"
 													android:layout_width="fill_parent">
-													<TextView android:id="@+id/freecell"
-														android:layout_width="fill_parent" android:visibility="invisible"
-														android:layout_weight=".34" android:layout_height="wrap_content" />
 
 													<Spinner android:id="@+id/editmakrovf"
 														android:gravity="left" android:visibility="gone"
@@ -631,9 +592,6 @@
 													android:id="@+id/mainiof" android:gravity="left"
 													android:layout_height="fill_parent" android:layout_weight=".44"
 													android:layout_width="fill_parent">
-													<TextView android:id="@+id/freecell"
-														android:layout_width="fill_parent" android:visibility="invisible"
-														android:layout_weight=".34" android:layout_height="wrap_content" />
 
 													<Spinner android:id="@+id/editblitz"
 														android:gravity="left" android:visibility="gone"
@@ -666,9 +624,6 @@
 													android:id="@+id/mainiof" android:gravity="left"
 													android:layout_height="fill_parent" android:layout_weight=".44"
 													android:layout_width="fill_parent">
-													<TextView android:id="@+id/freecell"
-														android:layout_width="fill_parent" android:visibility="invisible"
-														android:layout_weight=".34" android:layout_height="wrap_content" />
 
 													<Spinner android:id="@+id/editblitzkorr"
 														android:gravity="left" android:visibility="gone"
@@ -703,9 +658,6 @@
 
 
 							<!-- THIRD -->
-							<TextView android:id="@+id/freecell"
-								android:layout_width="fill_parent" android:layout_height="5dp"
-								android:text=" " />
 
 
 
@@ -757,9 +709,6 @@
 											<LinearLayout 												android:id="@+id/mainiof" android:gravity="left"
 												android:layout_height="fill_parent" android:layout_weight=".44"
 												android:layout_width="fill_parent">
-												<TextView android:id="@+id/freecell"
-													android:layout_width="fill_parent" android:visibility="invisible"
-													android:layout_weight=".34" android:layout_height="wrap_content" />
 
 												<EditText android:id="@+id/editnotiz"
 													android:gravity="left" android:hint="Notiz"
@@ -795,9 +744,6 @@
 												android:id="@+id/mainiof" android:gravity="left"
 												android:layout_height="fill_parent" android:layout_weight=".44"
 												android:layout_width="fill_parent">
-												<TextView android:id="@+id/freecell"
-													android:layout_width="fill_parent" android:visibility="invisible"
-													android:layout_weight=".34" android:layout_height="wrap_content" />
 
 												<EditText android:id="@+id/editnotizkam"
 													android:gravity="left" android:hint="Kamera-Notiz"
