@@ -72,7 +72,7 @@
 	<string name="input_error">Faulty entry</string>
 	<string name="click">Click</string>
 	<string name="save">Save</string>
-	<string name="save_changes">Save changes</string>
+	<string name="save_changes">Save</string>
 	<string name="cam_error">Camera fault, please try again!</string>
 	<string name="new_picture">New picture</string>
 	<string name="gps_off">GPS is deactivated! Activate GPS now in order to geotag your pictures!</string>
