@@ -885,6 +885,7 @@ public class EditSettingsActivity extends Activity {
 			ArrayAdapter<String> blendenadapter = new ArrayAdapter<String>(
 					mContext, android.R.layout.simple_spinner_item,
 					blendenarray);
+			blendenadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			blendenstufen.setAdapter(blendenadapter);
 			blendenstufen
 					.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -923,6 +924,7 @@ public class EditSettingsActivity extends Activity {
 			ArrayAdapter<String> zeitstempeladapter = new ArrayAdapter<String>(
 					mContext, android.R.layout.simple_spinner_item,
 					zeitstempelarray);
+			zeitstempeladapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			zeitstempel.setAdapter(zeitstempeladapter);
 			zeitstempel.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -958,6 +960,7 @@ public class EditSettingsActivity extends Activity {
 			ArrayAdapter<String> verlangadapter = new ArrayAdapter<String>(
 					mContext, android.R.layout.simple_spinner_item,
 					verlangarray);
+			verlangadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			verlang.setAdapter(verlangadapter);
 			verlang.setOnItemSelectedListener(new OnItemSelectedListener() {
 
