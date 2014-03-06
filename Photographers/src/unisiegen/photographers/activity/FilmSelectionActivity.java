@@ -278,7 +278,7 @@ public class FilmSelectionActivity extends Activity {
 		
 		// Some re-formatting magic ...
 		if (name.length() == 0) { name = "Film"; }
-		iso = iso.substring(0, iso.indexOf("/"));
+		if (iso.contains("/")) { iso = iso.substring(0, iso.indexOf("/")); }
 				
 		Bitmap returnedBitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
 		    
