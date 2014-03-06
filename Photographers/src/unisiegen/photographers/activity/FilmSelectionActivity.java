@@ -42,6 +42,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -263,11 +267,52 @@ public class FilmSelectionActivity extends Activity {
 			textViewCam.setText(planet.Kamera);
 			textViewPics.setText(planet.Pics + " "
 					+ getString(R.string.pictures));
-			imageViewBild.setImageBitmap(planet.icon);
+			
+			//imageViewBild.setImageBitmap(planet.icon);
+			imageViewBild.setImageBitmap(createFilmBitmap(200, planet.Filmbezeichnung, planet.Empfindlichkeit, planet.Filmformat)); 
 			return convertView;
 		}
 	}
-
+	
+	public static Bitmap createFilmBitmap(int size, String name, String iso, String type) {
+		
+		// Some re-formatting magic ...
+		if (name.length() == 0) { name = "Film"; }
+		iso = iso.substring(0, iso.indexOf("/"));
+				
+		Bitmap returnedBitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+		    
+	    Canvas canvas = new Canvas(returnedBitmap);
+	    
+	    Paint paint = new Paint();
+	    paint.setStyle(Paint.Style.FILL);
+	    paint.setAntiAlias(true);
+	     
+	    canvas.drawPaint(paint);
+	    paint.setColor(Color.parseColor("#04B431"));
+	    canvas.drawRect(0, 0, size, size, paint);
+	      
+	    paint.setColor(Color.parseColor("#886A08"));
+	    canvas.drawRect(0, size/10, size, size/2, paint);
+	      
+	    paint.setColor(Color.BLACK);
+	    paint.setTextSize(size/4);
+	    
+	    paint.setTextAlign(Paint.Align.RIGHT);
+	    canvas.drawText(type, size, size, paint);
+	      
+	    paint.setTextAlign(Paint.Align.LEFT);
+	    canvas.drawText(iso, 0, 3*size/4, paint);
+	      
+	    paint.setColor(Color.WHITE);
+	    paint.setTextAlign(Paint.Align.CENTER);
+	    canvas.drawText(name, size/2, 4*size/10, paint);
+	    
+	    return returnedBitmap;
+	    
+	}
+	
+	
 	/*
 	 * Klicken auf eine Zeile (langer und kurzer klick)
 	 */
