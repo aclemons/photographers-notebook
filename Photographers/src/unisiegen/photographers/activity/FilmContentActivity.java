@@ -203,9 +203,10 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
 
 		byte[] data = Base64.decode(film.iconData, Base64.DEFAULT);
-		vorschauImage.setImageBitmap(BitmapFactory.decodeByteArray(data, 0,
-				data.length));
-
+		//vorschauImage.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
+				
+		vorschauImage.setImageBitmap(new FilmSelectionActivity().createFilmBitmap(200, film));
+				
 		TextView filmbezeichnung = (TextView) findViewById(R.id.filmnotiz);
 		filmbezeichnung.setText(film.Filmbezeichnung);
 

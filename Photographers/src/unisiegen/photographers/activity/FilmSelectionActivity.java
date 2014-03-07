@@ -269,13 +269,43 @@ public class FilmSelectionActivity extends Activity {
 					+ getString(R.string.pictures));
 			
 			//imageViewBild.setImageBitmap(planet.icon);
-			imageViewBild.setImageBitmap(createFilmBitmap(200, planet.Filmbezeichnung, planet.Empfindlichkeit, planet.Filmformat)); 
+			imageViewBild.setImageBitmap(createFilmBitmap(200, planet)); 
 			return convertView;
 		}
 	}
 	
-	public static Bitmap createFilmBitmap(int size, String name, String iso, String type) {
+	public static Bitmap createFilmBitmap(int size, Film film) {
 		
+		String name = film.Filmbezeichnung;
+		String iso = film.Empfindlichkeit;
+		String type = film.Filmformat;
+		String brand = film.Filmtyp;
+		
+		String colors[] = { "", "" }; // 0 = Background, 1 = Badge (needs to be dark)
+		
+		if (brand != null) {
+			if (brand.contains("I: CR")) { // TODO: read these from the string resources.
+				colors[0] = "#04B431"; 
+				colors[1] = "#886A08";
+			} else if (brand.contains("I: CT")){
+				colors[0] = "#C0C0C0";
+				colors[1] = "red";
+			} else if (brand.contains("I: CN")){
+				colors[0] = "yellow";
+				colors[1] = "black";
+			} else if (brand.contains("I: SWR")){
+				colors[0] = "#C0C0C0";
+				colors[1] = "#663333";
+			} else if (brand.contains("I: SW")){
+				colors[0] = "#C0C0C0";
+				colors[1] = "black";
+			} else {
+				colors[0] = "#04B431"; 
+				colors[1] = "#886A08";
+			}
+				
+		}
+				
 		// Some re-formatting magic ...
 		if (name.length() == 0) { name = "Film"; }
 		if (iso.contains("/")) { iso = iso.substring(0, iso.indexOf("/")); }
@@ -289,10 +319,10 @@ public class FilmSelectionActivity extends Activity {
 	    paint.setAntiAlias(true);
 	     
 	    canvas.drawPaint(paint);
-	    paint.setColor(Color.parseColor("#04B431"));
+	    paint.setColor(Color.parseColor(colors[0]));
 	    canvas.drawRect(0, 0, size, size, paint);
 	      
-	    paint.setColor(Color.parseColor("#886A08"));
+	    paint.setColor(Color.parseColor(colors[1]));
 	    canvas.drawRect(0, size/10, size, size/2, paint);
 	      
 	    paint.setColor(Color.BLACK);
