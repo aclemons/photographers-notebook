@@ -46,6 +46,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -269,40 +270,104 @@ public class FilmSelectionActivity extends Activity {
 					+ getString(R.string.pictures));
 			
 			//imageViewBild.setImageBitmap(planet.icon);
-			imageViewBild.setImageBitmap(createFilmBitmap(200, planet)); 
+			imageViewBild.setImageBitmap(createFilmBitmap(planet)); 
 			return convertView;
 		}
 	}
 	
-	public static Bitmap createFilmBitmap(int size, Film film) {
+	public static Bitmap createFilmBitmap(Film film) {
 		
+		// Size of the Bitmap in pixels
+		int x = 200;  
+		int y = 200;
+		
+		// Get the values we want to display
 		String name = film.Filmbezeichnung;
 		String iso = film.Empfindlichkeit;
 		String type = film.Filmformat;
 		String brand = film.Filmtyp;
 		
-		String colors[] = { "", "" }; // 0 = Background, 1 = Badge (needs to be dark)
+		// Define the default variables for the design. Each icon consists of three stripes 
+		// with individual colors, heights, and texts they can display (apart of the top stripe 
+		// which is only decoration).
+			
+		int heightTop = 20;
+		String colorTop = "#04B431";
+		
+		int heightMiddle = 80;
+		String colorMiddle = "#886A08";
+		String colorMiddleText = "white";
+		
+		String colorBottom = "#04B431";
+		String colorBottomText = "black";
+		
+		int marginText = 5; // Margin for the text on the bottom stripe
+		int textSize = 40;
+				
+		// Define different styles for different film types
 		
 		if (brand != null) {
 			if (brand.contains("I: CR")) { // TODO: read these from the string resources.
-				colors[0] = "#04B431"; 
-				colors[1] = "#886A08";
+				
+				heightTop = 0;
+				colorTop = "#04B431";
+				
+				heightMiddle = 100;
+				colorMiddle = "#CC0000";
+				colorMiddleText = "white";
+				
+				colorBottom = "#B8B8B8";
+				colorBottomText = "black";
+				
 			} else if (brand.contains("I: CT")){
-				colors[0] = "#C0C0C0";
-				colors[1] = "red";
+				
+				heightTop = 10;
+				colorTop = "#505050";
+				
+				heightMiddle = 90;
+				colorMiddle = "#6699FF";
+				colorMiddleText = "white";
+				
+				colorBottom = "#505050";
+				colorBottomText = "white";
+				
 			} else if (brand.contains("I: CN")){
-				colors[0] = "yellow";
-				colors[1] = "black";
+				
+				heightTop = 20;
+				colorTop = "#04B431";
+				
+				heightMiddle = 80;
+				colorMiddle = "#886A08";
+				colorMiddleText = "white";
+				
+				colorBottom = "#04B431";
+				colorBottomText = "black";
+				
 			} else if (brand.contains("I: SWR")){
-				colors[0] = "#C0C0C0";
-				colors[1] = "#663333";
+				
+				heightTop = 30;
+				colorTop = "#003300";
+				
+				heightMiddle = 70;
+				colorMiddle = "#999966";
+				colorMiddleText = "white";
+				
+				colorBottom = "#003300";
+				colorBottomText = "white";
+				
 			} else if (brand.contains("I: SW")){
-				colors[0] = "#C0C0C0";
-				colors[1] = "black";
-			} else {
-				colors[0] = "#04B431"; 
-				colors[1] = "#886A08";
-			}
+				
+				heightTop = 20;
+				colorTop = "#333333";
+				
+				heightMiddle = 80;
+				colorMiddle = "#660000";
+				colorMiddleText = "white";
+				
+				colorBottom = "#333333";
+				colorBottomText = "white";
+				
+			} 
 				
 		}
 				
@@ -310,33 +375,42 @@ public class FilmSelectionActivity extends Activity {
 		if (name.length() == 0) { name = "Film"; }
 		if (iso.contains("/")) { iso = iso.substring(0, iso.indexOf("/")); }
 				
-		Bitmap returnedBitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+		Bitmap returnedBitmap = Bitmap.createBitmap(x, y, Bitmap.Config.ARGB_8888);
 		    
 	    Canvas canvas = new Canvas(returnedBitmap);
 	    
 	    Paint paint = new Paint();
-	    paint.setStyle(Paint.Style.FILL);
 	    paint.setAntiAlias(true);
-	     
-	    canvas.drawPaint(paint);
-	    paint.setColor(Color.parseColor(colors[0]));
-	    canvas.drawRect(0, 0, size, size, paint);
-	      
-	    paint.setColor(Color.parseColor(colors[1]));
-	    canvas.drawRect(0, size/10, size, size/2, paint);
-	      
-	    paint.setColor(Color.BLACK);
-	    paint.setTextSize(size/4);
 	    
+	    //Top stripe
+	    canvas.drawPaint(paint);
+	    paint.setColor(Color.parseColor(colorTop));
+	    canvas.drawRect(0, 0, x, heightTop, paint);
+	    
+	    //Middle stripe
+	    paint.setColor(Color.parseColor(colorMiddle));
+	    canvas.drawRect(0, heightTop, x, (heightTop + heightMiddle), paint);
+	    
+	    //Bottom stripe
+	    paint.setColor(Color.parseColor(colorBottom));
+	    canvas.drawRect(0, (heightTop + heightMiddle), x, y, paint);
+	    
+	    //Text middle stripe
+	    paint.setTextSize(textSize + 10);
+	    Rect bounds = new Rect(); // Trick to center text vertically ... 
+	    paint.getTextBounds("A", 0, 1, bounds);
+	    paint.setColor(Color.parseColor(colorMiddleText));
+	    paint.setTextAlign(Paint.Align.CENTER);
+	    canvas.drawText(name, x >> 1, (heightTop + (heightMiddle >> 1) + (bounds.height() >> 1)), paint);
+	    
+	    //Text bottom stripe
+	    paint.setTextSize(textSize);
+	    paint.setColor(Color.parseColor(colorBottomText));
 	    paint.setTextAlign(Paint.Align.RIGHT);
-	    canvas.drawText(type, size, size, paint);
+	    canvas.drawText(type, (x - marginText), (y - marginText), paint);
 	      
 	    paint.setTextAlign(Paint.Align.LEFT);
-	    canvas.drawText(iso, 0, 3*size/4, paint);
-	      
-	    paint.setColor(Color.WHITE);
-	    paint.setTextAlign(Paint.Align.CENTER);
-	    canvas.drawText(name, size/2, 4*size/10, paint);
+	    canvas.drawText(iso, (0 + marginText), (y - bounds.height() - (3 * marginText)), paint);
 	    
 	    return returnedBitmap;
 	    
