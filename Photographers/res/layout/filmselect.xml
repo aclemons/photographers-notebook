@@ -238,7 +238,7 @@
 							    android:layout_width="wrap_content"
 							    android:gravity="left"
 							    android:textSize="12dp"
-							    android:maxLength="21"
+							    android:maxLength="30"
 							    android:textStyle="italic"
 							    android:layout_height="wrap_content"
 							    android:text="   XYZ xyz">
@@ -277,7 +277,7 @@
 							    android:layout_width="wrap_content"
 							    android:gravity="left"
 							    android:textSize="12dp"
-							    android:maxLength="21"
+							    android:maxLength="30"
 							    android:textStyle="italic"
 							    android:layout_height="wrap_content"
 							    android:text="   XYZ xyz">
@@ -305,6 +305,7 @@
 							    android:layout_width="wrap_content"
 							    android:gravity="left"
 							    android:textSize="12dp"
+                                android:maxLength="30"
 							    android:textStyle="italic"
 							    android:layout_height="wrap_content"
 							    android:text="   XYZ xyz">
@@ -333,7 +334,7 @@
 							    android:layout_width="wrap_content"
 							    android:gravity="left"
 							    android:textSize="12dp"
-							    android:maxLength="21"
+							    android:maxLength="30"
 							    android:textStyle="italic"
 							    android:layout_height="wrap_content"
 							    android:text="   XYZ xyz">
@@ -341,8 +342,8 @@
 				</LinearLayout>  
 				
       </LinearLayout>
-   </TableLayout>    
-         
+   </TableLayout>
+
 </TableLayout>    
     
     
@@ -350,14 +351,16 @@
 				        android:id="@+id/mainiss"
 				        android:orientation="horizontal"
 				        android:paddingLeft="2dp"
-					    android:layout_height="65dp" 
-					    android:layout_width="91dp">
-				    <ImageView 
-				        android:layout_width="match_parent"
-				        android:layout_height="match_parent"
+					    android:layout_height="65dp"
+					    android:layout_width="match_parent"
+        android:layout_gravity="right"
+        android:gravity="right">
+				    <ImageView
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
 				        android:id="@+id/vorschau"
-				        
-				        />
+
+                        android:layout_gravity="right" />
 				    </LinearLayout>
     </LinearLayout>
     
