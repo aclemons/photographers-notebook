@@ -64,19 +64,28 @@ public class FilmIconFactory {
 
         // Define different styles for different film types. We also set the text on the badge according to the kind of film.
 
+//        final String color_red = "#DD597D";
+        final String color_cyan = "#44B4D5";
+//        final String color_violet = "#9588EC";
+        final String color_orange = "#FFAC62";
+        final String color_green = "#93BF96";
+        final String color_lgray = "#999999";
+        final String color_dgray = "#555555";
+        
+        
         if (brand != null) {
             if (brand.contains("I: CR")) { // TODO: read these from the string resources.
 
                 badgeText = "CR";
 
                 heightTop = 30;
-                colorTop = "#DD597D";
+                colorTop = color_green;
 
                 heightMiddle = 80;
-                colorMiddle = "#DD597D";
+                colorMiddle = color_green;
                 colorMiddleText = "white";
 
-                colorBottom = "#DD597D";
+                colorBottom = color_green;
                 colorBottomText = "white";
 
             } else if (brand.contains("I: CT")){
@@ -84,13 +93,13 @@ public class FilmIconFactory {
                 badgeText = "CT";
 
                 heightTop = 30;
-                colorTop = "#44B4D5";
+                colorTop = color_cyan;
 
                 heightMiddle = 80;
-                colorMiddle = "#44B4D5";
+                colorMiddle = color_cyan;
                 colorMiddleText = "white";
 
-                colorBottom = "#44B4D5";
+                colorBottom = color_cyan;
                 colorBottomText = "white";
 
             } else if (brand.contains("I: CN")){
@@ -98,13 +107,13 @@ public class FilmIconFactory {
                 badgeText = "CN";
 
                 heightTop = 30;
-                colorTop = "#9588EC";
+                colorTop = color_orange;
 
                 heightMiddle = 80;
-                colorMiddle = "#9588EC";
+                colorMiddle = color_orange;
                 colorMiddleText = "white";
 
-                colorBottom = "#9588EC";
+                colorBottom = color_orange;
                 colorBottomText = "white";
 
             } else if (brand.contains("I: SWR")){
@@ -112,13 +121,13 @@ public class FilmIconFactory {
                 badgeText = "SWR";
 
                 heightTop = 30;
-                colorTop = "#FFAC62";
+                colorTop = color_lgray;
 
                 heightMiddle = 80;
-                colorMiddle = "#FFAC62";
+                colorMiddle = color_lgray;
                 colorMiddleText = "white";
 
-                colorBottom = "#FFAC62";
+                colorBottom = color_lgray;
                 colorBottomText = "white";
 
             } else if (brand.contains("I: SW")){
@@ -126,13 +135,13 @@ public class FilmIconFactory {
                 badgeText = "SW";
 
                 heightTop = 30;
-                colorTop = "#93BF96";
+                colorTop = color_dgray;
 
                 heightMiddle = 80;
-                colorMiddle = "#93BF96";
+                colorMiddle = color_dgray;
                 colorMiddleText = "white";
 
-                colorBottom = "#93BF96";
+                colorBottom = color_dgray;
                 colorBottomText = "white";
 
             }
