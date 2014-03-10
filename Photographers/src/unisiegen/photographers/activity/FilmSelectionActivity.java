@@ -304,14 +304,16 @@ public class FilmSelectionActivity extends Activity {
 		int marginText = 5; // Margin for the text on the bottom stripe
 		int textSize = 40;
 
-        String badgeName = "Film";
+        String badgeText = "Film";
+        String bottomLeftText = "";
+        String bottomRightText = "";
 				
 		// Define different styles for different film types
 		
 		if (brand != null) {
 			if (brand.contains("I: CR")) { // TODO: read these from the string resources.
 
-                badgeName = "CR";
+                badgeText = "CR";
 
 				heightTop = 30;
 				colorTop = "#DD597D";
@@ -325,7 +327,7 @@ public class FilmSelectionActivity extends Activity {
 				
 			} else if (brand.contains("I: CT")){
 
-                badgeName = "CT";
+                badgeText = "CT";
 
 				heightTop = 30;
 				colorTop = "#44B4D5";
@@ -339,7 +341,7 @@ public class FilmSelectionActivity extends Activity {
 				
 			} else if (brand.contains("I: CN")){
 
-                badgeName = "CN";
+                badgeText = "CN";
 
 				heightTop = 30;
 				colorTop = "#9588EC";
@@ -353,7 +355,7 @@ public class FilmSelectionActivity extends Activity {
 				
 			} else if (brand.contains("I: SWR")){
 
-                badgeName = "SWR";
+                badgeText = "SWR";
 
 				heightTop = 30;
 				colorTop = "#FFAC62";
@@ -367,7 +369,7 @@ public class FilmSelectionActivity extends Activity {
 				
 			} else if (brand.contains("I: SW")){
 
-                badgeName = "SW";
+                badgeText = "SW";
 
 				heightTop = 30;
 				colorTop = "#93BF96";
@@ -388,12 +390,13 @@ public class FilmSelectionActivity extends Activity {
 
         if (iso.contains("/")) { iso = iso.substring(0, iso.indexOf("/")); }
 		if (iso.contains("ISO ")) { iso = iso.replace("ISO ", ""); }
+        bottomLeftText = iso;
 
-        if (type.contains("24x36")) { type = "135"; }
+        if (type.contains("24x36")) { bottomRightText = "135"; }
         if (type.contains("4,5x6") ||
                 type.contains("6x6") ||
                 type.contains("6x7") ||
-                type.contains("6x9")) { type = "120"; }
+                type.contains("6x9")) { bottomRightText = "120"; }
 
 		Bitmap returnedBitmap = Bitmap.createBitmap(x, y, Bitmap.Config.ARGB_8888);
 		    
@@ -421,16 +424,16 @@ public class FilmSelectionActivity extends Activity {
 	    paint.getTextBounds("A", 0, 1, bounds);
 	    paint.setColor(Color.parseColor(colorMiddleText));
 	    paint.setTextAlign(Paint.Align.CENTER);
-	    canvas.drawText(badgeName, x >> 1, (heightTop + (heightMiddle >> 1) + (bounds.height() >> 1)), paint);
+	    canvas.drawText(badgeText, x >> 1, (heightTop + (heightMiddle >> 1) + (bounds.height() >> 1)), paint);
 	    
 	    //Text bottom stripe
 	    paint.setTextSize(textSize);
 	    paint.setColor(Color.parseColor(colorBottomText));
 	    paint.setTextAlign(Paint.Align.RIGHT);
-	    canvas.drawText(type, (x - marginText), (y - marginText), paint);
+	    canvas.drawText(bottomRightText, (x - marginText), (y - marginText), paint);
 	      
 	    paint.setTextAlign(Paint.Align.LEFT);
-	    canvas.drawText(iso, (0 + marginText), (y - marginText), paint);
+	    canvas.drawText(bottomLeftText, (0 + marginText), (y - marginText), paint);
 	    
 	    return returnedBitmap;
 	    
