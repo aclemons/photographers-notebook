@@ -286,12 +286,12 @@ public class FilmSelectionActivity extends Activity {
 		String iso = film.Empfindlichkeit;
 		String type = film.Filmformat;
 		String brand = film.Filmtyp;
-		
+
 		// Define the default variables for the design. Each icon consists of three stripes 
 		// with individual colors, heights, and texts they can display (apart of the top stripe 
 		// which is only decoration).
 			
-		int heightTop = 20;
+		int heightTop = 30;
 		String colorTop = "#04B431";
 		
 		int heightMiddle = 80;
@@ -299,82 +299,102 @@ public class FilmSelectionActivity extends Activity {
 		String colorMiddleText = "white";
 		
 		String colorBottom = "#04B431";
-		String colorBottomText = "black";
+		String colorBottomText = "white";
 		
 		int marginText = 5; // Margin for the text on the bottom stripe
 		int textSize = 40;
+
+        String badgeName = "Film";
 				
 		// Define different styles for different film types
 		
 		if (brand != null) {
 			if (brand.contains("I: CR")) { // TODO: read these from the string resources.
+
+                badgeName = "CR";
+
+				heightTop = 30;
+				colorTop = "#DD597D";
 				
-				heightTop = 0;
-				colorTop = "#04B431";
-				
-				heightMiddle = 100;
-				colorMiddle = "#CC0000";
+				heightMiddle = 80;
+				colorMiddle = "#DD597D";
 				colorMiddleText = "white";
 				
-				colorBottom = "#B8B8B8";
-				colorBottomText = "black";
+				colorBottom = "#DD597D";
+				colorBottomText = "white";
 				
 			} else if (brand.contains("I: CT")){
+
+                badgeName = "CT";
+
+				heightTop = 30;
+				colorTop = "#44B4D5";
 				
-				heightTop = 10;
-				colorTop = "#505050";
-				
-				heightMiddle = 90;
-				colorMiddle = "#6699FF";
+				heightMiddle = 80;
+				colorMiddle = "#44B4D5";
 				colorMiddleText = "white";
 				
-				colorBottom = "#505050";
+				colorBottom = "#44B4D5";
 				colorBottomText = "white";
 				
 			} else if (brand.contains("I: CN")){
-				
-				heightTop = 20;
-				colorTop = "#04B431";
+
+                badgeName = "CN";
+
+				heightTop = 30;
+				colorTop = "#9588EC";
 				
 				heightMiddle = 80;
-				colorMiddle = "#886A08";
+				colorMiddle = "#9588EC";
 				colorMiddleText = "white";
 				
-				colorBottom = "#04B431";
-				colorBottomText = "black";
+				colorBottom = "#9588EC";
+				colorBottomText = "white";
 				
 			} else if (brand.contains("I: SWR")){
-				
+
+                badgeName = "SWR";
+
 				heightTop = 30;
-				colorTop = "#003300";
+				colorTop = "#FFAC62";
 				
-				heightMiddle = 70;
-				colorMiddle = "#999966";
+				heightMiddle = 80;
+				colorMiddle = "#FFAC62";
 				colorMiddleText = "white";
 				
-				colorBottom = "#003300";
+				colorBottom = "#FFAC62";
 				colorBottomText = "white";
 				
 			} else if (brand.contains("I: SW")){
-				
-				heightTop = 20;
-				colorTop = "#333333";
+
+                badgeName = "SW";
+
+				heightTop = 30;
+				colorTop = "#93BF96";
 				
 				heightMiddle = 80;
-				colorMiddle = "#660000";
+				colorMiddle = "#93BF96";
 				colorMiddleText = "white";
 				
-				colorBottom = "#333333";
+				colorBottom = "#93BF96";
 				colorBottomText = "white";
 				
 			} 
 				
 		}
-				
-		// Some re-formatting magic ...
-		if (name.length() == 0) { name = "Film"; }
-		if (iso.contains("/")) { iso = iso.substring(0, iso.indexOf("/")); }
-				
+
+        // Some re-formatting of the database defaults...
+		// if (name.length() == 0) { name = badgeName; }
+
+        if (iso.contains("/")) { iso = iso.substring(0, iso.indexOf("/")); }
+		if (iso.contains("ISO ")) { iso = iso.replace("ISO ", ""); }
+
+        if (type.contains("24x36")) { type = "135"; }
+        if (type.contains("4,5x6") ||
+                type.contains("6x6") ||
+                type.contains("6x7") ||
+                type.contains("6x9")) { type = "120"; }
+
 		Bitmap returnedBitmap = Bitmap.createBitmap(x, y, Bitmap.Config.ARGB_8888);
 		    
 	    Canvas canvas = new Canvas(returnedBitmap);
@@ -396,12 +416,12 @@ public class FilmSelectionActivity extends Activity {
 	    canvas.drawRect(0, (heightTop + heightMiddle), x, y, paint);
 	    
 	    //Text middle stripe
-	    paint.setTextSize(textSize + 10);
+	    paint.setTextSize(textSize + 50);
 	    Rect bounds = new Rect(); // Trick to center text vertically ... 
 	    paint.getTextBounds("A", 0, 1, bounds);
 	    paint.setColor(Color.parseColor(colorMiddleText));
 	    paint.setTextAlign(Paint.Align.CENTER);
-	    canvas.drawText(name, x >> 1, (heightTop + (heightMiddle >> 1) + (bounds.height() >> 1)), paint);
+	    canvas.drawText(badgeName, x >> 1, (heightTop + (heightMiddle >> 1) + (bounds.height() >> 1)), paint);
 	    
 	    //Text bottom stripe
 	    paint.setTextSize(textSize);
@@ -410,7 +430,7 @@ public class FilmSelectionActivity extends Activity {
 	    canvas.drawText(type, (x - marginText), (y - marginText), paint);
 	      
 	    paint.setTextAlign(Paint.Align.LEFT);
-	    canvas.drawText(iso, (0 + marginText), (y - bounds.height() - (3 * marginText)), paint);
+	    canvas.drawText(iso, (0 + marginText), (y - marginText), paint);
 	    
 	    return returnedBitmap;
 	    
