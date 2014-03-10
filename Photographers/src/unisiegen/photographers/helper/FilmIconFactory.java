@@ -153,7 +153,7 @@ public class FilmIconFactory {
 
         if (iso.contains("/")) { iso = iso.substring(0, iso.indexOf("/")); }
         if (iso.contains("ISO ")) { iso = iso.replace("ISO ", ""); }
-        if (iso.length() > 4) { iso = iso.substring(0, 5); } // As iso can be set by the user in the settings we should make sure the text does not get too long...
+        if (iso.length() > 5) { iso = iso.substring(0, 4); } // As iso can be set by the user in the settings we should make sure the text does not get too long...
         bottomLeftText = iso;
 
         if (type.contains("24x36")) { bottomRightText = "135"; } // Here we define only two values right now ... 135er or 120er film. If the user has entered something other than the defaults here, we display nothing.
