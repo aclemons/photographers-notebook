@@ -58,7 +58,7 @@ public class FilmIconFactory {
         int textSize = 40; // Standard text size
 
         // Variables for the text to be displayed on the icon (will be modified later)
-        String badgeText = "Film";
+        String middleText = "Film";
         String bottomLeftText = "";
         String bottomRightText = "";
 
@@ -76,7 +76,7 @@ public class FilmIconFactory {
         if (brand != null) {
             if (brand.contains("I: CR")) { // TODO: read these from the string resources.
 
-                badgeText = "CR";
+                middleText = "CR";
 
                 heightTop = 30;
                 colorTop = color_green;
@@ -90,7 +90,7 @@ public class FilmIconFactory {
 
             } else if (brand.contains("I: CT")){
 
-                badgeText = "CT";
+                middleText = "CT";
 
                 heightTop = 30;
                 colorTop = color_cyan;
@@ -104,7 +104,7 @@ public class FilmIconFactory {
 
             } else if (brand.contains("I: CN")){
 
-                badgeText = "CN";
+                middleText = "CN";
 
                 heightTop = 30;
                 colorTop = color_orange;
@@ -118,7 +118,7 @@ public class FilmIconFactory {
 
             } else if (brand.contains("I: SWR")){
 
-                badgeText = "SWR";
+                middleText = "SWR";
 
                 heightTop = 30;
                 colorTop = color_lgray;
@@ -132,7 +132,7 @@ public class FilmIconFactory {
 
             } else if (brand.contains("I: SW")){
 
-                badgeText = "SW";
+                middleText = "SW";
 
                 heightTop = 30;
                 colorTop = color_dgray;
@@ -153,7 +153,7 @@ public class FilmIconFactory {
 
         if (iso.contains("/")) { iso = iso.substring(0, iso.indexOf("/")); }
         if (iso.contains("ISO ")) { iso = iso.replace("ISO ", ""); }
-        if (iso.length() > 5) { iso = iso.substring(0, 5); } // As iso can be set by the user in the settings we should make sure the text does not get too long...
+        if (iso.length() > 4) { iso = iso.substring(0, 5); } // As iso can be set by the user in the settings we should make sure the text does not get too long...
         bottomLeftText = iso;
 
         if (type.contains("24x36")) { bottomRightText = "135"; } // Here we define only two values right now ... 135er or 120er film. If the user has entered something other than the defaults here, we display nothing.
@@ -189,7 +189,7 @@ public class FilmIconFactory {
         paint.getTextBounds("A", 0, 1, bounds);
         paint.setColor(Color.parseColor(colorMiddleText));
         paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(badgeText, x >> 1, (heightTop + (heightMiddle >> 1) + (bounds.height() >> 1)), paint);
+        canvas.drawText(middleText, x >> 1, (heightTop + (heightMiddle >> 1) + (bounds.height() >> 1)), paint);
 
         //Text bottom stripe
         paint.setTextSize(textSize);
