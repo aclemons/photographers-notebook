@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.helper.PicturesArrayAdapter;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
@@ -205,7 +206,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		byte[] data = Base64.decode(film.iconData, Base64.DEFAULT);
 		//vorschauImage.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
 				
-		vorschauImage.setImageBitmap(new FilmSelectionActivity().createFilmBitmap(film));
+		vorschauImage.setImageBitmap(new FilmIconFactory().createBitmap(film));
 				
 		TextView filmbezeichnung = (TextView) findViewById(R.id.filmnotiz);
 		filmbezeichnung.setText(film.Filmbezeichnung);

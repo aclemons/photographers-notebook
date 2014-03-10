@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.helper.FilmsViewHolder;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
@@ -96,6 +97,8 @@ public class FilmSelectionActivity extends Activity {
 	 */
 	SharedPreferences settings;
 
+    FilmIconFactory filmIconFactory;
+
 	private Context mContext;
 	private Integer contentIndex = 0;
 
@@ -126,9 +129,8 @@ public class FilmSelectionActivity extends Activity {
 			backgroundimage.setVisibility(View.INVISIBLE);
 		}
 		
-		
-		
-		
+		filmIconFactory = new FilmIconFactory();
+
 		ArrayAdapter<Film> adapter = new FilmsArrayAdapter(mContext, filme, 1);
 		myList.setOnItemClickListener(clickListener);
 		myList.setOnItemLongClickListener(longClickListener);
@@ -270,175 +272,10 @@ public class FilmSelectionActivity extends Activity {
 					+ getString(R.string.pictures));
 			
 			//imageViewBild.setImageBitmap(planet.icon);
-			imageViewBild.setImageBitmap(createFilmBitmap(planet)); 
+			imageViewBild.setImageBitmap(filmIconFactory.createBitmap(planet));
 			return convertView;
 		}
 	}
-	
-	public static Bitmap createFilmBitmap(Film film) {
-		
-		// Size of the Bitmap in pixels
-		int x = 200;  
-		int y = 200;
-		
-		// Get the values we want to display
-		String name = film.Filmbezeichnung;
-		String iso = film.Empfindlichkeit;
-		String type = film.Filmformat;
-		String brand = film.Filmtyp;
-
-		// Define the default variables for the design. Each icon consists of three stripes 
-		// with individual colors, heights, and texts they can display (apart of the top stripe 
-		// which is only decoration).
-			
-		int heightTop = 30;
-		String colorTop = "#04B431";
-		
-		int heightMiddle = 80;
-		String colorMiddle = "#886A08";
-		String colorMiddleText = "white";
-		
-		String colorBottom = "#04B431";
-		String colorBottomText = "white";
-		
-		int marginText = 5; // Margin for the text on the bottom stripe
-		int textSize = 40;
-
-        String badgeText = "Film";
-        String bottomLeftText = "";
-        String bottomRightText = "";
-				
-		// Define different styles for different film types
-		
-		if (brand != null) {
-			if (brand.contains("I: CR")) { // TODO: read these from the string resources.
-
-                badgeText = "CR";
-
-				heightTop = 30;
-				colorTop = "#DD597D";
-				
-				heightMiddle = 80;
-				colorMiddle = "#DD597D";
-				colorMiddleText = "white";
-				
-				colorBottom = "#DD597D";
-				colorBottomText = "white";
-				
-			} else if (brand.contains("I: CT")){
-
-                badgeText = "CT";
-
-				heightTop = 30;
-				colorTop = "#44B4D5";
-				
-				heightMiddle = 80;
-				colorMiddle = "#44B4D5";
-				colorMiddleText = "white";
-				
-				colorBottom = "#44B4D5";
-				colorBottomText = "white";
-				
-			} else if (brand.contains("I: CN")){
-
-                badgeText = "CN";
-
-				heightTop = 30;
-				colorTop = "#9588EC";
-				
-				heightMiddle = 80;
-				colorMiddle = "#9588EC";
-				colorMiddleText = "white";
-				
-				colorBottom = "#9588EC";
-				colorBottomText = "white";
-				
-			} else if (brand.contains("I: SWR")){
-
-                badgeText = "SWR";
-
-				heightTop = 30;
-				colorTop = "#FFAC62";
-				
-				heightMiddle = 80;
-				colorMiddle = "#FFAC62";
-				colorMiddleText = "white";
-				
-				colorBottom = "#FFAC62";
-				colorBottomText = "white";
-				
-			} else if (brand.contains("I: SW")){
-
-                badgeText = "SW";
-
-				heightTop = 30;
-				colorTop = "#93BF96";
-				
-				heightMiddle = 80;
-				colorMiddle = "#93BF96";
-				colorMiddleText = "white";
-				
-				colorBottom = "#93BF96";
-				colorBottomText = "white";
-				
-			} 
-				
-		}
-
-        // Some re-formatting of the database defaults...
-		// if (name.length() == 0) { name = badgeName; }
-
-        if (iso.contains("/")) { iso = iso.substring(0, iso.indexOf("/")); }
-		if (iso.contains("ISO ")) { iso = iso.replace("ISO ", ""); }
-        bottomLeftText = iso;
-
-        if (type.contains("24x36")) { bottomRightText = "135"; }
-        if (type.contains("4,5x6") ||
-                type.contains("6x6") ||
-                type.contains("6x7") ||
-                type.contains("6x9")) { bottomRightText = "120"; }
-
-		Bitmap returnedBitmap = Bitmap.createBitmap(x, y, Bitmap.Config.ARGB_8888);
-		    
-	    Canvas canvas = new Canvas(returnedBitmap);
-	    
-	    Paint paint = new Paint();
-	    paint.setAntiAlias(true);
-	    
-	    //Top stripe
-	    canvas.drawPaint(paint);
-	    paint.setColor(Color.parseColor(colorTop));
-	    canvas.drawRect(0, 0, x, heightTop, paint);
-	    
-	    //Middle stripe
-	    paint.setColor(Color.parseColor(colorMiddle));
-	    canvas.drawRect(0, heightTop, x, (heightTop + heightMiddle), paint);
-	    
-	    //Bottom stripe
-	    paint.setColor(Color.parseColor(colorBottom));
-	    canvas.drawRect(0, (heightTop + heightMiddle), x, y, paint);
-	    
-	    //Text middle stripe
-	    paint.setTextSize(textSize + 50);
-	    Rect bounds = new Rect(); // Trick to center text vertically ... 
-	    paint.getTextBounds("A", 0, 1, bounds);
-	    paint.setColor(Color.parseColor(colorMiddleText));
-	    paint.setTextAlign(Paint.Align.CENTER);
-	    canvas.drawText(badgeText, x >> 1, (heightTop + (heightMiddle >> 1) + (bounds.height() >> 1)), paint);
-	    
-	    //Text bottom stripe
-	    paint.setTextSize(textSize);
-	    paint.setColor(Color.parseColor(colorBottomText));
-	    paint.setTextAlign(Paint.Align.RIGHT);
-	    canvas.drawText(bottomRightText, (x - marginText), (y - marginText), paint);
-	      
-	    paint.setTextAlign(Paint.Align.LEFT);
-	    canvas.drawText(bottomLeftText, (0 + marginText), (y - marginText), paint);
-	    
-	    return returnedBitmap;
-	    
-	}
-	
 	
 	/*
 	 * Klicken auf eine Zeile (langer und kurzer klick)
