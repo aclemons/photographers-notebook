@@ -26,11 +26,15 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -115,6 +119,11 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 				aufnehmen.setText(getString(R.string.save_changes));
 			}
 		}
+				
+		Film film = DB.getDB().getFilm(mContext, settings.getString("Title", " "));		
+		Bitmap b = new FilmIconFactory().createBitmap(film);		
+		Drawable drawable = new BitmapDrawable(getResources(), b);		
+		getActionBar().setIcon(drawable);		
 	}
 
 	@Override
@@ -244,7 +253,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	 * Bildes
 	 */
 	private void updateUIFromPicture(String picNumber, String filmTitle) {
-
+		
 		ArrayList<Bild> bilder = DB.getDB().getBild(mContext, filmTitle,
 				picNumber);
 		if (bilder == null || bilder.size() != 1) {

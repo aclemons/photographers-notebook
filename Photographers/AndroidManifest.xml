@@ -13,7 +13,7 @@
 	android:anyDensity="true" />
     
     
-    <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="19"/>
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19"/>
 
     <application
         android:icon="@drawable/ic_launcher"
