@@ -52,6 +52,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
@@ -76,6 +77,8 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	boolean bildtoedit;
 	int picturesNumber;
 	int edit = 1;
+
+    ImageView imageview;
 
 	/*
 	 * Spinner Variablen
@@ -136,6 +139,9 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 
 		Resources res = getResources();
 		CONTENT = res.getStringArray(R.array.pic_slide_contents);
+
+        imageview = (ImageView) findViewById(R.id.filmIconView);
+        imageview.setImageBitmap(new FilmIconFactory().createBitmap( DB.getDB().getFilm(mContext, settings.getString("Title", " "))));
 
 		nummerView = (TextView) findViewById(R.id.TextView_nr);
 		bildtoedit = false;
