@@ -34,8 +34,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -200,13 +202,17 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		datum.setText(film.Datum);
 
 		bilderimfilm = film.Bilder.size();
-		
-		ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
+
+        Bitmap b = new FilmIconFactory().createBitmap(film);
+        Drawable drawable = new BitmapDrawable(getResources(), b);
+        getActionBar().setIcon(drawable);
+
+        ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
 
 		byte[] data = Base64.decode(film.iconData, Base64.DEFAULT);
 		//vorschauImage.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
 				
-		vorschauImage.setImageBitmap(new FilmIconFactory().createBitmap(film));
+		//vorschauImage.setImageBitmap(new FilmIconFactory().createBitmap(film));
 				
 		TextView filmbezeichnung = (TextView) findViewById(R.id.filmnotiz);
 		filmbezeichnung.setText(film.Filmbezeichnung);

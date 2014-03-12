@@ -191,8 +191,8 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 							myIntent.putExtra("image", pic);
 							thumbnail = pic;
 						} else {
-							// Get a random bitmap...							
-							int [] pics = new int [] { 
+							// Get a random bitmap...
+							int [] pics = new int [] {
 									R.drawable.agfa_apx100,
 									R.drawable.agfa_apx400,
 									R.drawable.agfa_precisa,
@@ -220,7 +220,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 							};
 							int random = ((int)(Math.random() * 1000) % pics.length);
 							int selected = pics[random];
-							
+
 							Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), selected);
 							ByteArrayOutputStream baos = new ByteArrayOutputStream();
 							bm.compress(Bitmap.CompressFormat.PNG, 100, baos);

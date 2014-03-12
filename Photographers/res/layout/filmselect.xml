@@ -344,10 +344,10 @@
       </LinearLayout>
    </TableLayout>
 
-</TableLayout>    
-    
-    
-    <LinearLayout  
+</TableLayout>
+
+
+    <LinearLayout
 				        android:id="@+id/mainiss"
 				        android:orientation="horizontal"
 				        android:paddingLeft="2dp"
