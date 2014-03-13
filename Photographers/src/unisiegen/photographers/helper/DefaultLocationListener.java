@@ -1,4 +1,4 @@
-package unisiegen.photographers.activity;
+package unisiegen.photographers.helper;
 
 import android.location.Location;
 import android.location.LocationListener;

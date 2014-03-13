@@ -16,6 +16,7 @@
 
 package unisiegen.photographers.activity;
 
+import unisiegen.photographers.helper.DefaultLocationListener;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
