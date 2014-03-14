@@ -72,7 +72,8 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	SharedPreferences settings;
 	Context mContext;
 
-	byte[] pics;
+    // Picture function deprecated.
+	// byte[] pics;
 	boolean bildtoedit;
 	int picturesNumber;
 	int edit = 1;
@@ -160,7 +161,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			picturesNumber = settings.getInt("BildNummern", 1);
 		} else {
 			Bundle extras = getIntent().getExtras();
-			pics = extras.getByteArray("image");
+            //pics = extras.getByteArray("image");
 		}
 
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -400,9 +401,9 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 
 		} else {
 
-			String encodedImage = Base64.encodeToString(pics, Base64.DEFAULT);
-			DB.getDB().addPictureCreateNummer(mContext, f, b, picturesNumber,
-					encodedImage);
+			//String encodedImage = Base64.encodeToString(pics, Base64.DEFAULT);
+			//DB.getDB().addPictureCreateNummer(mContext, f, b, picturesNumber,
+			//		encodedImage);
 		}
 		incrementSelectedPicture();
 	}

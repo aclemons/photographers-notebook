@@ -186,8 +186,9 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 						Log.v("Check", "Check if Bild vorhanden : " + (pic == null));
 						Intent myIntent = new Intent(getApplicationContext(),
 								NewPictureActivity.class);
-	
-						if (pic != null) {
+
+	                    /*  Deprecated codeblock that handles adding of user generated thumbnails or random thumbnails to films
+						    if (pic != null) {
 							myIntent.putExtra("image", pic);
 							thumbnail = pic;
 						} else {
@@ -231,10 +232,11 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	
 						String encodedImage = Base64.encodeToString(thumbnail,
 								Base64.DEFAULT);
+						*/
+
 						DB.getDB().addPictureCreateNummer(mContext, f, b, 0,
-								encodedImage);
-	
-						finish();
+								null);
+	            		finish();
 						startActivityForResult(myIntent, 1);
 					} catch (Exception e) {
 						Toast.makeText(getApplicationContext(),
