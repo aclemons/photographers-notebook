@@ -32,6 +32,7 @@
         </activity>
         <activity android:name=".NewFilmActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".FilmContentActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".FotoContentActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".TabNewFilm" android:screenOrientation="portrait"></activity>
         <activity android:name=".FilmActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".SettingsAuswahl" android:screenOrientation="portrait"></activity>
