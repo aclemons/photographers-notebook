@@ -97,15 +97,15 @@
 	<string-array name="strings_tutorial_1">
 	    <item>Herzlich Willkommen im Photographers Notebook!</item>
         <item>Zur Einführung zeigen wir Ihnen die wichtigsten Funktionen der App.</item>
-        <item>Wenn Sie auf den "Menü"-Button tippen, finden Sie die Einstellungen zu dieser App und können Ihre Fotoausrüstung eingeben.</item>
-    	<item>Sind alle Einstellungen vorgenommen, starten Sie Ihren ersten Film, indem Sie den Button "Neuer Film" antippen.</item>
+        <item>Wenn Sie auf den \'Menü\'-Button tippen, finden Sie die Einstellungen zu dieser App und können Ihre Fotoausrüstung eingeben.</item>
+    	<item>Sind alle Einstellungen vorgenommen, starten Sie Ihren ersten Film, indem Sie den \'+\'-Button antippen.</item>
    		<item>Später können Sie den Film auf dieser Seite wieder aufrufen und bei Bedarf fortführen.</item>
 	</string-array>
 	<string-array name="strings_tutorial_2">
         <item>Hier können Sie einen neuen Film anlegen. Vergeben Sie einen passenden Filmtitel, oder lassen Sie ihn automatisch festlegen.</item>
         <item>In den Auswahlfeldern sind die in den Einstellungen vorgegebenen Werte selektierbar.</item>
-    	<item>Auch hier können Sie die verfügbaren Einstellungen durch Tippen auf die "Menü"-Taste ändern.</item>
-   		<item>Wenn Sie die Auswahl getroffen haben, tippen Sie bitte auf "Film beginnen".</item>
+    	<item>Auch hier können Sie die verfügbaren Einstellungen durch Tippen auf den \'Menü\'-Button ändern.</item>
+   		<item>Wenn Sie die Auswahl getroffen haben, tippen Sie bitte auf \'Film beginnen\'.</item>
     </string-array>
     <string-array name="strings_tutorial_3">
         <item>Hier können Sie Ihre Einstellungen personalisieren und Ihre Fotoausrüstung eingeben.</item>
@@ -138,9 +138,9 @@
 		<item>Blitz-Korr</item>
 		<item>Sonderentwicklung</item>
 	</string-array>
-	<string name="create_new_set">Neues Ausrüstungs-Set erstellen</string>
-	<string name="load_existing_set">Anderes Ausrüstungs-Set auswählen</string>
-	<string name="restore_default_settings">Aktuelles Ausrüstungs-Set zurücksetzen</string>
+	<string name="create_new_set">Neues Set erstellen</string>
+	<string name="load_existing_set">Anderes Set auswählen</string>
+	<string name="restore_default_settings">Aktuelles Set zurücksetzen</string>
 	<string name="settings">Einstellungen</string>
 	<string name="back_to_start">Zurück zur Filmauswahl</string>
 	<string name="about_this_app">Über diese App</string>
