@@ -394,9 +394,17 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			f = getFilmFromSettings();
 		}
 		Bild b = getBildFromUI();
-        DB.getDB().addPictureUpdateNummer(mContext, f, b, picturesNumber);
+        if (settings.getBoolean("EditMode", false)) {
+            // ACHTUNG: DAS WIRD NIE AUFGERUFEN! WARUM IST DAS NIE AUF TRUE?
+            DB.getDB().addPictureUpdateNummer(mContext, f, b, picturesNumber);
 
-		incrementSelectedPicture();
+        } else {
+
+            //String encodedImage = Base64.encodeToString(pics, Base64.DEFAULT);
+            DB.getDB().addPictureCreateNummer(mContext, f, b, picturesNumber,
+                    null);
+        }
+        incrementSelectedPicture();
 	}
 
 	/**

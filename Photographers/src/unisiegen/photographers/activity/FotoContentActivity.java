@@ -113,15 +113,18 @@ public class FotoContentActivity extends PhotographersNotebookActivity {
                                 DB.getDB().deletePicture(
                                         getApplicationContext(), film,
                                         bild);
+                                film.Bilder.remove(bild);
                                 break;
                             }
                             lastBild = film.Bilder.indexOf(bild);
-                        }
+                            }
                         finish();
-                        Intent reload = new Intent(getApplicationContext(), FotoContentActivity.class);
-                        reload.putExtra("ID", film.Titel);
-                        reload.putExtra("selectedItem", lastBild);
-                        startActivity(reload);
+                        if (!film.Bilder.isEmpty()) {
+                            Intent reload = new Intent(getApplicationContext(), FotoContentActivity.class);
+                            reload.putExtra("ID", film.Titel);
+                            reload.putExtra("selectedItem", lastBild);
+                            startActivity(reload);
+                        }
                     }
                 });
             builder.setNegativeButton(getString(R.string.no),
