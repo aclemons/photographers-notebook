@@ -38,6 +38,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -48,6 +49,9 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -92,7 +96,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see android.app.Activity#onCreate(android.os.Bundle) Lifecycle-Methoden
 	 */
 
@@ -211,9 +215,9 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 
 		byte[] data = Base64.decode(film.iconData, Base64.DEFAULT);
 		//vorschauImage.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
-				
+
 		//vorschauImage.setImageBitmap(new FilmIconFactory().createBitmap(film));
-				
+
 		TextView filmbezeichnung = (TextView) findViewById(R.id.filmnotiz);
 		filmbezeichnung.setText(film.Filmbezeichnung);
 
@@ -231,9 +235,9 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 
 		TextView filmsonders = (TextView) findViewById(R.id.filmsonders);
 		filmsonders.setText(film.Sonderentwicklung2);
-		
+
 		Collections.sort(film.Bilder);
-		
+
 		PicturesArrayAdapter adapter = new PicturesArrayAdapter(mContext,
 				film.Bilder, 1);
 		ListView myList = (ListView) findViewById(android.R.id.list);
@@ -241,6 +245,58 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		myList.setOnItemLongClickListener(myLongClickListener);
 		myList.setAdapter(adapter);
 	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.filmmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.opt_openSettings) {
+            Intent openSettings = new Intent(getApplicationContext(),
+                    EditSettingsActivity.class);
+            startActivityForResult(openSettings, 0);
+            return true;
+        } else if (item.getItemId() == R.id.opt_editfilm) {
+            Intent editFilm = new Intent(getApplicationContext(), EditFilmActivity.class);
+            editFilm.putExtra("ID", film.Titel);
+            startActivity(editFilm);
+            return true;
+        } else if (item.getItemId() == R.id.opt_exportfilm) {
+            //TODO: call FilmExportTask.
+            return true;
+        } else if (item.getItemId() == R.id.opt_deletefilm) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getString(R.string.question_delete));
+            builder.setCancelable(false);
+            builder.setPositiveButton(getString(R.string.yes),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            DB.getDB().deleteFilms(mContext, new String[] { film.Titel });
+                            finish();
+                        }
+                    });
+            builder.setNegativeButton(getString(R.string.no),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(
+                                DialogInterface dialog,
+                                int which) {
+
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 	/*
 	 * Itemclick Methoden
