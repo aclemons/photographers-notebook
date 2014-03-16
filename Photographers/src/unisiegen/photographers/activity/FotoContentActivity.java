@@ -134,9 +134,9 @@ public class FotoContentActivity extends PhotographersNotebookActivity {
             final TextView picnotizcam = (TextView) v
                     .findViewById(R.id.shownotizkam);
             picnotizcam.setText(bild.KameraNotiz);
-            final TextView picTitle = (TextView) v
-                    .findViewById(R.id.pictitle);
-            picTitle.setText(bild.Bildnummer);
+//            final TextView picTitle = (TextView) v
+//                    .findViewById(R.id.pictitle);
+//            picTitle.setText(bild.Bildnummer);
 
             return v;
         }
@@ -191,12 +191,7 @@ public class FotoContentActivity extends PhotographersNotebookActivity {
         @Override
         public String getTitle(int position) { // Kommt vom TitleProvider um den
             // Titel einer View festzulegen
-            if (position == 0) {
-                return " >";
-            } else if (position == (film.Bilder.size() - 1)) {
-                return "< ";
-            }
-            return "<  >";
+            return film.Bilder.get(position).Bildnummer;
         }
 
     }
