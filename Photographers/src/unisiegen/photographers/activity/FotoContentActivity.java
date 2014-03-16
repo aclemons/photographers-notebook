@@ -75,68 +75,70 @@ public class FotoContentActivity extends PhotographersNotebookActivity {
          */
     private class MyPagerAdapter extends PagerAdapter implements TitleProvider {
 
-        private ArrayList<View> views;
+        private LayoutInflater inflater;
+        private Film film;
 
         public MyPagerAdapter(Context context, Film film) {
-            views = new ArrayList<View>();
-            LayoutInflater inflater = getLayoutInflater();
+            inflater = getLayoutInflater();
+            this.film = film;
+        }
 
-            for (Bild bild : film.Bilder) {
-                View v = inflater.inflate(R.layout.filminfobox, null, false);
+        private View createView(Bild bild) {
 
-                final TextView zeitStempel = (TextView) v
-                        .findViewById(R.id.zeitStempel);
-                zeitStempel.setText(bild.Zeitstempel);
-                final TextView zeitGeo = (TextView) v.findViewById(R.id.geoTag);
-                zeitGeo.setText(bild.GeoTag);
-                final TextView objektiv = (TextView) v
-                        .findViewById(R.id.showobjektiv);
-                objektiv.setText(bild.Objektiv);
-                final TextView filtervf = (TextView) v
-                        .findViewById(R.id.showfiltervf);
-                filtervf.setText(bild.FilterVF);
-                final TextView picfocus = (TextView) v
-                        .findViewById(R.id.showfokus);
-                picfocus.setText(bild.Fokus);
-                final TextView picblende = (TextView) v
-                        .findViewById(R.id.showblende);
-                picblende.setText(bild.Blende);
-                final TextView piczeit = (TextView) v
-                        .findViewById(R.id.showzeit);
-                piczeit.setText(bild.Zeit);
-                final TextView picmessung = (TextView) v
-                        .findViewById(R.id.showmessung);
-                picmessung.setText(bild.Messmethode);
-                final TextView picplus = (TextView) v
-                        .findViewById(R.id.showbelichtung);
-                picplus.setText(bild.Belichtungskorrektur);
-                final TextView picmakro = (TextView) v
-                        .findViewById(R.id.showmakro);
-                picmakro.setText(bild.Makro);
-                final TextView picmakrovf = (TextView) v
-                        .findViewById(R.id.showmakrovf);
-                picmakrovf.setText(bild.MakroVF);
-                final TextView picfilter = (TextView) v
-                        .findViewById(R.id.showfilter);
-                picfilter.setText(bild.Filter);
-                final TextView picblitz = (TextView) v
-                        .findViewById(R.id.showblitz);
-                picblitz.setText(bild.Blitz);
-                final TextView picblitzkorr = (TextView) v
-                        .findViewById(R.id.showblitzkorr);
-                picblitzkorr.setText(bild.Blitzkorrektur);
-                final TextView picnotiz = (TextView) v
-                        .findViewById(R.id.shownotiz);
-                picnotiz.setText(bild.Notiz);
-                final TextView picnotizcam = (TextView) v
-                        .findViewById(R.id.shownotizkam);
-                picnotizcam.setText(bild.KameraNotiz);
-                final TextView picTitle = (TextView) v
-                        .findViewById(R.id.pictitle);
-                picTitle.setText(bild.Bildnummer);
+            View v = inflater.inflate(R.layout.filminfobox, null, false);
 
-                views.add(v);
-            }
+            final TextView zeitStempel = (TextView) v
+                    .findViewById(R.id.zeitStempel);
+            zeitStempel.setText(bild.Zeitstempel);
+            final TextView zeitGeo = (TextView) v.findViewById(R.id.geoTag);
+            zeitGeo.setText(bild.GeoTag);
+            final TextView objektiv = (TextView) v
+                    .findViewById(R.id.showobjektiv);
+            objektiv.setText(bild.Objektiv);
+            final TextView filtervf = (TextView) v
+                    .findViewById(R.id.showfiltervf);
+            filtervf.setText(bild.FilterVF);
+            final TextView picfocus = (TextView) v
+                    .findViewById(R.id.showfokus);
+            picfocus.setText(bild.Fokus);
+            final TextView picblende = (TextView) v
+                    .findViewById(R.id.showblende);
+            picblende.setText(bild.Blende);
+            final TextView piczeit = (TextView) v
+                    .findViewById(R.id.showzeit);
+            piczeit.setText(bild.Zeit);
+            final TextView picmessung = (TextView) v
+                    .findViewById(R.id.showmessung);
+            picmessung.setText(bild.Messmethode);
+            final TextView picplus = (TextView) v
+                    .findViewById(R.id.showbelichtung);
+            picplus.setText(bild.Belichtungskorrektur);
+            final TextView picmakro = (TextView) v
+                    .findViewById(R.id.showmakro);
+            picmakro.setText(bild.Makro);
+            final TextView picmakrovf = (TextView) v
+                    .findViewById(R.id.showmakrovf);
+            picmakrovf.setText(bild.MakroVF);
+            final TextView picfilter = (TextView) v
+                    .findViewById(R.id.showfilter);
+            picfilter.setText(bild.Filter);
+            final TextView picblitz = (TextView) v
+                    .findViewById(R.id.showblitz);
+            picblitz.setText(bild.Blitz);
+            final TextView picblitzkorr = (TextView) v
+                    .findViewById(R.id.showblitzkorr);
+            picblitzkorr.setText(bild.Blitzkorrektur);
+            final TextView picnotiz = (TextView) v
+                    .findViewById(R.id.shownotiz);
+            picnotiz.setText(bild.Notiz);
+            final TextView picnotizcam = (TextView) v
+                    .findViewById(R.id.shownotizkam);
+            picnotizcam.setText(bild.KameraNotiz);
+            final TextView picTitle = (TextView) v
+                    .findViewById(R.id.pictitle);
+            picTitle.setText(bild.Bildnummer);
+
+            return v;
         }
 
         @Override
@@ -154,13 +156,14 @@ public class FotoContentActivity extends PhotographersNotebookActivity {
 
         @Override
         public int getCount() {
-            return views.size(); // Wieviele Views zum Wischen
+            return film.Bilder.size(); // Wieviele Views zum Wischen
         }
 
         @Override
         public Object instantiateItem(View view, int position) {
             // Das vorpuffern, wenn die View bald drankommt... s.o.
-            View myView = views.get(position);
+            Bild bild = film.Bilder.get(position);
+            View myView = createView(bild);
             ((ViewPager) view).addView(myView);
             return myView;
         }
@@ -190,7 +193,7 @@ public class FotoContentActivity extends PhotographersNotebookActivity {
             // Titel einer View festzulegen
             if (position == 0) {
                 return " >";
-            } else if (position == (views.size() - 1)) {
+            } else if (position == (film.Bilder.size() - 1)) {
                 return "< ";
             }
             return "<  >";
