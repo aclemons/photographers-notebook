@@ -79,7 +79,7 @@ import android.widget.Toast;
 
 import com.thoughtworks.xstream.XStream;
 
-public class FilmSelectionActivity extends Activity {
+public class FilmSelectionActivity extends PhotographersNotebookActivity {
 
 	/*
 	 * User-Interface Elemente
@@ -406,13 +406,15 @@ public class FilmSelectionActivity extends Activity {
 
 		pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 	}
-	
+
+    @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.startmenu, menu);
 		return true;
 	}
 
+    @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if(item.getItemId() == R.id.action_newfilm){
