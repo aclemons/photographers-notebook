@@ -93,6 +93,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 	boolean minimizes;
 	SharedPreferences settings;
 	private Film film;
+    private SharedPreferences.Editor editor;
 
 	/*
 	 * (non-Javadoc)
@@ -109,13 +110,16 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		infoBlock1 = (LinearLayout) findViewById(R.id.infoblock1);
 		infoBlock2 = (LinearLayout) findViewById(R.id.infoblock2);
 		Button goon = (Button) findViewById(R.id.button_goon);
-		goon.setOnClickListener(new OnClickListener() {
+
+        editor = settings.edit();
+
+        film = DB.getDB().getFilm(mContext,
+                getIntent().getExtras().getString("ID"));
+
+        goon.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				SharedPreferences.Editor editor = settings.edit();
 
-				film = DB.getDB().getFilm(mContext,
-						getIntent().getExtras().getString("ID"));
 				editor.putString("Title", film.Titel);
 
 				editor.putString("Datum", film.Datum);
@@ -336,6 +340,9 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 					Intent myIntent = new Intent(getApplicationContext(),
 							NewPictureActivity.class);
 					myIntent.putExtra("picToEdit", selektiertesBild);
+                    editor.putString("Title", film.Titel);
+                    editor.putBoolean("EditMode", true);
+                    editor.commit();
 					startActivity(myIntent);
 				}
 			});

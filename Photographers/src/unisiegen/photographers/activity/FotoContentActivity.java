@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
@@ -96,6 +98,11 @@ public class FotoContentActivity extends PhotographersNotebookActivity {
         } else if (item.getItemId() == R.id.opt_editfoto) {
             Intent editFoto = new Intent(getApplicationContext(), NewPictureActivity.class);
             editFoto.putExtra("picToEdit", adapter.getTitle(viewPager.getCurrentItem()));
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("Title", film.Titel);
+            editor.putBoolean("EditMode", true);
+            editor.commit();
             startActivity(editFoto);
             return true;
         } else if (item.getItemId() == R.id.opt_deletefoto) {

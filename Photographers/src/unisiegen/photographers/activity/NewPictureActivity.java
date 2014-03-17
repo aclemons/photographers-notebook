@@ -81,8 +81,6 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	/*
 	 * Spinner Variablen
 	 */
-	HashMap<String, Integer> blende, filtervf, objektiv, zeit, fokus, filter,
-			makro, mess, belichtung, makrovf, blitz, blitzkorr;
 
 	Spinner spinner_blende, spinner_filter_vf, spinner_objektiv, spinner_zeit,
 			spinner_fokus, spinner_filter, spinner_makro, spinner_messmethode,
@@ -111,8 +109,10 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		// Check if user wants to edit a certain picture, if yes update UI
 		// accordingly.
 		Bundle bundle = getIntent().getExtras();
-		if (bundle != null) {
+        settings = PreferenceManager.getDefaultSharedPreferences(mContext);
+        if (bundle != null) {
 			String selectedPic = bundle.getString("picToEdit");
+            String filmToEdit = bundle.getString("filmToEdit");
 			if (selectedPic != null) {
 				nummerView.setText(selectedPic);
 				updateUIFromPicture(selectedPic,
@@ -120,8 +120,8 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 				aufnehmen.setText(getString(R.string.save_changes));
 			}
 		}
-				
-		Film film = DB.getDB().getFilm(mContext, settings.getString("Title", " "));		
+
+		Film film = DB.getDB().getFilm(mContext, settings.getString("Title", " "));
 		Bitmap b = new FilmIconFactory().createBitmap(film);		
 		Drawable drawable = new BitmapDrawable(getResources(), b);		
 		getActionBar().setIcon(drawable);		
@@ -140,18 +140,6 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 
 		nummerView = (TextView) findViewById(R.id.TextView_nr);
 		bildtoedit = false;
-		blende = new HashMap<String, Integer>();
-		filtervf = new HashMap<String, Integer>();
-		objektiv = new HashMap<String, Integer>();
-		zeit = new HashMap<String, Integer>();
-		fokus = new HashMap<String, Integer>();
-		filter = new HashMap<String, Integer>();
-		makro = new HashMap<String, Integer>();
-		mess = new HashMap<String, Integer>();
-		belichtung = new HashMap<String, Integer>();
-		makrovf = new HashMap<String, Integer>();
-		blitz = new HashMap<String, Integer>();
-		blitzkorr = new HashMap<String, Integer>();
 
 		int aktuellebildnummer = settings.getInt("BildNummerToBegin", 1);
 		nummerView.setText(getString(R.string.picture) + " "
@@ -263,48 +251,33 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		} else {
 			Bild bild = bilder.get(0);
 			bildtoedit = true;
-			if (!blende.isEmpty()) {
-				spinner_blende.setSelection(blende.get(bild.Blende));
-			}
-			if (!filtervf.isEmpty()) {
-				spinner_filter_vf.setSelection(filtervf.get(bild.FilterVF));
-			}
-			if (!objektiv.isEmpty()) {
-				spinner_objektiv.setSelection(objektiv.get(bild.Objektiv));
-			}
-			if (!zeit.isEmpty()) {
-				spinner_zeit.setSelection(zeit.get(bild.Zeit));
-			}
-			if (!fokus.isEmpty()) {
-				spinner_fokus.setSelection(fokus.get(bild.Fokus));
-			}
-			if (!filter.isEmpty()) {
-				spinner_filter.setSelection(filter.get(bild.Filter));
-			}
-			if (!makro.isEmpty()) {
-				spinner_makro.setSelection(makro.get(bild.Makro));
-			}
-			if (!mess.isEmpty()) {
-				spinner_messmethode.setSelection(mess.get(bild.Messmethode));
-			}
-			if (!belichtung.isEmpty()) {
-				spinner_belichtungs_korrektur.setSelection(belichtung
-						.get(bild.Belichtungskorrektur));
-			}
-			if (!makrovf.isEmpty()) {
-				spinner_makro_vf.setSelection(makrovf.get(bild.MakroVF));
-			}
-			if (!blitz.isEmpty()) {
-				spinner_blitz.setSelection(blitz.get(bild.Blitz));
-			}
-			if (!blitzkorr.isEmpty()) {
-				spinner_blitz_korrektur.setSelection(blitzkorr
-						.get(bild.Blitzkorrektur));
-			}
+
+            updateSpinner(spinner_blende, bild.Blende);
+            updateSpinner(spinner_filter_vf, bild.FilterVF);
+            updateSpinner(spinner_objektiv, bild.Objektiv);
+            updateSpinner(spinner_zeit, bild.Zeit);
+            updateSpinner(spinner_fokus, bild.Fokus);
+            updateSpinner(spinner_filter, bild.Filter);
+            updateSpinner(spinner_makro, bild.Makro);
+            updateSpinner(spinner_messmethode, bild.Messmethode);
+            updateSpinner(spinner_belichtungs_korrektur, bild.Belichtungskorrektur);
+            updateSpinner(spinner_makro_vf, bild.MakroVF);
+            updateSpinner(spinner_blitz, bild.Blitz);
+            updateSpinner(spinner_blitz_korrektur, bild.Blitzkorrektur);
+
 			edit_notizen.setText(bild.Notiz);
 			edit_kamera_notizen.setText(bild.KameraNotiz);
 		}
 	}
+
+    private void updateSpinner(Spinner spinner, String value) {
+        for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equals(value)) {
+                spinner.setSelection(i);
+                break;
+            }
+        }
+    }
 
 	private void incrementSelectedPicture() {
 
