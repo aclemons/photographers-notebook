@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.helper.FilmExportTask;
 import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.helper.FilmsViewHolder;
 import unisiegen.photographers.model.Bild;
@@ -433,7 +434,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 	}
 	
 	public void exportFilm(String FilmID) {
-		new FilmExportTask(FilmID).execute();
+		new FilmExportTask(FilmID, this).execute();
 
 	}
 
@@ -491,65 +492,6 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			} catch (Exception e) {
 				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
 			}
-			return null;
-		}
-	}
-
-	public class FilmExportTask extends AsyncTask<String, Void, Boolean> {
-
-		String FilmID;
-		String fileName;
-		private ProgressDialog dialog;
-
-		public FilmExportTask(String _FilmID) {
-			dialog = new ProgressDialog(mContext);
-			FilmID = _FilmID;
-		}
-
-		protected void onPreExecute() {
-			this.dialog.setMessage(getString(R.string.export));
-			this.dialog.show();
-			Log.v("Check", "Pre");
-		}
-
-		@Override
-		protected void onPostExecute(final Boolean success) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
-			}
-
-			File file = new File(getFilesDir() + "/" + fileName);
-
-			Uri u1 = null;
-			u1 = Uri.fromFile(file);
-			Intent sendIntent = new Intent(Intent.ACTION_SEND);
-			sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Film Export");
-			sendIntent.putExtra(Intent.EXTRA_STREAM, u1);
-			sendIntent.setType("text/html");
-			startActivity(sendIntent);
-		}
-
-		protected Boolean doInBackground(final String... args) {
-
-			Film film = DB.getDB().getFilm(mContext, FilmID);
-
-			fileName = FilmID + ".xml";
-
-			XStream xs = new XStream();
-			xs.alias("Bild", Bild.class);
-			xs.alias("Film", Film.class);
-
-			try {
-				FileOutputStream fos = openFileOutput(fileName,
-						Context.MODE_WORLD_READABLE);
-				xs.toXML(film, fos);
-				fos.close();
-				Log.v("Check", "XML Export: " + fileName + " was written.");
-			} catch (IOException e) {
-				e.printStackTrace();
-				Log.v("Check", "Failes to write XML Export: " + fileName);
-			}
-
 			return null;
 		}
 	}

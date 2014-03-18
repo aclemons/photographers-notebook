@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.helper.FilmExportTask;
 import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.helper.PicturesArrayAdapter;
 import unisiegen.photographers.model.Bild;
@@ -271,7 +272,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
             startActivity(editFilm);
             return true;
         } else if (item.getItemId() == R.id.opt_exportfilm) {
-            //TODO: call FilmExportTask.
+            new FilmExportTask(film.Titel, this).execute();
             return true;
         } else if (item.getItemId() == R.id.opt_deletefilm) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
