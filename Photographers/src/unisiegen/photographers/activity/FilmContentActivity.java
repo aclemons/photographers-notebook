@@ -109,14 +109,14 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		minimizes = settings.getBoolean("minimize", false);
 		infoBlock1 = (LinearLayout) findViewById(R.id.infoblock1);
 		infoBlock2 = (LinearLayout) findViewById(R.id.infoblock2);
-		Button goon = (Button) findViewById(R.id.button_goon);
+		Button buttonContinueFilm = (Button) findViewById(R.id.button_goon);
 
         editor = settings.edit();
 
         film = DB.getDB().getFilm(mContext,
                 getIntent().getExtras().getString("ID"));
 
-        goon.setOnClickListener(new OnClickListener() {
+        buttonContinueFilm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
@@ -133,16 +133,15 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 				editor.putString("Sonder2", film.Sonderentwicklung2);
 
 				int biggestNumber = 0;
+								
 				for (Bild bild : film.Bilder) {
-
-					Integer bildNummer = Integer.valueOf(bild.Bildnummer
-							.replaceAll("[\\D]", ""));
+					int bildNummer = Integer.valueOf(bild.Bildnummer.replaceAll("[\\D]", ""));
 					if (bildNummer > biggestNumber) {
 						biggestNumber = bildNummer;
-					}
-					editor.putInt("BildNummerToBegin", bildNummer + 1);
+					} 	
 				}
-
+				
+				editor.putInt("BildNummerToBegin", biggestNumber + 1);
 				editor.putBoolean("EditMode", true);
 				editor.commit();
 				Intent myIntent = new Intent(getApplicationContext(),

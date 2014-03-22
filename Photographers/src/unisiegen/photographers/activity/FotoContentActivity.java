@@ -1,5 +1,6 @@
 package unisiegen.photographers.activity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,12 +26,9 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
-
 import java.util.ArrayList;
-
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.model.Bild;
@@ -48,7 +46,8 @@ public class FotoContentActivity extends PhotographersNotebookActivity {
         setContentView(R.layout.slidi);
     }
 
-    public void onResume() {
+    @SuppressLint("NewApi")
+	public void onResume() {
 
         super.onResume();
 
