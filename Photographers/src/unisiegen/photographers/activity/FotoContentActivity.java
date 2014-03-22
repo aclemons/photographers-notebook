@@ -66,7 +66,7 @@ public class FotoContentActivity extends PhotographersNotebookActivity {
 
         Bitmap b = new FilmIconFactory().createBitmap(film);
         Drawable drawable = new BitmapDrawable(getResources(), b);
-        if (android.os.Build.VERSION.SDK_INT >= 11) {
+        if (android.os.Build.VERSION.SDK_INT >= 14) {
             try {
                 getActionBar().setIcon(drawable);
             } catch (Exception e) {

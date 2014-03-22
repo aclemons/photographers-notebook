@@ -24,12 +24,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.helper.DefaultLocationListener;
 import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -37,6 +38,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -57,7 +59,6 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
 
@@ -103,6 +104,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		super.onPause();
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -124,7 +126,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		Film film = DB.getDB().getFilm(mContext, settings.getString("Title", " "));
 		Bitmap b = new FilmIconFactory().createBitmap(film);		
 		Drawable drawable = new BitmapDrawable(getResources(), b);
-        if (android.os.Build.VERSION.SDK_INT >= 11) {
+        if (android.os.Build.VERSION.SDK_INT >= 14) {
             try {
                 getActionBar().setIcon(drawable);
             } catch (Exception e) {

@@ -23,13 +23,13 @@ package unisiegen.photographers.activity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.helper.FilmExportTask;
 import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.helper.PicturesArrayAdapter;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -69,7 +69,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
 
@@ -194,6 +193,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		});
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -214,7 +214,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 
         Bitmap b = new FilmIconFactory().createBitmap(film);
         Drawable drawable = new BitmapDrawable(getResources(), b);
-        if (android.os.Build.VERSION.SDK_INT >= 11) {
+        if (android.os.Build.VERSION.SDK_INT >= 14) {
             try {
                 getActionBar().setIcon(drawable);
             } catch (Exception e) {
