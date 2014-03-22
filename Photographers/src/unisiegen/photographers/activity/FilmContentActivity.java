@@ -214,7 +214,13 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 
         Bitmap b = new FilmIconFactory().createBitmap(film);
         Drawable drawable = new BitmapDrawable(getResources(), b);
-        getActionBar().setIcon(drawable);
+        if (android.os.Build.VERSION.SDK_INT >= 11) {
+            try {
+                getActionBar().setIcon(drawable);
+            } catch (Exception e) {
+                Log.v("check", e.toString());
+            }
+        }
 
         ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
 

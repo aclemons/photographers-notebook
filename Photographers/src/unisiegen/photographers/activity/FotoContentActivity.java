@@ -13,6 +13,7 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -65,7 +66,13 @@ public class FotoContentActivity extends PhotographersNotebookActivity {
 
         Bitmap b = new FilmIconFactory().createBitmap(film);
         Drawable drawable = new BitmapDrawable(getResources(), b);
-        getActionBar().setIcon(drawable);
+        if (android.os.Build.VERSION.SDK_INT >= 11) {
+            try {
+                getActionBar().setIcon(drawable);
+            } catch (Exception e) {
+                Log.v("check", e.toString());
+            }
+        }
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         adapter = new MyPagerAdapter(getApplicationContext(), film);

@@ -123,8 +123,14 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 
 		Film film = DB.getDB().getFilm(mContext, settings.getString("Title", " "));
 		Bitmap b = new FilmIconFactory().createBitmap(film);		
-		Drawable drawable = new BitmapDrawable(getResources(), b);		
-		getActionBar().setIcon(drawable);		
+		Drawable drawable = new BitmapDrawable(getResources(), b);
+        if (android.os.Build.VERSION.SDK_INT >= 11) {
+            try {
+                getActionBar().setIcon(drawable);
+            } catch (Exception e) {
+                Log.v("check", e.toString());
+            }
+        }
 	}
 
 	@Override
