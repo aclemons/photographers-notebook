@@ -486,11 +486,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 					android.R.layout.simple_spinner_item, values);
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			spinner.setAdapter(adapter);
-			if (defaultValue >= values.size()) {
-				spinner.setSelection(0);
-			} else {
-				spinner.setSelection(defaultValue);
-			}
+			spinner.setSelection(defaultValue);
 
 			return spinner;
 		}
