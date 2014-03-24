@@ -231,7 +231,8 @@ public class DB {
 
 			Cursor c = myDBNummer.rawQuery(
 					"SELECT title,camera,datum,bilder,pic FROM "
-							+ MY_DB_TABLE_NUMMER, null);
+							+ MY_DB_TABLE_NUMMER + 
+							" ORDER BY datum DESC", null);
 			if (c != null) {
 				if (c.moveToFirst()) {
 					do {
