@@ -1,0 +1,8 @@
+Changelog
+
+Beta v5 - 29.05.2014
+
+- New Layout with Actionbar (Gingerbread devices and newer)
+- Updated UI, making some functions better accessible 
+- Replaced preview picture function with dynamically created film icons
+- Bug fixes and code cleaning 
