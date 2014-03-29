@@ -77,8 +77,14 @@ public class Bild implements Comparable<Bild> {
 	}
 
 	@Override
-	public int compareTo(Bild bild) {
-		return this.Bildnummer.compareTo(bild.Bildnummer);
+	public int compareTo(Bild otherBild) {
+		
+		Integer bildNummerAsInt = Integer.valueOf(this.Bildnummer
+				.replaceAll("[\\D]", ""));
+		Integer otherBildNummerAsInt = Integer.valueOf(otherBild.Bildnummer
+				.replaceAll("[\\D]", ""));
+		
+		return bildNummerAsInt.compareTo(otherBildNummerAsInt);
 	}
 
 }

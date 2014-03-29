@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import unisiegen.photographers.activity.R.drawable;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
@@ -185,14 +186,43 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 						Log.v("Check", "Check if Bild vorhanden : " + (pic == null));
 						Intent myIntent = new Intent(getApplicationContext(),
 								NewPictureActivity.class);
-	
-						if (pic != null) {
+
+	                    /*  Deprecated codeblock that handles adding of user generated thumbnails or random thumbnails to films
+						    if (pic != null) {
 							myIntent.putExtra("image", pic);
 							thumbnail = pic;
 						} else {
-							Bitmap bm = BitmapFactory.decodeResource(
-									getApplicationContext().getResources(),
-									R.drawable.nopic);
+							// Get a random bitmap...
+							int [] pics = new int [] {
+									R.drawable.agfa_apx100,
+									R.drawable.agfa_apx400,
+									R.drawable.agfa_precisa,
+									R.drawable.agfa_vista,
+									R.drawable.fuji_acros100,
+									R.drawable.fuji_neopan400,
+									R.drawable.fuji_pro160,
+									R.drawable.fuji_provia100,
+									R.drawable.fuji_superia800,
+									R.drawable.fuji_velvia50,
+									R.drawable.fuji_velvia100f,
+									R.drawable.ilford_delta100,
+									R.drawable.ilford_delta400,
+									R.drawable.ilford_delta3200,
+									R.drawable.ilford_fp4,
+									R.drawable.ilford_hp5,
+									R.drawable.kodachrome64,
+									R.drawable.kodak_e100,
+									R.drawable.kodak_farbwelt,
+									R.drawable.kodak_tmax100,
+									R.drawable.kodak_tmax3200,
+									R.drawable.rollei_rpx25,
+									R.drawable.rollei_rpx100,
+									R.drawable.rollei_rpx400
+							};
+							int random = ((int)(Math.random() * 1000) % pics.length);
+							int selected = pics[random];
+
+							Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), selected);
 							ByteArrayOutputStream baos = new ByteArrayOutputStream();
 							bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
 							nopic = baos.toByteArray();
@@ -202,10 +232,11 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	
 						String encodedImage = Base64.encodeToString(thumbnail,
 								Base64.DEFAULT);
+						*/
+
 						DB.getDB().addPictureCreateNummer(mContext, f, b, 0,
-								encodedImage);
-	
-						finish();
+								null);
+	            		finish();
 						startActivityForResult(myIntent, 1);
 					} catch (Exception e) {
 						Toast.makeText(getApplicationContext(),

@@ -31,9 +31,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.helper.FilmExportTask;
+import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.helper.FilmsViewHolder;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -41,6 +44,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -50,6 +58,9 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -87,6 +98,8 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 	 */
 	SharedPreferences settings;
 
+    FilmIconFactory filmIconFactory;
+
 	private Context mContext;
 	private Integer contentIndex = 0;
 
@@ -94,7 +107,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 	protected void onResume() {
 		super.onResume();
 		myList = (ListView) findViewById(android.R.id.list);
-		TextView pics = (TextView) findViewById(R.id.picanzahl);
+		ImageView backgroundimage = (ImageView) findViewById(R.id.image); 
 		contentIndex = 0;
 
 		if (settings.getInt("FIRSTSTART", 0) == 0) {
@@ -109,14 +122,16 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			editor.commit();	
 		}
 
-		int gesamtPics = 0;
 		ArrayList<Film> filme = DB.getDB().getFilme(mContext);
-
-		for (Film film : filme) {
-			gesamtPics = gesamtPics + film.Bilder.size();
+		
+		if (filme.isEmpty()) {
+			backgroundimage.setVisibility(View.VISIBLE);
+		} else {
+			backgroundimage.setVisibility(View.INVISIBLE);
 		}
+		
+		filmIconFactory = new FilmIconFactory();
 
-		pics.setText(gesamtPics + " " + getString(R.string.pictures));
 		ArrayAdapter<Film> adapter = new FilmsArrayAdapter(mContext, filme, 1);
 		myList.setOnItemClickListener(clickListener);
 		myList.setOnItemLongClickListener(longClickListener);
@@ -131,16 +146,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		if (settings.getInt("FIRSTSTART", 99) == 99 ) { // Only do this on the very first start, when FIRSTSTART is not yet set.
 			new ResetSettingsTask().execute();
-		}
-		Button newFilm = (Button) findViewById(R.id.newFilm);
-		newFilm.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent myIntent = new Intent(getApplicationContext(),
-						NewFilmActivity.class);
-				startActivityForResult(myIntent, 0);
-			}
-		});
+		}		
 	}
 
 	private final class EditFilmDialogAction implements OnClickListener {
@@ -229,7 +235,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 
 		public FilmsArrayAdapter(Context context, ArrayList<Film> planetList,
 				int number) {
-			super(context, R.layout.sqltablecell, R.id.filmtitle, planetList);
+			super(context, R.layout.film_table_cell, R.id.filmtitle, planetList);
 			inflater = LayoutInflater.from(context);
 		}
 
@@ -242,7 +248,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			TextView textViewPics;
 			ImageView imageViewBild;
 			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.sqltablecell, null);
+				convertView = inflater.inflate(R.layout.film_table_cell, null);
 				textView = (TextView) convertView.findViewById(R.id.filmtitle);
 				textViewDate = (TextView) convertView.findViewById(R.id.date);
 				textViewCam = (TextView) convertView.findViewById(R.id.cam);
@@ -254,22 +260,24 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			} else {
 				FilmsViewHolder viewHolder = (FilmsViewHolder) convertView
 						.getTag();
-				textViewDate = viewHolder.getTextViewTime();
-				textView = viewHolder.getTextViewName();
-				textViewCam = viewHolder.getTextViewCam();
-				textViewPics = viewHolder.getTextViewPics();
-				imageViewBild = viewHolder.getBildView();
+				 textViewDate = viewHolder.getTextViewTime();
+				 textView = viewHolder.getTextViewName();
+				 textViewCam = viewHolder.getTextViewCam();
+				 textViewPics = viewHolder.getTextViewPics();
+				 imageViewBild = viewHolder.getBildView();
 			}
 			textViewDate.setText(planet.Datum);
 			textView.setText(planet.Titel);
 			textViewCam.setText(planet.Kamera);
 			textViewPics.setText(planet.Pics + " "
 					+ getString(R.string.pictures));
-			imageViewBild.setImageBitmap(planet.icon);
+			
+			//imageViewBild.setImageBitmap(planet.icon);
+			imageViewBild.setImageBitmap(filmIconFactory.createBitmap(planet));
 			return convertView;
 		}
 	}
-
+	
 	/*
 	 * Klicken auf eine Zeile (langer und kurzer klick)
 	 */
@@ -278,11 +286,10 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		@Override
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 				int arg2, long arg3) {
-			// 4 child 2 kind
-			LinearLayout lin = (LinearLayout) arg1;
-			LinearLayout lins = (LinearLayout) lin.getChildAt(1);
-			final TextView ids = (TextView) ((LinearLayout) lins.getChildAt(2))
-					.getChildAt(0);
+
+			LinearLayout layout = (LinearLayout) arg1;
+			final TextView id = (TextView) layout.findViewById(R.id.filmtitle);
+			
 
 			Display display = ((WindowManager) mContext
 					.getSystemService(Context.WINDOW_SERVICE))
@@ -306,7 +313,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 				@Override
 				public void onClick(View v) {
 					Intent i = new Intent(getApplicationContext(), EditFilmActivity.class);
-					i.putExtra("ID", ids.getText().toString());
+					i.putExtra("ID", id.getText().toString());
 					pw.dismiss();
 					startActivity(i);
 				}
@@ -316,12 +323,12 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 
 				@Override
 				public void onClick(View v) {
-					exportFilm(ids.getText().toString());
+					exportFilm(id.getText().toString());
 					pw.dismiss();
 				}
 			});
-			deleteButton.setOnClickListener(new DeleteFilmDialogAction(ids));
-			editButton.setOnClickListener(new EditFilmDialogAction(ids));
+			deleteButton.setOnClickListener(new DeleteFilmDialogAction(id));
+			editButton.setOnClickListener(new EditFilmDialogAction(id));
 			cancelButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -342,13 +349,13 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			LinearLayout lin = (LinearLayout) arg1;
-			LinearLayout lins = (LinearLayout) lin.getChildAt(1);
-			TextView ids = (TextView) ((LinearLayout) lins.getChildAt(2))
-					.getChildAt(0);
+			
+			LinearLayout layout = (LinearLayout) arg1;
+			TextView id = (TextView) layout.findViewById(R.id.filmtitle);
+			
 			Intent myIntent = new Intent(getApplicationContext(),
 					FilmContentActivity.class);
-			myIntent.putExtra("ID", ids.getText().toString());
+			myIntent.putExtra("ID", id.getText().toString());
 			startActivityForResult(myIntent, 0);
 		}
 	};
@@ -401,8 +408,33 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 	}
 
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.startmenu, menu);
+		return true;
+	}
+
+    @Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		if(item.getItemId() == R.id.action_newfilm){
+			Intent newFilm = new Intent(getApplicationContext(), NewFilmActivity.class);
+			startActivityForResult(newFilm, 0);
+			return true;
+			
+		} else if (item.getItemId() == R.id.opt_openSettings) {
+			Intent openSettings = new Intent(getApplicationContext(),
+					EditSettingsActivity.class);
+			startActivityForResult(openSettings, 0);
+			return true;
+		} else {
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
 	public void exportFilm(String FilmID) {
-		new FilmExportTask(FilmID).execute();
+		new FilmExportTask(FilmID, this).execute();
 
 	}
 
@@ -460,65 +492,6 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			} catch (Exception e) {
 				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
 			}
-			return null;
-		}
-	}
-
-	public class FilmExportTask extends AsyncTask<String, Void, Boolean> {
-
-		String FilmID;
-		String fileName;
-		private ProgressDialog dialog;
-
-		public FilmExportTask(String _FilmID) {
-			dialog = new ProgressDialog(mContext);
-			FilmID = _FilmID;
-		}
-
-		protected void onPreExecute() {
-			this.dialog.setMessage(getString(R.string.export));
-			this.dialog.show();
-			Log.v("Check", "Pre");
-		}
-
-		@Override
-		protected void onPostExecute(final Boolean success) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
-			}
-
-			File file = new File(getFilesDir() + "/" + fileName);
-
-			Uri u1 = null;
-			u1 = Uri.fromFile(file);
-			Intent sendIntent = new Intent(Intent.ACTION_SEND);
-			sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Film Export");
-			sendIntent.putExtra(Intent.EXTRA_STREAM, u1);
-			sendIntent.setType("text/html");
-			startActivity(sendIntent);
-		}
-
-		protected Boolean doInBackground(final String... args) {
-
-			Film film = DB.getDB().getFilm(mContext, FilmID);
-
-			fileName = FilmID + ".xml";
-
-			XStream xs = new XStream();
-			xs.alias("Bild", Bild.class);
-			xs.alias("Film", Film.class);
-
-			try {
-				FileOutputStream fos = openFileOutput(fileName,
-						Context.MODE_WORLD_READABLE);
-				xs.toXML(film, fos);
-				fos.close();
-				Log.v("Check", "XML Export: " + fileName + " was written.");
-			} catch (IOException e) {
-				e.printStackTrace();
-				Log.v("Check", "Failes to write XML Export: " + fileName);
-			}
-
 			return null;
 		}
 	}

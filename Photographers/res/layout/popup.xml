@@ -52,7 +52,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout2"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/custom_button"
         android:gravity="center_vertical|center_horizontal"
         android:minHeight="40dp"
         android:text="@string/proceed"

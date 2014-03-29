@@ -23,18 +23,23 @@ package unisiegen.photographers.activity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.helper.FilmExportTask;
+import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.helper.PicturesArrayAdapter;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -45,6 +50,9 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -61,7 +69,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
 
@@ -86,10 +93,11 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 	boolean minimizes;
 	SharedPreferences settings;
 	private Film film;
+    private SharedPreferences.Editor editor;
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see android.app.Activity#onCreate(android.os.Bundle) Lifecycle-Methoden
 	 */
 
@@ -101,14 +109,17 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		minimizes = settings.getBoolean("minimize", false);
 		infoBlock1 = (LinearLayout) findViewById(R.id.infoblock1);
 		infoBlock2 = (LinearLayout) findViewById(R.id.infoblock2);
-		Button goon = (Button) findViewById(R.id.button_goon);
-		goon.setOnClickListener(new OnClickListener() {
+		Button buttonContinueFilm = (Button) findViewById(R.id.button_goon);
+
+        editor = settings.edit();
+
+        film = DB.getDB().getFilm(mContext,
+                getIntent().getExtras().getString("ID"));
+
+        buttonContinueFilm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				SharedPreferences.Editor editor = settings.edit();
 
-				film = DB.getDB().getFilm(mContext,
-						getIntent().getExtras().getString("ID"));
 				editor.putString("Title", film.Titel);
 
 				editor.putString("Datum", film.Datum);
@@ -122,16 +133,15 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 				editor.putString("Sonder2", film.Sonderentwicklung2);
 
 				int biggestNumber = 0;
+								
 				for (Bild bild : film.Bilder) {
-
-					Integer bildNummer = Integer.valueOf(bild.Bildnummer
-							.replaceAll("[\\D]", ""));
+					int bildNummer = Integer.valueOf(bild.Bildnummer.replaceAll("[\\D]", ""));
 					if (bildNummer > biggestNumber) {
 						biggestNumber = bildNummer;
-					}
-					editor.putInt("BildNummerToBegin", bildNummer + 1);
+					} 	
 				}
-
+				
+				editor.putInt("BildNummerToBegin", biggestNumber + 1);
 				editor.putBoolean("EditMode", true);
 				editor.commit();
 				Intent myIntent = new Intent(getApplicationContext(),
@@ -182,6 +192,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		});
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -199,12 +210,23 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		datum.setText(film.Datum);
 
 		bilderimfilm = film.Bilder.size();
-		
-		ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
+
+        Bitmap b = new FilmIconFactory().createBitmap(film);
+        Drawable drawable = new BitmapDrawable(getResources(), b);
+        if (android.os.Build.VERSION.SDK_INT >= 14) {
+            try {
+                getActionBar().setIcon(drawable);
+            } catch (Exception e) {
+                Log.v("check", e.toString());
+            }
+        }
+
+        ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
 
 		byte[] data = Base64.decode(film.iconData, Base64.DEFAULT);
-		vorschauImage.setImageBitmap(BitmapFactory.decodeByteArray(data, 0,
-				data.length));
+		//vorschauImage.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
+
+		//vorschauImage.setImageBitmap(new FilmIconFactory().createBitmap(film));
 
 		TextView filmbezeichnung = (TextView) findViewById(R.id.filmnotiz);
 		filmbezeichnung.setText(film.Filmbezeichnung);
@@ -223,9 +245,9 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 
 		TextView filmsonders = (TextView) findViewById(R.id.filmsonders);
 		filmsonders.setText(film.Sonderentwicklung2);
-		
+
 		Collections.sort(film.Bilder);
-		
+
 		PicturesArrayAdapter adapter = new PicturesArrayAdapter(mContext,
 				film.Bilder, 1);
 		ListView myList = (ListView) findViewById(android.R.id.list);
@@ -233,6 +255,58 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		myList.setOnItemLongClickListener(myLongClickListener);
 		myList.setAdapter(adapter);
 	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.filmmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.opt_openSettings) {
+            Intent openSettings = new Intent(getApplicationContext(),
+                    EditSettingsActivity.class);
+            startActivityForResult(openSettings, 0);
+            return true;
+        } else if (item.getItemId() == R.id.opt_editfilm) {
+            Intent editFilm = new Intent(getApplicationContext(), EditFilmActivity.class);
+            editFilm.putExtra("ID", film.Titel);
+            startActivity(editFilm);
+            return true;
+        } else if (item.getItemId() == R.id.opt_exportfilm) {
+            new FilmExportTask(film.Titel, this).execute();
+            return true;
+        } else if (item.getItemId() == R.id.opt_deletefilm) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getString(R.string.question_delete));
+            builder.setCancelable(false);
+            builder.setPositiveButton(getString(R.string.yes),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            DB.getDB().deleteFilms(mContext, new String[] { film.Titel });
+                            finish();
+                        }
+                    });
+            builder.setNegativeButton(getString(R.string.no),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(
+                                DialogInterface dialog,
+                                int which) {
+
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 	/*
 	 * Itemclick Methoden
@@ -272,6 +346,9 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 					Intent myIntent = new Intent(getApplicationContext(),
 							NewPictureActivity.class);
 					myIntent.putExtra("picToEdit", selektiertesBild);
+                    editor.putString("Title", film.Titel);
+                    editor.putBoolean("EditMode", true);
+                    editor.commit();
 					startActivity(myIntent);
 				}
 			});
@@ -343,169 +420,11 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-
-			final Context mContext2 = mContext;
-			Display display = ((WindowManager) mContext2
-					.getSystemService(Context.WINDOW_SERVICE))
-					.getDefaultDisplay();
-			int width = display.getWidth();
-			int height = display.getHeight();
-			LayoutInflater inflaterOwn = (LayoutInflater) mContext2
-					.getSystemService(LAYOUT_INFLATER_SERVICE);
-			View layoutOwn = inflaterOwn.inflate(R.layout.slidi,
-					(ViewGroup) findViewById(R.id.testen), false);
-			ViewPager viewPager = (ViewPager) layoutOwn
-					.findViewById(R.id.viewPager);
-			MyPagerAdapter adapter = new MyPagerAdapter(mContext2);
-			viewPager.setAdapter(adapter);
-			viewPager.getAdapter().setPrimaryItem(viewPager, 2, null);
-
-			mIndicator = (TitlePageIndicator) layoutOwn
-					.findViewById(R.id.indicator);
-			mIndicator.setViewPager(viewPager);
-			mIndicator.setFooterColor(0xFF000000);
-
-			pw = new PopupWindow(layoutOwn, (int) (width), (int) (height), true);
-			pw.setAnimationStyle(7);
-			// pw.setBackgroundDrawable(new BitmapDrawable());
-			pw.setBackgroundDrawable(getResources().getDrawable(
-					R.drawable.infobg));
-			pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
-			viewPager.setCurrentItem(arg2);
-
+            Intent i = new Intent(getApplicationContext(), FotoContentActivity.class);
+            i.putExtra("ID", film.Titel);
+            i.putExtra("selectedItem", arg2);
+            startActivity(i);
 		}
 	};
-
-	/*
-	 * Pageadapter f�r das hin- und herwischen zwischen den Bildenr. W�hlt
-	 * man ein Bild aus, wird ein "Popup" ge�ffnet in der alle Informationen
-	 * zu dem Bild vorhanden sind in dieser Ansicht l�sst sich dann auch
-	 * zwischen den Bildern hin- und herwechseln. Es wird einfach eine
-	 * ArrayList<Views> gef�llt. Quasi fertige Views in eine Liste, die beim
-	 * Wischen durchgegangen wird.
-	 */
-	private class MyPagerAdapter extends PagerAdapter implements TitleProvider {
-
-		private ArrayList<View> views;
-
-		public MyPagerAdapter(Context context) {
-			views = new ArrayList<View>();
-			LayoutInflater inflater = getLayoutInflater();
-
-			for (Bild bild : film.Bilder) {
-				View v = inflater.inflate(R.layout.filminfobox, null, false);
-				final TextView zeitStempel = (TextView) v
-						.findViewById(R.id.zeitStempel);
-				zeitStempel.setText(bild.Zeitstempel);
-				final TextView zeitGeo = (TextView) v.findViewById(R.id.geoTag);
-				zeitGeo.setText(bild.GeoTag);
-				final TextView objektiv = (TextView) v
-						.findViewById(R.id.showobjektiv);
-				objektiv.setText(bild.Objektiv);
-				final TextView filtervf = (TextView) v
-						.findViewById(R.id.showfiltervf);
-				filtervf.setText(bild.FilterVF);
-				final TextView picfocus = (TextView) v
-						.findViewById(R.id.showfokus);
-				picfocus.setText(bild.Fokus);
-				final TextView picblende = (TextView) v
-						.findViewById(R.id.showblende);
-				picblende.setText(bild.Blende);
-				final TextView piczeit = (TextView) v
-						.findViewById(R.id.showzeit);
-				piczeit.setText(bild.Zeit);
-				final TextView picmessung = (TextView) v
-						.findViewById(R.id.showmessung);
-				picmessung.setText(bild.Messmethode);
-				final TextView picplus = (TextView) v
-						.findViewById(R.id.showbelichtung);
-				picplus.setText(bild.Belichtungskorrektur);
-				final TextView picmakro = (TextView) v
-						.findViewById(R.id.showmakro);
-				picmakro.setText(bild.Makro);
-				final TextView picmakrovf = (TextView) v
-						.findViewById(R.id.showmakrovf);
-				picmakrovf.setText(bild.MakroVF);
-				final TextView picfilter = (TextView) v
-						.findViewById(R.id.showfilter);
-				picfilter.setText(bild.Filter);
-				final TextView picblitz = (TextView) v
-						.findViewById(R.id.showblitz);
-				picblitz.setText(bild.Blitz);
-				final TextView picblitzkorr = (TextView) v
-						.findViewById(R.id.showblitzkorr);
-				picblitzkorr.setText(bild.Blitzkorrektur);
-				final TextView picnotiz = (TextView) v
-						.findViewById(R.id.shownotiz);
-				picnotiz.setText(bild.Notiz);
-				final TextView picnotizcam = (TextView) v
-						.findViewById(R.id.shownotizkam);
-				picnotizcam.setText(bild.KameraNotiz);
-				final TextView picTitle = (TextView) v
-						.findViewById(R.id.pictitle);
-				picTitle.setText(bild.Bildnummer);
-
-				views.add(v);
-			}
-		}
-
-		@Override
-		public void destroyItem(View view, int arg1, Object object) {
-			// Es werden immer nur die 2 nächsten und die 2 letzten Views
-			// "gespeichert" bzw. berechnet, der Rest wird erstmal gelöscht.
-
-			((ViewPager) view).removeView((LinearLayout) object);
-		}
-
-		@Override
-		public void finishUpdate(View arg0) {
-
-		}
-
-		@Override
-		public int getCount() {
-			return views.size(); // Wieviele Views zum Wischen
-		}
-
-		@Override
-		public Object instantiateItem(View view, int position) {
-			// Das vorpuffern, wenn die View bald drankommt... s.o.
-			View myView = views.get(position);
-			((ViewPager) view).addView(myView);
-			return myView;
-		}
-
-		@Override
-		public boolean isViewFromObject(View view, Object object) {
-			return view == object;
-		}
-
-		@Override
-		public void restoreState(Parcelable arg0, ClassLoader arg1) {
-
-		}
-
-		@Override
-		public Parcelable saveState() {
-			return null;
-		}
-
-		@Override
-		public void startUpdate(View arg0) {
-
-		}
-
-		@Override
-		public String getTitle(int position) { // Kommt vom TitleProvider um den
-												// Titel einer View festzulegen
-			if (position == 0) {
-				return " >";
-			} else if (position == (views.size() - 1)) {
-				return "< ";
-			}
-			return "<  >";
-		}
-
-	}
 
 }

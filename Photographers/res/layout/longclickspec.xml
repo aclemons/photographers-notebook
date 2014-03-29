@@ -8,15 +8,15 @@
          android:padding="3dp"
          android:stretchColumns="1" >
 
- <TableLayout 
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/user2"
-    android:paddingTop="10dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingBottom="10dp"
-    android:background="@drawable/shapein">
+ <TableLayout
+     android:id="@+id/user2"
+     android:layout_width="fill_parent"
+     android:layout_height="fill_parent"
+     android:paddingBottom="10dp"
+     android:paddingLeft="10dp"
+     android:paddingRight="10dp"
+     android:paddingTop="10dp" 
+     android:background="@drawable/shapein">
     
 <LinearLayout
     android:layout_width="fill_parent"
@@ -25,44 +25,45 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     
-      <Button 
-        android:id="@+id/deletebutton"
-        android:layout_width="fill_parent"
-            					 android:background="@drawable/custom_button"
-	    android:layout_height="wrap_content"
-	    android:text="     Löschen     "
-        />
+      <Button
+          android:id="@+id/deletebutton"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="     Löschen     "
+          android:textSize="14sp" />
+
       <View 
           android:layout_width="match_parent"
 	    	android:layout_height="20dp"
 	    	android:minHeight="20dp"
           />
-      <Button 
-        android:id="@+id/editbutton"
-        android:layout_width="fill_parent"
-            					 android:background="@drawable/custom_button"
-	    android:layout_height="wrap_content"
-	    android:text="     Editieren     "
-        />
-      <Button 
-        android:id="@+id/specbutton"
-        android:layout_width="fill_parent"
-            					 android:background="@drawable/custom_button"
-	    android:layout_height="wrap_content"
-	    android:text="     Objektive bearbeiten     "
-        />
+
+      <Button
+          android:id="@+id/editbutton"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="     Editieren     "
+          android:textSize="14sp" />
+
+      <Button
+          android:id="@+id/specbutton"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="     Objektive bearbeiten     "
+          android:textSize="14sp" />
+
       <View 
           android:layout_width="match_parent"
 	    	android:layout_height="20dp"
 	    	android:minHeight="20dp"
           />
-      <Button 
-        android:id="@+id/cancelbutton"
-        android:layout_width="fill_parent"
-            					 android:background="@drawable/custom_button"
-	    android:layout_height="wrap_content"
-	    android:text="     Cancel     "
-        />      
+
+      <Button
+          android:id="@+id/cancelbutton"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="     Cancel     "
+          android:textSize="14sp" />
     
 </LinearLayout>
 </TableLayout>

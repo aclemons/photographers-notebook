@@ -9,23 +9,24 @@
     <LinearLayout
     	android:focusable="true" android:focusableInTouchMode="true"
     	android:layout_width="0px" android:layout_height="0px"/>
-<TableLayout 
-    android:layout_width="fill_parent"
-    android:scrollbars="vertical"
-    android:layout_height="wrap_content"
+
+<TableLayout
     android:id="@+id/tablor"
-    android:paddingLeft="4dp"
-    android:background="@drawable/shapetable">
-  <TableLayout 
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/table"
-    android:padding="8dp"
-    android:paddingTop="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingBottom="0dp"
-    android:background="@drawable/shapeintable">
+    android:layout_height="wrap_content"
+    android:paddingLeft="4dp"
+    android:scrollbars="vertical" >
+
+  <TableLayout
+      android:id="@+id/table"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:padding="8dp"
+      android:paddingBottom="0dp"
+      android:paddingLeft="0dp"
+      android:paddingRight="0dp"
+      android:paddingTop="0dp" >
+
     <LinearLayout  
         android:id="@+id/maini"
         android:orientation="vertical"
@@ -82,23 +83,23 @@
 				 
 				<!-- HIER -->
 				    
-  <TableLayout 
-    android:layout_width="fill_parent"
-    android:scrollbars="vertical"
-    android:layout_height="wrap_content"
-    android:id="@+id/tablor"
-    android:paddingLeft="4dp"
-    android:background="@drawable/shaperedtable">
-  <TableLayout 
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/table"
-    android:padding="10dp"
-    android:paddingTop="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingBottom="0dp"
-    android:background="@drawable/shapeintable">
+  <TableLayout
+      android:id="@+id/tablor"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:paddingLeft="4dp"
+      android:scrollbars="vertical" >
+
+  <TableLayout
+      android:id="@+id/table"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:padding="10dp"
+      android:paddingBottom="0dp"
+      android:paddingLeft="0dp"
+      android:paddingRight="0dp"
+      android:paddingTop="0dp" >
+
     <LinearLayout  
         android:id="@+id/maini"
         android:orientation="vertical"
@@ -189,23 +190,23 @@
 					    android:layout_height="wrap_content" 
 					    android:layout_width="fill_parent">
     
-<TableLayout 
-    android:layout_width="wrap_content"
-    android:scrollbars="vertical"
-    android:layout_height="wrap_content"
+<TableLayout
     android:id="@+id/tablor"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:paddingLeft="4dp"
-    android:background="@drawable/shapegreentable">
-  <TableLayout 
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/table"
-    android:padding="8dp"
-    android:paddingTop="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingBottom="0dp"
-    android:background="@drawable/shapeintable">
+    android:scrollbars="vertical" >
+
+  <TableLayout
+      android:id="@+id/table"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:padding="8dp"
+      android:paddingBottom="0dp"
+      android:paddingLeft="0dp"
+      android:paddingRight="0dp"
+      android:paddingTop="0dp" >
+
     <LinearLayout  
         android:id="@+id/maini"
         android:orientation="vertical"
@@ -237,7 +238,7 @@
 							    android:layout_width="wrap_content"
 							    android:gravity="left"
 							    android:textSize="12dp"
-							    android:maxLength="21"
+							    android:maxLength="30"
 							    android:textStyle="italic"
 							    android:layout_height="wrap_content"
 							    android:text="   XYZ xyz">
@@ -276,7 +277,7 @@
 							    android:layout_width="wrap_content"
 							    android:gravity="left"
 							    android:textSize="12dp"
-							    android:maxLength="21"
+							    android:maxLength="30"
 							    android:textStyle="italic"
 							    android:layout_height="wrap_content"
 							    android:text="   XYZ xyz">
@@ -304,6 +305,7 @@
 							    android:layout_width="wrap_content"
 							    android:gravity="left"
 							    android:textSize="12dp"
+                                android:maxLength="30"
 							    android:textStyle="italic"
 							    android:layout_height="wrap_content"
 							    android:text="   XYZ xyz">
@@ -332,7 +334,7 @@
 							    android:layout_width="wrap_content"
 							    android:gravity="left"
 							    android:textSize="12dp"
-							    android:maxLength="21"
+							    android:maxLength="30"
 							    android:textStyle="italic"
 							    android:layout_height="wrap_content"
 							    android:text="   XYZ xyz">
@@ -340,23 +342,25 @@
 				</LinearLayout>  
 				
       </LinearLayout>
-   </TableLayout>    
-         
-</TableLayout>    
-    
-    
-    <LinearLayout  
+   </TableLayout>
+
+</TableLayout>
+
+
+    <LinearLayout
 				        android:id="@+id/mainiss"
 				        android:orientation="horizontal"
 				        android:paddingLeft="2dp"
-					    android:layout_height="65dp" 
-					    android:layout_width="91dp">
-				    <ImageView 
-				        android:layout_width="match_parent"
-				        android:layout_height="match_parent"
+					    android:layout_height="65dp"
+					    android:layout_width="match_parent"
+        android:layout_gravity="right"
+        android:gravity="right">
+				    <ImageView
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
 				        android:id="@+id/vorschau"
-				        
-				        />
+
+                        android:layout_gravity="right" />
 				    </LinearLayout>
     </LinearLayout>
     
@@ -370,24 +374,23 @@
 	    >
 	</TextView>
 
-    
-<TableLayout 
-    android:layout_width="wrap_content"
-    android:scrollbars="vertical"
-    android:layout_height="wrap_content"
+<TableLayout
     android:id="@+id/infoblock2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:paddingLeft="4dp"
-    android:background="@drawable/shapebluetable">
-  <TableLayout 
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/table"
-    android:padding="8dp"
-    android:paddingTop="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingBottom="0dp"
-    android:background="@drawable/shapeintable">
+    android:scrollbars="vertical" >
+
+  <TableLayout
+      android:id="@+id/table"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:padding="8dp"
+      android:paddingBottom="0dp"
+      android:paddingLeft="0dp"
+      android:paddingRight="0dp"
+      android:paddingTop="0dp" >
+
     <LinearLayout  
         android:id="@+id/maini"
         android:orientation="vertical"
@@ -474,10 +477,10 @@
         android:id="@+id/button_goon"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_button"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="@string/continue_film" />
+        android:text="@string/continue_film"
+        android:textSize="14sp" />
 
 </LinearLayout>
    </TableLayout>    
@@ -493,16 +496,14 @@
 	    >
 	</TextView>
 	
-  
-	
-<TableLayout 
-    android:layout_width="fill_parent"
-    android:scrollbars="vertical"
-    android:layout_height="wrap_content"
+<TableLayout
     android:id="@+id/tablors"
-    android:paddingLeft="4dp"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     android:paddingBottom="4dp"
-    android:background="@drawable/shapetable">
+    android:paddingLeft="4dp"
+    android:scrollbars="vertical" >
+
   <TableLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -515,12 +516,11 @@
     android:background="@drawable/shapeintable">
     
     <ListView
-							android:id="@android:id/list"
-							android:background="@drawable/shapeintable"
-							android:layout_width="fill_parent"
-							android:layout_height="wrap_content"
-							android:drawSelectorOnTop="false"
-							/>
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawSelectorOnTop="false" />
+
        </TableLayout>    
          
 </TableLayout> 

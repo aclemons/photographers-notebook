@@ -231,7 +231,8 @@ public class DB {
 
 			Cursor c = myDBNummer.rawQuery(
 					"SELECT title,camera,datum,bilder,pic FROM "
-							+ MY_DB_TABLE_NUMMER, null);
+							+ MY_DB_TABLE_NUMMER + 
+							" ORDER BY datum DESC", null);
 			if (c != null) {
 				if (c.moveToFirst()) {
 					do {
@@ -626,6 +627,8 @@ public class DB {
 
 	public int getDefaultSettingNumber(Context mContext, String settingName) {
 
+		ArrayList<Setting> values = new ArrayList<Setting>();
+		
 		SQLiteDatabase myDB = mContext.openOrCreateDatabase(
 				getDBName(mContext), Context.MODE_PRIVATE, null);
 		StringBuilder sql = new StringBuilder();
@@ -634,26 +637,31 @@ public class DB {
 		sql.append(" WHERE value = '1'");
 
 		Cursor c = myDB.rawQuery(new String(sql), null);
-		int count = 0;
+;
 		if (c != null) {
 			if (c.moveToFirst()) {
 				do {
-					if (c.getInt(c.getColumnIndex("def")) == 1) {
-						c.close();
-						myDB.close();
-
-						return count;
-					}
-					count++;
-
+					values.add(new Setting(null, c.getString(c.getColumnIndex("name")), 0, c.getInt(c.getColumnIndex("def"))));
 				} while (c.moveToNext());
 			}
 		}
-
 		c.close();
 		myDB.close();
-
-		return 0;
+		
+		// We need to sort in order to find the right index for the default settings in NewPictureActivity.
+		
+		Collections.sort(values, new SettingsComparator(settingName));
+		
+		int defaultValueIndex = 0;
+		
+		for (Setting value : values) {
+			if (value.isDefaultValueB()) {
+				defaultValueIndex = values.indexOf(value);
+				break;
+			}
+		}
+		
+		return defaultValueIndex;
 	}
 
 	public ArrayList<String> getLensesForCamera(Context mContext, String camera) {

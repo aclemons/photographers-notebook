@@ -26,7 +26,6 @@
             android:id="@+id/tablor"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shapetable"
             android:paddingLeft="4dp"
             android:scrollbars="vertical" >
 
@@ -35,7 +34,6 @@
                 android:id="@+id/table"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/shapeintable"
                 android:padding="8dp"
                 android:paddingBottom="0dp"
                 android:paddingLeft="0dp"
@@ -50,7 +48,7 @@
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/freecell"
+                        android:id="@+id/freecell_spacer"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/general"
@@ -74,7 +72,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
@@ -92,7 +90,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".34"
@@ -142,7 +140,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".34"
@@ -161,17 +159,17 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight=".5"
-                                    android:background="@drawable/custom_button"
                                     android:gravity="center_vertical|center_horizontal"
                                     android:textOff="@string/off"
-                                    android:textOn="@string/on" />
+                                    android:textOn="@string/on"
+                                    android:textSize="14sp" />
 
                                 <TextView
-                                    android:id="@+id/freecell"
+                                    android:id="@+id/freecell_spacer"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight=".9"
-                                    android:visibility="invisible" >
+                                    android:visibility="gone" >
                                 </TextView>
 
                                 <Button
@@ -179,9 +177,11 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight=".5"
-                                    android:background="@drawable/custom_button"
                                     android:gravity="center_horizontal|center_vertical"
-                                    android:text="@string/preview_pic" />
+                                    android:text="@string/preview_pic"
+                                    android:textSize="14sp"
+                                    android:visibility="gone" />
+
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -192,10 +192,11 @@
         <!-- first -->
 
         <TextView
-            android:id="@+id/freecell"
+            android:id="@+id/freecell_spacer"
             android:layout_width="fill_parent"
             android:layout_height="20dp"
-            android:text=" " >
+            android:text=" "
+            android:visibility="visible">
         </TextView>
 
         <TableLayout
@@ -203,35 +204,38 @@
             android:id="@+id/tablor"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shaperedtable"
+            android:background="@color/transparent"
             android:paddingLeft="4dp"
-            android:scrollbars="vertical" >
+            android:scrollbars="vertical"
+            android:visibility="visible">
 
             <TableLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/table"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/shapeintable"
                 android:padding="8dp"
                 android:paddingBottom="0dp"
                 android:paddingLeft="0dp"
                 android:paddingRight="0dp"
-                android:paddingTop="0dp" >
+                android:paddingTop="0dp"
+                android:visibility="visible">
 
                 <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/maini"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical" >
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
                     <TextView
-                        android:id="@+id/freecell"
+                        android:id="@+id/freecell_spacer"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/camera"
-                        android:textStyle="bold" >
+                        android:textStyle="bold"
+                        android:visibility="visible">
                     </TextView>
 
                     <LinearLayout
@@ -240,7 +244,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:orientation="vertical"
-                        android:paddingLeft="5dp" >
+                        android:paddingLeft="5dp"
+                        android:visibility="visible">
 
                         <LinearLayout
                             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -251,7 +256,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
@@ -269,7 +274,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".34"
@@ -281,7 +286,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left" />
                         </LinearLayout>
                     </LinearLayout>
@@ -292,10 +296,11 @@
         <!-- Second -->
 
         <TextView
-            android:id="@+id/freecell"
+            android:id="@+id/freecell_spacer"
             android:layout_width="fill_parent"
             android:layout_height="20dp"
-            android:text=" " >
+            android:text=" "
+            android:visibility="visible">
         </TextView>
 
         <TableLayout
@@ -303,7 +308,6 @@
             android:id="@+id/tablor"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shapegreentable"
             android:paddingLeft="4dp"
             android:scrollbars="vertical" >
 
@@ -312,7 +316,6 @@
                 android:id="@+id/table"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/shapeintable"
                 android:padding="8dp"
                 android:paddingBottom="0dp"
                 android:paddingLeft="0dp"
@@ -327,7 +330,7 @@
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/freecell"
+                        android:id="@+id/freecell_spacer"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/film"
@@ -351,7 +354,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
@@ -369,7 +372,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".34"
@@ -381,7 +384,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left"
                                 android:hint="@string/note" />
                         </LinearLayout>
@@ -404,7 +406,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
@@ -422,7 +424,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".34"
@@ -434,7 +436,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left" />
                         </LinearLayout>
                     </LinearLayout>
@@ -456,7 +457,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
@@ -474,7 +475,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".34"
@@ -486,7 +487,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left" />
                         </LinearLayout>
                     </LinearLayout>
@@ -508,7 +508,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
@@ -526,7 +526,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".34"
@@ -538,7 +538,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left" />
                         </LinearLayout>
                     </LinearLayout>
@@ -549,7 +548,7 @@
         <!-- THIRD -->
 
         <TextView
-            android:id="@+id/freecell"
+            android:id="@+id/freecell_spacer"
             android:layout_width="fill_parent"
             android:layout_height="20dp"
             android:text=" " >
@@ -560,7 +559,6 @@
             android:id="@+id/tablor"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shapebluetable"
             android:paddingLeft="4dp"
             android:scrollbars="vertical" >
 
@@ -569,7 +567,6 @@
                 android:id="@+id/table"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/shapeintable"
                 android:padding="8dp"
                 android:paddingBottom="0dp"
                 android:paddingLeft="0dp"
@@ -584,7 +581,7 @@
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/freecell"
+                        android:id="@+id/freecell_spacer"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/misc"
@@ -608,7 +605,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
@@ -626,7 +623,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".34"
@@ -638,7 +635,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left" />
                         </LinearLayout>
                     </LinearLayout>
@@ -660,7 +656,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
@@ -678,7 +674,7 @@
                             android:gravity="left" >
 
                             <TextView
-                                android:id="@+id/freecell"
+                                android:id="@+id/freecell_spacer"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".34"
@@ -690,7 +686,6 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".1"
-                                android:background="@drawable/custom_button"
                                 android:gravity="left" />
                         </LinearLayout>
                     </LinearLayout>
@@ -711,16 +706,17 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
-                android:background="@drawable/custom_button"
-                android:text="@string/start_film" />
+                android:text="@string/start_film"
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/cancelAll"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
-                android:background="@drawable/custom_button"
-                android:text="@string/cancel" />
+                android:text="@string/cancel"
+                android:textSize="14sp" />
+
         </LinearLayout>
     </LinearLayout>
 

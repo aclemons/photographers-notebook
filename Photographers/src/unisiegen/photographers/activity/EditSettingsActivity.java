@@ -342,7 +342,7 @@ public class EditSettingsActivity extends Activity {
 			final EditText Kat = (EditText) view
 					.findViewById(R.id.kameramodell);
 			freecell.setText(getString(R.string.camera_models));
-			tablor.setBackgroundResource(R.drawable.shaperedtable);
+			//tablor.setBackgroundResource(R.drawable.shaperedtable);
 			tablor.setPadding(4, 0, -2, 0);
 			final ArrayList<Setting> valuesCam = DB.getDB().getAllSettings(
 					mContext, DB.MY_DB_TABLE_SETCAM);
@@ -402,7 +402,7 @@ public class EditSettingsActivity extends Activity {
 							freecellspec
 									.setText(getString(R.string.choose_lens));
 							tablorspec
-									.setBackgroundResource(R.drawable.shaperedtable);
+									.setBackgroundColor(Color.WHITE);
 							tablorspec.setPadding(2, 2, 2, 2);
 							final ArrayList<Setting> aplanetsspec = DB.getDB()
 									.getAllSettings(mContext,
@@ -552,6 +552,7 @@ public class EditSettingsActivity extends Activity {
 							PopupWindow popUp = new PopupWindow(layoutOwn2,
 									(int) (width2 / 1.05),
 									(int) (height2 / 1.05), true);
+							popUp.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 							popUp.setAnimationStyle(7);
 							popUp.setBackgroundDrawable(new BitmapDrawable());
 							pw.dismiss();
@@ -654,7 +655,7 @@ public class EditSettingsActivity extends Activity {
 								.findViewById(R.id.kameramodell);
 						freecellspec.setText(getString(R.string.choose_lens));
 						tablorspec
-								.setBackgroundResource(R.drawable.shaperedtable);
+								.setBackgroundColor(Color.WHITE);
 						tablorspec.setPadding(2, 2, 2, 2);
 						final ArrayList<Setting> aplanetsspec = DB.getDB()
 								.getAllSettings(mContext, DB.MY_DB_TABLE_SETBW);
@@ -805,6 +806,7 @@ public class EditSettingsActivity extends Activity {
 						PopupWindow popUp = new PopupWindow(layoutOwn2,
 								(int) (width2 / 1.05), (int) (height2 / 1.05),
 								true);
+						popUp.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 						popUp.setAnimationStyle(7);
 						popUp.setBackgroundDrawable(new BitmapDrawable());
 						popUp.showAtLocation(layoutOwn2, Gravity.CENTER, 0, 0);
@@ -851,7 +853,6 @@ public class EditSettingsActivity extends Activity {
 					.findViewById(R.id.geotag);
 			geotag.setTextOff(getString(R.string.off));
 			geotag.setTextOn(getString(R.string.on));
-			geotag.setGravity(Gravity.LEFT);
 			
 			geotag.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				@Override
@@ -884,6 +885,7 @@ public class EditSettingsActivity extends Activity {
 			ArrayAdapter<String> blendenadapter = new ArrayAdapter<String>(
 					mContext, android.R.layout.simple_spinner_item,
 					blendenarray);
+			blendenadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			blendenstufen.setAdapter(blendenadapter);
 			blendenstufen
 					.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -922,6 +924,7 @@ public class EditSettingsActivity extends Activity {
 			ArrayAdapter<String> zeitstempeladapter = new ArrayAdapter<String>(
 					mContext, android.R.layout.simple_spinner_item,
 					zeitstempelarray);
+			zeitstempeladapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			zeitstempel.setAdapter(zeitstempeladapter);
 			zeitstempel.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -957,6 +960,7 @@ public class EditSettingsActivity extends Activity {
 			ArrayAdapter<String> verlangadapter = new ArrayAdapter<String>(
 					mContext, android.R.layout.simple_spinner_item,
 					verlangarray);
+			verlangadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			verlang.setAdapter(verlangadapter);
 			verlang.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -1357,7 +1361,7 @@ public class EditSettingsActivity extends Activity {
 			alertDialog.show();
 			TextView message = (TextView) alertDialog
 					.findViewById(android.R.id.message);
-			message.setTextColor(Color.WHITE); // Workaround to prevent dialogue
+			message.setTextColor(Color.BLACK); // Workaround to prevent dialogue
 												// text to change color when
 												// touched.
 			Linkify.addLinks(message, Linkify.WEB_URLS);

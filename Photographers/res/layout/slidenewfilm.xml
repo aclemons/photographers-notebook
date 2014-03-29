@@ -4,6 +4,55 @@
     android:orientation="vertical" android:layout_width="fill_parent"
     android:id="@+id/testen"
     android:layout_height="fill_parent">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <Button
+        android:id="@+id/button_aufnehmen"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+            android:text="@string/take_picture"
+        android:textSize="14sp" />
+
+        <LinearLayout
+             android:id="@+id/texttitle"
+            android:paddingRight="1dp"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent">
+
+<Button
+android:id="@+id/button_minus"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:layout_weight=".1"
+android:text="     -     "
+android:textSize="14sp" />
+
+            <TextView
+android:id="@+id/TextView_nr"
+android:layout_width="fill_parent"
+android:layout_weight=".1"
+android:gravity="center"
+android:textStyle="bold"
+android:layout_height="wrap_content"
+android:text="Bild 15" />
+
+            <Button
+android:id="@+id/button_plus"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:layout_weight=".1"
+android:text="     +     "
+android:textSize="14sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
     <com.viewpagerindicator.TitlePageIndicator
     android:id="@+id/titles"
     android:padding="5dip"
@@ -18,202 +67,7 @@
     app:textSize="11dp"
     app:selectedBold="true"
     />
-    
-    
-    
-    
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/unisiegen.photographers.activity"
-    android:orientation="vertical" android:layout_width="fill_parent"
-    android:padding="4dp"
-    android:layout_height="wrap_content">    
-    
-    
-    
-        <TableLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/tablor"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shapetable"
-        android:paddingLeft="4dp"
-        android:scrollbars="vertical" >
 
-        <TableLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/table"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/shapeintable"
-            android:padding="8dp"
-            android:paddingBottom="0dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:paddingTop="0dp" >
-
-            
-            
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-        android:id="@+id/maini"
-        android:orientation="vertical"
-	    android:layout_height="fill_parent" 
-	    android:layout_width="fill_parent">
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent"> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainiof"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-						<TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="fill_parent"
-							    android:visibility="invisible"
-							    android:layout_weight=".34"
-							    android:layout_height="wrap_content">
-						</TextView>
-
-				    	<Button
-				    	    android:id="@+id/button_aufnehmen"
-				    	    android:layout_width="fill_parent"
-				    	    android:layout_height="wrap_content"
-				    	    android:layout_gravity="bottom"
-				    	    android:layout_weight=".1"
-				    	    android:background="@drawable/custom_button"
-				    	    android:text="@string/take_picture" />
-				    	
-						</LinearLayout>
-				    
-						    
-						    
-						    
-						    
-				</LinearLayout>
-				
-				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/maini"
-				        android:orientation="vertical"
-				        android:paddingLeft="5dp"
-					    android:layout_height="fill_parent" 
-					    android:layout_width="fill_parent">
-						
-					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainio"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-					    <View
-					        	android:minHeight="14dp"
-							    android:layout_width="wrap_content"
-							    android:layout_height="14dp">
-						</View>
-						</LinearLayout> 
-						<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				        android:id="@+id/mainiof"
-				        android:gravity="left"
-					    android:layout_height="fill_parent" 
-					    android:layout_weight=".44"
-					    android:layout_width="fill_parent">
-						<TextView
-							    android:id="@+id/freecell"
-							    android:layout_width="fill_parent"
-							    android:visibility="invisible"
-							    android:layout_weight=".34"
-							    android:layout_height="wrap_content">
-						</TextView>
-				    	<LinearLayout
-				                 android:id="@+id/texttitle"
-				             	 android:layout_weight=".1"
-				             	 android:paddingRight="1dp"
-				                 android:layout_width="fill_parent"
-				                 android:layout_height="wrap_content" >
-				                 
-				    	    
-
-                    <Button
-                        android:id="@+id/button_minus"
-                        android:layout_width="fill_parent"
-                        android:layout_weight=".1"
-                        android:layout_height="wrap_content"
-            			android:background="@drawable/custom_button"
-                        android:text="     -     " />
-
-                    <Button
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible"
-                        android:layout_width="fill_parent"
-                        android:layout_weight=".13"
-            			android:background="@drawable/custom_button"
-                        android:text="     "/>
-                    <TextView
-                        android:id="@+id/TextView_nr"
-                        android:layout_width="fill_parent"
-                        android:layout_weight=".1"
-                        android:gravity="center"
-                        android:textStyle="bold"
-                        android:layout_height="wrap_content"
-                        android:text="Bild 15" />
-                    <Button
-                        android:layout_width="fill_parent"
-                        android:layout_weight=".13"
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible"
-            			android:background="@drawable/custom_button"
-                        android:text="     "/>
-                    
-                    <Button
-                        android:id="@+id/button_plus"
-                        android:layout_width="fill_parent"
-                        android:layout_weight=".1"
-                        android:layout_height="wrap_content"
-            			android:background="@drawable/custom_button"
-                        android:text="     +     "/>
-				    	    
-				    	    </LinearLayout>
-				    	
-						</LinearLayout>
-				    
-						    
-						    
-						    
-						    
-				</LinearLayout> 
-            </LinearLayout>
-            
-            
-            
-            
-            
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-        </TableLayout>
-    </TableLayout>
-    
-    
-    
-    </LinearLayout>
-    
-    
-    
-    
-    
     <android.support.v4.view.ViewPager
         android:layout_width="fill_parent" 
         android:layout_height="fill_parent"

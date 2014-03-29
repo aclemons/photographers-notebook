@@ -83,7 +83,7 @@ public class SettingsViewPart {
 				.findViewById(R.id.kameramodell));
 		list = (ListView) view.findViewById(android.R.id.list);
 
-		layout.setBackgroundResource(R.drawable.shaperedtable);
+		//layout.setBackgroundResource(R.drawable.shaperedtable);
 
 		values = DB.getDB().getAllSettings(context, settingName);
 		

@@ -8,22 +8,22 @@
     android:padding="3dp"
     android:stretchColumns="1" >
 
-    <TableLayout 
+    <TableLayout
         android:id="@+id/user2"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/shapein"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="10dp" >
+        android:paddingTop="10dp" 
+        android:background="@drawable/shapein">
 
         <Button
             android:id="@+id/editbutton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
-            android:text="@string/continue_film" />
+            android:text="@string/continue_film"
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
@@ -34,8 +34,8 @@
             android:id="@+id/editFilmButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
-            android:text="@string/edit_film" />
+            android:text="@string/edit_film"
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
@@ -46,8 +46,8 @@
             android:id="@+id/exportbutton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
-            android:text="@string/export_film" />
+            android:text="@string/export_film"
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
@@ -58,8 +58,8 @@
             android:id="@+id/deletebutton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
-            android:text="@string/delete_film" />
+            android:text="@string/delete_film"
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
@@ -70,8 +70,9 @@
             android:id="@+id/cancelbutton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            android:textSize="14sp" />
+
     </TableLayout>
 
 </TableLayout>

@@ -93,7 +93,10 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 		
 		vorschau = (Button) findViewById(R.id.vorschau);
 		vorschau.setVisibility(Button.GONE);
-		
+
+        TextView spacerView = (TextView) findViewById(R.id.freecell_spacer);
+        spacerView.setVisibility(TextView.GONE);
+
 		tv = (TextView) findViewById(R.id.freecell1);
 		tv.setVisibility(TextView.GONE); // TODO: Maybe add new layout for this activity, or merge activity with NewFilmActivity.
 			
@@ -143,7 +146,7 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 			spinner.setSelection(selectedItem);
 		} 
 		
-		//TODO: Wenn das falsche Set ausgewählt ist, Fehler anzeigen!
+		//TODO: Wenn das falsche Set ausgewï¿½hlt ist, Fehler anzeigen!
 		
 		return spinner;
 	}
