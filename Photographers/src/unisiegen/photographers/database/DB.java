@@ -21,7 +21,9 @@ import java.util.Collections;
 import unisiegen.photographers.activity.R;
 import unisiegen.photographers.helper.SettingsComparator;
 import unisiegen.photographers.model.Bild;
+import unisiegen.photographers.model.Camera;
 import unisiegen.photographers.model.Film;
+import unisiegen.photographers.model.Lens;
 import unisiegen.photographers.model.Setting;
 import android.content.ContentValues;
 import android.content.Context;
@@ -692,6 +694,55 @@ public class DB {
 
 		return values;
 	}
+
+    public ArrayList<Camera> getAllCameras(Context mContext) {
+
+        ArrayList<Camera> values = new ArrayList<Camera>();
+
+        SQLiteDatabase db = mContext.openOrCreateDatabase(getDBName(mContext),
+                Context.MODE_PRIVATE, null);
+        Cursor c = db.rawQuery("SELECT name, value, def FROM " + DB.MY_DB_TABLE_SETCAM,
+                null);
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                    values.add(new Camera(c.getString(c.getColumnIndex("name")), c.getInt(c.getColumnIndex("value")), c.getInt(c.getColumnIndex("def"))));
+                } while (c.moveToNext());
+            }
+        }
+        c.close();
+        db.close();
+
+        return values;
+
+    }
+
+    public ArrayList<Lens> getAllLenses(Context mContext) {
+
+        ArrayList<Lens> values = new ArrayList<Lens>();
+
+        SQLiteDatabase db = mContext.openOrCreateDatabase(getDBName(mContext),
+                Context.MODE_PRIVATE, null);
+
+        StringBuffer sql = new StringBuffer();
+        sql.append("SELECT cam, bw FROM ");
+        sql.append(DB.MY_DB_TABLE_SETCAMBW);
+
+        Cursor c = db.rawQuery(new String(sql), null);
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                    values.add(new Lens(c.getString(c.getColumnIndex("bw")), c.getString(c.getColumnIndex("cam"))));
+                } while (c.moveToNext());
+            }
+        }
+        c.close();
+        db.close();
+
+        return values;
+
+    }
+
 
 	public void updatePicture(Context mContext, Film film, Bild bild) {
 

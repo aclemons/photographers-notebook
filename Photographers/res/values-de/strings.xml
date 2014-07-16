@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="export_equipment">Exportiere Equipment</string>
     <string name="app_name">Photographer\'s</string>
     <string name="question_delete">Wollen Sie den Eintrag wirklich löschen?</string>
     <string name="empty_title">Bitte geben Sie einen Film-Titel ein</string>

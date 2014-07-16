@@ -23,6 +23,7 @@ package unisiegen.photographers.activity;
 import java.util.ArrayList;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.helper.EquipmentExportTask;
 import unisiegen.photographers.model.Setting;
 import unisiegen.photographers.settings.SettingsViewHolder;
 import unisiegen.photographers.settings.SettingsViewPart;
@@ -1366,7 +1367,11 @@ public class EditSettingsActivity extends Activity {
 												// touched.
 			Linkify.addLinks(message, Linkify.WEB_URLS);
 			return true;
-		} else {
+		} else if (item.getItemId() == R.id.export_equipment) {
+            new EquipmentExportTask(this).execute();
+            return true;
+        }
+        else {
 			return super.onOptionsItemSelected(item);
 		}
 	}
