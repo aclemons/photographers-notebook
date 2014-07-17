@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="export_equipment">Export Equipment</string>
+    <string name="export_equipment">Backup current set</string>
     <string name="app_name">Photographer\'s</string>
     <string name="question_delete">Do you really want to delete the entry?</string>
     <string name="empty_title">Please enter a title for your film</string>

@@ -1,9 +1,12 @@
 package unisiegen.photographers.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  * Created by aboden on 16.07.14.
  */
 
+@XStreamAlias("camera")
 public class Camera {
 
     public String name;

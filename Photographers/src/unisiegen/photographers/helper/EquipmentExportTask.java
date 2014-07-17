@@ -16,11 +16,10 @@ import java.util.ArrayList;
 
 import unisiegen.photographers.activity.R;
 import unisiegen.photographers.database.DB;
-import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Camera;
-import unisiegen.photographers.model.Film;
+import unisiegen.photographers.model.Equipment;
 import unisiegen.photographers.model.Lens;
-import unisiegen.photographers.model.Setting;
+
 
 /**
  * Created by aboden on 16.07.14.
@@ -28,8 +27,7 @@ import unisiegen.photographers.model.Setting;
 
 public class EquipmentExportTask extends AsyncTask<String, Void, Boolean> {
 
-    ArrayList<Camera> cameras = new ArrayList<Camera>();
-    ArrayList<Lens> lenses = new ArrayList<Lens>();
+    Equipment equipment = new Equipment();
 
     String date = android.text.format.DateFormat.format(
             "dd.MM.yyyy", new java.util.Date()).toString();
@@ -67,18 +65,18 @@ public class EquipmentExportTask extends AsyncTask<String, Void, Boolean> {
 
     protected Boolean doInBackground(final String... args) {
 
-        cameras = DB.getDB().getAllCameras(context);
-        lenses = DB.getDB().getAllLenses(context);
+        equipment.cameras = DB.getDB().getAllCameras(context);
+        equipment.lenses = DB.getDB().getAllLenses(context);
 
         XStream xs = new XStream();
-        xs.alias("Camera", Camera.class);
-        xs.alias("Lens", Lens.class);
+        xs.processAnnotations(Equipment.class);
+        xs.processAnnotations(Lens.class);
+        xs.processAnnotations(Camera.class);
 
         try {
             FileOutputStream fos = context.openFileOutput(fileName,
                     context.MODE_WORLD_READABLE);
-            xs.toXML(cameras, fos);
-            xs.toXML(lenses, fos);
+            xs.toXML(equipment, fos);
             fos.close();
             Log.v("Check", "XML Export: " + fileName + " was written.");
         } catch (IOException e) {
@@ -90,3 +88,5 @@ public class EquipmentExportTask extends AsyncTask<String, Void, Boolean> {
     }
 
 }
+
+
