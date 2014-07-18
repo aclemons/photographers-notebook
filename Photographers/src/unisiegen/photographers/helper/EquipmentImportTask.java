@@ -1,7 +1,9 @@
 package unisiegen.photographers.helper;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -33,6 +35,7 @@ public class EquipmentImportTask extends AsyncTask<String, Void, Boolean> {
     Equipment equipment = new Equipment();
     private ProgressDialog dialog;
     Context context;
+    Boolean import_success = true;
 
     public EquipmentImportTask(Context context, File file) {
         this.context = context;
@@ -51,9 +54,26 @@ public class EquipmentImportTask extends AsyncTask<String, Void, Boolean> {
         if (dialog.isShowing()) {
             dialog.dismiss();
         }
+        AlertDialog alert = new AlertDialog.Builder(context).create();
+        alert.setTitle(context.getString(R.string.info_title));
+        if (import_success) {
+            alert.setMessage(context.getString(R.string.info_backup_success));
+        } else {
+            alert.setMessage(context.getString(R.string.info_backup_failed));
+        }
+        alert.setButton(DialogInterface.BUTTON_POSITIVE, context.getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                return;
+            }
+        });
+        alert.show();
+
     }
 
     protected Boolean doInBackground(final String... args) {
+
+
 
         FileInputStream input = null;
         try {
@@ -74,7 +94,7 @@ public class EquipmentImportTask extends AsyncTask<String, Void, Boolean> {
                 Log.v("Check", "Equipment importiert aus Datei: " + file.getAbsolutePath());
             } catch (Exception e) {
                 Log.v("Check", "Import von Datei fehlgeschlagen: " + e.toString());
-                // TODO: Meldung dass Import fehlgeschlagen ist für den User?
+                import_success = false;
             }
         }
 

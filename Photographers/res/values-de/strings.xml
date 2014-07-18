@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="info_title">Info</string>
+    <string name="info_backup_success">Datei wurde erfolgreich importiert!</string>
+    <string name="info_backup_failed">Datei konnte leider nicht importiert werden!</string>
     <string name="proceed2">Fortsetzen</string>
     <string name="abort">Abbrechen</string>
     <string name="warning">Warnung</string>
