@@ -19,6 +19,7 @@ import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Camera;
 import unisiegen.photographers.model.Equipment;
 import unisiegen.photographers.model.Lens;
+import unisiegen.photographers.model.Setting;
 
 
 /**
@@ -57,7 +58,7 @@ public class EquipmentExportTask extends AsyncTask<String, Void, Boolean> {
         Uri u1 = null;
         u1 = Uri.fromFile(file);
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Film Export");
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Equipment Export");
         sendIntent.putExtra(Intent.EXTRA_STREAM, u1);
         sendIntent.setType("text/html");
         context.startActivity(sendIntent);
@@ -67,11 +68,30 @@ public class EquipmentExportTask extends AsyncTask<String, Void, Boolean> {
 
         equipment.cameras = DB.getDB().getAllCameras(context);
         equipment.lenses = DB.getDB().getAllLenses(context);
+        equipment.filmFormat = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETFF);
+        equipment.filmEmpfindlichkeit = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETEMP);
+        equipment.brennweite = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETBW);
+        equipment.nahzubehoer = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETNM);
+        equipment.filter = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETFIL);
+        equipment.blitz = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETBLI);
+        equipment.fokus = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETFOK);
+        equipment.blende = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETBLE);
+        equipment.zeit = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETZEI);
+        equipment.messung = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETMES);
+        equipment.plusminus = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETPLU);
+        equipment.makro = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETMAK);
+        equipment.makrovf = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETMVF);
+        equipment.filterVF = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETFVF);
+        equipment.makroVF2 = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETMVF2);
+        equipment.filterVF2 = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETFVF2);
+        equipment.blitzKorr = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETKOR);
+        equipment.filmTyp = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETTYP);
 
         XStream xs = new XStream();
         xs.processAnnotations(Equipment.class);
         xs.processAnnotations(Lens.class);
         xs.processAnnotations(Camera.class);
+        xs.processAnnotations(Setting.class);
 
         try {
             FileOutputStream fos = context.openFileOutput(fileName,

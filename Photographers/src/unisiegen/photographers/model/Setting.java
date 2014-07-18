@@ -17,7 +17,7 @@ package unisiegen.photographers.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-@XStreamAlias("Setting")
+@XStreamAlias("setting")
 public class Setting {
 
 	// corresponds with the database table
