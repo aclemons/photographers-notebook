@@ -283,6 +283,9 @@ public class DB {
         importData(myDBSet, equipment.blitzKorr);
         importData(myDBSet, equipment.filmTyp);
 
+        myDBSet.setTransactionSuccessful();
+        myDBSet.endTransaction();
+
         myDBSet.close();
 
     }
