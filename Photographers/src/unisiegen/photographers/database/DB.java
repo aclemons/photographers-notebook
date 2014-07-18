@@ -22,6 +22,7 @@ import unisiegen.photographers.activity.R;
 import unisiegen.photographers.helper.SettingsComparator;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Camera;
+import unisiegen.photographers.model.Equipment;
 import unisiegen.photographers.model.Film;
 import unisiegen.photographers.model.Lens;
 import unisiegen.photographers.model.Setting;
@@ -140,6 +141,7 @@ public class DB {
 				+ MY_DB_TABLE_SETCAMBW
 				+ " (_id integer primary key autoincrement, cam varchar(100), bw varchar(100))"
 				+ ";");
+        myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETCAMBW);
 
 		// all other tables are the same...
 		for (String tableName : tableNames) {
@@ -198,6 +200,111 @@ public class DB {
 			}
 		}
 	}
+
+    public void createSettingsTableFromEquipmentImport(Context context, Equipment equipment) throws Exception {
+
+        //TODO: Some redundancies to createOrRebuildSettingsTable, consider cleanup
+
+        Log.v("DatabaseCreator", "Writing imported settings to database.");
+
+        String database = getDBName(context);
+
+        SQLiteDatabase myDBSet = context.openOrCreateDatabase(database,
+                Context.MODE_PRIVATE, null);
+
+        myDBSet.beginTransaction();
+        // needs special care
+        myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
+                + MY_DB_TABLE_SETCAMBW
+                + " (_id integer primary key autoincrement, cam varchar(100), bw varchar(100))"
+                + ";");
+        myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETCAMBW + ";");
+
+        // all other tables are the same...
+        for (String tableName : tableNames) {
+            StringBuffer buf = new StringBuffer();
+            buf.append("CREATE TABLE IF NOT EXISTS ");
+            buf.append(tableName);
+            buf.append(" (_id integer primary key autoincrement, name varchar(100), value integer, def integer);");
+            myDBSet.execSQL(buf.toString());
+            Log.v("Check", buf.toString());
+
+            buf = new StringBuffer();
+            buf.append("DELETE FROM ");
+            buf.append(tableName);
+            buf.append(";");
+            myDBSet.execSQL(buf.toString());
+            Log.v("Check", buf.toString());
+        }
+
+        for (Camera camera : equipment.cameras) {
+            StringBuffer buf = new StringBuffer();
+            buf.append("INSERT INTO ");
+            buf.append(MY_DB_TABLE_SETCAM);
+            buf.append(" (_id, name, value, def) VALUES (null, '");
+            buf.append(camera.name);
+            buf.append("' ,'");
+            buf.append(camera.value);
+            buf.append("' ,'");
+            buf.append(camera.def);
+            buf.append("');");
+            myDBSet.execSQL(buf.toString());
+            Log.v("Check", buf.toString());
+        }
+
+        for (Lens lens : equipment.lenses) {
+            StringBuffer buf = new StringBuffer();
+            buf.append("INSERT INTO ");
+            buf.append(MY_DB_TABLE_SETCAMBW);
+            buf.append(" (_id, cam, bw) VALUES (null, '");
+            buf.append(lens.camera);
+            buf.append("' ,'");
+            buf.append(lens.name);
+            buf.append("');");
+            myDBSet.execSQL(buf.toString());
+            Log.v("Check", buf.toString());
+        }
+
+        importData(myDBSet, equipment.filmEmpfindlichkeit);
+        importData(myDBSet, equipment.brennweite);
+        importData(myDBSet, equipment.nahzubehoer);
+        importData(myDBSet, equipment.filter);
+        importData(myDBSet, equipment.blitz);
+        importData(myDBSet, equipment.fokus);
+        importData(myDBSet, equipment.blende);
+        importData(myDBSet, equipment.zeit);
+        importData(myDBSet, equipment.messung);
+        importData(myDBSet, equipment.plusminus);
+        importData(myDBSet, equipment.makro);
+        importData(myDBSet, equipment.makrovf);
+        importData(myDBSet, equipment.filterVF);
+        importData(myDBSet, equipment.makroVF2);
+        importData(myDBSet, equipment.filterVF2);
+        importData(myDBSet, equipment.blitzKorr);
+        importData(myDBSet, equipment.filmTyp);
+
+        myDBSet.close();
+
+    }
+
+    private void importData(SQLiteDatabase database, ArrayList<Setting> settings) {
+
+        for (Setting setting : settings) {
+            StringBuffer buf = new StringBuffer();
+            buf.append("INSERT INTO ");
+            buf.append(setting.getType());
+            buf.append(" (_id, name, value, def) VALUES (null, '");
+            buf.append(setting.getValue());
+            buf.append("' ,'");
+            buf.append(setting.shouldBeDisplayed());
+            buf.append("' ,'");
+            buf.append(setting.isDefaultValue());
+            buf.append("');");
+            database.execSQL(buf.toString());
+            Log.v("Check", buf.toString());
+        }
+
+    }
 
 	public void createOrRebuildNummernTable(Context mContext) {
 

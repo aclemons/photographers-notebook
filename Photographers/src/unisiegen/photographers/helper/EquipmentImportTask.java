@@ -96,32 +96,17 @@ public class EquipmentImportTask extends AsyncTask<String, Void, Boolean> {
                 Log.v("Check", "Import von Datei fehlgeschlagen: " + e.toString());
                 import_success = false;
             }
+
+            if (import_success) {
+                try {
+                    DB.getDB().createSettingsTableFromEquipmentImport(context, equipment);
+                } catch (Exception e) {
+                    Log.v("Check", e.toString());
+                    import_success = false;
+                }
+            }
         }
 
-        //TODO: Equipment Objekt in Datenbank schreiben
-
-        /*
-        equipment.cameras = DB.getDB().getAllCameras(context);
-        equipment.lenses = DB.getDB().getAllLenses(context);
-        equipment.filmFormat = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETFF);
-        equipment.filmEmpfindlichkeit = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETEMP);
-        equipment.brennweite = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETBW);
-        equipment.nahzubehoer = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETNM);
-        equipment.filter = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETFIL);
-        equipment.blitz = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETBLI);
-        equipment.fokus = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETFOK);
-        equipment.blende = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETBLE);
-        equipment.zeit = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETZEI);
-        equipment.messung = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETMES);
-        equipment.plusminus = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETPLU);
-        equipment.makro = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETMAK);
-        equipment.makrovf = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETMVF);
-        equipment.filterVF = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETFVF);
-        equipment.makroVF2 = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETMVF2);
-        equipment.filterVF2 = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETFVF2);
-        equipment.blitzKorr = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETKOR);
-        equipment.filmTyp = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETTYP);
-        */
 
         return null;
     }
