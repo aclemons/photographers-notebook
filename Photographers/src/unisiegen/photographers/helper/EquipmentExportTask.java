@@ -3,6 +3,7 @@ package unisiegen.photographers.helper;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -66,6 +67,12 @@ public class EquipmentExportTask extends AsyncTask<String, Void, Boolean> {
 
     protected Boolean doInBackground(final String... args) {
 
+        try {
+            // Adds the used version of Photographers Notebook to the xml file ... maybe useful if we want to change anything later.
+            equipment.version = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.v("Check", e.toString());
+        }
         equipment.cameras = DB.getDB().getAllCameras(context);
         equipment.lenses = DB.getDB().getAllLenses(context);
         equipment.filmFormat = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETFF);

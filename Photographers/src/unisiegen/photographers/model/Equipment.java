@@ -9,6 +9,9 @@ import java.util.ArrayList;
  */
 @XStreamAlias("equipment-set")
 public class Equipment {
+
+    @XStreamAlias("photographers-notebook-version")
+    public String version = "";
     @XStreamAlias("lenses")
     public ArrayList<Lens> lenses = new ArrayList<Lens>();
     @XStreamAlias("cameras")
