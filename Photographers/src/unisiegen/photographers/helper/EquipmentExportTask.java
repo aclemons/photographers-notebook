@@ -93,6 +93,8 @@ public class EquipmentExportTask extends AsyncTask<String, Void, Boolean> {
         equipment.filterVF2 = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETFVF2);
         equipment.blitzKorr = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETKOR);
         equipment.filmTyp = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETTYP);
+        equipment.sonder = DB.getDB().getAllSettings(context, DB.MY_DB_TABLE_SETSON);
+
 
         XStream xs = new XStream();
         xs.processAnnotations(Equipment.class);

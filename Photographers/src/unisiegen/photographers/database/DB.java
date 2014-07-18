@@ -282,6 +282,8 @@ public class DB {
         importData(myDBSet, equipment.filterVF2);
         importData(myDBSet, equipment.blitzKorr);
         importData(myDBSet, equipment.filmTyp);
+        importData(myDBSet, equipment.sonder);
+        importData(myDBSet, equipment.filmFormat);
 
         myDBSet.setTransactionSuccessful();
         myDBSet.endTransaction();
