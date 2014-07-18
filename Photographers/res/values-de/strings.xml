@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="export_equipment">Aktuelles Set sichern</string>
+    <string name="proceed2">Fortsetzen</string>
+    <string name="abort">Abbrechen</string>
+    <string name="warning">Warnung</string>
+    <string name="warning_restore">Wenn Sie fortfahren wird das aktuelle Set überschrieben. Alle selbst eingegebenen Daten werden ersetzt.</string>
+    <string name="import_equipment">Set aus Datei laden</string>
+    <string name="import_data">Importiere Daten</string>
+    <string name="export_equipment">Set in Datei sichern</string>
     <string name="app_name">Photographer\'s</string>
     <string name="question_delete">Wollen Sie den Eintrag wirklich löschen?</string>
     <string name="empty_title">Bitte geben Sie einen Film-Titel ein</string>

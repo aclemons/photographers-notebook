@@ -33,6 +33,10 @@ public class Setting {
 	// true, if this specific value is mark as the default value
 	private boolean defaultValue = false;
 
+    public Setting() {
+        // Empty Constructor needed for XStream Library.
+    }
+
 	public Setting(String type, String value, int shouldBeDisplayed,
 			int defaultValue) {
 		this.type = type;

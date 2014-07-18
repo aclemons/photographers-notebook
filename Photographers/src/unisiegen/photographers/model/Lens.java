@@ -17,4 +17,7 @@ public class Lens {
         this.camera = camera;
     }
 
+    public Lens() {
+        // Empty constructor needed for XStream Library.
+    }
 }

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="export_equipment">Backup current set</string>
+    <string name="proceed2">Proceed</string>
+    <string name="abort">Abort</string>
+    <string name="warning">Warning</string>
+    <string name="warning_restore">If you proceed, the current set will be overwritten. All data will be replaced.</string>
+    <string name="import_equipment">Import set from file</string>
+    <string name="import_data">Import data</string>
+    <string name="export_equipment">Backup set to file</string>
     <string name="app_name">Photographer\'s</string>
     <string name="question_delete">Do you really want to delete the entry?</string>
     <string name="empty_title">Please enter a title for your film</string>

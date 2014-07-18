@@ -20,10 +20,12 @@ package unisiegen.photographers.activity;
  * Hierbei handelt es sich um alle Einstellungen ! Die anderen Einstellungs-Activitys sind nur Teilmengen von dieser f�r eine bessere Aufteilung wenn gew�nscht!
  */
 
+import java.io.File;
 import java.util.ArrayList;
 
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.helper.EquipmentExportTask;
+import unisiegen.photographers.helper.EquipmentImportTask;
 import unisiegen.photographers.model.Setting;
 import unisiegen.photographers.settings.SettingsViewHolder;
 import unisiegen.photographers.settings.SettingsViewPart;
@@ -32,6 +34,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -79,6 +82,8 @@ import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
 
 public class EditSettingsActivity extends Activity {
+
+    private static final int PICKFILE_RESULT_CODE = 1;
 
 	public static final String GEO_TAG = "geoTag";
 	private static final String SETTINGS_TABLE = "SettingsTable";
@@ -1370,11 +1375,48 @@ public class EditSettingsActivity extends Activity {
 		} else if (item.getItemId() == R.id.export_equipment) {
             new EquipmentExportTask(this).execute();
             return true;
+        } else if (item.getItemId() == R.id.import_equipment) {
+            final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle(getString(R.string.warning));
+            alertDialog.setMessage(getString(R.string.warning_restore));
+            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+                    getString(R.string.proceed2),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                            i.setType("file/*");
+                            startActivityForResult(i, PICKFILE_RESULT_CODE);
+                            alertDialog.dismiss();
+                        }
+                    }
+            );
+            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.abort),
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
+            });
+            alertDialog.show();
         }
         else {
 			return super.onOptionsItemSelected(item);
 		}
-	}
+        return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        switch (requestCode) {
+            case PICKFILE_RESULT_CODE:
+                if (resultCode == RESULT_OK) {
+                    File file = new File(data.getData().getPath());
+                    new EquipmentImportTask(this, file).execute();
+                }
+                break;
+
+        }
+    }
 
 	public class ResetSettings extends AsyncTask<String, Void, Boolean> {
 

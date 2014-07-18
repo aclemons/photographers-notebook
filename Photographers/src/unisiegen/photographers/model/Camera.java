@@ -19,4 +19,8 @@ public class Camera {
         this.def = def;
     }
 
+    public Camera() {
+        // Empty constructor needed for XStream Library.
+    }
+
 }
