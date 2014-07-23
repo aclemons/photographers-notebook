@@ -158,7 +158,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 						b.Filter = "";
 						b.FilterVF = "";
 						b.Fokus = "";
-						b.GeoTag = "0' , '0"; // Wenn das Format hier nicht stimmt,
+						b.GeoTag = "0 , 0"; // Wenn das Format hier nicht stimmt,
 												// kracht es wegen dem Splitting des
 												// Strings in ein Array in der DB
 												// Klasse.

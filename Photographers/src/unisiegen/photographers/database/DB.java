@@ -544,9 +544,8 @@ public class DB {
 									+ " - "
 									+ c2.getString(c2
 											.getColumnIndex("filmdatum")),
-							"Lat : "
-									+ c2.getString(c2.getColumnIndex("piclat"))
-									+ " - Long : "
+							c2.getString(c2.getColumnIndex("piclat"))
+									+ " , "
 									+ c2.getString(c2.getColumnIndex("piclong")),
 							c2.getString(c2.getColumnIndex("picnotiz")), c2
 									.getString(c2
@@ -985,8 +984,8 @@ public class DB {
 		sql.append(b.Objektiv);
 		sql.append("','");
 
-		String[] geotagParts = b.GeoTag.split("' , '");
-
+		String[] geotagParts = b.GeoTag.split(" , ");
+		
 		// lat
 		sql.append(geotagParts[0]);
 		sql.append("','");
@@ -1098,10 +1097,7 @@ public class DB {
         dummybild.Filter = "";
         dummybild.FilterVF = "";
         dummybild.Fokus = "";
-        dummybild.GeoTag = "0' , '0"; // Wenn das Format hier nicht stimmt,
-        // kracht es wegen dem Splitting des
-        // Strings in ein Array in der DB
-        // Klasse.
+        dummybild.GeoTag = "0 , 0";
         dummybild.KameraNotiz = "";
         dummybild.Makro = "";
         dummybild.MakroVF = "";
@@ -1120,7 +1116,11 @@ public class DB {
         addPictureCreateNummer(context, film, dummybild, fotoanzahl, null);
 
         for (Bild bild : film.Bilder) {
-            bild.GeoTag = "0' , '0"; // TODO workaround, geotags are NOT imported right now!
+            bild.GeoTag = bild.GeoTag;
+            String uhrzeit = bild.Zeitstempel.substring(0, bild.Zeitstempel.indexOf("-")-1);
+            String datum = bild.Zeitstempel.substring(bild.Zeitstempel.indexOf("-")+2, bild.Zeitstempel.length());
+            bild.Zeitstempel = uhrzeit;
+            film.Datum = datum;
             addPicture(context, film, bild);
         }
 

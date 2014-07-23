@@ -329,7 +329,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		DefaultLocationListener listener = getLocListener();
 		if(getLocListener() == null){
 			// no geo information / no listener
-			b.GeoTag = String.valueOf(0d) + "' , '" + String.valueOf(0d);
+			b.GeoTag = String.valueOf(0d) + " , " + String.valueOf(0d);
 		} else {
 			Location last = listener.getLast();
 			if(last == null){
