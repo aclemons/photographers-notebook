@@ -33,6 +33,7 @@ import unisiegen.photographers.helper.FilmExportTask;
 import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.helper.FilmImportTask;
 import unisiegen.photographers.helper.FilmsViewHolder;
+import unisiegen.photographers.helper.OnTaskComplete;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
 import android.app.AlertDialog;
@@ -70,7 +71,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FilmSelectionActivity extends PhotographersNotebookActivity {
+public class FilmSelectionActivity extends PhotographersNotebookActivity implements OnTaskComplete {
 
     private static final int PICKFILE_RESULT_CODE = 1;
     /*
@@ -97,6 +98,10 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		refreshUI();
+	}
+	
+	protected void refreshUI(){
 		myList = (ListView) findViewById(android.R.id.list);
 		ImageView backgroundimage = (ImageView) findViewById(R.id.image); 
 		contentIndex = 0;
@@ -127,7 +132,6 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		myList.setOnItemClickListener(clickListener);
 		myList.setOnItemLongClickListener(longClickListener);
 		myList.setAdapter(adapter);
-
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -507,4 +511,11 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		}
 	}
 
+	@Override
+	public void onTaskCompleted(Object source) {
+		
+		refreshUI();
+	}
+
+	
 }

@@ -2,6 +2,7 @@ package unisiegen.photographers.helper;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import unisiegen.photographers.activity.FilmSelectionActivity;
 import unisiegen.photographers.activity.R;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Bild;
@@ -64,7 +66,7 @@ public class FilmImportTask extends AsyncTask<String, Void, Boolean> {
             }
         });
         alert.show();
-
+        ((FilmSelectionActivity)context).onTaskCompleted(this);
     }
 
     protected Boolean doInBackground(final String... args) {

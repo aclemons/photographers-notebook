@@ -334,9 +334,9 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			Location last = listener.getLast();
 			if(last == null){
 				// no geo information / listener but no valid GPS position
-				b.GeoTag = String.valueOf(0d) + "' , '" + String.valueOf(0d);
+				b.GeoTag = String.valueOf(0d) + " , " + String.valueOf(0d);
 			} else {
-				b.GeoTag = String.valueOf(last.getLongitude()) + "' , '" + String.valueOf(last.getLatitude()); 
+				b.GeoTag = String.valueOf(last.getLongitude()) + " , " + String.valueOf(last.getLatitude()); 
 			}
 		}
 		b.Bildnummer = nummerView.getText().toString();
