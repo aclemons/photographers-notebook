@@ -26,17 +26,15 @@ package unisiegen.photographers.activity;
  */
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.helper.FilmExportTask;
 import unisiegen.photographers.helper.FilmIconFactory;
+import unisiegen.photographers.helper.FilmImportTask;
 import unisiegen.photographers.helper.FilmsViewHolder;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -44,13 +42,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -78,13 +70,12 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.thoughtworks.xstream.XStream;
-
 public class FilmSelectionActivity extends PhotographersNotebookActivity {
 
-	/*
-	 * User-Interface Elemente
-	 */
+    private static final int PICKFILE_RESULT_CODE = 1;
+    /*
+         * User-Interface Elemente
+         */
 	TableLayout tableout;
 	TableLayout table;
 	LinearLayout scolli;
@@ -424,15 +415,35 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			return true;
 			
 		} else if (item.getItemId() == R.id.opt_openSettings) {
-			Intent openSettings = new Intent(getApplicationContext(),
-					EditSettingsActivity.class);
-			startActivityForResult(openSettings, 0);
-			return true;
+            Intent openSettings = new Intent(getApplicationContext(),
+                    EditSettingsActivity.class);
+            startActivityForResult(openSettings, 0);
+            return true;
+        } else if (item.getItemId() == R.id.action_import_film) {
+            Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+            i.setType("file/*");
+            startActivityForResult(i, PICKFILE_RESULT_CODE);
+            return true;
 		} else {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        switch (requestCode) {
+            case PICKFILE_RESULT_CODE:
+                if (resultCode == RESULT_OK) {
+                    File file = new File(data.getData().getPath());
+                    new FilmImportTask(this, file).execute();
+                    // TODO: Refresh activiy after film was imported
+                }
+                break;
+
+        }
+    }
+
 	public void exportFilm(String FilmID) {
 		new FilmExportTask(FilmID, this).execute();
 
