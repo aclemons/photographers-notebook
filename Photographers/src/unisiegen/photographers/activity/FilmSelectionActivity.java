@@ -29,6 +29,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.database.SettingOpenHelper;
 import unisiegen.photographers.helper.FilmExportTask;
 import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.helper.FilmImportTask;
@@ -43,6 +44,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -98,6 +101,10 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity impleme
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		SettingOpenHelper h = new SettingOpenHelper(mContext);
+		SQLiteDatabase db = h.getWritableDatabase();
+		db.execSQL("SELECT * FROM SETTING");
 		refreshUI();
 	}
 	
