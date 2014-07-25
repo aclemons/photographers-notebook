@@ -5,6 +5,7 @@ DROP TABLE [CameraLensCombination];
 DROP TABLE [Picture];
 DROP TABLE [Filmroll];
 DROP TABLE [Setting];
+DROP TABLE [GearSet];
 
 
 
@@ -13,8 +14,10 @@ DROP TABLE [Setting];
 
 CREATE TABLE [CameraLensCombination]
 (
+	[ID] integer NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
 	[CameraID] integer,
-	[LensID] integer
+	[LensID] integer,
+	PRIMARY KEY ([ID])
 );
 
 
@@ -54,10 +57,20 @@ CREATE TABLE [Filmroll]
 );
 
 
+CREATE TABLE [GearSet]
+(
+	[ID] integer NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
+	[SetName] text,
+	[SetDescription] text,
+	PRIMARY KEY ([ID])
+);
+
+
 -- Every Filmroll is a container for several Pictures. Each Picture contains information such as the Date of the exposure, Shutterspeed and Aperture, Fokus and Measureing Method and maybe a Note do describe the Picture or scene.
 CREATE TABLE [Picture]
 (
-	[ID] integer NOT NULL UNIQUE,
+	[ID] integer NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
+	[FilmRollID] integer NOT NULL UNIQUE,
 	[PicNumber] integer,
 	-- Date: When was this picture taken?
 	-- 
@@ -81,7 +94,8 @@ CREATE TABLE [Picture]
 	[longitude] text,
 	[latitude] text,
 	[altitude] text,
-	FOREIGN KEY ([ID])
+	PRIMARY KEY ([ID]),
+	FOREIGN KEY ([FilmRollID])
 	REFERENCES [Filmroll] ([ID])
 );
 
@@ -89,12 +103,15 @@ CREATE TABLE [Picture]
 CREATE TABLE [Setting]
 (
 	[ID] integer NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
+	[GearSetID] integer NOT NULL UNIQUE,
 	-- Examples for a Type are: Camera, Lens, Fokus, etc. Basically, everything type of setting, we had a single table for, previously.
 	[SettingType] text,
 	[SettingName] text,
 	[IsDisplayed] integer,
 	[IsDefaultSelection] integer,
-	PRIMARY KEY ([ID])
+	PRIMARY KEY ([ID]),
+	FOREIGN KEY ([GearSetID])
+	REFERENCES [GearSet] ([ID])
 );
 
 

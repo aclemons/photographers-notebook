@@ -104,7 +104,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity impleme
 		
 		SettingOpenHelper h = new SettingOpenHelper(mContext);
 		SQLiteDatabase db = h.getWritableDatabase();
-		db.execSQL("SELECT * FROM SETTING");
+		db.rawQuery("SELECT * FROM SETTING", null);
 		refreshUI();
 	}
 	
