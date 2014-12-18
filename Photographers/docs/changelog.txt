@@ -1,5 +1,9 @@
 Changelog
 
+Beta v5.1 - 18.12.2014
+
+- Changed FilmExportTask to use FileProvider instead of the deprecated method (context.MODE_WORLD_READABLE) which caused problems with sharing Film exports via Gmail. 
+
 Beta v5 - 29.05.2014
 
 - New Layout with Actionbar (Gingerbread devices and newer)
