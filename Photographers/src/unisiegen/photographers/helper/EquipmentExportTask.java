@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import com.thoughtworks.xstream.XStream;
@@ -54,14 +55,16 @@ public class EquipmentExportTask extends AsyncTask<String, Void, Boolean> {
             dialog.dismiss();
         }
 
-        File file = new File(context.getFilesDir() + "/" + fileName);
+        File newFile = new File(context.getFilesDir(), fileName);
 
-        Uri u1 = null;
-        u1 = Uri.fromFile(file);
+        Uri uri = FileProvider.getUriForFile(context, "unisiegen.photographers.fileprovider", newFile);
+        Log.v("Check", "Attempting to share " + newFile.getAbsolutePath());
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        sendIntent.setData(uri);
         sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Equipment Export");
-        sendIntent.putExtra(Intent.EXTRA_STREAM, u1);
-        sendIntent.setType("text/html");
+        sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        sendIntent.setType("text/xml");
         context.startActivity(sendIntent);
     }
 
@@ -101,16 +104,17 @@ public class EquipmentExportTask extends AsyncTask<String, Void, Boolean> {
         xs.processAnnotations(Lens.class);
         xs.processAnnotations(Camera.class);
         xs.processAnnotations(Setting.class);
-
+        
+        File file = new File(context.getFilesDir(), fileName);
+        
         try {
-            FileOutputStream fos = context.openFileOutput(fileName,
-                    context.MODE_WORLD_READABLE);
+            FileOutputStream fos = new FileOutputStream(file);
             xs.toXML(equipment, fos);
             fos.close();
-            Log.v("Check", "XML Export: " + fileName + " was written.");
+            Log.v("Check", "XML Export: " + file.getAbsolutePath() + " was written.");
         } catch (IOException e) {
             e.printStackTrace();
-            Log.v("Check", "Failed to write XML Export: " + fileName);
+            Log.v("Check", "Failed to write XML Export: " + file.getAbsolutePath());
         }
 
         return null;
