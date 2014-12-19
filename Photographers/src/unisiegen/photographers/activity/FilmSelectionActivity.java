@@ -90,9 +90,12 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 	SharedPreferences settings;
 
     FilmIconFactory filmIconFactory;
-
-	private Context mContext;
+    
+ 	private Context mContext;
 	private Integer contentIndex = 0;
+	
+	ArrayList<Film> filme;
+	ArrayAdapter<Film> adapter;
 
 	@Override
 	protected void onResume() {
@@ -113,7 +116,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			editor.commit();	
 		}
 
-		ArrayList<Film> filme = DB.getDB().getFilme(mContext);
+		filme = DB.getDB().getFilme(mContext);
 		
 		if (filme.isEmpty()) {
 			backgroundimage.setVisibility(View.VISIBLE);
@@ -123,13 +126,18 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		
 		filmIconFactory = new FilmIconFactory();
 
-		ArrayAdapter<Film> adapter = new FilmsArrayAdapter(mContext, filme, 1);
+		adapter = new FilmsArrayAdapter(mContext, filme, 1);
 		myList.setOnItemClickListener(clickListener);
 		myList.setOnItemLongClickListener(longClickListener);
 		myList.setAdapter(adapter);
 
 	}
-
+	
+	public void refreshUI() {
+		Log.v("Importer", "Refreshing UI...");
+		onResume();
+	}
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.filmauswahl);
@@ -220,7 +228,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		}
 	}
 
-	private class FilmsArrayAdapter extends ArrayAdapter<Film> {
+	public class FilmsArrayAdapter extends ArrayAdapter<Film> {
 
 		private LayoutInflater inflater;
 
@@ -436,8 +444,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
             case PICKFILE_RESULT_CODE:
                 if (resultCode == RESULT_OK) {
                     File file = new File(data.getData().getPath());
-                    new FilmImportTask(this, file).execute();
-                    // TODO: Refresh activiy after film was imported
+                    new FilmImportTask(this, file, this).execute();
                 }
                 break;
 

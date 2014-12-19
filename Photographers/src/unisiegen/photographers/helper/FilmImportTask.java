@@ -1,19 +1,25 @@
 package unisiegen.photographers.helper;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.thoughtworks.xstream.XStream;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
+import unisiegen.photographers.activity.FilmSelectionActivity;
 import unisiegen.photographers.activity.R;
+import unisiegen.photographers.activity.FilmSelectionActivity.FilmsArrayAdapter;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Camera;
@@ -32,10 +38,13 @@ public class FilmImportTask extends AsyncTask<String, Void, Boolean> {
     private ProgressDialog dialog;
     Context context;
     Boolean import_success = true;
+    
+    FilmSelectionActivity myActivity;
 
-    public FilmImportTask(Context context, File file) {
+    public FilmImportTask(Context context, File file, FilmSelectionActivity myActivity) {
         this.context = context;
         this.file = file;
+        this.myActivity = myActivity;
         dialog = new ProgressDialog(context);
     }
 
@@ -64,7 +73,9 @@ public class FilmImportTask extends AsyncTask<String, Void, Boolean> {
             }
         });
         alert.show();
-
+        
+        myActivity.refreshUI();
+        
     }
 
     protected Boolean doInBackground(final String... args) {
