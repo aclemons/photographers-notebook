@@ -17,6 +17,8 @@ package unisiegen.photographers.model;
 
 import java.util.ArrayList;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -35,6 +37,7 @@ public class Film {
 	public Bitmap icon;
 	public String iconData;
 	public String Pics;
+	public String version;
 
 	public ArrayList<Bild> Bilder;
 

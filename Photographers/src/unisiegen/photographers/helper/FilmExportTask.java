@@ -18,6 +18,7 @@ package unisiegen.photographers.helper;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -79,6 +80,13 @@ public class FilmExportTask extends AsyncTask<String, Void, Boolean> {
         fileName = FilmID + ".xml";
         
         File file = new File(context.getFilesDir(), fileName);
+               
+        try {
+            // Adds the used version of Photographers Notebook to the xml file ... maybe useful if we want to change anything later.
+            film.version = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.v("Check", e.toString());
+        }
         
         XStream xs = new XStream();
         xs.alias("Bild", Bild.class);
