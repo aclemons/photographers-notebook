@@ -1411,7 +1411,7 @@ public class EditSettingsActivity extends Activity {
             case PICKFILE_RESULT_CODE:
                 if (resultCode == RESULT_OK) {
                     File file = new File(data.getData().getPath());
-                    new EquipmentImportTask(this, file).execute();
+                    new EquipmentImportTask(this, file, this).execute();
                 }
                 break;
 

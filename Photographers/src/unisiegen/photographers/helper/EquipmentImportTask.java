@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import unisiegen.photographers.activity.EditSettingsActivity;
 import unisiegen.photographers.activity.R;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Camera;
@@ -30,16 +31,19 @@ import unisiegen.photographers.model.Setting;
  */
 
 public class EquipmentImportTask extends AsyncTask<String, Void, Boolean> {
-
+	
+	EditSettingsActivity myActivity;
+	
     File file;
     Equipment equipment = new Equipment();
     private ProgressDialog dialog;
     Context context;
     Boolean import_success = true;
 
-    public EquipmentImportTask(Context context, File file) {
+    public EquipmentImportTask(Context context, File file, EditSettingsActivity myActivity) {
         this.context = context;
         this.file = file;
+        this.myActivity = myActivity;
         dialog = new ProgressDialog(context);
     }
 
@@ -68,6 +72,8 @@ public class EquipmentImportTask extends AsyncTask<String, Void, Boolean> {
             }
         });
         alert.show();
+        
+        myActivity.onResume();
 
     }
 
