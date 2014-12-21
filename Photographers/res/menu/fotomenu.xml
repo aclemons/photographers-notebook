@@ -9,8 +9,10 @@
         android:title="@string/back_to_start"/>
     <item
         android:id="@+id/opt_editfoto"
+        android:icon="@android:drawable/ic_menu_set_as"
         android:title="@string/edit_picture"/>
     <item
         android:id="@+id/opt_deletefoto"
+        android:icon="@android:drawable/ic_menu_set_as"
         android:title="@string/delete_picture"/>
 </menu>

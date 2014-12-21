@@ -9,11 +9,14 @@
         android:title="@string/back_to_start"/>
     <item
         android:id="@+id/opt_editfilm"
+        android:icon="@android:drawable/ic_menu_set_as"
         android:title="@string/edit_film"/>
     <item
         android:id="@+id/opt_exportfilm"
+        android:icon="@android:drawable/ic_menu_set_as"
         android:title="@string/export_film"/>
     <item
         android:id="@+id/opt_deletefilm"
+        android:icon="@android:drawable/ic_menu_set_as"
         android:title="@string/delete_film"/>
 </menu>

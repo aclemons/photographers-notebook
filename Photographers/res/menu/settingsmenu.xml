@@ -3,8 +3,8 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/opt_loadSetOfSettings" android:title="@string/load_existing_set"  android:icon="@android:drawable/ic_menu_set_as"/>
     <item android:id="@+id/opt_settingsToFactoryDefaults" android:title="@string/restore_default_settings" android:icon="@android:drawable/ic_menu_set_as"/>
-    <item android:id="@+id/export_equipment" android:title="@string/export_equipment"></item>
-    <item android:id="@+id/import_equipment" android:title="@string/import_equipment"></item>
+    <item android:id="@+id/export_equipment" android:title="@string/export_equipment" android:icon="@android:drawable/ic_menu_set_as"></item>
+    <item android:id="@+id/import_equipment" android:title="@string/import_equipment" android:icon="@android:drawable/ic_menu_set_as"></item>
     <item android:id="@+id/opt_about_this_app" android:title="@string/about_this_app" android:icon="@android:drawable/ic_dialog_info"></item>
 
 
