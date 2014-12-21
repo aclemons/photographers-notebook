@@ -68,12 +68,11 @@ public class EquipmentImportTask extends AsyncTask<String, Void, Boolean> {
         alert.setButton(DialogInterface.BUTTON_POSITIVE, context.getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                return;
+                myActivity.finish();
+            	return;
             }
         });
         alert.show();
-        
-        myActivity.onResume();
 
     }
 
