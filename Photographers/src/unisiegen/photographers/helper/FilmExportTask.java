@@ -70,7 +70,7 @@ public class FilmExportTask extends AsyncTask<String, Void, Boolean> {
         sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Film Export");
         sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
         sendIntent.setType("text/xml");
-        context.startActivity(sendIntent);
+        context.startActivity(Intent.createChooser(sendIntent, context.getString(R.string.export_film)));
     }
 
     protected Boolean doInBackground(final String... args) {

@@ -65,7 +65,7 @@ public class EquipmentExportTask extends AsyncTask<String, Void, Boolean> {
         sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Equipment Export");
         sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
         sendIntent.setType("text/xml");
-        context.startActivity(sendIntent);
+        context.startActivity(Intent.createChooser(sendIntent, context.getString(R.string.export_equipment)));
     }
 
     protected Boolean doInBackground(final String... args) {
