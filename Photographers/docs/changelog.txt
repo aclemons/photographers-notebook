@@ -1,8 +1,19 @@
 Changelog
 
+Beta v6.1 - 04.01.2015
+
+- New feature: exporting and importing equipment sets (importing works best with file manager app)
+- New feature: importing films (works best with file manager app)
+- Bug fixes and cleaned up unused resources
+
+Beta v5.2 - 21-12.2014
+
+- Attempted fix to bug that still caused crash on 2.3.3.
+
 Beta v5.1 - 18.12.2014
 
-- Changed FilmExportTask to use FileProvider instead of the deprecated method (context.MODE_WORLD_READABLE) which caused problems with sharing Film exports via Gmail. 
+- Changed FilmExportTask to use FileProvider instead of the deprecated method 
+(context.MODE_WORLD_READABLE) which caused problems with sharing Film exports via Gmail. 
 
 Beta v5 - 29.05.2014
 
