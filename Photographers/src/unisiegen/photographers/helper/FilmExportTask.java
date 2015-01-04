@@ -15,25 +15,26 @@
 
 package unisiegen.photographers.helper;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.support.v4.content.FileProvider;
-
-import com.thoughtworks.xstream.XStream;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import unisiegen.photographers.activity.R;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
+
+import com.thoughtworks.xstream.XStream;
 
 public class FilmExportTask extends AsyncTask<String, Void, Boolean> {
 
@@ -65,11 +66,22 @@ public class FilmExportTask extends AsyncTask<String, Void, Boolean> {
         Uri uri = FileProvider.getUriForFile(context, "unisiegen.photographers.fileprovider", newFile);
         Log.v("Check", "Attempting to share " + newFile.getAbsolutePath());
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        
         sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         sendIntent.setData(uri);
         sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Film Export");
         sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
         sendIntent.setType("text/xml");
+
+        // TODO: This is a hack that we use for the time beeing, as 2.3.3 seems to be buggy in terms of setting
+        // security settings via IntentFlags
+        List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(sendIntent, PackageManager.MATCH_DEFAULT_ONLY);
+        for (ResolveInfo resolveInfo : resInfoList) {
+            String packageName = resolveInfo.activityInfo.packageName;
+            Log.v("Check", "ACTIVITIES TO HANDLE SENDINTENT: " + packageName);
+            context.grantUriPermission(packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+        
         context.startActivity(Intent.createChooser(sendIntent, context.getString(R.string.export_film)));
     }
 
