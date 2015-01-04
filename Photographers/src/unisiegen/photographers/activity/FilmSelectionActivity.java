@@ -430,7 +430,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
         } else if (item.getItemId() == R.id.action_import_film) {
             Intent i = new Intent(Intent.ACTION_GET_CONTENT);
             i.setType("file/*");
-            startActivityForResult(i, PICKFILE_RESULT_CODE);
+            startActivityForResult(Intent.createChooser(i, getString(R.string.import_film)), PICKFILE_RESULT_CODE);
             return true;
 		} else {
 			return super.onOptionsItemSelected(item);

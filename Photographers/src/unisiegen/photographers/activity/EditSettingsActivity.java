@@ -1385,7 +1385,7 @@ public class EditSettingsActivity extends Activity {
                         public void onClick(DialogInterface dialog, int which) {
                             Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                             i.setType("file/*");
-                            startActivityForResult(i, PICKFILE_RESULT_CODE);
+                            startActivityForResult(Intent.createChooser(i, getString(R.string.import_equipment)), PICKFILE_RESULT_CODE);
                             alertDialog.dismiss();
                         }
                     }

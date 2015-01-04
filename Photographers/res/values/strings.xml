@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="info_title">Info</string>
-    <string name="import_film">Import film</string>
+    <string name="import_film">Import film (Exp.)</string>
     <string name="info_backup_success">File was imported successfully!</string>
     <string name="info_backup_failed">File could not be imported!</string>
     <string name="proceed2">Proceed</string>
     <string name="abort">Abort</string>
     <string name="warning">Warning</string>
     <string name="warning_restore">If you proceed, the current set will be overwritten. All data will be replaced.</string>
-    <string name="import_equipment">Import set from file</string>
+    <string name="import_equipment">Import set from file (Exp.)</string>
     <string name="import_data">Import data</string>
     <string name="export_equipment">Backup set to file</string>
     <string name="app_name">Photographer\'s</string>

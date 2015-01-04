@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="info_title">Info</string>
-    <string name="import_film">Film importieren</string>
+    <string name="import_film">Film importieren (Exp.)</string>
     <string name="info_backup_success">Datei wurde erfolgreich importiert!</string>
     <string name="info_backup_failed">Datei konnte leider nicht importiert werden!</string>
     <string name="proceed2">Fortsetzen</string>
     <string name="abort">Abbrechen</string>
     <string name="warning">Warnung</string>
     <string name="warning_restore">Wenn Sie fortfahren wird das aktuelle Set überschrieben. Alle selbst eingegebenen Daten werden ersetzt.</string>
-    <string name="import_equipment">Set aus Datei laden</string>
+    <string name="import_equipment">Set aus Datei laden (Exp.)</string>
     <string name="import_data">Importiere Daten</string>
     <string name="export_equipment">Set in Datei sichern</string>
     <string name="app_name">Photographer\'s</string>
