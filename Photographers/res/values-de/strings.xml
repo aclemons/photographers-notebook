@@ -167,7 +167,6 @@
  	<string name="restart_required">Änderungen werden teilweise erst nach einem Neustart der App aktiv.</string>
  	<string name="correction_type">Belichtungskompensation</string>
  	<string name="aperture_type">Blendenstufen</string>
- 	<string name="reset_tutorial">Tutorial zurücksetzen</string>
 	<string-array name="setff">
 		<item>24x36</item>
 		<item>4,5x6</item>

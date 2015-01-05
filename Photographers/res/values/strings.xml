@@ -166,7 +166,6 @@
  	<string name="restart_required">Some of the changes will become active only after restarting the app.</string>
  	<string name="correction_type">Exposure compensation</string>
  	<string name="aperture_type">F-stop increment</string>
- 	<string name="reset_tutorial">Reset tutorial</string>
 	<string-array name="setff">
 		<item>24x36</item>
 		<item>4.5x6</item>
