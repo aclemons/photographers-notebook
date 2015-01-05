@@ -240,7 +240,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			Film planet = (Film) this.getItem(position);
+			Film selectedFilm = (Film) this.getItem(position);
 			TextView textView;
 			TextView textViewDate;
 			TextView textViewCam;
@@ -265,14 +265,13 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 				 textViewPics = viewHolder.getTextViewPics();
 				 imageViewBild = viewHolder.getBildView();
 			}
-			textViewDate.setText(planet.Datum);
-			textView.setText(planet.Titel);
-			textViewCam.setText(planet.Kamera);
-			textViewPics.setText(planet.Pics + " "
+			textViewDate.setText(selectedFilm.Datum);
+			textView.setText(selectedFilm.Titel);
+			textViewCam.setText(selectedFilm.Kamera);
+			textViewPics.setText(selectedFilm.Pics + " "
 					+ getString(R.string.pictures));
 			
-			//imageViewBild.setImageBitmap(planet.icon);
-			imageViewBild.setImageBitmap(filmIconFactory.createBitmap(planet));
+			imageViewBild.setImageBitmap(filmIconFactory.createBitmap(selectedFilm));
 			return convertView;
 		}
 	}

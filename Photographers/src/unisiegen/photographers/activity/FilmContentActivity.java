@@ -40,7 +40,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -217,11 +216,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
         }
 
         ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
-
-		byte[] data = Base64.decode(film.iconData, Base64.DEFAULT);
-		//vorschauImage.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
-
-		//vorschauImage.setImageBitmap(new FilmIconFactory().createBitmap(film));
+		vorschauImage.setImageBitmap(new FilmIconFactory().createBitmap(film));
 
 		TextView filmbezeichnung = (TextView) findViewById(R.id.filmnotiz);
 		filmbezeichnung.setText(film.Filmbezeichnung);

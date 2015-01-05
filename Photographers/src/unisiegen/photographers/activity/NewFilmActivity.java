@@ -186,42 +186,6 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 						Intent myIntent = new Intent(getApplicationContext(),
 								NewPictureActivity.class);
 
-						/*
-						 * Deprecated codeblock that handles adding of user
-						 * generated thumbnails or random thumbnails to films if
-						 * (pic != null) { myIntent.putExtra("image", pic);
-						 * thumbnail = pic; } else { // Get a random bitmap...
-						 * int [] pics = new int [] { R.drawable.agfa_apx100,
-						 * R.drawable.agfa_apx400, R.drawable.agfa_precisa,
-						 * R.drawable.agfa_vista, R.drawable.fuji_acros100,
-						 * R.drawable.fuji_neopan400, R.drawable.fuji_pro160,
-						 * R.drawable.fuji_provia100,
-						 * R.drawable.fuji_superia800, R.drawable.fuji_velvia50,
-						 * R.drawable.fuji_velvia100f,
-						 * R.drawable.ilford_delta100,
-						 * R.drawable.ilford_delta400,
-						 * R.drawable.ilford_delta3200, R.drawable.ilford_fp4,
-						 * R.drawable.ilford_hp5, R.drawable.kodachrome64,
-						 * R.drawable.kodak_e100, R.drawable.kodak_farbwelt,
-						 * R.drawable.kodak_tmax100, R.drawable.kodak_tmax3200,
-						 * R.drawable.rollei_rpx25, R.drawable.rollei_rpx100,
-						 * R.drawable.rollei_rpx400 }; int random =
-						 * ((int)(Math.random() * 1000) % pics.length); int
-						 * selected = pics[random];
-						 * 
-						 * Bitmap bm =
-						 * BitmapFactory.decodeResource(getApplicationContext
-						 * ().getResources(), selected); ByteArrayOutputStream
-						 * baos = new ByteArrayOutputStream();
-						 * bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
-						 * nopic = baos.toByteArray();
-						 * myIntent.putExtra("image", nopic); thumbnail = nopic;
-						 * }
-						 * 
-						 * String encodedImage =
-						 * Base64.encodeToString(thumbnail, Base64.DEFAULT);
-						 */
-
 						DB.getDB().addPictureCreateNummer(mContext, f, b, 0,
 								null);
 						finish();

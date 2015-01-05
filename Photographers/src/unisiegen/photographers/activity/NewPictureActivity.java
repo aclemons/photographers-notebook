@@ -71,7 +71,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	SharedPreferences settings;
 	Context mContext;
 
-    // Picture function deprecated.
+	// Picture function deprecated.
 	// byte[] pics;
 	boolean bildtoedit;
 	int picturesNumber;
@@ -109,10 +109,10 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		// Check if user wants to edit a certain picture, if yes update UI
 		// accordingly.
 		Bundle bundle = getIntent().getExtras();
-        settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-        if (bundle != null) {
+		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
+		if (bundle != null) {
 			String selectedPic = bundle.getString("picToEdit");
-            String filmToEdit = bundle.getString("filmToEdit");
+			String filmToEdit = bundle.getString("filmToEdit");
 			if (selectedPic != null) {
 				nummerView.setText(selectedPic);
 				updateUIFromPicture(selectedPic,
@@ -121,16 +121,17 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			}
 		}
 
-		Film film = DB.getDB().getFilm(mContext, settings.getString("Title", " "));
-		Bitmap b = new FilmIconFactory().createBitmap(film);		
+		Film film = DB.getDB().getFilm(mContext,
+				settings.getString("Title", " "));
+		Bitmap b = new FilmIconFactory().createBitmap(film);
 		Drawable drawable = new BitmapDrawable(getResources(), b);
-        if (android.os.Build.VERSION.SDK_INT >= 14) {
-            try {
-                getActionBar().setIcon(drawable);
-            } catch (Exception e) {
-                Log.v("check", e.toString());
-            }
-        }
+		if (android.os.Build.VERSION.SDK_INT >= 14) {
+			try {
+				getActionBar().setIcon(drawable);
+			} catch (Exception e) {
+				Log.v("check", e.toString());
+			}
+		}
 	}
 
 	@Override
@@ -155,7 +156,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			picturesNumber = settings.getInt("BildNummern", 1);
 		} else {
 			Bundle extras = getIntent().getExtras();
-            //pics = extras.getByteArray("image");
+			// pics = extras.getByteArray("image");
 		}
 
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -248,7 +249,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	 * Bildes
 	 */
 	private void updateUIFromPicture(String picNumber, String filmTitle) {
-		
+
 		ArrayList<Bild> bilder = DB.getDB().getBild(mContext, filmTitle,
 				picNumber);
 		if (bilder == null || bilder.size() != 1) {
@@ -258,32 +259,33 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			Bild bild = bilder.get(0);
 			bildtoedit = true;
 
-            updateSpinner(spinner_blende, bild.Blende);
-            updateSpinner(spinner_filter_vf, bild.FilterVF);
-            updateSpinner(spinner_objektiv, bild.Objektiv);
-            updateSpinner(spinner_zeit, bild.Zeit);
-            updateSpinner(spinner_fokus, bild.Fokus);
-            updateSpinner(spinner_filter, bild.Filter);
-            updateSpinner(spinner_makro, bild.Makro);
-            updateSpinner(spinner_messmethode, bild.Messmethode);
-            updateSpinner(spinner_belichtungs_korrektur, bild.Belichtungskorrektur);
-            updateSpinner(spinner_makro_vf, bild.MakroVF);
-            updateSpinner(spinner_blitz, bild.Blitz);
-            updateSpinner(spinner_blitz_korrektur, bild.Blitzkorrektur);
+			updateSpinner(spinner_blende, bild.Blende);
+			updateSpinner(spinner_filter_vf, bild.FilterVF);
+			updateSpinner(spinner_objektiv, bild.Objektiv);
+			updateSpinner(spinner_zeit, bild.Zeit);
+			updateSpinner(spinner_fokus, bild.Fokus);
+			updateSpinner(spinner_filter, bild.Filter);
+			updateSpinner(spinner_makro, bild.Makro);
+			updateSpinner(spinner_messmethode, bild.Messmethode);
+			updateSpinner(spinner_belichtungs_korrektur,
+					bild.Belichtungskorrektur);
+			updateSpinner(spinner_makro_vf, bild.MakroVF);
+			updateSpinner(spinner_blitz, bild.Blitz);
+			updateSpinner(spinner_blitz_korrektur, bild.Blitzkorrektur);
 
 			edit_notizen.setText(bild.Notiz);
 			edit_kamera_notizen.setText(bild.KameraNotiz);
 		}
 	}
 
-    private void updateSpinner(Spinner spinner, String value) {
-        for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
-            if (spinner.getItemAtPosition(i).toString().equals(value)) {
-                spinner.setSelection(i);
-                break;
-            }
-        }
-    }
+	private void updateSpinner(Spinner spinner, String value) {
+		for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
+			if (spinner.getItemAtPosition(i).toString().equals(value)) {
+				spinner.setSelection(i);
+				break;
+			}
+		}
+	}
 
 	private void incrementSelectedPicture() {
 
@@ -325,16 +327,17 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		// longitude and latitude. While saving, we have to split these values,
 		// using the "' , '" String.
 		DefaultLocationListener listener = getLocListener();
-		if(getLocListener() == null){
+		if (getLocListener() == null) {
 			// no geo information / no listener
 			b.GeoTag = String.valueOf(0d) + "' , '" + String.valueOf(0d);
 		} else {
 			Location last = listener.getLast();
-			if(last == null){
+			if (last == null) {
 				// no geo information / listener but no valid GPS position
 				b.GeoTag = String.valueOf(0d) + "' , '" + String.valueOf(0d);
 			} else {
-				b.GeoTag = String.valueOf(last.getLongitude()) + "' , '" + String.valueOf(last.getLatitude()); 
+				b.GeoTag = String.valueOf(last.getLongitude()) + "' , '"
+						+ String.valueOf(last.getLatitude());
 			}
 		}
 		b.Bildnummer = nummerView.getText().toString();
@@ -373,17 +376,16 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			f = getFilmFromSettings();
 		}
 		Bild b = getBildFromUI();
-        if (settings.getBoolean("EditMode", false)) {
-            // ACHTUNG: DAS WIRD NIE AUFGERUFEN! WARUM IST DAS NIE AUF TRUE?
-            DB.getDB().addPictureUpdateNummer(mContext, f, b, picturesNumber);
+		if (settings.getBoolean("EditMode", false)) {
+			// ACHTUNG: DAS WIRD NIE AUFGERUFEN! WARUM IST DAS NIE AUF TRUE?
+			DB.getDB().addPictureUpdateNummer(mContext, f, b, picturesNumber);
 
-        } else {
+		} else {
 
-            //String encodedImage = Base64.encodeToString(pics, Base64.DEFAULT);
-            DB.getDB().addPictureCreateNummer(mContext, f, b, picturesNumber,
-                    null);
-        }
-        incrementSelectedPicture();
+			DB.getDB().addPictureCreateNummer(mContext, f, b, picturesNumber,
+					null);
+		}
+		incrementSelectedPicture();
 	}
 
 	/**
