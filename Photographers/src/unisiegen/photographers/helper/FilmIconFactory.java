@@ -15,13 +15,12 @@
 
 package unisiegen.photographers.helper;
 
+import unisiegen.photographers.model.Film;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-
-import unisiegen.photographers.model.Film;
 
 public class FilmIconFactory {
 

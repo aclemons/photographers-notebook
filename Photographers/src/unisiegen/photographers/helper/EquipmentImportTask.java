@@ -1,21 +1,8 @@
 package unisiegen.photographers.helper;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.util.Log;
-
-import com.thoughtworks.xstream.XStream;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import unisiegen.photographers.activity.EditSettingsActivity;
 import unisiegen.photographers.activity.R;
@@ -24,6 +11,14 @@ import unisiegen.photographers.model.Camera;
 import unisiegen.photographers.model.Equipment;
 import unisiegen.photographers.model.Lens;
 import unisiegen.photographers.model.Setting;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import com.thoughtworks.xstream.XStream;
 
 
 /**

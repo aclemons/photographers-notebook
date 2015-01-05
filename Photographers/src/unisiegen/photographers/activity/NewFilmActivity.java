@@ -33,7 +33,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -67,14 +66,13 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	/*
 	 * Interface Variablen
 	 */
-	TextView tv1, tv2, weiter, close, newFilm, vorschau, cancel;
+	TextView tv1, tv2, weiter, close, newFilm, cancel;
 	EditText filmbezeichnung;
 	PopupWindow pw;
 	Spinner spinnerCamera, spinnerFF, spinnerSS, spinnerSSS, spinnerEM,
 			spinnerTY;
 	ToggleButton titleButton;
 	EditText titleText;
-	Camera mCamera;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,65 +86,66 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 				finish();
 			}
 		});
-		vorschau = (Button) findViewById(R.id.vorschau);
-		vorschau.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent myIntent = new Intent(getApplicationContext(),
-						TakePreviewPictureActivity.class);
-				startActivityForResult(myIntent, 0);
-
-			}
-		});
 		newFilm = (Button) findViewById(R.id.newAll);
 		newFilm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Log.v("Foto", "showFilm");
-				
+
 				if (titleText.getText().toString().length() == 0) {
-					Toast.makeText(getApplicationContext(), getString(R.string.empty_title), Toast.LENGTH_SHORT).show();
-				} else if (DB.getDB().checkIfFilmTitleIsTaken(getApplicationContext(), titleText.getText().toString())) {
-					Toast.makeText(getApplicationContext(), getString(R.string.title_taken), Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(),
+							getString(R.string.empty_title), Toast.LENGTH_SHORT)
+							.show();
+				} else if (DB.getDB()
+						.checkIfFilmTitleIsTaken(getApplicationContext(),
+								titleText.getText().toString())) {
+					Toast.makeText(getApplicationContext(),
+							getString(R.string.title_taken), Toast.LENGTH_LONG)
+							.show();
 				} else {
 					try {
 						SharedPreferences.Editor editor = settings.edit();
-						editor.putString("Title", titleText.getText().toString());
-						editor.putString("FilmBezeichnung", filmbezeichnung.getText()
+						editor.putString("Title", titleText.getText()
 								.toString());
-						editor.putString("Datum", android.text.format.DateFormat
-								.format("dd.MM.yyyy", new java.util.Date())
-								.toString());
-						editor.putString("Kamera", spinnerCamera.getSelectedItem()
-								.toString());
-						editor.putString("Filmformat", spinnerFF.getSelectedItem()
-								.toString());
+						editor.putString("FilmBezeichnung", filmbezeichnung
+								.getText().toString());
+						editor.putString(
+								"Datum",
+								android.text.format.DateFormat.format(
+										"dd.MM.yyyy", new java.util.Date())
+										.toString());
+						editor.putString("Kamera", spinnerCamera
+								.getSelectedItem().toString());
+						editor.putString("Filmformat", spinnerFF
+								.getSelectedItem().toString());
 						editor.putString("Empfindlichkeit", spinnerEM
 								.getSelectedItem().toString());
 						editor.putString("Filmtyp", spinnerTY.getSelectedItem()
 								.toString());
 						editor.putString("Sonder1", spinnerSS.getSelectedItem()
 								.toString());
-						editor.putString("Sonder2", spinnerSSS.getSelectedItem()
-								.toString());
+						editor.putString("Sonder2", spinnerSSS
+								.getSelectedItem().toString());
 						editor.putInt("BildNummerToBegin", 1);
 						editor.putBoolean("EditMode", false);
 						editor.commit();
-	
+
 						Film f = new Film();
 						f.Titel = titleText.getText().toString();
-						f.Filmbezeichnung = filmbezeichnung.getText().toString();
+						f.Filmbezeichnung = filmbezeichnung.getText()
+								.toString();
 						f.Datum = android.text.format.DateFormat.format(
 								"dd.MM.yyyy", new java.util.Date()).toString();
 						f.Kamera = spinnerCamera.getSelectedItem().toString();
 						f.Filmformat = spinnerFF.getSelectedItem().toString();
-						f.Empfindlichkeit = spinnerEM.getSelectedItem().toString();
+						f.Empfindlichkeit = spinnerEM.getSelectedItem()
+								.toString();
 						f.Filmtyp = spinnerTY.getSelectedItem().toString();
 						f.Sonderentwicklung1 = spinnerSS.getSelectedItem()
 								.toString();
 						f.Sonderentwicklung2 = spinnerSSS.getSelectedItem()
 								.toString();
-	
+
 						Bild b = new Bild();
 						b.Bildnummer = "Bild 0";
 						b.Notiz = "Dummy-Bild f�r die Filmdaten";
@@ -157,9 +156,12 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 						b.Filter = "";
 						b.FilterVF = "";
 						b.Fokus = "";
-						b.GeoTag = "0' , '0"; // Wenn das Format hier nicht stimmt,
-												// kracht es wegen dem Splitting des
-												// Strings in ein Array in der DB
+						b.GeoTag = "0' , '0"; // Wenn das Format hier nicht
+												// stimmt,
+												// kracht es wegen dem Splitting
+												// des
+												// Strings in ein Array in der
+												// DB
 												// Klasse.
 						b.KameraNotiz = "";
 						b.Makro = "";
@@ -167,84 +169,75 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 						b.Messmethode = "";
 						b.Objektiv = "";
 						b.Zeit = "";
-	
+
 						Calendar cal = Calendar.getInstance();
 						SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-	
+
 						b.Zeitstempel = sdf.format(cal.getTime());
-	
+
 						byte[] thumbnail;
-	
-						// TODO: Check einbauen der pr�ft ob ein Film mit gleichem
+
+						// TODO: Check einbauen der pr�ft ob ein Film mit
+						// gleichem
 						// Titel schon in der Datenbank ist!
-	
-						Log.v("Check", "Check if Bild vorhanden : " + (pic == null));
+
+						Log.v("Check", "Check if Bild vorhanden : "
+								+ (pic == null));
 						Intent myIntent = new Intent(getApplicationContext(),
 								NewPictureActivity.class);
 
-	                    /*  Deprecated codeblock that handles adding of user generated thumbnails or random thumbnails to films
-						    if (pic != null) {
-							myIntent.putExtra("image", pic);
-							thumbnail = pic;
-						} else {
-							// Get a random bitmap...
-							int [] pics = new int [] {
-									R.drawable.agfa_apx100,
-									R.drawable.agfa_apx400,
-									R.drawable.agfa_precisa,
-									R.drawable.agfa_vista,
-									R.drawable.fuji_acros100,
-									R.drawable.fuji_neopan400,
-									R.drawable.fuji_pro160,
-									R.drawable.fuji_provia100,
-									R.drawable.fuji_superia800,
-									R.drawable.fuji_velvia50,
-									R.drawable.fuji_velvia100f,
-									R.drawable.ilford_delta100,
-									R.drawable.ilford_delta400,
-									R.drawable.ilford_delta3200,
-									R.drawable.ilford_fp4,
-									R.drawable.ilford_hp5,
-									R.drawable.kodachrome64,
-									R.drawable.kodak_e100,
-									R.drawable.kodak_farbwelt,
-									R.drawable.kodak_tmax100,
-									R.drawable.kodak_tmax3200,
-									R.drawable.rollei_rpx25,
-									R.drawable.rollei_rpx100,
-									R.drawable.rollei_rpx400
-							};
-							int random = ((int)(Math.random() * 1000) % pics.length);
-							int selected = pics[random];
-
-							Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), selected);
-							ByteArrayOutputStream baos = new ByteArrayOutputStream();
-							bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
-							nopic = baos.toByteArray();
-							myIntent.putExtra("image", nopic);
-							thumbnail = nopic;
-						}
-	
-						String encodedImage = Base64.encodeToString(thumbnail,
-								Base64.DEFAULT);
-						*/
+						/*
+						 * Deprecated codeblock that handles adding of user
+						 * generated thumbnails or random thumbnails to films if
+						 * (pic != null) { myIntent.putExtra("image", pic);
+						 * thumbnail = pic; } else { // Get a random bitmap...
+						 * int [] pics = new int [] { R.drawable.agfa_apx100,
+						 * R.drawable.agfa_apx400, R.drawable.agfa_precisa,
+						 * R.drawable.agfa_vista, R.drawable.fuji_acros100,
+						 * R.drawable.fuji_neopan400, R.drawable.fuji_pro160,
+						 * R.drawable.fuji_provia100,
+						 * R.drawable.fuji_superia800, R.drawable.fuji_velvia50,
+						 * R.drawable.fuji_velvia100f,
+						 * R.drawable.ilford_delta100,
+						 * R.drawable.ilford_delta400,
+						 * R.drawable.ilford_delta3200, R.drawable.ilford_fp4,
+						 * R.drawable.ilford_hp5, R.drawable.kodachrome64,
+						 * R.drawable.kodak_e100, R.drawable.kodak_farbwelt,
+						 * R.drawable.kodak_tmax100, R.drawable.kodak_tmax3200,
+						 * R.drawable.rollei_rpx25, R.drawable.rollei_rpx100,
+						 * R.drawable.rollei_rpx400 }; int random =
+						 * ((int)(Math.random() * 1000) % pics.length); int
+						 * selected = pics[random];
+						 * 
+						 * Bitmap bm =
+						 * BitmapFactory.decodeResource(getApplicationContext
+						 * ().getResources(), selected); ByteArrayOutputStream
+						 * baos = new ByteArrayOutputStream();
+						 * bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+						 * nopic = baos.toByteArray();
+						 * myIntent.putExtra("image", nopic); thumbnail = nopic;
+						 * }
+						 * 
+						 * String encodedImage =
+						 * Base64.encodeToString(thumbnail, Base64.DEFAULT);
+						 */
 
 						DB.getDB().addPictureCreateNummer(mContext, f, b, 0,
 								null);
-	            		finish();
+						finish();
 						startActivityForResult(myIntent, 1);
 					} catch (Exception e) {
 						Toast.makeText(getApplicationContext(),
-								getString(R.string.input_error), Toast.LENGTH_SHORT)
-								.show();
+								getString(R.string.input_error),
+								Toast.LENGTH_SHORT).show();
 						e.printStackTrace();
 					}
 				}
 			}
-			
+
 		});
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-	
+
 	}
 
 	@Override
@@ -252,11 +245,11 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 		super.onResume();
 		contentIndex = 0;
 
-		titleText = (EditText) findViewById(R.id.texttitle);		
+		titleText = (EditText) findViewById(R.id.texttitle);
 		titleButton = (ToggleButton) findViewById(R.id.toggletitle);
 		titleButton.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View v) {			
+			public void onClick(View v) {
 				if (titleButton.isChecked()) {
 					setAutomaticTitle();
 				} else {
@@ -319,33 +312,6 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 		return spinner;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onActivityResult(int, int,
-	 * android.content.Intent) Bild �bergabe (Wenn man ein Vorschau bild
-	 * macht, geschieht dies in einer neuen Popup Activity, ist dies fertig
-	 * �bergibt diese Activity als R�ckgabe Wert das Bild, welches zusammen
-	 * mit den anderen Details zum Film gespeichert wird.
-	 */
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		switch (requestCode) {
-		case 0:
-			switch (resultCode) {
-			case 1277:
-				Bundle bundle = data.getExtras();
-				pic = (byte[]) bundle.get("image");
-				vorschau.setTextColor(0xFF00BB00);
-
-				break;
-			}
-			break;
-		}
-	}
-
 	public void popupmenue() {
 		Resources res = getResources();
 		final String[] puContent = res
@@ -355,7 +321,8 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 		View layoutOwn1 = inflater.inflate(R.layout.popup,
 				(ViewGroup) findViewById(R.id.widget), false);
 
-		pw = new PopupWindow(layoutOwn1,ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+		pw = new PopupWindow(layoutOwn1, ViewGroup.LayoutParams.WRAP_CONTENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT, true);
 		pw.setAnimationStyle(7);
 		pw.setBackgroundDrawable(new ColorDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);
@@ -391,8 +358,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 	private void setAutomaticTitle() {
 		Date dt = new Date();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		titleText.setText(df.format(dt) + " "
-				+ getString(R.string.film));
+		titleText.setText(df.format(dt) + " " + getString(R.string.film));
 	}
 
 }

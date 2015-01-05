@@ -1,5 +1,16 @@
 package unisiegen.photographers.helper;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+import unisiegen.photographers.activity.R;
+import unisiegen.photographers.database.DB;
+import unisiegen.photographers.model.Camera;
+import unisiegen.photographers.model.Equipment;
+import unisiegen.photographers.model.Lens;
+import unisiegen.photographers.model.Setting;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,19 +22,6 @@ import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import com.thoughtworks.xstream.XStream;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import unisiegen.photographers.activity.R;
-import unisiegen.photographers.database.DB;
-import unisiegen.photographers.model.Camera;
-import unisiegen.photographers.model.Equipment;
-import unisiegen.photographers.model.Lens;
-import unisiegen.photographers.model.Setting;
 
 
 /**

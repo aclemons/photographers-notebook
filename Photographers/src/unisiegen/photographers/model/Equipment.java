@@ -1,8 +1,8 @@
 package unisiegen.photographers.model;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-
 import java.util.ArrayList;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
  * Created by aboden on 17.07.14.

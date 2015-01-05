@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Film;
 import android.content.Context;
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,7 +43,6 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 			spinnerTY;
 	ToggleButton titleButton;
 	EditText titleText, filmbezeichnung;
-	Camera mCamera;
 	TextView tv;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +51,7 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 		filmTitle = getIntent().getStringExtra("ID");
 		mContext = this;
 		filmbezeichnung = (EditText) findViewById(R.id.filmnotiz);
-		
+
 		cancel = (Button) findViewById(R.id.cancelAll);
 		cancel.setOnClickListener(new OnClickListener() {
 			@Override
@@ -61,13 +59,13 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 				finish();
 			}
 		});
-		
+
 		save = (Button) findViewById(R.id.newAll);
 		save.setText(getString(R.string.save_changes));
 		save.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-						
+
 				film.Filmbezeichnung = filmbezeichnung.getText().toString();
 				film.Kamera = spinnerCamera.getSelectedItem().toString();
 				film.Filmformat = spinnerFF.getSelectedItem().toString();
@@ -77,58 +75,68 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 						.toString();
 				film.Sonderentwicklung2 = spinnerSSS.getSelectedItem()
 						.toString();
-				
+
 				DB.getDB().updateFilmDetails(mContext, film);
-				
-				finish();				
+
+				finish();
 			}
-			
+
 		});
-		
+
 		titleText = (EditText) findViewById(R.id.texttitle);
 		titleText.setEnabled(false); // Editing titles is not possible for now.
-		
+
 		titleButton = (ToggleButton) findViewById(R.id.toggletitle);
 		titleButton.setVisibility(ToggleButton.GONE);
-		
+
 		vorschau = (Button) findViewById(R.id.vorschau);
 		vorschau.setVisibility(Button.GONE);
 
-        TextView spacerView = (TextView) findViewById(R.id.freecell_spacer);
-        spacerView.setVisibility(TextView.GONE);
+		TextView spacerView = (TextView) findViewById(R.id.freecell_spacer);
+		spacerView.setVisibility(TextView.GONE);
 
 		tv = (TextView) findViewById(R.id.freecell1);
-		tv.setVisibility(TextView.GONE); // TODO: Maybe add new layout for this activity, or merge activity with NewFilmActivity.
-			
+		tv.setVisibility(TextView.GONE); // TODO: Maybe add new layout for this
+											// activity, or merge activity with
+											// NewFilmActivity.
+
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+
 		film = DB.getDB().getFilm(mContext, filmTitle);
-		
+
 		if (film == null) {
-			Log.e("ERROR", "Film not found in database, nothing to edit here ...");
+			Log.e("ERROR",
+					"Film not found in database, nothing to edit here ...");
 			finish();
 		}
-	
-		spinnerCamera = setupSpinner(R.id.spinnerCamera, DB.MY_DB_TABLE_SETCAM, film.Kamera);
-		spinnerFF = setupSpinner(R.id.spinnerFF, DB.MY_DB_TABLE_SETFF, film.Filmformat);
-		spinnerSS = setupSpinner(R.id.spinnerSS, DB.MY_DB_TABLE_SETSON, film.Sonderentwicklung1);
-		spinnerSSS = setupSpinner(R.id.spinnerSSS, DB.MY_DB_TABLE_SETSON, film.Sonderentwicklung2);
-		spinnerEM = setupSpinner(R.id.spinnerEM, DB.MY_DB_TABLE_SETEMP, film.Empfindlichkeit);
-		spinnerTY = setupSpinner(R.id.spinnerTY, DB.MY_DB_TABLE_SETTYP, film.Filmtyp);
-		
+
+		spinnerCamera = setupSpinner(R.id.spinnerCamera, DB.MY_DB_TABLE_SETCAM,
+				film.Kamera);
+		spinnerFF = setupSpinner(R.id.spinnerFF, DB.MY_DB_TABLE_SETFF,
+				film.Filmformat);
+		spinnerSS = setupSpinner(R.id.spinnerSS, DB.MY_DB_TABLE_SETSON,
+				film.Sonderentwicklung1);
+		spinnerSSS = setupSpinner(R.id.spinnerSSS, DB.MY_DB_TABLE_SETSON,
+				film.Sonderentwicklung2);
+		spinnerEM = setupSpinner(R.id.spinnerEM, DB.MY_DB_TABLE_SETEMP,
+				film.Empfindlichkeit);
+		spinnerTY = setupSpinner(R.id.spinnerTY, DB.MY_DB_TABLE_SETTYP,
+				film.Filmtyp);
+
 		titleText.setText(film.Titel);
 		filmbezeichnung.setText(film.Filmbezeichnung);
 
 	}
 
-	private Spinner setupSpinner(int uiID, String tableName, String selectedSetting) {
+	private Spinner setupSpinner(int uiID, String tableName,
+			String selectedSetting) {
 
 		int selectedItem;
-		
+
 		ArrayList<String> values = DB.getDB().getActivatedSettingsData(
 				mContext, tableName);
 		if (values.size() == 0) {
@@ -140,14 +148,14 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 				android.R.layout.simple_spinner_item, values);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
-		
+
 		if (values.contains(selectedSetting)) {
 			selectedItem = values.indexOf(selectedSetting);
 			spinner.setSelection(selectedItem);
-		} 
-		
-		//TODO: Wenn das falsche Set ausgew�hlt ist, Fehler anzeigen!
-		
+		}
+
+		// TODO: Wenn das falsche Set ausgew�hlt ist, Fehler anzeigen!
+
 		return spinner;
 	}
 

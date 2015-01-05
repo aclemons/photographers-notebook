@@ -17,9 +17,9 @@ package unisiegen.photographers.helper;
 
 import java.util.Comparator;
 
-import android.util.Log;
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Setting;
+import android.util.Log;
 
 public class SettingsComparator implements Comparator<Setting> {
 	
