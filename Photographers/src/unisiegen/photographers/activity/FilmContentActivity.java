@@ -20,9 +20,8 @@ package unisiegen.photographers.activity;
  * In dieser Activity sieht man den ausgew�hlten Film mit allen Infos und kann sich die zugeh�rigen Bilder betrachten und ausw�hlen.
  */
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+
 import unisiegen.photographers.database.DB;
 import unisiegen.photographers.helper.FilmExportTask;
 import unisiegen.photographers.helper.FilmIconFactory;
@@ -36,15 +35,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
@@ -69,8 +64,8 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.viewpagerindicator.TitlePageIndicator;
-import com.viewpagerindicator.TitleProvider;
 
 public class FilmContentActivity extends PhotographersNotebookActivity {
 
@@ -409,7 +404,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 
 			pw = new PopupWindow(layoutOwn, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 			pw.setAnimationStyle(7);
-			pw.setBackgroundDrawable(new BitmapDrawable());
+			pw.setBackgroundDrawable(new ColorDrawable());
 			pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
 
 			return true;

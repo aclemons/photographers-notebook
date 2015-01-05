@@ -20,7 +20,6 @@ package unisiegen.photographers.activity;
  * In dieser Activity kann ein neuer Film angelegt werden. Titel, Vorschaubild etc.
  */
 
-import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,7 +32,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -358,7 +357,7 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 
 		pw = new PopupWindow(layoutOwn1,ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 		pw.setAnimationStyle(7);
-		pw.setBackgroundDrawable(new BitmapDrawable());
+		pw.setBackgroundDrawable(new ColorDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);
 		tv1.setText(puContent[contentIndex]);
 		contentIndex++;

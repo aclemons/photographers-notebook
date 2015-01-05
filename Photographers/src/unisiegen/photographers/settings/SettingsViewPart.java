@@ -16,14 +16,12 @@
 package unisiegen.photographers.settings;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import unisiegen.photographers.activity.R;
 import unisiegen.photographers.database.DB;
-import unisiegen.photographers.helper.SettingsComparator;
 import unisiegen.photographers.model.Setting;
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -177,7 +175,7 @@ public class SettingsViewPart {
 
 				PopupWindow pw = new PopupWindow(layoutOwn,	ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true); 
 				pw.setAnimationStyle(7);
-				pw.setBackgroundDrawable(new BitmapDrawable());
+				pw.setBackgroundDrawable(new ColorDrawable());
 				pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
 				setDefaultButton.setTag(pw);
 				deleteButton.setTag(pw);

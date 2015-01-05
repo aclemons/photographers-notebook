@@ -16,6 +16,10 @@
 
 package unisiegen.photographers.activity;
 
+import unisiegen.photographers.database.DB;
+import unisiegen.photographers.helper.FilmIconFactory;
+import unisiegen.photographers.model.Bild;
+import unisiegen.photographers.model.Film;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -31,24 +35,16 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
-import java.util.ArrayList;
-import unisiegen.photographers.database.DB;
-import unisiegen.photographers.helper.FilmIconFactory;
-import unisiegen.photographers.model.Bild;
-import unisiegen.photographers.model.Film;
 
 public class FotoContentActivity extends PhotographersNotebookActivity {
 

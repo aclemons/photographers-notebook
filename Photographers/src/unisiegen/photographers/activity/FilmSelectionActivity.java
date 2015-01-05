@@ -42,7 +42,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -337,7 +337,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			
 			pw = new PopupWindow(layoutOwn, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 			pw.setAnimationStyle(7);
-			pw.setBackgroundDrawable(new BitmapDrawable());
+			pw.setBackgroundDrawable(new ColorDrawable());
 			pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
 			
 			return true;
@@ -374,8 +374,8 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 				(ViewGroup) findViewById(R.id.widget), false);
 
 		pw = new PopupWindow(layoutOwn1, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-		pw.setAnimationStyle(7);
-		pw.setBackgroundDrawable(new BitmapDrawable());
+		pw.setAnimationStyle(7);		
+		pw.setBackgroundDrawable(new ColorDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);
 		tv1.setText(puContent[contentIndex]);
 		contentIndex++;

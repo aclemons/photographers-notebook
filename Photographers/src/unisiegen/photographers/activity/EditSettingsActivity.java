@@ -37,7 +37,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -180,7 +180,7 @@ public class EditSettingsActivity extends Activity {
 
 		final PopupWindow tutorial = new PopupWindow(layoutOwn1, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 		tutorial.setAnimationStyle(7);
-		tutorial.setBackgroundDrawable(new BitmapDrawable());
+		tutorial.setBackgroundDrawable(new ColorDrawable());
 		tv1 = (TextView) layoutOwn1.findViewById(R.id.textview_pop);
 		tv1.setText(tutorialContent[contentIndex]);
 		contentIndex++;
@@ -550,7 +550,7 @@ public class EditSettingsActivity extends Activity {
 									(int) (height2 / 1.05), true);
 							popUp.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 							popUp.setAnimationStyle(7);
-							popUp.setBackgroundDrawable(new BitmapDrawable());
+							popUp.setBackgroundDrawable(new ColorDrawable());
 							pw.dismiss();
 							popUp.showAtLocation(layoutOwn2, Gravity.CENTER, 0,
 									0);
@@ -599,7 +599,7 @@ public class EditSettingsActivity extends Activity {
 					pw = new PopupWindow(layoutOwn, ViewGroup.LayoutParams.WRAP_CONTENT,
 							ViewGroup.LayoutParams.WRAP_CONTENT, true);
 					pw.setAnimationStyle(7);
-					pw.setBackgroundDrawable(new BitmapDrawable());
+					pw.setBackgroundDrawable(new ColorDrawable());
 					pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
 					return true;
 				}
@@ -804,7 +804,7 @@ public class EditSettingsActivity extends Activity {
 								true);
 						popUp.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 						popUp.setAnimationStyle(7);
-						popUp.setBackgroundDrawable(new BitmapDrawable());
+						popUp.setBackgroundDrawable(new ColorDrawable());
 						popUp.showAtLocation(layoutOwn2, Gravity.CENTER, 0, 0);
 						// TESTEN ENDE
 						Kat.setText("");
@@ -1340,7 +1340,7 @@ public class EditSettingsActivity extends Activity {
 					ViewGroup.LayoutParams.WRAP_CONTENT,
 					ViewGroup.LayoutParams.WRAP_CONTENT, true);
 			pw.setAnimationStyle(-1);
-			pw.setBackgroundDrawable(new BitmapDrawable());
+			pw.setBackgroundDrawable(new ColorDrawable());
 			pw.showAtLocation(layoutOwn1, Gravity.CENTER, 0, 0);
 			return true;
 		} else if (item.getItemId() == R.id.opt_about_this_app) {
