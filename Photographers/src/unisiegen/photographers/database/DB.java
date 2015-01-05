@@ -1088,7 +1088,7 @@ public class DB {
             film.Titel = film.Titel + "_";
         }
 
-        Bild dummybild = new Bild(); // Brauchen wir das überhaupt noch ???
+        Bild dummybild = new Bild();
         dummybild.Bildnummer = "Bild 0";
         dummybild.Notiz = "Dummy-Bild für die Filmdaten";
         dummybild.Belichtungskorrektur = "";
@@ -1098,10 +1098,7 @@ public class DB {
         dummybild.Filter = "";
         dummybild.FilterVF = "";
         dummybild.Fokus = "";
-        dummybild.GeoTag = "0' , '0"; // Wenn das Format hier nicht stimmt,
-        // kracht es wegen dem Splitting des
-        // Strings in ein Array in der DB
-        // Klasse.
+        dummybild.GeoTag = "0' , '0"; // TODO: Permanently fix geotags
         dummybild.KameraNotiz = "";
         dummybild.Makro = "";
         dummybild.MakroVF = "";
@@ -1111,19 +1108,12 @@ public class DB {
 
         dummybild.Zeitstempel = film.Datum;
 
-        int fotoanzahl = 0;
-
-        for (Bild bild : film.Bilder) {
-            fotoanzahl++;
-        }
-
-        addPictureCreateNummer(context, film, dummybild, fotoanzahl, null);
+        addPictureCreateNummer(context, film, dummybild, film.Bilder.size(), null);
 
         for (Bild bild : film.Bilder) {
             bild.GeoTag = "0' , '0"; // TODO workaround, geotags are NOT imported right now!
             addPicture(context, film, bild);
         }
-
 
     }
 }
