@@ -222,7 +222,7 @@ public class EditSettingsActivity extends Activity {
 	}
 
 	/*
-	 * Hilfsklassen f�r Custom-ListViews und SlideViews
+	 * Helper classes to reduce code in custom list views and slide views
 	 */
 
 	public void setFooterColor(int footerColor) {
@@ -233,12 +233,6 @@ public class EditSettingsActivity extends Activity {
 
 		private String[] pageTitles = null;
 		private LayoutInflater inflater = getLayoutInflater();
-
-		@Override
-		public int getItemPosition(Object object) {
-			// TODO: Do something useful
-			return POSITION_NONE;
-		}
 
 		public SettingsPager(Context context) {
 			super();
@@ -348,7 +342,6 @@ public class EditSettingsActivity extends Activity {
 			final EditText Kat = (EditText) view
 					.findViewById(R.id.kameramodell);
 			freecell.setText(getString(R.string.camera_models));
-			//tablor.setBackgroundResource(R.drawable.shaperedtable);
 			tablor.setPadding(4, 0, -2, 0);
 			final ArrayList<Setting> valuesCam = DB.getDB().getAllSettings(
 					mContext, DB.MY_DB_TABLE_SETCAM);
@@ -360,9 +353,6 @@ public class EditSettingsActivity extends Activity {
 				@Override
 				public boolean onItemLongClick(AdapterView<?> arg0,
 						final View arg1, final int arg2, long arg3) {
-					Display display = ((WindowManager) mContext
-							.getSystemService(Context.WINDOW_SERVICE))
-							.getDefaultDisplay();
 					LayoutInflater inflaterOwn = (LayoutInflater) mContext
 							.getSystemService(LAYOUT_INFLATER_SERVICE);
 					View layoutOwn = inflaterOwn.inflate(
