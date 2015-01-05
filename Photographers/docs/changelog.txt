@@ -1,6 +1,6 @@
 Changelog
 
-Beta v6.1 - 04.01.2015
+Beta v6.1 - 05.01.2015
 
 - New feature: exporting and importing equipment sets (experimental, importing works best with file manager app)
 - New feature: importing films (experimental, works best with file manager app)
