@@ -112,7 +112,6 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		if (bundle != null) {
 			String selectedPic = bundle.getString("picToEdit");
-			String filmToEdit = bundle.getString("filmToEdit");
 			if (selectedPic != null) {
 				nummerView.setText(selectedPic);
 				updateUIFromPicture(selectedPic,
@@ -154,9 +153,6 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 
 		if (settings.getBoolean("EditMode", false)) {
 			picturesNumber = settings.getInt("BildNummern", 1);
-		} else {
-			Bundle extras = getIntent().getExtras();
-			// pics = extras.getByteArray("image");
 		}
 
 		viewPager = (ViewPager) findViewById(R.id.viewPager);

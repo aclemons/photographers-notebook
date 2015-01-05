@@ -41,7 +41,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,7 +49,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -87,11 +85,11 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 	boolean minimizes;
 	SharedPreferences settings;
 	private Film film;
-    private SharedPreferences.Editor editor;
+	private SharedPreferences.Editor editor;
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see android.app.Activity#onCreate(android.os.Bundle) Lifecycle-Methoden
 	 */
 
@@ -105,12 +103,12 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		infoBlock2 = (LinearLayout) findViewById(R.id.infoblock2);
 		Button buttonContinueFilm = (Button) findViewById(R.id.button_goon);
 
-        editor = settings.edit();
+		editor = settings.edit();
 
-        film = DB.getDB().getFilm(mContext,
-                getIntent().getExtras().getString("ID"));
+		film = DB.getDB().getFilm(mContext,
+				getIntent().getExtras().getString("ID"));
 
-        buttonContinueFilm.setOnClickListener(new OnClickListener() {
+		buttonContinueFilm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
@@ -127,14 +125,15 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 				editor.putString("Sonder2", film.Sonderentwicklung2);
 
 				int biggestNumber = 0;
-								
+
 				for (Bild bild : film.Bilder) {
-					int bildNummer = Integer.valueOf(bild.Bildnummer.replaceAll("[\\D]", ""));
+					int bildNummer = Integer.valueOf(bild.Bildnummer
+							.replaceAll("[\\D]", ""));
 					if (bildNummer > biggestNumber) {
 						biggestNumber = bildNummer;
-					} 	
+					}
 				}
-				
+
 				editor.putInt("BildNummerToBegin", biggestNumber + 1);
 				editor.putBoolean("EditMode", true);
 				editor.commit();
@@ -205,17 +204,17 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 
 		bilderimfilm = film.Bilder.size();
 
-        Bitmap b = new FilmIconFactory().createBitmap(film);
-        Drawable drawable = new BitmapDrawable(getResources(), b);
-        if (android.os.Build.VERSION.SDK_INT >= 14) {
-            try {
-                getActionBar().setIcon(drawable);
-            } catch (Exception e) {
-                Log.v("check", e.toString());
-            }
-        }
+		Bitmap b = new FilmIconFactory().createBitmap(film);
+		Drawable drawable = new BitmapDrawable(getResources(), b);
+		if (android.os.Build.VERSION.SDK_INT >= 14) {
+			try {
+				getActionBar().setIcon(drawable);
+			} catch (Exception e) {
+				Log.v("check", e.toString());
+			}
+		}
 
-        ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
+		ImageView vorschauImage = (ImageView) findViewById(R.id.vorschau);
 		vorschauImage.setImageBitmap(new FilmIconFactory().createBitmap(film));
 
 		TextView filmbezeichnung = (TextView) findViewById(R.id.filmnotiz);
@@ -246,57 +245,56 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		myList.setAdapter(adapter);
 	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.filmmenu, menu);
-        return true;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.filmmenu, menu);
+		return true;
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.opt_openSettings) {
-            Intent openSettings = new Intent(getApplicationContext(),
-                    EditSettingsActivity.class);
-            startActivityForResult(openSettings, 0);
-            return true;
-        } else if (item.getItemId() == R.id.opt_editfilm) {
-            Intent editFilm = new Intent(getApplicationContext(), EditFilmActivity.class);
-            editFilm.putExtra("ID", film.Titel);
-            startActivity(editFilm);
-            return true;
-        } else if (item.getItemId() == R.id.opt_exportfilm) {
-            new FilmExportTask(film.Titel, this).execute();
-            return true;
-        } else if (item.getItemId() == R.id.opt_deletefilm) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(getString(R.string.question_delete));
-            builder.setCancelable(false);
-            builder.setPositiveButton(getString(R.string.yes),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            DB.getDB().deleteFilms(mContext, new String[] { film.Titel });
-                            finish();
-                        }
-                    });
-            builder.setNegativeButton(getString(R.string.no),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(
-                                DialogInterface dialog,
-                                int which) {
+		if (item.getItemId() == R.id.opt_openSettings) {
+			Intent openSettings = new Intent(getApplicationContext(),
+					EditSettingsActivity.class);
+			startActivityForResult(openSettings, 0);
+			return true;
+		} else if (item.getItemId() == R.id.opt_editfilm) {
+			Intent editFilm = new Intent(getApplicationContext(),
+					EditFilmActivity.class);
+			editFilm.putExtra("ID", film.Titel);
+			startActivity(editFilm);
+			return true;
+		} else if (item.getItemId() == R.id.opt_exportfilm) {
+			new FilmExportTask(film.Titel, this).execute();
+			return true;
+		} else if (item.getItemId() == R.id.opt_deletefilm) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(getString(R.string.question_delete));
+			builder.setCancelable(false);
+			builder.setPositiveButton(getString(R.string.yes),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							DB.getDB().deleteFilms(mContext,
+									new String[] { film.Titel });
+							finish();
+						}
+					});
+			builder.setNegativeButton(getString(R.string.no),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
+						}
+					});
+			AlertDialog alert = builder.create();
+			alert.show();
 
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
+			return true;
+		} else {
+			return super.onOptionsItemSelected(item);
+		}
+	}
 
 	/*
 	 * Itemclick Methoden
@@ -312,9 +310,6 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 			LinearLayout second = (LinearLayout) first.getChildAt(0);
 			final TextView third = (TextView) second.getChildAt(0);
 
-			Display display = ((WindowManager) mContext
-					.getSystemService(Context.WINDOW_SERVICE))
-					.getDefaultDisplay();
 			LayoutInflater inflaterOwn = (LayoutInflater) mContext
 					.getSystemService(LAYOUT_INFLATER_SERVICE);
 			View layoutOwn = inflaterOwn.inflate(R.layout.longclick,
@@ -336,9 +331,9 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 					Intent myIntent = new Intent(getApplicationContext(),
 							NewPictureActivity.class);
 					myIntent.putExtra("picToEdit", selektiertesBild);
-                    editor.putString("Title", film.Titel);
-                    editor.putBoolean("EditMode", true);
-                    editor.commit();
+					editor.putString("Title", film.Titel);
+					editor.putBoolean("EditMode", true);
+					editor.commit();
 					startActivity(myIntent);
 				}
 			});
@@ -397,7 +392,9 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 				}
 			});
 
-			pw = new PopupWindow(layoutOwn, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+			pw = new PopupWindow(layoutOwn,
+					ViewGroup.LayoutParams.WRAP_CONTENT,
+					ViewGroup.LayoutParams.WRAP_CONTENT, true);
 			pw.setAnimationStyle(7);
 			pw.setBackgroundDrawable(new ColorDrawable());
 			pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
@@ -410,10 +407,11 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-            Intent i = new Intent(getApplicationContext(), FotoContentActivity.class);
-            i.putExtra("ID", film.Titel);
-            i.putExtra("selectedItem", arg2);
-            startActivity(i);
+			Intent i = new Intent(getApplicationContext(),
+					FotoContentActivity.class);
+			i.putExtra("ID", film.Titel);
+			i.putExtra("selectedItem", arg2);
+			startActivity(i);
 		}
 	};
 

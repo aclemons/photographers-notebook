@@ -175,12 +175,6 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 
 						b.Zeitstempel = sdf.format(cal.getTime());
 
-						byte[] thumbnail;
-
-						// TODO: Check einbauen der pr�ft ob ein Film mit
-						// gleichem
-						// Titel schon in der Datenbank ist!
-
 						Log.v("Check", "Check if Bild vorhanden : "
 								+ (pic == null));
 						Intent myIntent = new Intent(getApplicationContext(),

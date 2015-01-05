@@ -22,7 +22,6 @@ import unisiegen.photographers.database.DB;
 import unisiegen.photographers.model.Setting;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -30,7 +29,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -81,10 +79,10 @@ public class SettingsViewPart {
 				.findViewById(R.id.kameramodell));
 		list = (ListView) view.findViewById(android.R.id.list);
 
-		//layout.setBackgroundResource(R.drawable.shaperedtable);
+		// layout.setBackgroundResource(R.drawable.shaperedtable);
 
 		values = DB.getDB().getAllSettings(context, settingName);
-		
+
 		listAdapter = new SettingsArrayAdapter(context, values);
 		list.setAdapter(listAdapter);
 
@@ -93,9 +91,6 @@ public class SettingsViewPart {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0,
 					final View arg1, final int arg2, long arg3) {
-				Display display = ((WindowManager) context
-						.getSystemService(Context.WINDOW_SERVICE))
-						.getDefaultDisplay();
 				View layoutOwn = inflater.inflate(R.layout.longclick,
 						(ViewGroup) view.findViewById(R.id.testen), false);
 				Button deleteButton = (Button) layoutOwn
@@ -173,7 +168,9 @@ public class SettingsViewPart {
 					}
 				});
 
-				PopupWindow pw = new PopupWindow(layoutOwn,	ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true); 
+				PopupWindow pw = new PopupWindow(layoutOwn,
+						ViewGroup.LayoutParams.WRAP_CONTENT,
+						ViewGroup.LayoutParams.WRAP_CONTENT, true);
 				pw.setAnimationStyle(7);
 				pw.setBackgroundDrawable(new ColorDrawable());
 				pw.showAtLocation(layoutOwn, Gravity.CENTER, 0, 0);
