@@ -80,6 +80,7 @@ public class EquipmentImportTask extends AsyncTask<String, Void, Boolean> {
             input = new FileInputStream(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            import_success = false;
         }
 
         XStream xs = new XStream();
