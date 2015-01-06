@@ -1,5 +1,9 @@
 Changelog
 
+Beta v6.2 - 0601.2015
+
+- Bug fix: importer now reports an error if file is not readable
+
 Beta v6.1 - 05.01.2015
 
 - New feature: exporting and importing equipment sets (experimental, importing works best with file manager app)
