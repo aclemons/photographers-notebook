@@ -37,7 +37,7 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 	String filmTitle;
 	Film film;
 	Context mContext;
-	Button cancel, save, vorschau;
+	Button cancel, save;
 	PopupWindow pw;
 	Spinner spinnerCamera, spinnerFF, spinnerSS, spinnerSSS, spinnerEM,
 			spinnerTY;
@@ -88,9 +88,6 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 
 		titleButton = (ToggleButton) findViewById(R.id.toggletitle);
 		titleButton.setVisibility(ToggleButton.GONE);
-
-		vorschau = (Button) findViewById(R.id.vorschau);
-		vorschau.setVisibility(Button.GONE);
 
 		TextView spacerView = (TextView) findViewById(R.id.freecell_spacer);
 		spacerView.setVisibility(TextView.GONE);
