@@ -370,14 +370,14 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		Film f = DB.getDB().getFilm(mContext, settings.getString("Title", " "));
 		if (f.Titel == null) {
 			f = getFilmFromSettings();
+		} else {
+			f.Datum = settings.getString("Datum", " "); // Crazy hack to write the current date into the picture entry.
 		}
 		Bild b = getBildFromUI();
 		if (settings.getBoolean("EditMode", false)) {
 			// ACHTUNG: DAS WIRD NIE AUFGERUFEN! WARUM IST DAS NIE AUF TRUE?
 			DB.getDB().addPictureUpdateNummer(mContext, f, b, picturesNumber);
-
-		} else {
-
+		} else { 
 			DB.getDB().addPictureCreateNummer(mContext, f, b, picturesNumber,
 					null);
 		}
