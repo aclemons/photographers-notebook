@@ -1112,6 +1112,15 @@ public class DB {
 
         for (Bild bild : film.Bilder) {
             bild.GeoTag = "0' , '0"; // TODO workaround, geotags are NOT imported right now!
+            
+            // We have to tinker the date and the time of the current pic out of the timestamp here, ... 
+            if (bild.Zeitstempel.contains(" - ")) {
+            	String picdate = bild.Zeitstempel.substring(bild.Zeitstempel.indexOf(" - ") + 3, bild.Zeitstempel.length());
+            	String pictime = bild.Zeitstempel.substring(0, bild.Zeitstempel.indexOf(" - "));
+            	film.Datum = picdate;
+            	bild.Zeitstempel = pictime;
+            }
+                
             addPicture(context, film, bild);
         }
 
