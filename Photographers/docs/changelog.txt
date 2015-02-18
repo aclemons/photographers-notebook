@@ -1,6 +1,11 @@
 Changelog
 
-Beta v6.2 - 0601.2015
+Beta v6.3 - 18.02.2015
+
+- Bug fix: new pictures are now recorded with the current date instead of the film date.
+- Bug fix: importer can now handle timestamps without messing up the database.
+
+Beta v6.2 - 06.01.2015
 
 - Bug fix: importer now reports an error if file is not readable
 
