@@ -7,10 +7,10 @@ importing of data to and from xml.
 We use the xtream lirary to serialize data from the film and foto objects that 
 are used internally. Due to some inconsistencies with the DB structure, there 
 are some things to keep in mind when importing and exporting data, particularly 
-for the fields "GeoTag" (which is not exported right now) and "Timestamp" 
-(which is a combination of two database fields, Film.datum und Film.picuhrzeit, 
-so the app has to handle the splitting and merging of strings which happens in 
-the DB helper class).
+for the fields "GeoTag" (which is exported as merged version of two database
+fields, but not imported right now) and "Timestamp" (which is a combination of 
+two database fields, Film.datum and Film.picuhrzeit,  so the app has to handle 
+the splitting and merging of strings which happens in the DB helper class).
 
 Example film export with comments:
 
@@ -25,8 +25,9 @@ Example film export with comments:
       <Filter>Keiner</Filter> // Filter
       <FilterVF>Keiner</FilterVF> // Filter compensation
       <Fokus>Auto</Fokus> // Focus
-      <GeoTag>Lat : 0.0 - Long : 0.0</GeoTag> // Geotags: this field is NOT 
-      exported right now, i.e. in exports always 0.0 - 0.0!
+      <GeoTag>Lat : 0.0 - Long : 0.0</GeoTag> // Geotags: this field is 
+      combined from two different database fields and NOT importable right 
+      now, i.e. in imported films always set to 0.0 - 0.0!
       <KameraNotiz></KameraNotiz> // Camera note
       <Makro>Keiner</Makro> // Macro
       <MakroVF>Keiner</MakroVF> // Macro compensation
@@ -35,9 +36,8 @@ Example film export with comments:
       <Objektiv>Keine Auswahl</Objektiv> // Lens
       <Zeit>Auto</Zeit> // Exposure time
       <Zeitstempel>14:23 - 06.01.2015</Zeitstempel> // Timestamp: this field is 
-      combined from two different database field: Film.filmdatum and 
-      Film.picuhrzeit. The DB helper class handles the appending and splitting 
-      of this string. 
+      combined from the database fields Film.filmdatum and Film.picuhrzeit. 
+      The DB helper class handles the appending and splitting of this string. 
     </Bild>
   </Bilder>
   <Datum>06.01.2015</Datum> // Date
