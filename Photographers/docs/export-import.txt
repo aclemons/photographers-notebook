@@ -1,0 +1,58 @@
+Export-Import 
+(v6.x)
+
+This doc contains some information on the way the v6.x handles exporting and 
+importing of data to and from xml.
+
+We use the xtream lirary to serialize data from the film and foto objects that 
+are used internally. Due to some inconsistencies with the DB structure, there 
+are some things to keep in mind when importing and exporting data, particularly 
+for the fields "GeoTag" (which is not exported right now) and "Timestamp" 
+(which is a combination of two database fields, Film.datum und Film.picuhrzeit, 
+so the app has to handle the splitting and merging of strings which happens in 
+the DB helper class).
+
+Example film export with comments:
+
+<Film>
+  <Bilder> 
+    <Bild> // Picture
+      <Belichtungskorrektur>0</Belichtungskorrektur> // Exposure compensation
+      <Bildnummer>Bild 1</Bildnummer> // Picture Number
+      <Blende>Auto</Blende> // Aperture
+      <Blitz>Auto</Blitz> // Flash
+      <Blitzkorrektur>0</Blitzkorrektur> // Flash compensation
+      <Filter>Keiner</Filter> // Filter
+      <FilterVF>Keiner</FilterVF> // Filter compensation
+      <Fokus>Auto</Fokus> // Focus
+      <GeoTag>Lat : 0.0 - Long : 0.0</GeoTag> // Geotags: this field is NOT 
+      exported right now, i.e. in exports always 0.0 - 0.0!
+      <KameraNotiz></KameraNotiz> // Camera note
+      <Makro>Keiner</Makro> // Macro
+      <MakroVF>Keiner</MakroVF> // Macro compensation
+      <Messmethode>Integral</Messmethode> // Metering mode
+      <Notiz></Notiz> // Note
+      <Objektiv>Keine Auswahl</Objektiv> // Lens
+      <Zeit>Auto</Zeit> // Exposure time
+      <Zeitstempel>14:23 - 06.01.2015</Zeitstempel> // Timestamp: this field is 
+      combined from two different database field: Film.filmdatum and 
+      Film.picuhrzeit. The DB helper class handles the appending and splitting 
+      of this string. 
+    </Bild>
+  </Bilder>
+  <Datum>06.01.2015</Datum> // Date
+  <Empfindlichkeit>ISO 25/15°</Empfindlichkeit> // Film speed
+  <Filmbezeichnung></Filmbezeichnung> // (field depreceated)
+  <Filmformat>24x36</Filmformat> // Film format
+  <Filmtyp>Farbdia (I: CR)</Filmtyp> // Film type
+  <Kamera>Keine Auswahl</Kamera> // Camera
+  <Sonderentwicklung1>Normal</Sonderentwicklung1> // Special processing 1
+  <Sonderentwicklung2>Normal</Sonderentwicklung2> // Special processing 2
+  <Titel>2015-01-06 14:22 Film</Titel> // Film title
+  <iconData>null</iconData> // (field depreceated)
+  <version>Beta v6.1</version> // Used version of the app
+</Film>
+
+For the settings export, see objects Setting, Equipment, Camera and Lens 
+(right now, nothing special needs to be taken care of there, as the objects 
+resemble the database structure).
