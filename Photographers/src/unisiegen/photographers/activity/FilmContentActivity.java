@@ -23,6 +23,7 @@ package unisiegen.photographers.activity;
 import java.util.Collections;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.database.DataSource;
 import unisiegen.photographers.helper.FilmExportTask;
 import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.helper.PicturesArrayAdapter;
@@ -105,8 +106,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 
 		editor = settings.edit();
 
-		film = DB.getDB().getFilm(mContext,
-				getIntent().getExtras().getString("ID"));
+		film = DataSource.getInst(mContext).getFilm(getIntent().getExtras().getString("ID"));
 
 		buttonContinueFilm.setOnClickListener(new OnClickListener() {
 			@Override
@@ -190,8 +190,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 	protected void onResume() {
 		super.onResume();
 
-		film = DB.getDB().getFilm(mContext,
-				getIntent().getExtras().getString("ID"));
+		film = DataSource.getInst(mContext).getFilm(getIntent().getExtras().getString("ID"));
 
 		filmtit = (TextView) findViewById(R.id.filmtitle);
 		filmtit.setText(film.Titel);
@@ -276,8 +275,7 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 			builder.setPositiveButton(getString(R.string.yes),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							DB.getDB().deleteFilms(mContext,
-									new String[] { film.Titel });
+							DataSource.getInst(mContext).deleteFilm(film.Titel);							
 							finish();
 						}
 					});
@@ -352,11 +350,9 @@ public class FilmContentActivity extends PhotographersNotebookActivity {
 												int which) {
 
 											for (Bild bild : film.Bilder) {
-												if (bild.Bildnummer
-														.equals(third.getText())) {
-													DB.getDB().deletePicture(
-															mContext, film,
-															bild);
+												if (bild.Bildnummer.equals(third.getText())) {
+													
+													DataSource.getInst(mContext).deletePhoto(bild);
 													break;
 												}
 											}

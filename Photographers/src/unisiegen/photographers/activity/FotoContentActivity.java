@@ -17,6 +17,7 @@
 package unisiegen.photographers.activity;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.database.DataSource;
 import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
@@ -72,7 +73,8 @@ public class FotoContentActivity extends PhotographersNotebookActivity {
         film = new Film();
 
         if (filmID.length() > 0) {
-            film = DB.getDB().getFilm(getApplicationContext(), filmID); }
+            film = DataSource.getInst(getApplicationContext()).getFilm(filmID);
+        }
         else { finish(); }
 
         Bitmap b = new FilmIconFactory().createBitmap(film);
@@ -135,9 +137,8 @@ public class FotoContentActivity extends PhotographersNotebookActivity {
                         int lastBild = 0;
                         for (Bild bild : film.Bilder) {
                             if (bild.Bildnummer.equals(bildToDelete)) {
-                                DB.getDB().deletePicture(
-                                        getApplicationContext(), film,
-                                        bild);
+                                
+                            	DataSource.getInst(getApplicationContext()).deletePhoto(bild);
                                 film.Bilder.remove(bild);
                                 break;
                             }

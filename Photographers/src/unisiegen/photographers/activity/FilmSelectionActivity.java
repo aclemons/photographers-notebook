@@ -29,6 +29,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.database.DataSource;
 import unisiegen.photographers.helper.FilmExportTask;
 import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.helper.FilmImportTask;
@@ -94,6 +95,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 
 	ArrayList<Film> filme;
 	ArrayAdapter<Film> adapter;
+	private DataSource dataSource;
 
 	@Override
 	protected void onResume() {
@@ -114,7 +116,11 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 			editor.commit();
 		}
 
-		filme = DB.getDB().getFilme(mContext);
+		
+		Log.v("FilmSelectionActivity", "Trying to open Datasource...");
+		dataSource = DataSource.getInst(mContext);
+		
+		filme = dataSource.getFilms();
 
 		if (filme.isEmpty()) {
 			backgroundimage.setVisibility(View.VISIBLE);
@@ -150,17 +156,17 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 	}
 
 	private final class EditFilmDialogAction implements OnClickListener {
-		private final TextView ids;
+		private final TextView title;
 
 		private EditFilmDialogAction(TextView ids) {
-			this.ids = ids;
+			this.title = ids;
 		}
 
 		@Override
 		public void onClick(View v) {
 			SharedPreferences.Editor editor = settings.edit();
 
-			Film film = DB.getDB().getFilm(mContext, ids.getText().toString());
+			Film film = DataSource.getInst(mContext).getFilm(title.getText().toString());
 
 			editor.putString("Title", film.Titel);
 			editor.putString("Datum", film.Datum);
@@ -209,8 +215,8 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 
-							DB.getDB().deleteFilms(mContext,
-									new String[] { ids.getText().toString() });
+							DataSource.getInst(mContext).deleteFilm(ids.getText().toString());
+							
 							Toast.makeText(getApplicationContext(),
 									getString(R.string.deleted),
 									Toast.LENGTH_SHORT).show();
@@ -505,16 +511,15 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 				double setCreation = (double) t1 - (double) t0;
 				double nummernCreation = (double) t2 - (double) t1;
 				double filmCreation = (double) t3 - (double) t2;
-				Log.v("dbcreation", "Time used for Set creation: "
+				Log.v("dbcreation", "Time used for Settings creation: "
 						+ setCreation + "ms.");
-				Log.v("dbcreation", "Time used for Set creation: "
-						+ filmCreation + "ms.");
-				Log.v("dbcreation", "Time used for Set creation: "
-						+ nummernCreation + "ms.");
+				Log.v("dbcreation", "Time used for Film creation: "
+						+ (filmCreation + nummernCreation) + "ms.");
 
 			} catch (Exception e) {
 				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
 			}
+
 			return null;
 		}
 	}

@@ -1,0 +1,33 @@
+getFilms()		# Holt eine Liste aller Filme
+	FilmSelectionActivity (lädt alle Filme beim start der App)
+	
+getFilm(String name)	# Holt einen bestimmten Film
+	FilmExportTask
+	NewPictureActivity
+	FilmSelectionActivity.EditFilmDialogAction
+	FilmContentActivity
+	EditFilmActivity
+	FilmContentActivity
+	FotoContentActivity
+	NewPictureActivity
+	
+deleteFilm(String titel)
+	FilmContentActivity
+	FilmSelectionActivity
+	
+isFilmTitleTaken(String titel)
+	NewFilmActivity
+	TODO: Search for more
+	
+deletePhoto(Bild photo)
+	FilmContentActivity
+	
+updatePhoto(Bild photo)
+	NewPictureActivity
+	
+addFilm
+	NewFilmActivity
+	FilmImportTask
+	
+updateFilm??
+	

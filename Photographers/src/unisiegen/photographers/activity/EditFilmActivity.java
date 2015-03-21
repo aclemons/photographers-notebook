@@ -18,6 +18,7 @@ package unisiegen.photographers.activity;
 import java.util.ArrayList;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.database.DataSource;
 import unisiegen.photographers.model.Film;
 import android.content.Context;
 import android.os.Bundle;
@@ -76,8 +77,8 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 				film.Sonderentwicklung2 = spinnerSSS.getSelectedItem()
 						.toString();
 
-				DB.getDB().updateFilmDetails(mContext, film);
-
+				DataSource.getInst(mContext).updateFilm(film);
+				
 				finish();
 			}
 
@@ -103,7 +104,7 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 	protected void onResume() {
 		super.onResume();
 
-		film = DB.getDB().getFilm(mContext, filmTitle);
+		film = DataSource.getInst(mContext).getFilm(filmTitle);
 
 		if (film == null) {
 			Log.e("ERROR",

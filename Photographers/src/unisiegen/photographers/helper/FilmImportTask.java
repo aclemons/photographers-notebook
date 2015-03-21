@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import unisiegen.photographers.activity.FilmSelectionActivity;
 import unisiegen.photographers.activity.R;
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.database.DataSource;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
 import android.app.AlertDialog;
@@ -93,7 +94,26 @@ public class FilmImportTask extends AsyncTask<String, Void, Boolean> {
 
             if (import_success) {
                 try {
-                    DB.getDB().createFilmFromImport(context, film);
+                	DataSource ds = DataSource.getInst(context);
+                	long success = ds.addFilm(film);
+                	
+                	if(success == -1){
+                		import_success = false;
+                		return null;
+                	}
+                	
+                	if(film.Bilder != null){
+                		// need to reload from db...
+                		Film dbFilm = ds.getFilm(film.Titel);
+                		if(dbFilm == null){
+                			import_success = false;
+                    		return null;
+                		}
+                		
+                		for(Bild bild : film.Bilder){
+                			ds.addPhoto(dbFilm, bild);
+                		}
+                	}
                 } catch (Exception e) {
                     e.printStackTrace();
                     import_success = false;

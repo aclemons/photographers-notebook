@@ -1,8 +1,42 @@
 DB NUMMERN:
-CREATE TABLE Nummer (title varchar(100) primary key, value integer,camera varchar(100), datum varchar(100), bilder integer, pic varchar(999));
+CREATE TABLE Nummer (
+	title varchar(100) primary key, 
+	value integer,
+	camera varchar(100), 
+	datum varchar(100), 
+	bilder integer, 
+	pic varchar(999));
 
 DB FILME:
-CREATE TABLE Film (_id integer primary key autoincrement, filmdatum varchar(100), picuhrzeit varchar(100), filmtitle varchar(100), filmcamera varchar(100), filmformat varchar(100), filmempfindlichkeit varchar(100), filmtyp varchar(100), filmsonder varchar(100), filmsonders varchar(100), picfokus varchar(100), picblende varchar(100), piczeit varchar(100), picmessung varchar(100), pickorr varchar(100), picmakro varchar(100), picmakrovf varchar(100), picfilter varchar(100), picfiltervf varchar(100), picblitz varchar(100), picblitzkorr varchar(100), picnotiz varchar(100), pickameranotiz varchar(100), picobjektiv varchar(100),piclong varchar(100),piclat varchar(100),filmnotiz varchar(100), picnummer varchar(100));
+CREATE TABLE Film (
+	_id integer primary key autoincrement, 
+	filmdatum varchar(100), 
+	picuhrzeit varchar(100), 
+	filmtitle varchar(100), 
+	filmcamera varchar(100), 
+	filmformat varchar(100), 
+	filmempfindlichkeit varchar(100), 
+	filmtyp varchar(100), 
+	filmsonder varchar(100), 
+	filmsonders varchar(100), 
+	picfokus varchar(100), 
+	picblende varchar(100), 
+	piczeit varchar(100), 
+	picmessung varchar(100), 
+	pickorr varchar(100), 
+	picmakro varchar(100), 
+	picmakrovf varchar(100), 
+	picfilter varchar(100), 
+	picfiltervf varchar(100), 
+	picblitz varchar(100), 
+	picblitzkorr varchar(100), 
+	picnotiz varchar(100), 
+	pickameranotiz varchar(100), 
+	picobjektiv varchar(100),
+	piclong varchar(100),
+	piclat varchar(100),
+	filmnotiz varchar(100), 
+	picnummer varchar(100));
 
 DB FOTO:
 CREATE TABLE SettingsCameraBW (_id integer primary key autoincrement, cam varchar(100), bw varchar(100));

@@ -17,6 +17,7 @@ package unisiegen.photographers.model;
 
 public class Bild implements Comparable<Bild> {
 
+	public int ID;
 	public String Bildnummer;
 	public String Objektiv;
 	public String Blende;

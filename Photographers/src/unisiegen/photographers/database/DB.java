@@ -185,8 +185,8 @@ public class DB {
 		setDefaultVal(context, MY_DB_TABLE_SETPLU, "0");
 	}
 
-	private void setDefaultSettings(SQLiteDatabase database, Resources res,
-			int stringArrayName, String tableName) {
+	private void setDefaultSettings(SQLiteDatabase database, Resources res, int stringArrayName, String tableName) {
+		
 		String[] valueArray = res.getStringArray(stringArrayName);
 		if (valueArray != null) {
 			for (String value : valueArray) {
@@ -202,9 +202,7 @@ public class DB {
 	}
 
     public void createSettingsTableFromEquipmentImport(Context context, Equipment equipment) throws Exception {
-
-        //TODO: Some redundancies to createOrRebuildSettingsTable, consider cleanup
-
+ 
         Log.v("DatabaseCreator", "Writing imported settings to database.");
 
         String database = getDBName(context);
@@ -333,233 +331,7 @@ public class DB {
 		myDBFilm.close();
 	}
 
-	public ArrayList<Film> getFilme(Context context) {
-
-		ArrayList<Film> filme = new ArrayList<Film>();
-
-		try {
-			SQLiteDatabase myDBNummer = context.openOrCreateDatabase(
-					MY_DB_NUMMER, Context.MODE_PRIVATE, null);
-			SQLiteDatabase myDBFilm = context.openOrCreateDatabase(
-					DB.MY_DB_FILM, Context.MODE_PRIVATE, null);
-
-			Cursor c = myDBNummer.rawQuery(
-					"SELECT title,camera,datum,bilder,pic FROM "
-							+ MY_DB_TABLE_NUMMER + 
-							" ORDER BY datum DESC", null);
-			if (c != null) {
-				if (c.moveToFirst()) {
-					do {
-						Film film = new Film();
-						filme.add(film);
-
-						film.Titel = c.getString(c.getColumnIndex("title"));
-						film.Kamera = c.getString(c.getColumnIndex("camera"));
-						film.Datum = c.getString(c.getColumnIndex("datum"));
-						film.Pics = c.getString(c.getColumnIndex("bilder"));
-						film.setIcon(c.getString(c.getColumnIndex("pic")));
-
-						Cursor c1 = myDBFilm
-								.rawQuery(
-										"SELECT _id,filmtitle,filmnotiz,picuhrzeit,picnummer, picobjektiv, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
-												+ DB.MY_DB_FILM_TABLE
-												+ " WHERE filmtitle = '"
-												+ film.Titel + "'", null);
-
-						if (c1 != null) {
-							if (c1.moveToFirst()) {
-								film.Filmbezeichnung = c1.getString(c1
-										.getColumnIndex("filmnotiz"));
-								film.Filmformat = c1.getString(c1
-										.getColumnIndex("filmformat"));
-								film.Filmtyp = c1.getString(c1
-										.getColumnIndex("filmtyp"));
-								film.Empfindlichkeit = c1.getString(c1
-										.getColumnIndex("filmempfindlichkeit"));
-								film.Sonderentwicklung1 = c1.getString(c1
-										.getColumnIndex("filmsonder"));
-								film.Sonderentwicklung2 = c1.getString(c1
-										.getColumnIndex("filmsonders"));
-							}
-						}
-						c1.close();
-
-						// Bilder holen
-						film.Bilder = this.getBilder(context, film.Titel, null);
-
-					} while (c.moveToNext());
-				}
-			}
-			c.close();
-			myDBNummer.close();
-			myDBFilm.close();
-		} catch (Exception e) {
-
-		}
-		return filme;
-	}
-
-	public void deleteFilms(Context context, String[] filmTitel) {
-
-		SQLiteDatabase myDBNummer = context.openOrCreateDatabase(MY_DB_NUMMER,
-				Context.MODE_PRIVATE, null);
-		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
-
-		myDBNummer.delete(DB.MY_DB_TABLE_NUMMER, "title=?", filmTitel);
-		myDBFilm.delete(DB.MY_DB_FILM_TABLE, "filmtitle=?", filmTitel);
-
-		myDBNummer.close();
-		myDBFilm.close();
-	}
 	
-	public boolean checkIfFilmTitleIsTaken(Context context, String newTitle) {
-		
-		boolean titleAlreadyTaken = false;
-		
-		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
-		
-		Cursor c = myDBFilm.rawQuery("SELECT filmtitle FROM " + DB.MY_DB_FILM_TABLE + " WHERE filmtitle = '" + newTitle + "'", null);
-		
-		if (c.getCount() > 0) { 
-			titleAlreadyTaken = true;
-		}
-		
-		c.close();
-		myDBFilm.close();
-		
-		return titleAlreadyTaken;
-	}
-	
-	public Film getFilm(Context context, String title) {
-
-		Film film = new Film();
-
-		SQLiteDatabase myDBNummer = context.openOrCreateDatabase(MY_DB_NUMMER,
-				Context.MODE_PRIVATE, null);
-		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
-
-		Cursor c = myDBNummer.rawQuery(
-				"SELECT title,camera,datum,bilder, pic FROM "
-						+ DB.MY_DB_TABLE_NUMMER + " WHERE title = '" + title
-						+ "'", null);
-
-		if (c != null) {
-			if (c.moveToFirst()) {
-
-				film.Titel = c.getString(c.getColumnIndex("title"));
-				film.Kamera = c.getString(c.getColumnIndex("camera"));
-				film.Datum = c.getString(c.getColumnIndex("datum"));
-				film.setIcon(c.getString(c.getColumnIndex("pic")));
-
-				// TODO: Restliche Filmdaten aus der ersten Zeile der Bilder
-				// Tabelle holen // WTFFFFFFFF???
-				Cursor c1 = myDBFilm
-						.rawQuery(
-								"SELECT _id,filmtitle,filmnotiz,picuhrzeit,picnummer, picobjektiv, filmformat, filmtyp, filmempfindlichkeit, filmsonder, filmsonders FROM "
-										+ DB.MY_DB_FILM_TABLE
-										+ " WHERE filmtitle = '"
-										+ film.Titel
-										+ "'", null);
-
-				if (c1 != null) {
-					if (c1.moveToFirst()) {
-						film.Filmbezeichnung = c1.getString(c1
-								.getColumnIndex("filmnotiz"));
-						film.Filmformat = c1.getString(c1
-								.getColumnIndex("filmformat"));
-						film.Filmtyp = c1.getString(c1
-								.getColumnIndex("filmtyp"));
-						film.Empfindlichkeit = c1.getString(c1
-								.getColumnIndex("filmempfindlichkeit"));
-						film.Sonderentwicklung1 = c1.getString(c1
-								.getColumnIndex("filmsonder"));
-						film.Sonderentwicklung2 = c1.getString(c1
-								.getColumnIndex("filmsonders"));
-					}
-				}
-				c1.close();
-
-				film.Bilder = this.getBilder(context, title, null);
-			}
-		}
-		c.close();
-
-		myDBFilm.close();
-		myDBNummer.close();
-
-		return film;
-	}
-
-	public ArrayList<Bild> getBild(Context context, String filmTitle,
-			String bildNumemr) {
-
-		ArrayList<Bild> bilder = getBilder(context, filmTitle, bildNumemr);
-		return bilder;
-	}
-
-	private ArrayList<Bild> getBilder(Context context, String title,
-			String bildNummer) {
-
-		SQLiteDatabase myDBFilm = context.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
-
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT _id,picfokus,picuhrzeit,piclat,piclong,filmdatum,picobjektiv, picblende,piczeit,picmessung, picnummer, pickorr,picmakro,picmakrovf,picfilter,picfiltervf,picblitz,picblitzkorr,picnotiz,pickameranotiz FROM ");
-		sql.append(DB.MY_DB_FILM_TABLE);
-		sql.append(" WHERE filmtitle = '");
-		sql.append(title);
-		if (bildNummer == null) {
-			sql.append("' AND picnummer != 'Bild 0';"); // Ignore the dummy pic
-														// "Bild 0"
-		} else {
-			sql.append("' AND picnummer = '");
-			sql.append(bildNummer);
-			sql.append("';");
-		}
-
-		Cursor c2 = myDBFilm.rawQuery(new String(sql), null);
-
-		ArrayList<Bild> bilder = new ArrayList<Bild>();
-		if (c2 != null) {
-			if (c2.moveToFirst()) {
-				do {
-					bilder.add(new Bild(
-							c2.getString(c2.getColumnIndex("picnummer")),
-							c2.getString(c2.getColumnIndex("picobjektiv")),
-							c2.getString(c2.getColumnIndex("picblende")),
-							c2.getString(c2.getColumnIndex("piczeit")),
-							c2.getString(c2.getColumnIndex("picfokus")),
-							c2.getString(c2.getColumnIndex("picfilter")),
-							c2.getString(c2.getColumnIndex("picmakro")),
-							c2.getString(c2.getColumnIndex("picfiltervf")),
-							c2.getString(c2.getColumnIndex("picmakrovf")),
-							c2.getString(c2.getColumnIndex("picmessung")),
-							c2.getString(c2.getColumnIndex("pickorr")),
-							c2.getString(c2.getColumnIndex("picblitz")),
-							c2.getString(c2.getColumnIndex("picblitzkorr")),
-							c2.getString(c2.getColumnIndex("picuhrzeit"))
-									+ " - "
-									+ c2.getString(c2
-											.getColumnIndex("filmdatum")),
-							"Lat : "
-									+ c2.getString(c2.getColumnIndex("piclat"))
-									+ " - Long : "
-									+ c2.getString(c2.getColumnIndex("piclong")),
-							c2.getString(c2.getColumnIndex("picnotiz")), c2
-									.getString(c2
-											.getColumnIndex("pickameranotiz"))));
-				} while (c2.moveToNext());
-			}
-		}
-		c2.close();
-		myDBFilm.close();
-
-		return bilder;
-	}
-
 	public boolean deleteSetting(Context context, String settingType,
 			String value) {
 
@@ -856,273 +628,246 @@ public class DB {
     }
 
 
-	public void updatePicture(Context mContext, Film film, Bild bild) {
+//	public void updatePicture(Context mContext, Film film, Bild bild) {
+//
+//		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
+//				Context.MODE_PRIVATE, null);
+//
+//		StringBuffer sql = new StringBuffer();
+//		sql.append("UPDATE ");
+//		sql.append(DB.MY_DB_FILM_TABLE);
+//		sql.append(" SET picfokus = '");
+//		sql.append(bild.Fokus);
+//		sql.append("', picblende = '");
+//		sql.append(bild.Blende);
+//		sql.append("', piczeit = '");
+//		sql.append(bild.Zeit);
+//		sql.append("', picmessung = '");
+//		sql.append(bild.Messmethode);
+//		sql.append("', pickorr = '");
+//		sql.append(bild.Belichtungskorrektur);
+//		sql.append("', picmakro = '");
+//		sql.append(bild.Makro);
+//		sql.append("', picmakrovf = '");
+//		sql.append(bild.MakroVF);
+//		sql.append("', picfilter = '");
+//		sql.append(bild.Filter);
+//		sql.append("', picfiltervf = '");
+//		sql.append(bild.FilterVF);
+//		sql.append("', picblitz = '");
+//		sql.append(bild.Blitz);
+//		sql.append("', picblitzkorr = '");
+//		sql.append(bild.Blitzkorrektur);
+//		sql.append("', picnotiz = '");
+//		sql.append(bild.Notiz);
+//		sql.append("', pickameranotiz = '");
+//		sql.append(bild.KameraNotiz);
+//		sql.append("', picobjektiv = '");
+//		sql.append(bild.Objektiv);
+//		sql.append("' WHERE filmtitle = '");
+//		sql.append(film.Titel);
+//		sql.append("' AND picnummer = '");
+//		sql.append(bild.Bildnummer);
+//		sql.append("';");
+//		myDBFilm.execSQL(new String(sql));
+//		myDBFilm.close();
+//	}
 
-		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
+//	public void deletePicture(Context mContext, Film film, Bild bild) {
+//
+//		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
+//				Context.MODE_PRIVATE, null);
+//		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
+//				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+//
+//		StringBuilder sql = new StringBuilder();
+//		sql.append("DELETE FROM ");
+//		sql.append(DB.MY_DB_FILM_TABLE);
+//		sql.append(" WHERE filmtitle = '");
+//		sql.append(film.Titel);
+//		sql.append("' AND picnummer = '");
+//		sql.append(bild.Bildnummer);
+//		sql.append("';");
+//
+//		myDBFilm.execSQL(new String(sql));
+//		myDBFilm.close();
+//
+//		ContentValues dataToInsert = new ContentValues();
+//		dataToInsert.put("bilder", film.Bilder.size() - 1);
+//		myDBNummer.update(DB.MY_DB_TABLE_NUMMER, dataToInsert, "title=?",
+//				new String[] { film.Titel });
+//
+//		myDBNummer.close();
+//	}
 
-		StringBuffer sql = new StringBuffer();
-		sql.append("UPDATE ");
-		sql.append(DB.MY_DB_FILM_TABLE);
-		sql.append(" SET picfokus = '");
-		sql.append(bild.Fokus);
-		sql.append("', picblende = '");
-		sql.append(bild.Blende);
-		sql.append("', piczeit = '");
-		sql.append(bild.Zeit);
-		sql.append("', picmessung = '");
-		sql.append(bild.Messmethode);
-		sql.append("', pickorr = '");
-		sql.append(bild.Belichtungskorrektur);
-		sql.append("', picmakro = '");
-		sql.append(bild.Makro);
-		sql.append("', picmakrovf = '");
-		sql.append(bild.MakroVF);
-		sql.append("', picfilter = '");
-		sql.append(bild.Filter);
-		sql.append("', picfiltervf = '");
-		sql.append(bild.FilterVF);
-		sql.append("', picblitz = '");
-		sql.append(bild.Blitz);
-		sql.append("', picblitzkorr = '");
-		sql.append(bild.Blitzkorrektur);
-		sql.append("', picnotiz = '");
-		sql.append(bild.Notiz);
-		sql.append("', pickameranotiz = '");
-		sql.append(bild.KameraNotiz);
-		sql.append("', picobjektiv = '");
-		sql.append(bild.Objektiv);
-		sql.append("' WHERE filmtitle = '");
-		sql.append(film.Titel);
-		sql.append("' AND picnummer = '");
-		sql.append(bild.Bildnummer);
-		sql.append("';");
-		myDBFilm.execSQL(new String(sql));
-		myDBFilm.close();
-	}
+//	private void addPicture(Context mContext, Film f, Bild b) {
+//
+//		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
+//				Context.MODE_PRIVATE, null);
+//
+//		StringBuffer sql = new StringBuffer();
+//		sql.append("INSERT INTO ");
+//		sql.append(DB.MY_DB_FILM_TABLE);
+//		sql.append(" Values (" + null);
+//		sql.append(",'");
+//		sql.append(f.Datum);
+//		sql.append("','");
+//		sql.append(b.Zeitstempel);
+//		sql.append("','");
+//		sql.append(f.Titel);
+//		sql.append("','");
+//		sql.append(f.Kamera);
+//		sql.append("','");
+//		sql.append(f.Filmformat);
+//		sql.append("','");
+//		sql.append(f.Empfindlichkeit);
+//		sql.append("','");
+//		sql.append(f.Filmtyp);
+//		sql.append("','");
+//		sql.append(f.Sonderentwicklung1);
+//		sql.append("','");
+//		sql.append(f.Sonderentwicklung2);
+//		sql.append("','");
+//		sql.append(b.Fokus);
+//		sql.append("','");
+//		sql.append(b.Blende);
+//		sql.append("','");
+//		sql.append(b.Zeit);
+//		sql.append("','");
+//		sql.append(b.Messmethode);
+//		sql.append("','");
+//		sql.append(b.Belichtungskorrektur);
+//		sql.append("','");
+//		sql.append(b.Makro);
+//		sql.append("','");
+//		sql.append(b.MakroVF);
+//		sql.append("','");
+//		sql.append(b.Filter);
+//		sql.append("','");
+//		sql.append(b.FilterVF);
+//		sql.append("','");
+//		sql.append(b.Blitz);
+//		sql.append("','");
+//		sql.append(b.Blitzkorrektur);
+//		sql.append("','");
+//		sql.append(b.Notiz);
+//		sql.append("','");
+//		sql.append(b.KameraNotiz);
+//		sql.append("','");
+//		sql.append(b.Objektiv);
+//		sql.append("','");
+//
+//		String[] geotagParts = b.GeoTag.split("' , '");
+//
+//		// lat
+//		sql.append(geotagParts[0]);
+//		sql.append("','");
+//		// long
+//		sql.append(geotagParts[1]);
+//		sql.append("','");
+//
+//		sql.append(f.Filmbezeichnung);
+//		sql.append("','");
+//		sql.append(b.Bildnummer);
+//		sql.append("');");
+//
+//		myDBFilm.execSQL(new String(sql));
+//
+//		myDBFilm.close();
+//	}
 
-	public void deletePicture(Context mContext, Film film, Bild bild) {
+//	public void addPictureUpdateNummer(Context mContext, Film f, Bild b,
+//			int picturesNumber) {
+//
+//		addPicture(mContext, f, b);
+//
+//		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
+//				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+//
+//		StringBuffer sql = new StringBuffer();
+//		sql.append("UPDATE ");
+//		sql.append(DB.MY_DB_TABLE_NUMMER);
+//		sql.append(" SET bilder = '");
+//		sql.append(String.valueOf(picturesNumber));
+//		sql.append("' WHERE title = '");
+//		sql.append(f.Titel);
+//		sql.append("';");
+//
+//		myDBNummer.execSQL(new String(sql));
+//		myDBNummer.close();
+//	}
 
-		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
-		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
-				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+//	public void addPictureCreateNummer(Context mContext, Film f, Bild b,
+//			int picturesNumber, String encodedImage) {
+//
+//		addPicture(mContext, f, b);
+//
+//		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
+//				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+//
+//		StringBuffer sql = new StringBuffer();
+//		sql.append("INSERT OR REPLACE INTO ");
+//		sql.append(DB.MY_DB_TABLE_NUMMER);
+//		sql.append(" Values ('");
+//		sql.append(f.Titel);
+//		sql.append("'," + null);
+//		sql.append(",'"); 
+//		sql.append(f.Kamera);
+//		sql.append("','");
+//		sql.append(f.Datum);
+//		sql.append("',");
+//		sql.append(String.valueOf(picturesNumber));
+//		sql.append(",'");
+//		sql.append(encodedImage);
+//		sql.append("');");
+//
+//		myDBNummer.execSQL(new String(sql));
+//		myDBNummer.close();
+//	}
 
-		StringBuilder sql = new StringBuilder();
-		sql.append("DELETE FROM ");
-		sql.append(DB.MY_DB_FILM_TABLE);
-		sql.append(" WHERE filmtitle = '");
-		sql.append(film.Titel);
-		sql.append("' AND picnummer = '");
-		sql.append(bild.Bildnummer);
-		sql.append("';");
 
-		myDBFilm.execSQL(new String(sql));
-		myDBFilm.close();
-
-		ContentValues dataToInsert = new ContentValues();
-		dataToInsert.put("bilder", film.Bilder.size() - 1);
-		myDBNummer.update(DB.MY_DB_TABLE_NUMMER, dataToInsert, "title=?",
-				new String[] { film.Titel });
-
-		myDBNummer.close();
-	}
-
-	private void addPicture(Context mContext, Film f, Bild b) {
-
-		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
-
-		StringBuffer sql = new StringBuffer();
-		sql.append("INSERT INTO ");
-		sql.append(DB.MY_DB_FILM_TABLE);
-		sql.append(" Values (" + null);
-		sql.append(",'");
-		sql.append(f.Datum);
-		sql.append("','");
-		sql.append(b.Zeitstempel);
-		sql.append("','");
-		sql.append(f.Titel);
-		sql.append("','");
-		sql.append(f.Kamera);
-		sql.append("','");
-		sql.append(f.Filmformat);
-		sql.append("','");
-		sql.append(f.Empfindlichkeit);
-		sql.append("','");
-		sql.append(f.Filmtyp);
-		sql.append("','");
-		sql.append(f.Sonderentwicklung1);
-		sql.append("','");
-		sql.append(f.Sonderentwicklung2);
-		sql.append("','");
-		sql.append(b.Fokus);
-		sql.append("','");
-		sql.append(b.Blende);
-		sql.append("','");
-		sql.append(b.Zeit);
-		sql.append("','");
-		sql.append(b.Messmethode);
-		sql.append("','");
-		sql.append(b.Belichtungskorrektur);
-		sql.append("','");
-		sql.append(b.Makro);
-		sql.append("','");
-		sql.append(b.MakroVF);
-		sql.append("','");
-		sql.append(b.Filter);
-		sql.append("','");
-		sql.append(b.FilterVF);
-		sql.append("','");
-		sql.append(b.Blitz);
-		sql.append("','");
-		sql.append(b.Blitzkorrektur);
-		sql.append("','");
-		sql.append(b.Notiz);
-		sql.append("','");
-		sql.append(b.KameraNotiz);
-		sql.append("','");
-		sql.append(b.Objektiv);
-		sql.append("','");
-
-		String[] geotagParts = b.GeoTag.split("' , '");
-
-		// lat
-		sql.append(geotagParts[0]);
-		sql.append("','");
-		// long
-		sql.append(geotagParts[1]);
-		sql.append("','");
-
-		sql.append(f.Filmbezeichnung);
-		sql.append("','");
-		sql.append(b.Bildnummer);
-		sql.append("');");
-
-		myDBFilm.execSQL(new String(sql));
-
-		myDBFilm.close();
-	}
-
-	public void addPictureUpdateNummer(Context mContext, Film f, Bild b,
-			int picturesNumber) {
-
-		addPicture(mContext, f, b);
-
-		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
-				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
-
-		StringBuffer sql = new StringBuffer();
-		sql.append("UPDATE ");
-		sql.append(DB.MY_DB_TABLE_NUMMER);
-		sql.append(" SET bilder = '");
-		sql.append(String.valueOf(picturesNumber));
-		sql.append("' WHERE title = '");
-		sql.append(f.Titel);
-		sql.append("';");
-
-		myDBNummer.execSQL(new String(sql));
-		myDBNummer.close();
-	}
-
-	public void addPictureCreateNummer(Context mContext, Film f, Bild b,
-			int picturesNumber, String encodedImage) {
-
-		addPicture(mContext, f, b);
-
-		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
-				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
-
-		StringBuffer sql = new StringBuffer();
-		sql.append("INSERT OR REPLACE INTO ");
-		sql.append(DB.MY_DB_TABLE_NUMMER);
-		sql.append(" Values ('");
-		sql.append(f.Titel);
-		sql.append("'," + null);
-		sql.append(",'");
-		sql.append(f.Kamera);
-		sql.append("','");
-		sql.append(f.Datum);
-		sql.append("',");
-		sql.append(String.valueOf(picturesNumber));
-		sql.append(",'");
-		sql.append(encodedImage);
-		sql.append("');");
-
-		myDBNummer.execSQL(new String(sql));
-		myDBNummer.close();
-	}
-
-	public void updateFilmDetails(Context mContext, Film film) {
-		
-		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
-		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmcamera = '" + film.Kamera
-				+ "' WHERE filmtitle = '" + film.Titel + "'");
-		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmnotiz = '" + film.Filmbezeichnung
-				+ "' WHERE filmtitle = '" + film.Titel + "'");
-		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmformat = '" + film.Filmformat
-				+ "' WHERE filmtitle = '" + film.Titel + "'");
-		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmempfindlichkeit = '" + film.Empfindlichkeit
-				+ "' WHERE filmtitle = '" + film.Titel + "'");
-		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmtyp = '" + film.Filmtyp
-				+ "' WHERE filmtitle = '" + film.Titel + "'");
-		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmsonder = '" + film.Sonderentwicklung1
-				+ "' WHERE filmtitle = '" + film.Titel + "'");
-		myDBFilm.execSQL("UPDATE " + DB.MY_DB_FILM_TABLE + " SET filmsonders = '" + film.Sonderentwicklung2
-				+ "' WHERE filmtitle = '" + film.Titel + "'");
-		myDBFilm.close();
-		
-		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(DB.MY_DB_NUMMER,
-				Context.MODE_PRIVATE, null);
-		myDBNummer.execSQL("UPDATE " + DB.MY_DB_TABLE_NUMMER + " SET camera = '" + film.Kamera
-				+ "' WHERE title = '" + film.Titel + "'");
-		
-		myDBNummer.close();
-			
-	}
-
-    public void createFilmFromImport(Context context, Film film) throws Exception {
-
-        while (checkIfFilmTitleIsTaken(context, film.Titel)) {
-            film.Titel = film.Titel + "_";
-        }
-
-        Bild dummybild = new Bild();
-        dummybild.Bildnummer = "Bild 0";
-        dummybild.Notiz = "Dummy-Bild für die Filmdaten";
-        dummybild.Belichtungskorrektur = "";
-        dummybild.Blende = "";
-        dummybild.Blitz = "";
-        dummybild.Blitzkorrektur = "";
-        dummybild.Filter = "";
-        dummybild.FilterVF = "";
-        dummybild.Fokus = "";
-        dummybild.GeoTag = "0' , '0"; // TODO: Permanently fix geotags
-        dummybild.KameraNotiz = "";
-        dummybild.Makro = "";
-        dummybild.MakroVF = "";
-        dummybild.Messmethode = "";
-        dummybild.Objektiv = "";
-        dummybild.Zeit = "";
-
-        dummybild.Zeitstempel = film.Datum;
-
-        addPictureCreateNummer(context, film, dummybild, film.Bilder.size(), null);
-
-        for (Bild bild : film.Bilder) {
-            bild.GeoTag = "0' , '0"; // TODO workaround, geotags are NOT imported right now!
-            
-            // We have to tinker the date and the time of the current pic out of the timestamp here, ... 
-            if (bild.Zeitstempel.contains(" - ")) {
-            	String picdate = bild.Zeitstempel.substring(bild.Zeitstempel.indexOf(" - ") + 3, bild.Zeitstempel.length());
-            	String pictime = bild.Zeitstempel.substring(0, bild.Zeitstempel.indexOf(" - "));
-            	film.Datum = picdate;
-            	bild.Zeitstempel = pictime;
-            }
-                
-            addPicture(context, film, bild);
-        }
-
-    }
+//    public void createFilmFromImport(Context context, Film film) throws Exception {
+//
+//        while (checkIfFilmTitleIsTaken(context, film.Titel)) {
+//            film.Titel = film.Titel + "_";
+//        }
+//
+//        Bild dummybild = new Bild();
+//        dummybild.Bildnummer = "Bild 0";
+//        dummybild.Notiz = "Dummy-Bild für die Filmdaten";
+//        dummybild.Belichtungskorrektur = "";
+//        dummybild.Blende = "";
+//        dummybild.Blitz = "";
+//        dummybild.Blitzkorrektur = "";
+//        dummybild.Filter = "";
+//        dummybild.FilterVF = "";
+//        dummybild.Fokus = "";
+//        dummybild.GeoTag = "0' , '0"; // TODO: Permanently fix geotags
+//        dummybild.KameraNotiz = "";
+//        dummybild.Makro = "";
+//        dummybild.MakroVF = "";
+//        dummybild.Messmethode = "";
+//        dummybild.Objektiv = "";
+//        dummybild.Zeit = "";
+//
+//        dummybild.Zeitstempel = film.Datum;
+//
+//        addPictureCreateNummer(context, film, dummybild, film.Bilder.size(), null);
+//
+//        for (Bild bild : film.Bilder) {
+//            bild.GeoTag = "0' , '0"; // TODO workaround, geotags are NOT imported right now!
+//            
+//            // We have to tinker the date and the time of the current pic out of the timestamp here, ... 
+//            if (bild.Zeitstempel.contains(" - ")) {
+//            	String picdate = bild.Zeitstempel.substring(bild.Zeitstempel.indexOf(" - ") + 3, bild.Zeitstempel.length());
+//            	String pictime = bild.Zeitstempel.substring(0, bild.Zeitstempel.indexOf(" - "));
+//            	film.Datum = picdate;
+//            	bild.Zeitstempel = pictime;
+//            }
+//                
+//            addPicture(context, film, bild);
+//        }
+//
+//    }
+    
 }

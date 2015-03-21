@@ -22,6 +22,7 @@ import java.util.List;
 
 import unisiegen.photographers.activity.R;
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.database.DataSource;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
 import android.app.ProgressDialog;
@@ -38,7 +39,7 @@ import com.thoughtworks.xstream.XStream;
 
 public class FilmExportTask extends AsyncTask<String, Void, Boolean> {
 
-    String FilmID;
+    String FilmTitle;
     String fileName;
     private ProgressDialog dialog;
     Context context;
@@ -46,7 +47,7 @@ public class FilmExportTask extends AsyncTask<String, Void, Boolean> {
     public FilmExportTask(String _FilmID, Context context) {
         this.context = context;
         dialog = new ProgressDialog(context);
-        FilmID = _FilmID;
+        FilmTitle = _FilmID;
     }
 
     protected void onPreExecute() {
@@ -87,9 +88,9 @@ public class FilmExportTask extends AsyncTask<String, Void, Boolean> {
 
     protected Boolean doInBackground(final String... args) {
 
-        Film film = DB.getDB().getFilm(context, FilmID);
-
-        fileName = FilmID + ".xml";
+        Film film = DataSource.getInst(context).getFilm(FilmTitle); 
+        
+        fileName = FilmTitle + ".xml";
         
         File file = new File(context.getFilesDir(), fileName);
                

@@ -23,6 +23,7 @@ import android.util.Base64;
 
 public class Film {
 
+	public int	ID;
 	public String Titel;
 	public String Kamera;
 	public String Filmbezeichnung;

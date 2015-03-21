@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.database.DataSource;
 import unisiegen.photographers.helper.DefaultLocationListener;
 import unisiegen.photographers.helper.FilmIconFactory;
 import unisiegen.photographers.model.Bild;
@@ -97,6 +98,8 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	ViewPager viewPager;
 	TitlePageIndicator mIndicator;
 
+	private Bild photoToEdit;
+
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -120,8 +123,7 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 			}
 		}
 
-		Film film = DB.getDB().getFilm(mContext,
-				settings.getString("Title", " "));
+		Film film = DataSource.getInst(mContext).getFilm(settings.getString("Title", " "));
 		Bitmap b = new FilmIconFactory().createBitmap(film);
 		Drawable drawable = new BitmapDrawable(getResources(), b);
 		if (android.os.Build.VERSION.SDK_INT >= 14) {
@@ -246,13 +248,20 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	 */
 	private void updateUIFromPicture(String picNumber, String filmTitle) {
 
-		ArrayList<Bild> bilder = DB.getDB().getBild(mContext, filmTitle,
-				picNumber);
-		if (bilder == null || bilder.size() != 1) {
+		Film f = DataSource.getInst(mContext).getFilm(filmTitle);
+		Bild bild = null;
+		for(Bild b : f.Bilder){
+			if(b.Bildnummer.equals(picNumber)){
+				bild = b;
+				break;
+			}
+		}
+
+		if (bild == null) {
 			bildtoedit = false;
 			Log.v("Check", "Kein Bild vorhanden");
-		} else {
-			Bild bild = bilder.get(0);
+		} else {			
+			this.photoToEdit = bild;
 			bildtoedit = true;
 
 			updateSpinner(spinner_blende, bild.Blende);
@@ -302,13 +311,19 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 	 * prepare a BildObjekt from UI values, to use for database operations etc.
 	 */
 	private Bild getBildFromUI() {
-		Bild b = new Bild();
+		
+		Bild b;
+		
+		if(photoToEdit != null){
+			b = photoToEdit;
+		} else {
+			b = new Bild();
+		}		 
 		b.Fokus = spinner_fokus.getSelectedItem().toString();
 		b.Blende = spinner_blende.getSelectedItem().toString();
 		b.Zeit = spinner_zeit.getSelectedItem().toString();
 		b.Messmethode = spinner_messmethode.getSelectedItem().toString();
-		b.Belichtungskorrektur = spinner_belichtungs_korrektur
-				.getSelectedItem().toString();
+		b.Belichtungskorrektur = spinner_belichtungs_korrektur.getSelectedItem().toString();
 		b.Makro = spinner_makro.getSelectedItem().toString();
 		b.MakroVF = spinner_makro_vf.getSelectedItem().toString();
 		b.Filter = spinner_filter.getSelectedItem().toString();
@@ -367,20 +382,17 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 		picturesNumber++;
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 
-		Film f = DB.getDB().getFilm(mContext, settings.getString("Title", " "));
+		Film f = DataSource.getInst(mContext).getFilm(settings.getString("Title", " "));
 		if (f.Titel == null) {
 			f = getFilmFromSettings();
 		} else {
+			// @Alex: Why just this if statement? Why not always? I don't get it.
+			// Also, why do you get the date from the settings Object instead of the actual current date?
 			f.Datum = settings.getString("Datum", " "); // Crazy hack to write the current date into the picture entry.
 		}
-		Bild b = getBildFromUI();
-		if (settings.getBoolean("EditMode", false)) {
-			// ACHTUNG: DAS WIRD NIE AUFGERUFEN! WARUM IST DAS NIE AUF TRUE?
-			DB.getDB().addPictureUpdateNummer(mContext, f, b, picturesNumber);
-		} else { 
-			DB.getDB().addPictureCreateNummer(mContext, f, b, picturesNumber,
-					null);
-		}
+		Bild b = getBildFromUI();		
+
+		DataSource.getInst(mContext).addPhoto(f, b);		
 		incrementSelectedPicture();
 	}
 
@@ -392,9 +404,10 @@ public class NewPictureActivity extends PhotographersNotebookActivity {
 
 		settings = PreferenceManager.getDefaultSharedPreferences(mContext);
 		String filmTitle = settings.getString("Title", " ");
-		Film f = DB.getDB().getFilm(mContext, filmTitle);
+		Film f = DataSource.getInst(mContext).getFilm(filmTitle);
 		Bild b = getBildFromUI();
-		DB.getDB().updatePicture(mContext, f, b);
+		// check if there is an ID in the photo
+		DataSource.getInst(mContext).updatePhoto(f, b);
 	}
 
 	/*

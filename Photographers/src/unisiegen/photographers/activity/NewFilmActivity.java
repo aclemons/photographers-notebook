@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import unisiegen.photographers.database.DB;
+import unisiegen.photographers.database.DataSource;
 import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Film;
 import android.content.Context;
@@ -96,94 +97,46 @@ public class NewFilmActivity extends PhotographersNotebookActivity {
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.empty_title), Toast.LENGTH_SHORT)
 							.show();
-				} else if (DB.getDB()
-						.checkIfFilmTitleIsTaken(getApplicationContext(),
-								titleText.getText().toString())) {
+				} else if (DataSource.getInst(getApplicationContext()).isFilmTitleTaken(titleText.getText().toString())) {
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.title_taken), Toast.LENGTH_LONG)
 							.show();
 				} else {
 					try {
 						SharedPreferences.Editor editor = settings.edit();
-						editor.putString("Title", titleText.getText()
-								.toString());
-						editor.putString("FilmBezeichnung", filmbezeichnung
-								.getText().toString());
+						editor.putString("Title", titleText.getText().toString());
+						editor.putString("FilmBezeichnung", filmbezeichnung.getText().toString());
 						editor.putString(
 								"Datum",
 								android.text.format.DateFormat.format(
 										"dd.MM.yyyy", new java.util.Date())
 										.toString());
-						editor.putString("Kamera", spinnerCamera
-								.getSelectedItem().toString());
-						editor.putString("Filmformat", spinnerFF
-								.getSelectedItem().toString());
-						editor.putString("Empfindlichkeit", spinnerEM
-								.getSelectedItem().toString());
-						editor.putString("Filmtyp", spinnerTY.getSelectedItem()
-								.toString());
-						editor.putString("Sonder1", spinnerSS.getSelectedItem()
-								.toString());
-						editor.putString("Sonder2", spinnerSSS
-								.getSelectedItem().toString());
+						editor.putString("Kamera", spinnerCamera.getSelectedItem().toString());
+						editor.putString("Filmformat", spinnerFF.getSelectedItem().toString());
+						editor.putString("Empfindlichkeit", spinnerEM.getSelectedItem().toString());
+						editor.putString("Filmtyp", spinnerTY.getSelectedItem().toString());
+						editor.putString("Sonder1", spinnerSS.getSelectedItem().toString());
+						editor.putString("Sonder2", spinnerSSS.getSelectedItem().toString());
 						editor.putInt("BildNummerToBegin", 1);
 						editor.putBoolean("EditMode", false);
 						editor.commit();
 
 						Film f = new Film();
 						f.Titel = titleText.getText().toString();
-						f.Filmbezeichnung = filmbezeichnung.getText()
-								.toString();
-						f.Datum = android.text.format.DateFormat.format(
-								"dd.MM.yyyy", new java.util.Date()).toString();
+						f.Filmbezeichnung = filmbezeichnung.getText().toString();
+						f.Datum = android.text.format.DateFormat.format("dd.MM.yyyy", new java.util.Date()).toString();
 						f.Kamera = spinnerCamera.getSelectedItem().toString();
 						f.Filmformat = spinnerFF.getSelectedItem().toString();
-						f.Empfindlichkeit = spinnerEM.getSelectedItem()
-								.toString();
+						f.Empfindlichkeit = spinnerEM.getSelectedItem().toString();
 						f.Filmtyp = spinnerTY.getSelectedItem().toString();
-						f.Sonderentwicklung1 = spinnerSS.getSelectedItem()
-								.toString();
-						f.Sonderentwicklung2 = spinnerSSS.getSelectedItem()
-								.toString();
+						f.Sonderentwicklung1 = spinnerSS.getSelectedItem().toString();
+						f.Sonderentwicklung2 = spinnerSSS.getSelectedItem().toString();
 
-						Bild b = new Bild();
-						b.Bildnummer = "Bild 0";
-						b.Notiz = "Dummy-Bild f�r die Filmdaten";
-						b.Belichtungskorrektur = "";
-						b.Blende = "";
-						b.Blitz = "";
-						b.Blitzkorrektur = "";
-						b.Filter = "";
-						b.FilterVF = "";
-						b.Fokus = "";
-						b.GeoTag = "0' , '0"; // Wenn das Format hier nicht
-												// stimmt,
-												// kracht es wegen dem Splitting
-												// des
-												// Strings in ein Array in der
-												// DB
-												// Klasse.
-						b.KameraNotiz = "";
-						b.Makro = "";
-						b.MakroVF = "";
-						b.Messmethode = "";
-						b.Objektiv = "";
-						b.Zeit = "";
-
-						Calendar cal = Calendar.getInstance();
-						SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-
-						b.Zeitstempel = sdf.format(cal.getTime());
-
-						Log.v("Check", "Check if Bild vorhanden : "
-								+ (pic == null));
-						Intent myIntent = new Intent(getApplicationContext(),
-								NewPictureActivity.class);
-
-						DB.getDB().addPictureCreateNummer(mContext, f, b, 0,
-								null);
-						finish();
+						DataSource.getInst(mContext).addFilm(f);
+						// TODO: Might be a better idea to give the film as parameter to the new activity...
+						Intent myIntent = new Intent(getApplicationContext(), NewPictureActivity.class);
 						startActivityForResult(myIntent, 1);
+						
 					} catch (Exception e) {
 						Toast.makeText(getApplicationContext(),
 								getString(R.string.input_error),
