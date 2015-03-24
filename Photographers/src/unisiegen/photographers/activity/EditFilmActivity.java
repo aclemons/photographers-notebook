@@ -107,8 +107,7 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 		film = DataSource.getInst(mContext).getFilm(filmTitle);
 
 		if (film == null) {
-			Log.e("ERROR",
-					"Film not found in database, nothing to edit here ...");
+			Log.e("ERROR", "Film not found in database, nothing to edit here ...");
 			finish();
 		}
 
@@ -135,8 +134,8 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 
 		int selectedItem;
 
-		ArrayList<String> values = DB.getDB().getActivatedSettingsData(
-				mContext, tableName);
+		// Where do we get the information about the selected set from?
+		ArrayList<String> values = DB.getDB().getActivatedSettingsData(mContext, tableName);
 		if (values.size() == 0) {
 			values.add(getString(R.string.no_selection));
 		}
@@ -152,7 +151,7 @@ public class EditFilmActivity extends PhotographersNotebookActivity {
 			spinner.setSelection(selectedItem);
 		}
 
-		// TODO: Wenn das falsche Set ausgew�hlt ist, Fehler anzeigen!
+		// TODO: Handle errors / show an error message, if the wrong set was selected
 
 		return spinner;
 	}

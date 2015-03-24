@@ -20,13 +20,10 @@ import java.util.Collections;
 
 import unisiegen.photographers.activity.R;
 import unisiegen.photographers.helper.SettingsComparator;
-import unisiegen.photographers.model.Bild;
 import unisiegen.photographers.model.Camera;
 import unisiegen.photographers.model.Equipment;
-import unisiegen.photographers.model.Film;
 import unisiegen.photographers.model.Lens;
 import unisiegen.photographers.model.Setting;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -112,6 +109,13 @@ public class DB {
 		return instance;
 	}
 
+	
+	/*
+	 * Figure out how to save information on the selected set!
+	 * * implement it
+	 * * use it here
+	 * * migrate to DataSource...
+	 */
 	private String getDBName(Context context) {
 
 		SharedPreferences prefs = PreferenceManager
@@ -121,86 +125,86 @@ public class DB {
 		return dbName;
 	}
 
-	public void createOrRebuildSettingsTable(Context context) throws Exception {
-
-		String database = getDBName(context);
-		createOrRebuildSettingsTable(context, database);
-	}
-
-	public void createOrRebuildSettingsTable(Context context, String database)
-			throws Exception {
-
-		Log.v("DatabaseCreator", "rebuildSettings() was called...");
-
-		SQLiteDatabase myDBSet = context.openOrCreateDatabase(database,
-				Context.MODE_PRIVATE, null);
-
-		myDBSet.beginTransaction();
-		// needs special care
-		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ MY_DB_TABLE_SETCAMBW
-				+ " (_id integer primary key autoincrement, cam varchar(100), bw varchar(100))"
-				+ ";");
-        myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETCAMBW);
-
-		// all other tables are the same...
-		for (String tableName : tableNames) {
-			StringBuffer buf = new StringBuffer();
-			buf.append("CREATE TABLE IF NOT EXISTS ");
-			buf.append(tableName);
-			buf.append(" (_id integer primary key autoincrement, name varchar(100), value integer, def integer);");
-			myDBSet.execSQL(buf.toString());
-
-			buf = new StringBuffer();
-			buf.append("DELETE FROM ");
-			buf.append(tableName);
-			myDBSet.execSQL(buf.toString());
-		}
-
-		Resources res = context.getResources();
-
-		setDefaultSettings(myDBSet, res, R.array.setff, MY_DB_TABLE_SETFF);
-		setDefaultSettings(myDBSet, res, R.array.setemp, MY_DB_TABLE_SETEMP);
-		setDefaultSettings(myDBSet, res, R.array.settyp, MY_DB_TABLE_SETTYP);
-		setDefaultSettings(myDBSet, res, R.array.setnm, MY_DB_TABLE_SETNM);
-		setDefaultSettings(myDBSet, res, R.array.setfil, MY_DB_TABLE_SETFIL);
-		setDefaultSettings(myDBSet, res, R.array.setbli, MY_DB_TABLE_SETBLI);
-		setDefaultSettings(myDBSet, res, R.array.setson, MY_DB_TABLE_SETSON);
-		setDefaultSettings(myDBSet, res, R.array.setfok, MY_DB_TABLE_SETFOK);
-		setDefaultSettings(myDBSet, res, R.array.setble, MY_DB_TABLE_SETBLE);
-		setDefaultSettings(myDBSet, res, R.array.setzei, MY_DB_TABLE_SETZEI);
-		setDefaultSettings(myDBSet, res, R.array.setmes, MY_DB_TABLE_SETMES);
-		setDefaultSettings(myDBSet, res, R.array.setplu, MY_DB_TABLE_SETPLU);
-		setDefaultSettings(myDBSet, res, R.array.setkor, MY_DB_TABLE_SETKOR);
-		setDefaultSettings(myDBSet, res, R.array.setmvf, MY_DB_TABLE_SETMVF);
-		setDefaultSettings(myDBSet, res, R.array.setmvf2, MY_DB_TABLE_SETMVF2);
-		setDefaultSettings(myDBSet, res, R.array.setfvf, MY_DB_TABLE_SETFVF);
-		setDefaultSettings(myDBSet, res, R.array.setfvf2, MY_DB_TABLE_SETFVF2);
-		myDBSet.setTransactionSuccessful();
-		myDBSet.endTransaction();
-
-		myDBSet.close();
-
-		setDefaultVal(context, MY_DB_TABLE_SETKOR, "0");
-		setDefaultVal(context, MY_DB_TABLE_SETPLU, "0");
-	}
-
-	private void setDefaultSettings(SQLiteDatabase database, Resources res, int stringArrayName, String tableName) {
-		
-		String[] valueArray = res.getStringArray(stringArrayName);
-		if (valueArray != null) {
-			for (String value : valueArray) {
-				StringBuffer buf = new StringBuffer();
-				buf.append("INSERT INTO ");
-				buf.append(tableName);
-				buf.append(" Values (null,'");
-				buf.append(value);
-				buf.append("','1', '0');");
-				database.execSQL(buf.toString());
-			}
-		}
-	}
-
+//	public void createOrRebuildSettingsTable(Context context) throws Exception {
+//
+//		String database = getDBName(context);
+//		createOrRebuildSettingsTable(context, database);
+//	}
+//
+//	public void createOrRebuildSettingsTable(Context context, String database)
+//			throws Exception {
+//
+//		Log.v("DatabaseCreator", "rebuildSettings() was called...");
+//
+//		SQLiteDatabase myDBSet = context.openOrCreateDatabase(database,
+//				Context.MODE_PRIVATE, null);
+//
+//		myDBSet.beginTransaction();
+//		// needs special care
+//		myDBSet.execSQL("CREATE TABLE IF NOT EXISTS "
+//				+ MY_DB_TABLE_SETCAMBW
+//				+ " (_id integer primary key autoincrement, cam varchar(100), bw varchar(100))"
+//				+ ";");
+//        myDBSet.execSQL("DELETE FROM " + MY_DB_TABLE_SETCAMBW);
+//
+//		// all other tables are the same...
+//		for (String tableName : tableNames) {
+//			StringBuffer buf = new StringBuffer();
+//			buf.append("CREATE TABLE IF NOT EXISTS ");
+//			buf.append(tableName);
+//			buf.append(" (_id integer primary key autoincrement, name varchar(100), value integer, def integer);");
+//			myDBSet.execSQL(buf.toString());
+//
+//			buf = new StringBuffer();
+//			buf.append("DELETE FROM ");
+//			buf.append(tableName);
+//			myDBSet.execSQL(buf.toString());
+//		}
+//
+//		Resources res = context.getResources();
+//
+//		setDefaultSettings(myDBSet, res, R.array.setff, MY_DB_TABLE_SETFF);
+//		setDefaultSettings(myDBSet, res, R.array.setemp, MY_DB_TABLE_SETEMP);
+//		setDefaultSettings(myDBSet, res, R.array.settyp, MY_DB_TABLE_SETTYP);
+//		setDefaultSettings(myDBSet, res, R.array.setnm, MY_DB_TABLE_SETNM);
+//		setDefaultSettings(myDBSet, res, R.array.setfil, MY_DB_TABLE_SETFIL);
+//		setDefaultSettings(myDBSet, res, R.array.setbli, MY_DB_TABLE_SETBLI);
+//		setDefaultSettings(myDBSet, res, R.array.setson, MY_DB_TABLE_SETSON);
+//		setDefaultSettings(myDBSet, res, R.array.setfok, MY_DB_TABLE_SETFOK);
+//		setDefaultSettings(myDBSet, res, R.array.setble, MY_DB_TABLE_SETBLE);
+//		setDefaultSettings(myDBSet, res, R.array.setzei, MY_DB_TABLE_SETZEI);
+//		setDefaultSettings(myDBSet, res, R.array.setmes, MY_DB_TABLE_SETMES);
+//		setDefaultSettings(myDBSet, res, R.array.setplu, MY_DB_TABLE_SETPLU);
+//		setDefaultSettings(myDBSet, res, R.array.setkor, MY_DB_TABLE_SETKOR);
+//		setDefaultSettings(myDBSet, res, R.array.setmvf, MY_DB_TABLE_SETMVF);
+//		setDefaultSettings(myDBSet, res, R.array.setmvf2, MY_DB_TABLE_SETMVF2);
+//		setDefaultSettings(myDBSet, res, R.array.setfvf, MY_DB_TABLE_SETFVF);
+//		setDefaultSettings(myDBSet, res, R.array.setfvf2, MY_DB_TABLE_SETFVF2);
+//		myDBSet.setTransactionSuccessful();
+//		myDBSet.endTransaction();
+//
+//		myDBSet.close();
+//
+//		setDefaultVal(context, MY_DB_TABLE_SETKOR, "0");
+//		setDefaultVal(context, MY_DB_TABLE_SETPLU, "0");
+//	}
+//
+//	private void setDefaultSettings(SQLiteDatabase database, Resources res, int stringArrayName, String tableName) {
+//		
+//		String[] valueArray = res.getStringArray(stringArrayName);
+//		if (valueArray != null) {
+//			for (String value : valueArray) {
+//				StringBuffer buf = new StringBuffer();
+//				buf.append("INSERT INTO ");
+//				buf.append(tableName);
+//				buf.append(" Values (null,'");
+//				buf.append(value);
+//				buf.append("','1', '0');");
+//				database.execSQL(buf.toString());
+//			}
+//		}
+//	}
+//
     public void createSettingsTableFromEquipmentImport(Context context, Equipment equipment) throws Exception {
  
         Log.v("DatabaseCreator", "Writing imported settings to database.");
@@ -308,28 +312,28 @@ public class DB {
         }
 
     }
-
-	public void createOrRebuildNummernTable(Context mContext) {
-
-		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
-				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
-		myDBNummer
-				.execSQL("CREATE TABLE IF NOT EXISTS "
-						+ DB.MY_DB_TABLE_NUMMER
-						+ " (title varchar(100) primary key, value integer,camera varchar(100), datum varchar(100), bilder integer, pic varchar(999))"
-						+ ";");
-		myDBNummer.close();
-	}
-
-	public void createOrRebuildFilmTable(Context mContext) {
-		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
-				Context.MODE_PRIVATE, null);
-		myDBFilm.execSQL("CREATE TABLE IF NOT EXISTS "
-				+ DB.MY_DB_FILM_TABLE
-				+ " (_id integer primary key autoincrement, filmdatum varchar(100), picuhrzeit varchar(100), filmtitle varchar(100), filmcamera varchar(100), filmformat varchar(100), filmempfindlichkeit varchar(100), filmtyp varchar(100), filmsonder varchar(100), filmsonders varchar(100), picfokus varchar(100), picblende varchar(100), piczeit varchar(100), picmessung varchar(100), pickorr varchar(100), picmakro varchar(100), picmakrovf varchar(100), picfilter varchar(100), picfiltervf varchar(100), picblitz varchar(100), picblitzkorr varchar(100), picnotiz varchar(100), pickameranotiz varchar(100), picobjektiv varchar(100),piclong varchar(100),piclat varchar(100),filmnotiz varchar(100), picnummer varchar(100))"
-				+ ";");
-		myDBFilm.close();
-	}
+//
+//	public void createOrRebuildNummernTable(Context mContext) {
+//
+//		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
+//				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
+//		myDBNummer
+//				.execSQL("CREATE TABLE IF NOT EXISTS "
+//						+ DB.MY_DB_TABLE_NUMMER
+//						+ " (title varchar(100) primary key, value integer,camera varchar(100), datum varchar(100), bilder integer, pic varchar(999))"
+//						+ ";");
+//		myDBNummer.close();
+//	}
+//
+//	public void createOrRebuildFilmTable(Context mContext) {
+//		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
+//				Context.MODE_PRIVATE, null);
+//		myDBFilm.execSQL("CREATE TABLE IF NOT EXISTS "
+//				+ DB.MY_DB_FILM_TABLE
+//				+ " (_id integer primary key autoincrement, filmdatum varchar(100), picuhrzeit varchar(100), filmtitle varchar(100), filmcamera varchar(100), filmformat varchar(100), filmempfindlichkeit varchar(100), filmtyp varchar(100), filmsonder varchar(100), filmsonders varchar(100), picfokus varchar(100), picblende varchar(100), piczeit varchar(100), picmessung varchar(100), pickorr varchar(100), picmakro varchar(100), picmakrovf varchar(100), picfilter varchar(100), picfiltervf varchar(100), picblitz varchar(100), picblitzkorr varchar(100), picnotiz varchar(100), pickameranotiz varchar(100), picobjektiv varchar(100),piclong varchar(100),piclat varchar(100),filmnotiz varchar(100), picnummer varchar(100))"
+//				+ ";");
+//		myDBFilm.close();
+//	}
 
 	
 	public boolean deleteSetting(Context context, String settingType,
@@ -627,247 +631,5 @@ public class DB {
 
     }
 
-
-//	public void updatePicture(Context mContext, Film film, Bild bild) {
-//
-//		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
-//				Context.MODE_PRIVATE, null);
-//
-//		StringBuffer sql = new StringBuffer();
-//		sql.append("UPDATE ");
-//		sql.append(DB.MY_DB_FILM_TABLE);
-//		sql.append(" SET picfokus = '");
-//		sql.append(bild.Fokus);
-//		sql.append("', picblende = '");
-//		sql.append(bild.Blende);
-//		sql.append("', piczeit = '");
-//		sql.append(bild.Zeit);
-//		sql.append("', picmessung = '");
-//		sql.append(bild.Messmethode);
-//		sql.append("', pickorr = '");
-//		sql.append(bild.Belichtungskorrektur);
-//		sql.append("', picmakro = '");
-//		sql.append(bild.Makro);
-//		sql.append("', picmakrovf = '");
-//		sql.append(bild.MakroVF);
-//		sql.append("', picfilter = '");
-//		sql.append(bild.Filter);
-//		sql.append("', picfiltervf = '");
-//		sql.append(bild.FilterVF);
-//		sql.append("', picblitz = '");
-//		sql.append(bild.Blitz);
-//		sql.append("', picblitzkorr = '");
-//		sql.append(bild.Blitzkorrektur);
-//		sql.append("', picnotiz = '");
-//		sql.append(bild.Notiz);
-//		sql.append("', pickameranotiz = '");
-//		sql.append(bild.KameraNotiz);
-//		sql.append("', picobjektiv = '");
-//		sql.append(bild.Objektiv);
-//		sql.append("' WHERE filmtitle = '");
-//		sql.append(film.Titel);
-//		sql.append("' AND picnummer = '");
-//		sql.append(bild.Bildnummer);
-//		sql.append("';");
-//		myDBFilm.execSQL(new String(sql));
-//		myDBFilm.close();
-//	}
-
-//	public void deletePicture(Context mContext, Film film, Bild bild) {
-//
-//		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
-//				Context.MODE_PRIVATE, null);
-//		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
-//				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
-//
-//		StringBuilder sql = new StringBuilder();
-//		sql.append("DELETE FROM ");
-//		sql.append(DB.MY_DB_FILM_TABLE);
-//		sql.append(" WHERE filmtitle = '");
-//		sql.append(film.Titel);
-//		sql.append("' AND picnummer = '");
-//		sql.append(bild.Bildnummer);
-//		sql.append("';");
-//
-//		myDBFilm.execSQL(new String(sql));
-//		myDBFilm.close();
-//
-//		ContentValues dataToInsert = new ContentValues();
-//		dataToInsert.put("bilder", film.Bilder.size() - 1);
-//		myDBNummer.update(DB.MY_DB_TABLE_NUMMER, dataToInsert, "title=?",
-//				new String[] { film.Titel });
-//
-//		myDBNummer.close();
-//	}
-
-//	private void addPicture(Context mContext, Film f, Bild b) {
-//
-//		SQLiteDatabase myDBFilm = mContext.openOrCreateDatabase(DB.MY_DB_FILM,
-//				Context.MODE_PRIVATE, null);
-//
-//		StringBuffer sql = new StringBuffer();
-//		sql.append("INSERT INTO ");
-//		sql.append(DB.MY_DB_FILM_TABLE);
-//		sql.append(" Values (" + null);
-//		sql.append(",'");
-//		sql.append(f.Datum);
-//		sql.append("','");
-//		sql.append(b.Zeitstempel);
-//		sql.append("','");
-//		sql.append(f.Titel);
-//		sql.append("','");
-//		sql.append(f.Kamera);
-//		sql.append("','");
-//		sql.append(f.Filmformat);
-//		sql.append("','");
-//		sql.append(f.Empfindlichkeit);
-//		sql.append("','");
-//		sql.append(f.Filmtyp);
-//		sql.append("','");
-//		sql.append(f.Sonderentwicklung1);
-//		sql.append("','");
-//		sql.append(f.Sonderentwicklung2);
-//		sql.append("','");
-//		sql.append(b.Fokus);
-//		sql.append("','");
-//		sql.append(b.Blende);
-//		sql.append("','");
-//		sql.append(b.Zeit);
-//		sql.append("','");
-//		sql.append(b.Messmethode);
-//		sql.append("','");
-//		sql.append(b.Belichtungskorrektur);
-//		sql.append("','");
-//		sql.append(b.Makro);
-//		sql.append("','");
-//		sql.append(b.MakroVF);
-//		sql.append("','");
-//		sql.append(b.Filter);
-//		sql.append("','");
-//		sql.append(b.FilterVF);
-//		sql.append("','");
-//		sql.append(b.Blitz);
-//		sql.append("','");
-//		sql.append(b.Blitzkorrektur);
-//		sql.append("','");
-//		sql.append(b.Notiz);
-//		sql.append("','");
-//		sql.append(b.KameraNotiz);
-//		sql.append("','");
-//		sql.append(b.Objektiv);
-//		sql.append("','");
-//
-//		String[] geotagParts = b.GeoTag.split("' , '");
-//
-//		// lat
-//		sql.append(geotagParts[0]);
-//		sql.append("','");
-//		// long
-//		sql.append(geotagParts[1]);
-//		sql.append("','");
-//
-//		sql.append(f.Filmbezeichnung);
-//		sql.append("','");
-//		sql.append(b.Bildnummer);
-//		sql.append("');");
-//
-//		myDBFilm.execSQL(new String(sql));
-//
-//		myDBFilm.close();
-//	}
-
-//	public void addPictureUpdateNummer(Context mContext, Film f, Bild b,
-//			int picturesNumber) {
-//
-//		addPicture(mContext, f, b);
-//
-//		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
-//				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
-//
-//		StringBuffer sql = new StringBuffer();
-//		sql.append("UPDATE ");
-//		sql.append(DB.MY_DB_TABLE_NUMMER);
-//		sql.append(" SET bilder = '");
-//		sql.append(String.valueOf(picturesNumber));
-//		sql.append("' WHERE title = '");
-//		sql.append(f.Titel);
-//		sql.append("';");
-//
-//		myDBNummer.execSQL(new String(sql));
-//		myDBNummer.close();
-//	}
-
-//	public void addPictureCreateNummer(Context mContext, Film f, Bild b,
-//			int picturesNumber, String encodedImage) {
-//
-//		addPicture(mContext, f, b);
-//
-//		SQLiteDatabase myDBNummer = mContext.openOrCreateDatabase(
-//				DB.MY_DB_NUMMER, Context.MODE_PRIVATE, null);
-//
-//		StringBuffer sql = new StringBuffer();
-//		sql.append("INSERT OR REPLACE INTO ");
-//		sql.append(DB.MY_DB_TABLE_NUMMER);
-//		sql.append(" Values ('");
-//		sql.append(f.Titel);
-//		sql.append("'," + null);
-//		sql.append(",'"); 
-//		sql.append(f.Kamera);
-//		sql.append("','");
-//		sql.append(f.Datum);
-//		sql.append("',");
-//		sql.append(String.valueOf(picturesNumber));
-//		sql.append(",'");
-//		sql.append(encodedImage);
-//		sql.append("');");
-//
-//		myDBNummer.execSQL(new String(sql));
-//		myDBNummer.close();
-//	}
-
-
-//    public void createFilmFromImport(Context context, Film film) throws Exception {
-//
-//        while (checkIfFilmTitleIsTaken(context, film.Titel)) {
-//            film.Titel = film.Titel + "_";
-//        }
-//
-//        Bild dummybild = new Bild();
-//        dummybild.Bildnummer = "Bild 0";
-//        dummybild.Notiz = "Dummy-Bild für die Filmdaten";
-//        dummybild.Belichtungskorrektur = "";
-//        dummybild.Blende = "";
-//        dummybild.Blitz = "";
-//        dummybild.Blitzkorrektur = "";
-//        dummybild.Filter = "";
-//        dummybild.FilterVF = "";
-//        dummybild.Fokus = "";
-//        dummybild.GeoTag = "0' , '0"; // TODO: Permanently fix geotags
-//        dummybild.KameraNotiz = "";
-//        dummybild.Makro = "";
-//        dummybild.MakroVF = "";
-//        dummybild.Messmethode = "";
-//        dummybild.Objektiv = "";
-//        dummybild.Zeit = "";
-//
-//        dummybild.Zeitstempel = film.Datum;
-//
-//        addPictureCreateNummer(context, film, dummybild, film.Bilder.size(), null);
-//
-//        for (Bild bild : film.Bilder) {
-//            bild.GeoTag = "0' , '0"; // TODO workaround, geotags are NOT imported right now!
-//            
-//            // We have to tinker the date and the time of the current pic out of the timestamp here, ... 
-//            if (bild.Zeitstempel.contains(" - ")) {
-//            	String picdate = bild.Zeitstempel.substring(bild.Zeitstempel.indexOf(" - ") + 3, bild.Zeitstempel.length());
-//            	String pictime = bild.Zeitstempel.substring(0, bild.Zeitstempel.indexOf(" - "));
-//            	film.Datum = picdate;
-//            	bild.Zeitstempel = pictime;
-//            }
-//                
-//            addPicture(context, film, bild);
-//        }
-//
-//    }
     
 }

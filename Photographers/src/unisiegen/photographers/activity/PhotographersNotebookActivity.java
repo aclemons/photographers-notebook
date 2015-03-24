@@ -16,6 +16,9 @@
 
 package unisiegen.photographers.activity;
 
+import java.util.ArrayList;
+
+import unisiegen.photographers.database.DataSource;
 import unisiegen.photographers.helper.DefaultLocationListener;
 import android.app.Activity;
 import android.content.Context;
@@ -29,22 +32,39 @@ import android.view.MenuItem;
 
 public class PhotographersNotebookActivity extends Activity {
 
+	public static final String ACTIVEGEARSET = "ActiveGearSet";
+	
 	private LocationManager locManager;
 	private DefaultLocationListener locListener;
 
 	protected void onResume() {
 		super.onResume();
 
-		SharedPreferences settings = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		if (settings.getString(EditSettingsActivity.GEO_TAG, "nein").equals(
-				"ja")) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+		if (settings.getString(EditSettingsActivity.GEO_TAG, "nein").equals("ja")) {
 			locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 			locListener = new DefaultLocationListener();
 			locListener.setLast(locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
-			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-					20000, 5, locListener);
+			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 20000, 5, locListener);
 		}
+		
+		int activegearSetId = settings.getInt(ACTIVEGEARSET, -1);
+		if(activegearSetId == -1){
+			// Log this also
+			ArrayList<Integer> setIds = DataSource.getInst(this).getGearSets();
+			if(setIds != null && setIds.size() != 0){
+				activegearSetId = setIds.get(0).intValue();
+				settings.edit().putInt(ACTIVEGEARSET, activegearSetId);
+				
+			} else {
+				// Do some logging
+			}
+			
+		}
+		
+		// check if this exists
+		// if not, pick the first one, so nothing breaks.
+		// in other activities, make use of this setting.
 	}
 
 	public void onPause() {

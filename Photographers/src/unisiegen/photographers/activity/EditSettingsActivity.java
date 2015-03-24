@@ -1437,13 +1437,13 @@ public class EditSettingsActivity extends Activity {
 		}
 
 		protected Boolean doInBackground(final String... args) {
-			try {
-
-				DB.getDB().createOrRebuildSettingsTable(mContext);
-
-			} catch (Exception e) {
-				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
-			}
+//			try {
+//
+//				DB.getDB().createOrRebuildSettingsTable(mContext);				
+//				
+//			} catch (Exception e) {
+//				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
+//			}
 			return null;
 		}
 	}

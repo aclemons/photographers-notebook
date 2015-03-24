@@ -1,33 +1,50 @@
-getFilms()		# Holt eine Liste aller Filme
-	FilmSelectionActivity (lädt alle Filme beim start der App)
+isFilmTitleTaken(String titel)
+	NewFilmActivity
+
+addFilm(Film)
+	FilmImportTask
+	NewFilmActivity
+	
+updateFilm(Film)
+	EditFilmActivity
+
+getFilms()
+	FilmSelectionActivity
 	
 getFilm(String name)	# Holt einen bestimmten Film
 	FilmExportTask
+	FilmImportTask
 	NewPictureActivity
 	FilmSelectionActivity.EditFilmDialogAction
 	FilmContentActivity
 	EditFilmActivity
 	FilmContentActivity
 	FotoContentActivity
-	NewPictureActivity
+	NewPictureActivity x3
 	
 deleteFilm(String titel)
 	FilmContentActivity
 	FilmSelectionActivity
-	
-isFilmTitleTaken(String titel)
-	NewFilmActivity
-	TODO: Search for more
-	
-deletePhoto(Bild photo)
-	FilmContentActivity
-	
+
+addPhoto(Film, Bild)
+	FilmImportTask
+	NewPictureActivity
+
 updatePhoto(Bild photo)
 	NewPictureActivity
+		
+deletePhoto(Bild photo)
+	FilmContentActivity x2
 	
-addFilm
-	NewFilmActivity
-	FilmImportTask
+EditSettingsActivity.ResetSettings was disabled! Needs new code...
+FilmSelectionActivity.ResetSettingsTask was disabled! Needs new code...
+	Also pack both into one class?
+
+
+
+addSetting
+updateSetting
+deleteSetting
 	
-updateFilm??
+	
 	

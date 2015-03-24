@@ -118,8 +118,7 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 
 		
 		Log.v("FilmSelectionActivity", "Trying to open Datasource...");
-		dataSource = DataSource.getInst(mContext);
-		
+		dataSource = DataSource.getInst(mContext);		
 		filme = dataSource.getFilms();
 
 		if (filme.isEmpty()) {
@@ -493,32 +492,32 @@ public class FilmSelectionActivity extends PhotographersNotebookActivity {
 		}
 
 		protected Boolean doInBackground(final String... args) {
-			try {
-				long t0 = System.currentTimeMillis();
-				DB.getDB().createOrRebuildSettingsTable(mContext, DB.MY_DB_SET);
-				DB.getDB()
-						.createOrRebuildSettingsTable(mContext, DB.MY_DB_SET1);
-				DB.getDB()
-						.createOrRebuildSettingsTable(mContext, DB.MY_DB_SET2);
-				DB.getDB()
-						.createOrRebuildSettingsTable(mContext, DB.MY_DB_SET3);
-				long t1 = System.currentTimeMillis();
-				DB.getDB().createOrRebuildNummernTable(mContext);
-				long t2 = System.currentTimeMillis();
-				DB.getDB().createOrRebuildFilmTable(mContext);
-				long t3 = System.currentTimeMillis();
-
-				double setCreation = (double) t1 - (double) t0;
-				double nummernCreation = (double) t2 - (double) t1;
-				double filmCreation = (double) t3 - (double) t2;
-				Log.v("dbcreation", "Time used for Settings creation: "
-						+ setCreation + "ms.");
-				Log.v("dbcreation", "Time used for Film creation: "
-						+ (filmCreation + nummernCreation) + "ms.");
-
-			} catch (Exception e) {
-				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
-			}
+//			try {
+//				long t0 = System.currentTimeMillis();
+//				DB.getDB().createOrRebuildSettingsTable(mContext, DB.MY_DB_SET);
+//				DB.getDB()
+//						.createOrRebuildSettingsTable(mContext, DB.MY_DB_SET1);
+//				DB.getDB()
+//						.createOrRebuildSettingsTable(mContext, DB.MY_DB_SET2);
+//				DB.getDB()
+//						.createOrRebuildSettingsTable(mContext, DB.MY_DB_SET3);
+//				long t1 = System.currentTimeMillis();
+//				DB.getDB().createOrRebuildNummernTable(mContext);
+//				long t2 = System.currentTimeMillis();
+//				DB.getDB().createOrRebuildFilmTable(mContext);
+//				long t3 = System.currentTimeMillis();
+//
+//				double setCreation = (double) t1 - (double) t0;
+//				double nummernCreation = (double) t2 - (double) t1;
+//				double filmCreation = (double) t3 - (double) t2;
+//				Log.v("dbcreation", "Time used for Settings creation: "
+//						+ setCreation + "ms.");
+//				Log.v("dbcreation", "Time used for Film creation: "
+//						+ (filmCreation + nummernCreation) + "ms.");
+//
+//			} catch (Exception e) {
+//				Log.v("DEBUG", "Fehler bei Set-Erstellung : " + e);
+//			}
 
 			return null;
 		}

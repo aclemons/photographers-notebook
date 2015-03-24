@@ -20,11 +20,13 @@ public class DataSource {
 	private DataSource(Context context) {
 
 		// for debugging purposes
+		/*
 		if (context.deleteDatabase("pn_data")) {
 			Log.v("DB", "Old pn_data database removed.");
 		} else {
 			Log.v("DB", "ATTENTION: Old pn_data database could not be removed.");
 		}
+		*/
 		// for debugging purposes
 		
 
@@ -312,4 +314,23 @@ public class DataSource {
 		return rowID;
 	}
 
+	/**
+	 * @deprecated
+	 * @return
+	 */
+	public ArrayList<Integer> getGearSets(){
+		
+		Cursor c = database.query(PnDatabaseOpenHelper.TABLE_GEARSET, null, null, null, null, null, null);
+		ArrayList<Integer> result = new ArrayList<Integer>();
+
+		if (c != null && c.moveToFirst()) {
+			do {
+				result.add(c.getInt(c.getColumnIndex(PnDatabaseOpenHelper.COLUMN_ID)));
+				
+			} while (c.moveToNext());
+		}
+
+		return result;		
+	}
+	
 }
