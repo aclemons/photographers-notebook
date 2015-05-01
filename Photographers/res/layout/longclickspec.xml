@@ -49,7 +49,7 @@
           android:id="@+id/specbutton"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
-          android:text="     Objektive bearbeiten     "
+          android:text="@string/edit_lenses"
           android:textSize="14sp" />
 
       <View 
