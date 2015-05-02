@@ -1,5 +1,10 @@
 Changelog
 
+Beta v6.4 - 02.05.2015
+
+- Bug fix: removing lenses after adding a new camera works now
+- Bug fix: added missing String resource
+
 Beta v6.3 - 18.02.2015
 
 - Bug fix: new pictures are now recorded with the current date instead of the film date.

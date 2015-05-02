@@ -680,6 +680,7 @@ public class EditSettingsActivity extends Activity {
 																LinearLayout test = (LinearLayout) arg1;
 																TextView tec = (TextView) test
 																		.getChildAt(0);
+
 																DB.getDB()
 																		.deleteLens(
 																				mContext,
@@ -691,8 +692,10 @@ public class EditSettingsActivity extends Activity {
 																				DB.MY_DB_TABLE_SETBW,
 																				tec.getText()
 																						.toString());
-
 																aplanetsspec
+																		.remove(arg2);
+
+																listAdapterspec
 																		.clear();
 																ArrayList<Setting> values = DB
 																		.getDB()
@@ -700,10 +703,9 @@ public class EditSettingsActivity extends Activity {
 																				mContext,
 																				DB.MY_DB_TABLE_SETBW);
 																for (Setting s : values) {
-																	aplanetsspec
+																	listAdapterspec
 																			.add(s);
 																}
-
 																viewPager = (ViewPager) findViewById(R.id.viewPager);
 																SettingsPager adapter = new SettingsPager(
 																		mContext);
